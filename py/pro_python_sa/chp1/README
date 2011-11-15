@@ -1,0 +1,32 @@
+Performance Data Using SNMP
+
+1. what's the SNMP:
+2. RRD
+
+程序需求和设计:
+  - 信息收集
+  - 信息展示
+  - implement a system that queries devices using an SNMP protocol and the
+    stores the data using RRDTool library, which is also used to generte the
+    graphs for visual data representation.
+确定条件:
+  1. 查询的设备必须支持SNMP协议
+  2. 生成的信息必须能保存，而且是位数据展现特别优化过的
+  3. 通过简单的网页访问就能生成数据展示图片
+
+高层设计
+  - python-snmp
+  - RRDTool
+  - jinja
+
+介绍SNMP:
+  简单网络管理协议， 基于UDP,不仅可以读取性能数据，而且可以通过发送消息去执行一些动作，比如重启
+
+  SNMP管理有三个主要的组件
+   - 管理系统: 负责管理所有的设备
+   - 被管理的设备: 被管理系统管理的设备
+   - SNMP 代理: 运行在每一个被管理的设备上，与管理系统交互
+ MIB: 每一个设备通常关联一个MIB，描述了管理数据的结构，这样的MIB会列出所有可用的继承自它的OIDS，
+
+SNMP代理定义了二中共同体字符 - 一个是只读和另一个可读/写访问， 当管理系统链接到代理时，它必须使用上述一种方式认证，代理认证合法的共同体字符才去执行来自管理系统的命令
+
