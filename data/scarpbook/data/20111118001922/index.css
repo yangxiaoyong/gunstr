@@ -1,0 +1,75 @@
+/* ::::: http://www.dataexpedition.com/common/DEIstyle.css ::::: */
+
+body { font-family: Arial,sans-serif; background-color: rgb(204, 224, 240); color: rgb(0, 0, 0); max-width: 60em; min-width: 40em; margin: 0px auto; padding: 2px 4px; }
+table { border: 0px solid black; padding: 0px; margin: 0px; }
+td { padding: 0px; margin: 0px; }
+p { margin: 0pt; }
+img { border: 0px solid black; }
+table.dei_border { padding: 4px; width: 100%; border-spacing: 0px; margin: 0px; }
+b.dei_corner * { display: block; height: 1px; line-height: 1px; font-size: 1px; overflow: hidden; border-style: solid; border-width: 0pt 1px; }
+.dei_bg0 { background-color: rgb(255, 255, 255); }
+.dei_bg1 { background-color: rgb(135, 148, 159); }
+.dei_bg2 { background-color: rgb(162, 177, 190); }
+.dei_bg3 { background-color: rgb(182, 199, 214); }
+.dei_bg4 { background-color: rgb(195, 214, 230); }
+.dei_bg5 { background-color: rgb(204, 224, 240); }
+b.dei_bc0 { border-color: rgb(204, 224, 240); }
+b.dei_bc1 { border-color: rgb(195, 214, 230); }
+b.dei_bc2 { border-color: rgb(182, 199, 214); }
+b.dei_bc3 { border-color: rgb(162, 177, 190); }
+b.dei_bc4 { border-color: rgb(135, 148, 159); }
+b.dei_bw1 { border-width: 0px 1px; }
+b.dei_bw2 { border-width: 0px 2px; }
+b.dei_bh2 { height: 2px; }
+td.dei_outersideL { width: 1px; border-width: 0px 1px; border-style: solid; font-size: 1px; border-left: 1px solid rgb(195, 214, 230); background-color: rgb(182, 199, 214); border-right: 1px solid rgb(162, 177, 190); }
+td.dei_outersideR { width: 1px; border-width: 0px 1px; border-style: solid; font-size: 1px; border-left: 1px solid rgb(162, 177, 190); background-color: rgb(182, 199, 214); border-right: 1px solid rgb(195, 214, 230); }
+td.dei_innerside { width: 1px; border-width: 0px; background-color: rgb(135, 148, 159); }
+td.dei_innerspace { border-width: 0px 0.5em; border-color: rgb(255, 255, 255); border-style: solid; }
+b.dei_ms0 { margin: 0px; border-width: 0px; }
+b.dei_ms1 { margin: 0px 1px; border-width: 0px; }
+b.dei_ms2 { margin: 0px 2px; border-width: 0px; }
+b.dei_ms3 { margin: 0px 3px; border-width: 0px; }
+b.dei_ms4 { margin: 0px 4px; border-width: 0px; }
+b.dei_ms5 { margin: 0px 5px; border-width: 0px; }
+b.dei_ms7 { margin: 0px 7px; border-width: 0px; }
+b.dei_msC { margin: 0px 11px; border-width: 0px; }
+b.dei_msB { margin: 0px 16px; border-width: 0px; }
+b.dei_msA { margin: 0px 23px; border-width: 0px; }
+.dei_logo_r { position: relative; top: -21px; left: -8px; font-family: 'Arial Black',Arial,sans-serif; font-size: 12px; }
+p.dei_mdf { text-align: right; font-family: Arial,sans-serif; font-size: 1em; color: rgb(136, 136, 136); margin-top: -10px; }
+div.dei_banner { position: relative; top: 0pt; left: 0pt; right: 0pt; height: 100px; background-repeat: no-repeat; background-position: left top; }
+div.dei_banner p { text-align: right; color: white; font-family: Arial,sans-serif; font-size: 32px; font-weight: bold; margin-right: 1em; position: relative; top: 1em; }
+table.dei_navbar { width: 100%; background: url('navbackground.gif') repeat-x scroll 0% 0% rgb(228, 238, 247); position: relative; margin: 0.5em 0pt; border: 1px solid rgb(140, 183, 219); font-family: Arial,sans-serif; color: rgb(47, 114, 180); }
+table.dei_navbar tr { height: 1.3em; }
+table.dei_navbar td { text-align: center; vertical-align: middle; white-space: nowrap; }
+table.dei_navbar a, table.dei_navbar a:visited { position: relative; text-decoration: none; color: rgb(47, 114, 180); display: block; }
+table.dei_navbar a:hover { font-weight: bold; }
+table.dei_layout { border-width: 0px; position: relative; width: 100%; border-spacing: 0px; border-collapse: collapse; }
+td.dei_layoutL { vertical-align: top; text-align: left; }
+td.dei_layoutC { vertical-align: top; text-align: left; padding: 0pt 1em; }
+table.dei_sidebar { width: 100%; border-width: 1px 1px 0pt; border-style: solid solid none; border-color: rgb(135, 183, 208) rgb(135, 183, 208) white; -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; -moz-border-image: none; margin-bottom: 1em; padding: 0px; border-spacing: 0px; white-space: nowrap; }
+table.dei_sidebar td { font-family: Arial,sans-serif; font-size: 14px; color: rgb(47, 114, 180); padding: 0.25em; border-top: 1px solid rgb(240, 240, 240); border-bottom: 1px solid rgb(140, 183, 219); }
+table.dei_sidebar a:link, table.dei_sidebar a:visited { color: rgb(47, 114, 180) ! important; text-decoration: none ! important; }
+table.dei_sidebar a:hover { color: rgb(47, 114, 180) ! important; font-weight: bold ! important; }
+td.dei_side0 { padding-left: 1px; font-weight: bold; background-color: rgb(193, 206, 217); border-bottom: 1px solid rgb(140, 183, 219); }
+td.dei_side1 { font-weight: bold; background-color: rgb(193, 206, 217); border-bottom: 1px solid rgb(140, 183, 219); }
+td.dei_side2 { background-color: rgb(216, 231, 243); }
+div.dei_search { background-color: rgb(230, 231, 232); margin: 0.5em 0pt; text-align: left; padding: 0.25em; border: 1px solid rgb(204, 204, 204); }
+div.dei_search form { margin: 0pt; }
+p.dei_search { font-family: arial,sans-serif; font-size: 14px; color: rgb(80, 80, 80); position: relative; }
+.dei_history { font-family: arial,sans-serif; font-size: 10px; color: rgb(64, 64, 64); margin: 2em 0pt 0pt; }
+table.dei_index td { font-family: arial,sans-serif; font-size: 16px; color: rgb(64, 64, 64); margin: 2em 0pt 0pt; }
+.dei_index a:link, table.dei_index a:visited { color: rgb(47, 114, 180); font-size: smaller; text-decoration: none; }
+.dei_index a:hover { font-size: smaller; color: rgb(47, 114, 180); background-color: rgb(216, 231, 243); }
+.dei_quote { font-family: arial,sans-serif; font-size: 12px; color: rgb(48, 48, 48); font-style: italic; margin-top: 1.5em; margin-bottom: 0em; }
+.dei_attr { font-family: arial,sans-serif; font-size: 12px; color: rgb(48, 48, 48); margin-top: 0em; margin-bottom: 0em; margin-left: 1.5em; text-indent: -0.75em; }
+table.dei_footer { width: 100%; border: 0px solid black; padding: 0px; margin: 0px 0px 0.25em; border-spacing: 0px; font-family: Arial,sans-serif; white-space: nowrap; }
+td.dei_footerL { padding: 0px; text-align: left; font-style: italic; color: rgb(128, 128, 128); font-size: 14px; }
+td.dei_footerR { padding: 0px; text-align: right; font-style: italic; color: rgb(128, 128, 128); font-size: 14px; }
+td.dei_footerC { padding: 0px; text-align: center; font-style: normal; color: rgb(160, 160, 160); font-size: 12px; border-top: 1px solid rgb(191, 217, 229); }
+.dei_hdr0 { font-family: helvetica,sans-serif; font-size: 22px; font-weight: bold; color: rgb(96, 96, 96); }
+.dei_hdr1 { font-family: helvetica,sans-serif; font-size: 16px; font-weight: bold; color: rgb(80, 80, 80); }
+.dei_content { font-family: arial,sans-serif; font-size: 14px; color: rgb(48, 48, 48); margin-top: 0.25em; margin-bottom: 1em; }
+.dei_important { color: rgb(32, 32, 32); margin: 0.25em 20pt 1em; }
+table.dei_6columns {  }
+table.dei_6columns td { width: 16.7%; }

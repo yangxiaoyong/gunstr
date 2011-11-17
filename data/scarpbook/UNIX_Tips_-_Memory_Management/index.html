@@ -1,0 +1,383 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+ <title>UNIX Tips - Memory Management</title>
+ <meta name="Description" content="About unix memory management">
+ 
+
+ 
+ 
+ 
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body>
+
+<!-- Body Border -->
+<table class="dei_border" cellspacing="0">
+<!-- cellspacing workaround for IE7 -->
+<tbody><tr><td colspan="5">
+   <b style="margin-bottom: 0px;" class="dei_bg5 dei_corner">
+      <b class="dei_bc0 dei_bg5"></b>
+      <b class="dei_msA"><b class="dei_bc0 dei_bw2"><b class="dei_bc1 dei_bw2 dei_bg4"></b></b></b>
+      <b class="dei_msB"><b class="dei_bc0 dei_bw2"><b class="dei_bc1 dei_bw2"><b class="dei_bc2 dei_bw2 dei_bg3"></b></b></b></b>
+      <b class="dei_msC"><b class="dei_bc0"><b class="dei_bc1"><b class="dei_bc2 dei_bw2"><b class="dei_bc3 dei_bw2 dei_bg2"></b></b></b></b></b>
+      <b class="dei_ms7"><b class="dei_bc0"><b class="dei_bc1"><b class="dei_bc2"><b class="dei_bc3 dei_bw2"><b class="dei_bc4 dei_bw2 dei_bg1"></b></b></b></b></b></b>
+      <b class="dei_ms5"><b class="dei_bc0"><b class="dei_bc1"><b class="dei_bc2"><b class="dei_bc3 dei_bw2"><b class="dei_bc4 dei_bw2 dei_bg0"></b></b></b></b></b></b>
+      <b class="dei_ms4"><b class="dei_bc0"><b class="dei_bc1"><b class="dei_bc2"><b class="dei_bc3"><b class="dei_bc4 dei_bw2 dei_bg0"></b></b></b></b></b></b>
+      <b class="dei_ms3"><b class="dei_bc0"><b class="dei_bc1"><b class="dei_bc2"><b class="dei_bc3"><b class="dei_bc4 dei_bw1 dei_bg0"></b></b></b></b></b></b>
+      <b class="dei_ms2"><b class="dei_bc0"><b class="dei_bc1"><b class="dei_bc2"><b class="dei_bc3"><b class="dei_bc4 dei_bw1 dei_bg0"></b></b></b></b></b></b>
+      <b class="dei_ms1 dei_bh2"><b class="dei_bc0 dei_bh2"><b class="dei_bc1 dei_bh2"><b class="dei_bc2 dei_bh2"><b class="dei_bc3 dei_bh2"><b class="dei_bc4 dei_bh2 dei_bw1 dei_bg0"></b></b></b></b></b></b>
+      <b class="dei_ms0 dei_bh2"><b class="dei_bc0 dei_bh2"><b class="dei_bc1 dei_bh2"><b class="dei_bc2 dei_bh2"><b class="dei_bc3 dei_bh2"><b class="dei_bc4 dei_bh2 dei_bw1 dei_bg0"></b></b></b></b></b></b>
+   </b>
+   </td></tr>
+<tr>
+   <td class="dei_outersideL">&nbsp;
+   </td><td class="dei_innerside">
+   </td><td class="dei_innerspace dei_bg0" valign="top">
+
+<!-- Header Logo and Slogan -->
+<div style="position: relative; margin: 0pt; min-width: 30em;">
+<a href="http://www.dataexpedition.com/"><img src="deis.gif" alt="Data Expedition, Inc." style="margin: 0pt;" width="322" height="31"></a>
+<span class="dei_logo_r">®</span>
+<p class="dei_mdf">Move Data Faster<small><sup>™</sup></small></p>
+</div>
+
+
+
+<!-- Banner and Title -->
+<div class="dei_banner" style="background-color: rgb(111, 162, 219); background-image: url('supportbanner.jpg');">
+<p>Seth Noble</p>
+</div>
+
+<!-- Top navigation -->
+<table class="dei_navbar dei_6columns" id="menu">
+<tbody><tr>
+   <td><a href="http://www.dataexpedition.com/solutions/">Solutions</a>
+   </td><td><a href="http://www.dataexpedition.com/products/">Products</a>
+   </td><td><a href="http://www.dataexpedition.com/company/">About&nbsp;DEI<span style="font-size: 25%; vertical-align: text-top;">®</span></a>
+   </td><td><a href="http://www.dataexpedition.com/support/">Support</a>
+   </td><td><a href="http://www.dataexpedition.com/sitemap.html">Site&nbsp;Map</a>
+   </td><td><a href="https://ssl.dataexpedition.com/">Login</a>
+</td></tr>
+</tbody></table>
+
+
+<!-- Main Content Table -->
+<table class="dei_layout">
+<tbody><tr>
+   <!-- Left Column -->
+   <td class="dei_layoutL" style="width: 8em; min-width: 8em;">
+
+<!-- Unix Tips side menu -->
+<table class="dei_sidebar">
+<tbody><tr><td class="dei_side0"><a href="http://www.dataexpedition.com/%7Esbnoble/">Seth Noble</a></td></tr>
+<tr><td class="dei_side1"><a href="http://www.dataexpedition.com/%7Esbnoble/Tips/">Unix Tips</a></td></tr>
+<tr><td class="dei_side2" id="kernel"><a href="http://www.dataexpedition.com/%7Esbnoble/Tips/kernel.html">The Kernel</a></td></tr>
+<tr><td style="background-color: rgb(248, 252, 255);" class="dei_side2" id="memory"><a href="http://www.dataexpedition.com/%7Esbnoble/Tips/memory.html">Memory</a></td></tr>
+<tr><td class="dei_side2" id="filesystems"><a href="http://www.dataexpedition.com/%7Esbnoble/Tips/filesystems.html">Filesystems</a></td></tr>
+<tr><td class="dei_side2" id="manpages"><a href="http://www.dataexpedition.com/%7Esbnoble/Tips/1man.html">Manual Pages</a></td></tr>
+<tr><td class="dei_side2" id="commands"><a href="http://www.dataexpedition.com/%7Esbnoble/Tips/2commands.html">Commands</a></td></tr>
+<tr><td class="dei_side2" id="backups"><a href="http://www.dataexpedition.com/%7Esbnoble/Tips/backups.html">Backing Up</a></td></tr>
+<tr><td class="dei_side2" id="recovery"><a href="http://www.dataexpedition.com/%7Esbnoble/Tips/hdrecovery.html">HD Recovery</a></td></tr>
+</tbody></table>
+
+
+<!-- Sidebar Search -->
+<div class="dei_search">
+ <form method="GET" action="http://www.dataexpedition.com/cgi-bin/search.cgi?">
+ <p class="dei_search">Search DEI:<br>
+ <input name="ps" value="5" type="hidden">
+ <input name="wm" value="sub" type="hidden">
+ </p><p style="text-align: left;">
+ <input name="q" maxlength="255" value="" style="font-size: 10px; font-family: arial,sans-serif; width: 95%;" type="text">
+ </p>
+ <p style="text-align: right;"><input name="sa" value="Search" style="font-size: 10px; font-family: arial,sans-serif; margin-right: 4%;" type="submit"></p>
+ </form>
+</div>
+
+
+<table class="dei_index" border="0">
+<tbody><tr><td>Page Index:</td></tr>
+<tr><td><a href="#management">Management</a></td></tr>
+<tr><td><a href="#swapping">Swapping</a></td></tr>
+<tr><td><a href="#mapping">Mapped Files</a></td></tr>
+<tr><td><a href="#howmuch">Real Memory</a></td></tr>
+<tr><td><a href="#inuse">In Use</a></td></tr>
+<tr><td><a href="#goodbad">Good vs. Bad</a></td></tr>
+<tr><td><a href="#end">Conclusion</a></td></tr>
+</tbody></table>
+
+<p style="text-align: center; margin: 1em;">
+<img src="unix.book.gif" alt="" width="64" height="57">
+</p>
+
+<table class="dei_history" border="0">
+<tbody><tr><td colspan="3" style="border-bottom: 1px solid rgb(96, 96, 96);">Tip History</td></tr>
+<tr valign="top"><td>Jan</td><td>2011</td><td>Reformatted<br>
+   Controller Limits</td></tr>
+<tr valign="top"><td>Oct</td><td>2007</td><td>Reformatted<br>
+   Disk Caching</td></tr>
+<tr valign="top"><td>May</td><td>1997</td><td>Original article</td></tr>
+</tbody></table>
+
+   <!-- Center Content -->
+   <p class="dei_quote">"Finished that North American data center project in October of last year, 1.5 months ahead of schedule, ExpeDat was a big part of that."</p><p class="dei_attr">- Global 1000 Data Center Migration</p></td><td class="dei_layoutC" id="content">
+
+<p class="dei_hdr0" style="margin-bottom: 1em;"><a name="management">Memory Management</a></p>
+
+<p class="dei_hdr1">How Much Memory?</p>
+
+<p class="dei_content">
+Unlike traditional PC operating systems, Unix related systems use very sophisticated memory management algorithms to make efficient use of memory resources.&nbsp; This makes the questions "<i>How much memory do I have?</i>" and "<i>How much memory is being used?</i>" rather complicated to answer.&nbsp; First you must realize that there are three different kinds of memory, three different ways they can be used by the operating system, and three different ways they can be used by processes.
+</p>
+
+<p class="dei_hdr1">Kinds of Memory:</p>
+
+<ul class="dei_content">
+<li><b>Main</b> - The physical Random Access Memory located on the CPU
+motherboard that most people think of when they talk about RAM.&nbsp; Also called
+<b>Real</b> Memory.&nbsp; This does not include processor caches, video memory,
+or other peripheral memory.
+</li><li><b>File System</b> - Disk memory accessible via pathnames.&nbsp; This
+does not include raw devices, tape drives, swap space, or other storage
+not addressable via normal pathnames.&nbsp; It does include all network file
+systems.
+</li><li><b>Swap Space</b> - Disk memory used to hold data that is not in Real
+or File System memory.&nbsp; Swap space is most efficient when it is on a separate
+disk or partition, but sometimes it is just a large file in the File System.
+</li></ul>
+
+<p class="dei_hdr1">OS Memory Uses:</p>
+
+<ul class="dei_content">
+<li><b>Kernel</b> - The Operating System's own (semi-)private memory space.
+This is always in Main memory.
+</li><li><b>Cache</b> - Main memory that is used to hold elements of the File
+System and other I/O operations.&nbsp; Not to be confused with the CPU cache or
+or disk drive cache, which are not part of main memory.
+</li><li><b>Virtual</b> - The total addressable memory space of all processes
+running on the given machine.&nbsp; The physical location of such data may be
+spread among any of the three kinds of memory.
+</li></ul>
+
+<p class="dei_hdr1">Process Memory Uses:</p>
+
+<ul class="dei_content">
+<li><b>Data</b> - Memory allocated and used by the program (usually via <i>malloc</i>,
+<i>new</i>, or similar runtime calls).
+</li><li><b>Stack</b> - The program's execution stack (managed by the OS).
+</li><li><b>Mapped</b> - File contents addressable within the process memory
+space.
+</li></ul>
+
+<p class="dei_content">
+The amount of memory available for processes is at least the size of Swap, minus Kernel.&nbsp; On more modern systems (since around 1994) it is at least Main plus Swap minus Kernel and may also include any files via mapping.
+</p>
+
+<p class="dei_hdr0"><a name="swapping">Swapping</a></p>
+
+<p class="dei_content">
+Virtual memory is divided up into <b>pages</b>, chunks that are usually either 4096 or 8192 bytes in size.&nbsp; The memory manager considers pages to be the atomic (indivisible) unit of memory.&nbsp; For the best performance, we want each page to be accessible in Main memory as it is needed by the CPU. When a page is not needed, it does not matter where it is located.
+</p>
+
+<p class="dei_content">
+The collection of pages which a process is expected to use in the very near future (usually those pages it has used in the very near past, see the <i>madvise</i> call) is called its <b>resident set</b>.&nbsp; (Some OSs consider all the pages currently located in main memory to be the resident set, even if they aren't being used.)
+</p>
+
+<p class="dei_content">
+The process of moving some pages out of main memory and moving others in, is called <b>swapping</b>.&nbsp; (For the purposes of this discussion, disk caching activity is included in this notion of swapping, even though it is generally considered a separate activity.)
+</p>
+
+<p class="dei_content">
+A <b>page fault</b> occurs when the CPU tries to access a page that is not in main memory, thus forcing the CPU to wait for the page to be swapped in.&nbsp; Since moving data to and from disks takes a significant amount of time, the goal of the memory manager is to minimize the number of page faults.
+</p>
+
+<p class="dei_content">
+Where a page will go when it is "swapped-out" depends on how it is being used.&nbsp; In general, pages are swapped out as follows:
+</p>
+
+<dl class="dei_content">
+<dt>Kernel</dt><dd>Never swapped out.
+</dd><dt>Cache</dt><dd>Page is discarded.
+</dd><dt>Data</dt><dd>Moved to swap space.
+</dd><dt>Stack</dt><dd>Moved to swap space.
+</dd><dt>Mapped</dt><dd>Moved to originating file if changed and shared.<br>
+Moved to swap space if changed and private.
+</dd></dl>
+
+<p class="dei_content">
+It is important to note that swapping itself does not necessarily slow down the computer.&nbsp; Performance is only impeded when a page fault occurs.&nbsp; At that time, if memory is scarce, a page of main memory must be freed for every page that is needed.&nbsp; If a page that is being swapped out has changed since it was last written to disk, it can't be freed from main memory until the changes have been recorded (either in swap space or a mapped file).
+</p>
+
+<p class="dei_content">
+Writing a page to disk need not wait until a page fault occurs.&nbsp; Most modern UNIX systems implement <b>preemptive</b> swapping, in which the contents of changed pages are copied to disk during times when the disk is otherwise idle.&nbsp; The page is also kept in main memory so that it can be accessed if necessary.&nbsp; But, if a page fault occurs, the system can instantly reclaim the preemptively swapped pages in only the time needed to read in the new page.&nbsp; This saves a tremendous amount of time since writing to disk usually takes two to four times longer than reading.&nbsp; Thus preemptive swapping may occur even when main memory is plentiful, as a hedge against future shortages.
+</p>
+
+<p class="dei_content">
+Since it is extremely rare for all (or even most) of the processes on a UNIX system to be in use at once, most of virtual memory may be swapped out at any given time without significantly impeding performance.&nbsp; If the activation of one process occurs at a time when another is idle, they simply trade places with minimum impact. Performance is only significantly affect when more memory is needed at once than is available.&nbsp; This is discussed more below.
+</p>
+
+<p class="dei_hdr0"><a name="mapping">Mapped Files</a></p>
+
+<p class="dei_content">
+The subject of file mapping deserves special attention simply because most people, even experienced programmers, never have direct experience with it and yet it is integral to the function of modern operating systems.
+</p>
+
+<p class="dei_content">
+When a process maps a file, a segment of its virtual memory is designated as corresponding to the contents of the given file. Retrieving data from those memory addresses actually retrieves the data from the file.&nbsp; Because the retrieval is handled transparently by the OS, it is typically much faster and more efficient than the standard file access methods.&nbsp; (See the manual page <i>mmap</i> and its associated system calls.)
+</p>
+
+<p class="dei_content">
+In general, if multiple processes map and access the same file, the same real memory and swap pages will be shared among all the processes.&nbsp; This allows multiple programs to share data without having to maintain multiple copies in memory.
+</p>
+
+<p class="dei_content">
+The primary use for file mapping is for the loading of executable code.&nbsp; When a program is executed, one of the first actions is to map the program executable and all of its shared libraries into the newly created virtual memory space.&nbsp; (Some systems let you see this effect by using <i>trace</i>, <i>ktrace</i>, <i>truss</i>, or <i>strace</i>, depending on which UNIX you have. Try this on a simple command like <i>ls</i> and notice the multiple calls to mmap.)
+</p>
+
+<p class="dei_content">
+As the program begins execution, it page faults, forcing the machine instructions to be loaded into memory as they are needed.&nbsp; Multiple invocations of the same executable, or programs which use the same code libraries, will share the same pages of real memory.
+</p>
+
+<p class="dei_content">
+What happens when a process attempts to change a mapped page depends upon the particular OS and the parameters of the mapping.&nbsp; Executable pages are usually mapped "read-only" so that a segmentation fault occurs if they are written to.&nbsp; Pages mapped as "shared" will have changes marked in the shared real memory pages and eventually will be written back to the file.&nbsp; Those marked as "private" will have private copies created in swap space as they are changed and will not be written back to the originating file.
+</p>
+
+<p class="dei_content">
+Some older operating systems (such as SunOS 4) always copy the contents of a mapped file into the swap space.&nbsp; This limits the quantity of mapped files to the size of swap space, but it means that if a mapped file is deleted or changed (by means other than a mapping), the mapping processes will still have a clean copy.&nbsp; Other operating systems (such as SunOS 5) only copy privately changed pages into swap space.&nbsp; This allows an arbitrary quantity of mapped files, but means that deleting or changing such a file may cause a bus in error in the processes using it.
+</p>
+
+<p class="dei_hdr0"><a name="howmuch">So, how much memory is there?</a></p>
+
+<p class="dei_content">
+The total real memory is calculated by subtracting the kernel memory from the amount of RAM.&nbsp; (Utilities like <i>top</i> or <i>yamm</i> can you show you the total real memory available.)  Some of the rest may be used for caching, but process needs usually take priority over cached data.
+</p>
+
+<p class="dei_content">
+The total virtual memory depends on the degree to which processes use mapped files.&nbsp; For data and stack space, the limitation is the amount of real and swap memory.&nbsp; On some systems it is simply the amount of swap space, on others it is the sum of the two.&nbsp; If mapped files are automatically copied into swap space, then they must also fit into swap memory making that amount the limiting factor.&nbsp; But if mapped files act as their own swap area, or if swap space is just a growable file in the file system, then the limit to the amount of virtual memory that could be mapped onto them is the amount of hard drive space available.
+</p>
+
+<p class="dei_content">
+In practice, it is easy and cheap to add arbitrary amounts of swap
+space and thus virtual memory.&nbsp; The real limiting factor on
+performance will be the amount real memory.
+</p>
+
+<p class="dei_hdr0"><a name="inuse">Okay then, how much memory is being used?</a></p>
+
+<p class="dei_content">
+If no programs were sharing memory or mapping files, you could just add up their resident sets to get the amount of real memory in use and their virtual memories to get the amount of swap space in use.&nbsp; But shared memory means that the resident sets of multiple processes may be counting the same real memory pages more than once.&nbsp; Likewise, mapped files (on OSs that use them for swapping) will count toward a process' virtual memory use but won't consume swap space.&nbsp; The issue is further confused by the fact that the system will use any available RAM for disk caching. Since cache memory is low priority and can be freed at any time, it doesn't impede process performance, but is usually counted as "used".
+</p>
+
+<p class="dei_content">
+Thus on most OSs there is no easy way to calculate how much
+memory is being used for what.&nbsp; Some utility programs, like <i>top</i>
+or <i>yamm</i>, may be able to give you an idea, but their numbers can
+be misleading since its not possible distinguish different types of use.
+Just because <i>top</i> says you have very little memory free doesn't
+necessarily mean you need to buy more.&nbsp; A better indication is to
+look for swap activity numbers.&nbsp; These may be reported as "swap-outs",
+or "pageouts", and can usually be found using utilities like "vm_stat".
+If this number is frequently increasing, then you may need more RAM.
+</p>
+
+<p class="dei_content">
+One of the best and simplest indications of memory problems is to
+simply listen to the hard drive.&nbsp; If there is less
+memory available than the total resident sets of all running processes
+(after accounting for sharing), then the computer will need to be
+continuously swapping.&nbsp; This non-stop disk activity is called
+<b>thrashing</b> and is an indication that there are too many active
+processes or that more memory is needed.&nbsp; If there is just barely
+enough memory for the resident sets but not enough for all virtual
+memory, then thrashing will occur only when new programs are run or
+patterns of user interaction change.&nbsp; If there is more real memory
+than virtual memory, then there will be plenty of extra for disk
+caching and repeated launching of applications or access to files
+will produce little or no disk sounds.
+</p>
+
+<p class="dei_hdr0"><a name="goodbad">Not all use is good use</a></p>
+
+<p class="dei_content">
+Before you go out and spend money on more memory, make sure to check
+that the processes you are running aren't consuming more than their
+share of resources.&nbsp; Programs like "top" can show you if an application
+or other process is using increasing amounts of RAM over a long period
+of time.&nbsp; If this is occurring, especially while the program is idle, then 
+your problem may be a memory leak in the program, and more RAM would
+just be filled up by the misbehaving application.
+Proprietary X servers are notorious for consuming arbitrary amounts of
+virtual memory over time and should be restarted
+daily (or replaced with an open source version).&nbsp; Also, clueless users
+or programmers may be leaving large numbers of background processes lying around.
+</p>
+
+<p class="dei_hdr0"><a name="end">Conclusion</a></p>
+
+<p class="dei_content">
+These days you can find high-quality RAM online from a number of
+inexpensive sources.&nbsp; So unless you are strapped for cash (or
+configuring a lot of machines), doubt favors the upgrade.&nbsp; Just
+make sure the RAM you buy is from a reputable vendor and includes
+a lifetime warranty, as bad RAM can cause a mess of sometimes
+subtle system stability problems.
+</p>
+
+<p class="dei_content dei_important">
+Check your system's specifications carefully for any limitations on the maximum RAM which can be installed.&nbsp; Just because the CPU is 64-bit, doesn't mean the memory controller is!
+</p>
+
+<p class="dei_content">
+If you are really interested in figuring out exactly how much RAM a system needs, run a monitoring program like the ones described above and listen for swapping.&nbsp; If the monitoring programs show very little free memory, <i>and</i> the pageout count is rising, <i>and</i> you hear swapping when you switch focus between large applications, then you probably need more RAM.
+</p>
+
+<p class="dei_content">
+Finally, be aware that some operating systems are much better than others at managing memory.&nbsp; Closed systems like Windows or Solaris are generally much less efficient than the more modern open source systems such as Linux, *BSD, or Darwin.
+</p><p>
+
+
+</p></td></tr>
+</tbody></table>
+
+<!-- Footer -->
+
+    <table class="dei_footer">
+    <tbody><tr><td class="dei_footerL">info@DataExpedition.com
+        </td><td class="dei_footerR">+1 617-500-0002
+        </td></tr>
+    <tr><td colspan="2" class="dei_footerC">
+
+      Copyright © 2000-2011 Data Expedition, Inc.&nbsp; All Rights Reserved.
+        </td></tr>
+    </tbody></table>
+
+<!-- END Body Border -->
+   </td><td class="dei_innerside">
+   </td><td class="dei_outersideR">&nbsp;
+   </td></tr>
+<tr><td colspan="7">
+   <b style="margin-top: 0px;" class="dei_bg5 dei_corner">
+      <b class="dei_ms0 dei_bh2"><b class="dei_bc0 dei_bh2"><b class="dei_bc1 dei_bh2"><b class="dei_bc2 dei_bh2"><b class="dei_bc3 dei_bh2"><b class="dei_bc4 dei_bh2 dei_bw1 dei_bg0"></b></b></b></b></b></b>
+      <b class="dei_ms1 dei_bh2"><b class="dei_bc0 dei_bh2"><b class="dei_bc1 dei_bh2"><b class="dei_bc2 dei_bh2"><b class="dei_bc3 dei_bh2"><b class="dei_bc4 dei_bh2 dei_bw1 dei_bg0"></b></b></b></b></b></b>
+      <b class="dei_ms2"><b class="dei_bc0"><b class="dei_bc1"><b class="dei_bc2"><b class="dei_bc3"><b class="dei_bc4 dei_bw1 dei_bg0"></b></b></b></b></b></b>
+      <b class="dei_ms3"><b class="dei_bc0"><b class="dei_bc1"><b class="dei_bc2"><b class="dei_bc3"><b class="dei_bc4 dei_bw1 dei_bg0"></b></b></b></b></b></b>
+      <b class="dei_ms4"><b class="dei_bc0"><b class="dei_bc1"><b class="dei_bc2"><b class="dei_bc3"><b class="dei_bc4 dei_bw2 dei_bg0"></b></b></b></b></b></b>
+      <b class="dei_ms5"><b class="dei_bc0"><b class="dei_bc1"><b class="dei_bc2"><b class="dei_bc3 dei_bw2"><b class="dei_bc4 dei_bw2 dei_bg0"></b></b></b></b></b></b>
+      <b class="dei_ms7"><b class="dei_bc0"><b class="dei_bc1"><b class="dei_bc2"><b class="dei_bc3 dei_bw2"><b class="dei_bc4 dei_bw2 dei_bg1"></b></b></b></b></b></b>
+      <b class="dei_msC"><b class="dei_bc0"><b class="dei_bc1"><b class="dei_bc2 dei_bw2"><b class="dei_bc3 dei_bw2 dei_bg2"></b></b></b></b></b>
+      <b class="dei_msB"><b class="dei_bc0 dei_bw2"><b class="dei_bc1 dei_bw2"><b class="dei_bc2 dei_bw2 dei_bg3"></b></b></b></b>
+      <b class="dei_msA"><b class="dei_bc0 dei_bw2"><b class="dei_bc1 dei_bw2 dei_bg4"></b></b></b>
+      <b class="dei_bc0 dei_bg5"></b>
+   </b>
+   </td></tr>
+</tbody></table>
+
+
+
+
+</body>
+</html>

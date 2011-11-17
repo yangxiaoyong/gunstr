@@ -1,0 +1,54 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Linux Tips - Zombies</title>
+</head>
+<body bgcolor="#FFFFFF">
+
+<p><img alt="LinuxSA" src="linuxsabar.jpg" width="431" height="50"></p>
+
+<h1>Linux Tips<br>
+Zombies</h1>
+<font size="1">by <a href="mailto:davidn@rebel.net.au">David
+Newall</a>.</font>
+
+<p align="CENTER">
+<a href="http://www.linuxsa.org.au/"><img alt="[Home]" src="home.jpg" width="100" height="35" border="0"></a>
+<a href="http://www.linuxsa.org.au/linuxsa/"><img alt="[LinuxSA]" src="linuxsa.jpg" width="102" height="35" border="0"></a>
+<a href="http://www.linuxsa.org.au/linux/"><img alt="[Linux]" src="linux.jpg" width="100" height="35" border="0"></a>
+<a href="http://www.linuxsa.org.au/links.html"><img alt="[Links]" src="links.jpg" width="100" height="35" border="0"></a>
+<a href="http://www.linuxsa.org.au/meetings/"><img alt="[Meetings]" src="meetings.jpg" width="100" height="35" border="0"></a>
+<a href="http://www.linuxsa.org.au/mailing-list/"><img alt="[Mailing List]" src="mailing.jpg" width="100" height="35" border="0"></a>
+</p>
+
+
+<hr width="50%">
+
+<p><tt>What are these zombie processes that show up in ps?&nbsp; I
+kill them but they don't go away!</tt></p>
+
+<p>Zombies are dead processes.&nbsp; You cannot kill the dead.&nbsp;
+All processes eventually die, and when they do they become
+zombies.&nbsp; They consume almost no resources, which is to be
+expected because they are dead!&nbsp; The reason for zombies is so the
+zombie's parent (process) can retrieve the zombie's exit status and
+resource usage statistics.&nbsp; The parent signals the operating
+system that it no longer needs the zombie by using one of the
+<tt>wait()</tt> system calls.</p>
+
+<p>When a process dies, its child processes all become children of
+process number 1, which is the init process.&nbsp; Init is ``always''
+waiting for children to die, so that they don't remain as zombies.</p>
+
+<p>If you have zombie processes it means those zombies have not been
+waited for by their parent (look at PPID displayed by
+<tt>ps&nbsp;-l</tt>).&nbsp; You have three choices: Fix the parent
+process (make it wait); kill the parent; or live with it.&nbsp;
+Remember that living with it is not so hard because zombies take up
+little more than one extra line in the output of <tt>ps</tt>.</p>
+
+
+
+</body>
+</html>

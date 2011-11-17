@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+   
+   <meta name="GENERATOR" content="Arachnophilia 3.9">
+   <meta name="description" content="Process control and the ability for inter process communication is handled by the Linux kernel.">
+   <meta name="keywords" content="linux process management,processes,linux processes,linux process,accton,ps,pstree,snice,renice,fifo,fifos,linux signals,signals">
+   <title>Process Control</title>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body>
+<hr class="firsthr">
+<div align="center"><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hlproc.html" class="sectlinks">Previous Page</a> | <a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hldevices.html" class="sectlinks">Next Page</a></div>
+
+<!--Begin Google ad code -->
+<div style="text-align: center;">
+
+<ins style="display: inline-table; border: medium none; height: 90px; margin: 0pt; padding: 0pt; position: relative; visibility: visible; width: 728px;"><ins id="aswift_0_anchor" style="display: block; border: medium none; height: 90px; margin: 0pt; padding: 0pt; position: relative; visibility: visible; width: 728px;"><iframe src="index_1.html" allowtransparency="true" hspace="0" marginwidth="0" marginheight="0" vspace="0" id="aswift_0" name="aswift_0" style="left: 0pt; position: absolute; top: 0pt;" scrolling="no" width="728" frameborder="0" height="90"></iframe></ins></ins></div>
+<!--End Google ad code -->
+
+<table valign="top" width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tbody><tr> 
+    <td valign="top" width="150"><br>
+<div align="center"><div><a href="http://comptechdoc.org/" target="_top" class="vertlinks">Home</a></div>
+<div><a href="http://comptechdoc.org/os/" target="_top" class="vertlinks">Operating Systems</a></div>
+<div><a href="http://comptechdoc.org/os/linux/" target="_top" class="vertlinks">Linux</a></div>
+</div>
+      <ol class="leftnumbers">
+<li><a href="http://comptechdoc.org/os/linux/howlinuxworks/index.html" class="vertlinks">Introduction</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hlabbrboot.html" class="vertlinks">Abbreviated Boot</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hlbootproc.html" class="vertlinks">The Boot Process</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hlrunlevels.html" class="vertlinks">Startup and Run Levels</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hlinitscript.html" class="vertlinks">Initialization Scripts</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hlrunscripts.html" class="vertlinks">Runlevel Scripts</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hllogin.html" class="vertlinks">Login Process</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hlbash.html" class="vertlinks">Bash Shell</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hlfilesystems.html" class="vertlinks">Filesystems</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hllkr.html" class="vertlinks">LILO, Kernel and Root Filesystem</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hlkernel.html" class="vertlinks">The Kernel</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hlshadow.html" class="vertlinks">Passwords, Users, Groups, and Quotas</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hlenvironment.html" class="vertlinks">The Environment</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hlsysconfig.html" class="vertlinks">The /etc/sysconfig directory</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hlproc.html" class="vertlinks">The /proc filesystem</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hlprocess.html" class="vertlinks">Process Control</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hldevices.html" class="vertlinks">Devices</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hlservices.html" class="vertlinks">Daemons Services</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hlnetsvc.html" class="vertlinks">Inetd and Network Services</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hllibraries.html" class="vertlinks">Programs and Libraries</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hlpam.html" class="vertlinks">Security and PAM</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hllpd.html" class="vertlinks">The printer services</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hlgpm.html" class="vertlinks">Mouse support with gpm</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hlmail.html" class="vertlinks">Mail</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hlnews.html" class="vertlinks">News</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hluucp.html" class="vertlinks">UUCP</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hlldap.html" class="vertlinks">LDAP</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hlnfsrpc.html" class="vertlinks">NFS and RPC</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hlsamba.html" class="vertlinks">Samba, NetBIOS, WINS, nmbd</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hlidentd.html" class="vertlinks">Identd (auth)</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hltelnet.html" class="vertlinks">Telnet and FTP</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hlapache.html" class="vertlinks">Apache web server</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hldns.html" class="vertlinks">DNS and named</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hlxwindows.html" class="vertlinks">How X Works</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hlxscripts.html" class="vertlinks">X Scripts</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hltext.html" class="vertlinks">Support for Text</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hlkeyprogs.html" class="vertlinks">Keymapping for Programs</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hlkeycodes.html" class="vertlinks">Keycode Table</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hlkeymapfile.html" class="vertlinks">Example Keymap File</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hltermcommands.html" class="vertlinks">Terminfo Commands</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hlvt100.html" class="vertlinks">VT100 ESC sequences</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hlkernel2.html" class="vertlinks">Kernel Revisited</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hlconfigfiles.html" class="vertlinks">Configuration Files</a>
+</li><li><a href="http://comptechdoc.org/os/linux/howlinuxworks/linux_hlcredits.html" class="vertlinks">Credits</a>
+</li></ol>
+
+<div align="center"><div><a href="http://comptechdoc.org/os/linux/" target="_top" class="vertlinks">Linux</a></div>
+<div><a href="http://comptechdoc.org/os/" target="_top" class="vertlinks">Operating Systems</a></div>
+<div><a href="http://comptechdoc.org/" target="_top" class="vertlinks">Home</a></div>
+</div>
+
+    </td>
+
+    <td valign="top" align="left"><table width="96%" align="center"><tbody><tr><td><table><tbody><tr><td valign="top">
+ 
+<h1>Linux Process management</h1>
+<p>
+Process control and the ability for inter process communication is handled by the Linux kernel. 
+</p>
+<h3>Tools for working with processes</h3>
+<ul>
+<li>accton - Turns process accounting on and off.  Uses the file /var/log/pacct.  To turn it on type "accton /var/log/pacct".  Use the command with no arguments to turn it off.
+</li><li>kill - Kill a process by number
+</li><li>killall - Send a signal to a process by name
+</li><li>lastcomm (1) - Display information about previous commands in reverse order.  Works only if process accounting is on.
+</li><li>nice - Set process priority of new processes.
+</li><li>ps(1) - Used to report the status of one or more processes.
+</li><li>pstree(1) - Display the tree of running processes.
+</li><li>renice(8) - Can be used to change the process priority of a currently running process.
+</li><li>sa(8) - Generates a summary of information about users' processes that are stored in the /var/log/pacct file.
+</li><li>skill - Report process status.
+</li><li>snice - Report process status.
+</li><li>top - Displays the processes that are using the most CPU resources.
+</li></ul>
+</td><td valign="top">
+
+<ins style="display: inline-table; border: medium none; height: 600px; margin: 0pt; padding: 0pt; position: relative; visibility: visible; width: 120px;"><ins id="aswift_1_anchor" style="display: block; border: medium none; height: 600px; margin: 0pt; padding: 0pt; position: relative; visibility: visible; width: 120px;"><iframe src="index_3.html" allowtransparency="true" hspace="0" marginwidth="0" marginheight="0" vspace="0" id="aswift_1" name="aswift_1" style="left: 0pt; position: absolute; top: 0pt;" scrolling="no" width="120" frameborder="0" height="600"></iframe></ins></ins>
+</td></tr></tbody></table>
+
+<h3>Process Scheduling</h3>
+<p>
+Computer time on Linux systems is allocated in jiffies.  A jiffie is a microprocessor time slice.  On most Linux systems it is 1/100 of a second.  On some systems it is 1/1024 of a second.  The Linux kernel controls process scheduling.  There are three types of scheduling:
+</p>
+<ol>
+<li>normal - Referred to as other, this is the scheduling type set for normal programs
+</li><li>FIFO - This is a real time scheduling priority.  The FIFO term means the first process started (first in) will be the first done (first out).  The only time this type of process exits is if it sleeps, is rescheduled, or if it must wait on other kernel priorities to be done.
+</li><li>RR - This is a round robin type of scheduling, where each task gets a certain amount of time then it must exit, yield control to the next task and get back into the task queue.  This is a real time scheduling priority.
+</li></ol>
+<p>
+Linux processes have the following characteristics:
+</p>
+<ol>
+<li>policy - normal or real time.  Real time processes have a higher priority than normal processes.
+</li><li>priority - The process priority.  It is a number between -20 and 19.  The value of -20 is the highest, and 19 is the lowest priority.  Process priority can be set with the nice(1) command and changed using the renice(8) command.
+</li></ol>
+
+<h2>Inter-Process Communication</h2>
+<p>
+The types of inter process communication are:
+</p>
+<ol>
+<li>Signals - Sent by other processes or the kernel to a specific process to indicate various conditions.
+</li><li>Pipes - Unnamed pipes set up by the shell normally with the "|" character to route output from one program to the input of another.
+</li><li>FIFOS - Named pipes operating on the basis of first data in, first data out.
+</li><li>Message queues - Message queues are a mechanism set up to allow one or more processes to write messages that can be read by one or more other processes.
+</li><li>Semaphores - Counters that are used to control access to shared resources.  These counters are used as a locking mechanism to prevent more than one process from using the resource at a time.
+</li><li>Shared memory - The mapping of a memory area to be shared by multiple processes.
+</li></ol>
+<p>
+Message queues, semaphores, and shared memory can be accessed by the processes if they have access permission to the resource as set up by the object's creator.  The process must pass an identifier to the kernel to be able to get the access.
+</p>
+<h3>Signals</h3>
+<p>
+Linux Signals are:
+</p>
+<table>
+<tbody><tr><td>Signal Name</td><td>Number</td><td>Description</td></tr>
+<tr><td>SIGHUP</td><td>1</td><td>Hangup (POSIX)</td></tr>
+<tr><td>SIGINT</td><td>2</td><td>Terminal interrupt (ANSI)</td></tr>
+<tr><td>SIGQUIT</td><td>3</td><td>Terminal quit (POSIX)</td></tr>
+<tr><td>SIGILL</td><td>4</td><td>Illegal instruction (ANSI)</td></tr>
+<tr><td>SIGTRAP</td><td>5</td><td>Trace trap (POSIX)</td></tr>
+<tr><td>SIGIOT</td><td>6</td><td>IOT Trap (4.2 BSD)</td></tr>
+<tr><td>SIGBUS</td><td>7</td><td>BUS error (4.2 BSD)</td></tr>
+<tr><td>SIGFPE</td><td>8</td><td>Floating point exception (ANSI)</td></tr>
+<tr><td>SIGKILL</td><td>9</td><td>Kill(can't be caught or ignored) (POSIX)</td></tr>
+<tr><td>SIGUSR1</td><td>10</td><td>User defined signal 1 (POSIX)</td></tr>
+<tr><td>SIGSEGV</td><td>11</td><td>Invalid memory segment access (ANSI)</td></tr>
+<tr><td>SIGUSR2</td><td>12</td><td>User defined signal 2 (POSIX)</td></tr>
+<tr><td>SIGPIPE</td><td>13</td><td>Write on a pipe with no reader, Broken pipe (POSIX)</td></tr>
+<tr><td>SIGALRM</td><td>14</td><td>Alarm clock (POSIX)</td></tr>
+<tr><td>SIGTERM</td><td>15</td><td>Termination (ANSI)</td></tr>
+<tr><td>SIGSTKFLT</td><td>16</td><td>Stack fault</td></tr>
+<tr><td>SIGCHLD</td><td>17</td><td>Child process has stopped or exited, changed (POSIX)</td></tr>
+<tr><td>SIGCONT</td><td>18</td><td>	Continue executing, if stopped (POSIX)</td></tr>
+<tr><td>SIGSTOP</td><td>19</td><td>Stop executing(can't be caught or ignored) (POSIX)</td></tr>
+<tr><td>SIGTSTP</td><td>20</td><td>Terminal stop signal (POSIX)</td></tr>
+<tr><td>SIGTTIN</td><td>21</td><td>Background process trying to read, from TTY (POSIX)</td></tr>
+<tr><td>SIGTTOU</td><td>22</td><td>Background process trying to write, to TTY (POSIX)</td></tr>
+<tr><td>SIGURG</td><td>23</td><td>Urgent condition on socket (4.2 BSD)</td></tr>
+<tr><td>SIGXCPU</td><td>24</td><td>CPU limit exceeded (4.2 BSD)</td></tr>
+<tr><td>SIGXFSZ</td><td>25</td><td>File size limit exceeded (4.2 BSD)</td></tr>
+<tr><td>SIGVTALRM</td><td>26</td><td>Virtual alarm clock (4.2 BSD)</td></tr>
+<tr><td>SIGPROF</td><td>27</td><td>Profiling alarm clock (4.2 BSD)</td></tr>
+<tr><td>SIGWINCH</td><td>28</td><td>Window size change (4.3 BSD, Sun)</td></tr>
+<tr><td>SIGIO</td><td>29</td><td>I/O now possible (4.2 BSD)</td></tr>
+<tr><td>SIGPWR</td><td>30</td><td>Power failure restart (System V)</td></tr>
+</tbody></table><br>
+<p>
+As noted above, processes can ignore, block, or catch all signals except SIGSTOP and SIGKILL.  If a process catches a signal, it means that it includes code that will take appropriate action when the signal is received.  If the signal is not caught by the process, the kernel will take default action for the signal.
+</p>
+<h3>FIFOs</h3>
+<p>
+FIFOs are permanent objects and can be created using the mkfifo(1) or mknod(1) command.  Inside the program, the FIFO can be created using the mknod command, then opened and read from or written to just like a normal file.  The FIFO is normally in blocking mode when attempting to perform read operations.
+</p>
+ 
+
+</td></tr></tbody></table></td>
+
+  </tr>
+</tbody></table>
+
+
+
+
+</body>
+</html>

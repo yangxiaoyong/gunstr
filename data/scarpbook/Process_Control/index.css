@@ -1,0 +1,12 @@
+/* ::::: http://comptechdoc.org/os/linux/howlinuxworks/style.css ::::: */
+
+BODY { color: rgb(0, 0, 0); background: url('tux.gif') repeat scroll 0% 0% transparent; }
+A:link { color: rgb(0, 0, 255); }
+A:visited { color: rgb(81, 24, 142); }
+A:active { color: rgb(255, 0, 0); }
+H1, H2 { text-align: center; }
+H3 { text-align: left; color: rgb(128, 0, 128); }
+HR { color: rgb(0, 0, 176); height: 2px; width: 100%; text-align: center; }
+HR.firsthr { color: rgb(128, 176, 255); height: 15px; width: 100%; }
+A.vertlinks { text-align: left; font-weight: 400; font-size: 12px; text-decoration: underline; }
+.leftnumbers { color: rgb(0, 0, 0); margin-left: 2.4em; font-size: 12px; line-height: 1.7em; }

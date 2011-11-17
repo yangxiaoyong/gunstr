@@ -1,0 +1,5364 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+<title>Anatomy of Linux process management</title>
+<meta http-equiv="PICS-Label" content="(PICS-1.1 &quot;http://www.icra.org/ratingsv02.html&quot; l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) &quot;http://www.rsac.org/ratingsv01.html&quot; l gen true r (n 0 s 0 v 0 l 0) &quot;http://www.classify.org/safesurf/&quot; l gen true r (SS~~000 1))">
+<link rel="schema.DC" href="http://purl.org/DC/elements/1.0/">
+<link rel="SHORTCUT ICON" href="favicon.ico">
+<meta name="Owner" content="developerWorks Content/Raleigh/IBM">
+<meta name="DC.Language" scheme="rfc1766" content="en">
+<meta name="IBM.Country" content="ZZ">
+<meta name="Security" content="Public">
+<meta name="IBM.SpecialPurpose" content="SP001">
+<meta name="IBM.PageAttributes" content="sid=1003,1004">
+<meta name="Source" content="v16 Template Generator">
+<meta name="Robots" content="index,follow">
+<meta name="Abstract" content="The creation and management of user-space processes in Linux have many principles in common with UNIX but also include several unique optimizations specific to Linux. Here, review the life cycle of Linux processes and explore the kernel internals for user process creation, memory management, scheduling, and death.">
+<meta name="Description" content="The creation and management of user-space processes in Linux have many principles in common with UNIX but also include several unique optimizations specific to Linux. Here, review the life cycle of Linux processes and explore the kernel internals for user process creation, memory management, scheduling, and death.">
+<meta name="Keywords" content="Linux, Process Management, task, thread, process, schedule, M. Tim Jones, tttlca">
+<meta name="DC.Date" scheme="iso8601" content="2008-12-20">
+<meta name="DC.Type" scheme="IBM_ContentClassTaxonomy" content="CT316">
+<meta name="DC.Subject" scheme="IBM_SubjectTaxonomy" content="SWGC0">
+<meta scheme="IBM_WTMCategory" name="IBM.WTMCategory" content="SOFDCLNXZZ">
+<meta name="DC.Rights" content="© Copyright&nbsp;IBM Corporation&nbsp;2008">
+<meta name="IBM.Effective" scheme="W3CDTF" content="2008-12-20">
+<meta name="title" content="Anatomy of Linux process management">
+
+<!-- HEADER_SCRIPTS_AND_CSS_INCLUDE -->
+
+
+
+
+
+
+
+
+<!-- dW-specific CSS -->
+
+
+
+<!-- xM Masthead/Footer -->
+
+<link title="IBM Search" href="http://www.ibm.com/search/opensearch/description.xml" type="application/opensearchdescription+xml" rel="search">
+
+
+<!-- dW functional JS -->
+
+<!-- Rating_START -->
+
+
+<!-- Rating_END --><!-- RESERVED_HEADER_INCLUDE -->
+
+
+
+
+
+<!-- Include file support -->
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body id="ibm-com">
+<div id="ibm-top" class="ibm-landing-page">
+
+<!-- MASTHEAD_BEGIN -->
+<!-- MASTHEAD_BEGIN -->
+<div class="ibm-access"><a href="#ibm-content">Skip to main content</a></div>
+<div id="ibm-masthead-dw">
+  
+    <!-- TOP ROW -->    
+    <div id="dw-masthead-top-row">
+		<ul id="ibm-unav-home-dw">
+			<li id="ibm-logo">
+				<a href="http://www.ibm.com/us/en/"><img src="ibm-smlogo.gif" alt="IBM®" width="44" height="16"></a>
+			</li>
+		</ul>
+        <ul id="ibm-mast-options-dw">
+		    <li id="dw-mast-top-0">
+				<a class="" href="http://www.ibm.com/developerworks/dwwi/DWAuthRouter?m=loginpage&amp;lang=en&amp;d=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flinux%2Flibrary%2Fl-linux-process-management%2F" title="">Sign in (or register)</a>
+			</li>
+		    <li id="dw-mast-top-1">
+				<a href="#SELECTLANG">English</a><img class="dw-preload" src="arrow-down-active.gif" alt="" width="8" height="7">
+			</li>
+		    <li id="dw-mast-top-2" class="dw-mf-hide">
+				<a href="#">[userid] <img src="photo.do" alt="PHOTO" class="dw-mast-profimg" width="20" height="20"></a>
+			</li>
+		</ul>
+	</div>
+    
+    <!-- TOP ROW SLIDER -->
+    <div id="ibm-my-menu-dw">    
+        <div class="ibm-ribbon-pane-dw">
+            <div class="ibm-ribbon-section-dw">
+                <!-- Sign-in -->
+				<div class="dw-mast-columns">                
+					<div class="dw-mast-col-1-1">
+					    <div class="dw-mast-close">
+							<ul>
+								<li><a href="#">Close [x]</a></li>
+							</ul>
+						</div>
+						<div id="dw-mast-sso">
+							<div id="dw-mast-sso-reg">
+								<p>If you don't have an IBM ID and password, <a href="#" onclick="(function () {window.location='/developerworks/dwwi/DWAuthRouter?m=reg&amp;lang=en&amp;d='+encodeURIComponent(location.href);})();">register here</a>.</p>
+							</div>
+							<div id="signin_error_mf" class="no-display"></div>
+							<div id="dw-mast-sso-form">
+								<form id="sForm_mf" action="http://www.ibm.com/developerworks/linux/library/l-linux-process-management/" method="post" name="sForm_name_mf" onsubmit="return false;">
+									<div id="dw-mast-sso-id" class="dw-mast-sso-id-en">
+										<label for="ibmid_mf">IBM ID:</label>
+										<input class="" id="ibmid_mf" value="" name="ibmid_name_mf" maxlength="100" onkeypress="handleEP(event,this.form,'mf');" type="text">
+									</div>
+									<div id="dw-mast-sso-pw" class="dw-mast-sso-pw-en">
+										<label for="pw_mf">Password:</label>
+										<input class="" id="pw_mf" value="" name="pw_name_mf" maxlength="100" onkeypress="handleEP(event,this.form,'mf');" type="password">
+									</div>
+									<div id="dw-mast-sso-target" class="dw-mast-sso-target-en">
+										<label for="AfterSignIn_mf">After sign in:</label>
+										<select id="AfterSignIn_mf" name="AfterSignIn_name_mf">
+											<option value="">Stay on the current page</option>
+											<option value="/developerworks/mydeveloperworks/profiles/html/myProfileView.do?lang=en">My developerWorks profile</option>
+											<option value="/developerworks/mydeveloperworks/homepage?lang=en">My developerWorks home</option>
+										</select>
+									</div>					
+									<div id="dw-mast-sso-terms">
+										<p class="dw-mf-perm-box">
+											<input id="perm_mf" name="perm_name_mf" type="checkbox"><label for="perm_mf"> Keep me signed in.</label>
+										</p>
+										<p class="dw-mast-sso-terms-en">By clicking <strong>Submit</strong>, you agree to the <a href="https://www.ibm.com/developerworks/community/terms/">developerWorks terms of use</a>.</p>
+									</div>
+									<div>
+										<input class="dw-mf-submit-btn" name="ibm_submit_name_mf" value="Submit" onclick="signin('mf');return false;" type="submit">
+									</div>
+								</form>
+							</div>
+							<div id="dw-mast-sso-update">
+								<ul>
+									<li><a class="ibm-forward-link" href="http://www.ibm.com/developerworks/dwwi/jsp/WSHelp.jsp?lang=en_US">Forgot your IBM ID?</a></li>
+								</ul>
+								<!--[if IE 9]><div class="dw-mf-update-ie9"><![endif]-->
+								<ul class="dw-mf-pwupdate">
+									<li><a class="ibm-forward-link" href="#" onclick="(function () {window.location='https://www.ibm.com/account/profile?page=forgot&amp;lang=en_US&amp;appname=ibm&amp;required=null&amp;d='+encodeURIComponent(getAuthUrl())+'%3Fm%3Dloginpage%26lang%3Den_US%26d%3D'+encodeURIComponent(location.href);})();">Forgot your password?</a></li>
+									<li><a class="ibm-forward-link" href="#" onclick="(function () {window.location='https://www.ibm.com/account/profile?page=chpw&amp;lang=en_US&amp;appname=ibm&amp;required=null&amp;d='+encodeURIComponent(location.href);})();">Change your password</a></li>
+								</ul>
+								<!--[if IE 9]></div><![endif]-->
+							</div>
+							<div id="dw-mast-sso-text">
+								<p>The first time you sign into developerWorks, a <strong>profile</strong> is created for you.  <strong>Select information in your developerWorks profile is displayed to the public, but you may edit the information at any time.</strong>  Your first name, last name (unless you choose to hide them), and display name will accompany the content that you post.</p>
+								<p class="dw-mf-secure">All information submitted is secure.</p>
+							</div>
+						</div>
+                    
+						<div id="dw-mast-dname" class="dw-mf-hide">
+							<p>The first time you sign in to developerWorks, a profile is created for you, so you need to choose a display name.  Your display name accompanies the content you post on developerworks.</p><p><strong>Please choose a display name between 3-31 characters</strong>.  Your display name must be unique in the developerWorks community and should not be your email address for privacy reasons.</p>
+							<div id="signin_dname_error_mf" class="no-display"></div>
+							<div id="dw-mast-dname-form">
+								<form id="dForm_mf" action="http://www.ibm.com/developerworks/linux/library/l-linux-process-management/" method="post" name="dForm_name_mf" onsubmit="return false;">
+									<div id="dw-mast-dname-mf">
+										<label for="dname_mf">Display name:</label>
+										<input id="dname_mf" name="dname_name_mf" maxlength="31" size="25" value="" onkeypress="handleEP(event,this.form,'mf');" type="text">
+									</div>
+									<div id="dw-mast-dname-terms">
+										<p>By clicking <strong>Submit</strong>, you agree to the <a href="https://www.ibm.com/developerworks/community/terms/">developerWorks terms of use</a>.</p>
+									</div>
+									<div>
+										<input class="dw-mf-submit-btn" name="dname_submit_name_mf" value="Submit" onclick="signin('mf');return false;" type="submit">
+									</div>
+								</form>								
+							</div>
+							<div id="dw-mast-dname-secure">
+								<p class="dw-mf-secure">All information submitted is secure.</p>
+							</div>
+						</div>
+
+						<div id="dw-mast-auth" class="dw-mf-hide">
+							<div>
+								<h2>My developerWorks:</h2>
+								<ul>
+									<li><a id="dw-mast-top-0-0" href="http://www.ibm.com/developerworks/mydeveloperworks/profiles/html/myProfileView.do?lang=en">My profile</a></li>
+									<li><a href="http://www.ibm.com/developerworks/mydeveloperworks/homepage?lang=en">My home</a></li>
+									<li><a href="http://www.ibm.com/developerworks/mydeveloperworks/groups/service/html/mycommunities?lang=en">My groups</a></li>
+								</ul>     
+							</div>
+							<div id="dw-mast-notify" class="dw-mf-hide">
+								<h2>My notifications:</h2>
+								<ul>
+									<li><a id="new_notify" href="http://www.ibm.com/developerworks/mydeveloperworks/homepage?lang=en">{[num_notify] new notifications}([num_notify] new notification)</a></li>
+									<li><a id="new_invite" href="http://www.ibm.com/developerworks/mydeveloperworks/profiles/html/wc.do?action=in&amp;requireAuth=true&amp;widgetId=friends&amp;lang=[lang]">{[num_invite] network requests}([num_invite] network request)</a></li>  
+								</ul>
+							</div>
+							<div class="dw-mast-more">
+								<ul class="ibm-link-list">
+									<li><a class="dw-more-link" href="#" onclick="signOut(); return false;"><strong>Sign out</strong></a></li>
+								</ul>
+							</div>
+						</div>
+						
+					</div>					
+                   
+                </div>
+                <!-- Language selector --> 
+				<div class="dw-mast-columns">
+					<div class="dw-mast-col-2-1">
+						<h2>Select a language:</h2>
+						<ul>
+							<li><a id="dw-mast-top-1-0" href="http://www.ibm.com/developerworks/">English</a></li>
+							<li><a href="http://www.ibm.com/developerworks/cn/">中文</a></li>
+							<li><a href="http://www.ibm.com/developerworks/jp/">日本語</a></li>
+							<li><a href="http://www.ibm.com/developerworks/kr/">한국어</a></li>
+						</ul>
+					</div>
+					<div class="dw-mast-col-2-2">
+						<ul>
+							<li><a href="http://www.ibm.com/developerworks/ru/">Русский</a></li>
+							<li><a href="http://www.ibm.com/developerworks/br/">Português (Brasil)</a></li>
+							<li><a href="http://www.ibm.com/developerworks/ssa/">Español</a></li>
+							<li><a href="http://www.ibm.com/developerworks/vn/">Việt</a></li>
+						</ul>
+					</div>
+					<div class="dw-mast-close">
+						<ul>
+							<li><a href="#">Close [x]</a></li>
+						</ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTTOM ROW -->
+    <div id="ibm-universal-nav-dw">
+        <ul id="ibm-unav-links-dw">
+            <li id="ibm-unav-home-dwlogo">
+				<a href="http://www.ibm.com/developerWorks/"><img src="dw-wordmark.gif" alt="developerWorks®" width="218" height="32"></a>
+            </li>
+        </ul>
+        <ul id="ibm-menu-links-dw">
+            <li id="dw-mast-nav-0"><a href="http://www.ibm.com/developerworks/topics/">Technical topics</a></li>
+            <li id="dw-mast-nav-1"><a href="http://www.ibm.com/developerworks/downloads/">Evaluation software</a></li>
+            <li id="dw-mast-nav-2"><a href="http://www.ibm.com/developerworks/community/">Community</a></li>
+            <li id="dw-mast-nav-3"><a href="http://www.ibm.com/developerworks/events/">Events</a></li>
+        </ul>
+			<form id="ibm-search-form" action="http://www.ibm.com/search/csass/search/" method="get" name="form1">
+				<input name="sn" value="dw" type="hidden">
+				<input name="lang" value="en" type="hidden">
+				<input name="cc" value="US" type="hidden">
+				<input name="en" value="utf" type="hidden">
+				<input name="hpp" value="20" type="hidden">
+				<input name="dws" value="dw" type="hidden">
+				<p>
+				<label for="q"><img alt="Search developerWorks" src="c.gif" width="1" height="1"></label>
+				<input value="Search developerWorks" name="q" maxlength="100" id="q" type="text">
+				<input id="ibm-search" class="ibm-btn-search" name="Search" value="Search" type="submit">
+				</p>
+			</form>
+    </div>
+    
+    <!-- BOTTOM ROW SLIDER -->
+    <div id="ibm-common-menu-dw">
+        <div class="ibm-ribbon-pane-dw dw-ribbon-pane-en">
+            <div class="ibm-ribbon-section-dw">
+				<!-- Technical topics category -->
+                <div class="dw-mast-columns">
+					<div class="dw-mast-col-3-1">
+						<h2>IBM products:</h2>
+						<ul>
+							<li><a id="dw-mast-nav-0-0" href="http://www.ibm.com/developerworks/aix/">AIX and UNIX</a></li>
+							<li><a href="http://www.ibm.com/developerworks/ibmi/">IBM i</a></li>
+							<li><a href="http://www.ibm.com/developerworks/data/">Information Management</a></li>
+							<li><a href="http://www.ibm.com/developerworks/lotus/">Lotus</a></li>
+							<li><a href="http://www.ibm.com/developerworks/rational/">Rational</a></li>
+							<li><a href="http://www.ibm.com/developerworks/tivoli/">Tivoli</a></li>  
+							<li><a href="http://www.ibm.com/developerworks/websphere/">WebSphere</a></li>     
+						</ul>     
+                    </div>
+					<div class="dw-mast-col-3-2">
+						<h2>Technologies:</h2>
+						<ul>
+							<li><a href="http://www.ibm.com/developerworks/java/">Java technology</a></li>
+							<li><a href="http://www.ibm.com/developerworks/linux/">Linux</a></li>
+							<li><a href="http://www.ibm.com/developerworks/opensource/">Open source</a></li>
+							<li><a href="http://www.ibm.com/developerworks/webservices/">SOA and web services</a></li>
+							<li><a href="http://www.ibm.com/developerworks/web/">Web development</a></li>  
+							<li><a href="http://www.ibm.com/developerworks/xml/">XML</a></li>     
+						</ul>
+                    </div>
+					<div class="dw-mast-col-3-3 dw-mast-col-3-3-en">
+						<h2>Solutions:</h2>
+						<ul>
+							<li><a href="http://www.ibm.com/developerworks/cloud/">Cloud computing</a></li>
+							<li><a href="http://www.ibm.com/developerworks/industry/">Industries</a></li>
+							<li><a href="http://www.ibm.com/developerworks/servicemanagement/">Integrated Service Management</a></li>
+						</ul>
+						<ul>
+							<li class="dw-mast-newgroup"><a href="http://www.ibm.com/developerworks/library/">Technical library</a></li>
+							<li><a href="http://www.ibm.com/developerworks/feeds/">Feeds and syndication</a></li>
+							<li><a href="https://www.ibm.com/developerworks/newsletter/">Newsletters</a></li>
+						</ul>        
+                    </div>
+                    <div class="dw-mast-more dw-mast-more-en">
+						<ul class="ibm-link-list">
+							<li><a class="dw-more-link" href="http://www.ibm.com/developerworks/topics/"><strong>More about Technical topics</strong></a></li>
+						</ul>
+                    </div>
+                    <div class="dw-mast-close">
+						<ul>
+							<li><a href="#">Close [x]</a></li>
+						</ul>
+                    </div>
+				</div>
+				<!-- Evaluation software category -->
+                <div class="dw-mast-columns">
+					<div class="dw-mast-col-1-1">
+						<h2>Find software by:</h2>
+						<ul>
+							<li><a id="dw-mast-nav-1-0" href="http://www.ibm.com/developerworks/downloads/product.html">IBM product</a></li>
+							<li><a href="http://www.ibm.com/developerworks/downloads/evalmethod.html">Evaluation method (Download, online trial, product beta, cloud)</a></li>
+							<li><a href="http://www.ibm.com/developerworks/downloads/industry.html">Industry</a></li>
+						</ul>            
+                    </div>
+                    <div class="dw-mast-more">
+						<ul class="ibm-link-list">
+							<li><a class="dw-more-link" href="http://www.ibm.com/developerworks/downloads/"><strong>More about Evaluation software</strong></a></li>
+						</ul>
+                    </div>
+                    <div class="dw-mast-close">
+						<ul>
+							<li><a href="#">Close [x]</a></li>
+						</ul>
+                    </div>
+				</div>
+				<!-- Community category -->
+                <div class="dw-mast-columns">
+					<div class="dw-mast-col-3-1">
+						<ul>
+							<li><a id="dw-mast-nav-2-0" href="https://www.ibm.com/developerworks/community/homepage/?lang=en">My home</a></li>
+							<li><a href="https://www.ibm.com/developerworks/community/profiles/?lang=en">Profiles</a></li>
+							<li><a href="https://www.ibm.com/developerworks/community/groups/?lang=en">Groups</a></li>
+							<li><a href="https://www.ibm.com/developerworks/community/blogs/?lang=en">Blogs</a></li>
+							<li><a href="https://www.ibm.com/developerworks/community/bookmarks/?lang=en">Bookmarks</a></li>  
+						</ul>     
+                    </div>
+					<div class="dw-mast-col-3-2">
+						<ul>
+							<li><a href="https://www.ibm.com/developerworks/forums/">Forums</a></li>
+							<li><a href="https://www.ibm.com/developerworks/mydeveloperworks/wikis/?lang=en">Wikis</a></li>
+							<li><a href="https://www.ibm.com/developerworks/community/files/?lang=en">Files</a></li>
+							<li><a href="https://www.ibm.com/developerworks/community/activities/?lang=en">Activities</a></li>
+							<li><a href="https://www.ibm.com/developerworks/community/podcasts/?lang=en">Podcasts</a></li>     
+						</ul>
+                    </div>
+					<div class="dw-mast-col-3-3 dw-mast-col-3-3-en">
+						<ul>
+							<li><a href="http://www.ibm.com/developerworks/champion/">IBM Champion program</a></li>
+						</ul>
+                    </div>
+                    <div class="dw-mast-more dw-mast-more-en">
+						<ul class="ibm-link-list">
+							<li><a class="dw-more-link" href="http://www.ibm.com/developerworks/community/?lang=en"><strong>More about Community</strong></a></li>
+						</ul>
+                    </div>
+                    <div class="dw-mast-close">
+						<ul>
+							<li><a href="#">Close [x]</a></li>
+						</ul>
+                    </div>
+				</div>
+				<!-- Events category -->
+                <div class="dw-mast-columns">
+					<div class="dw-mast-col-1-1">
+						<ul>
+							<li><a id="dw-mast-nav-3-0" href="http://www.ibm.com/developerworks/briefings/">Briefings</a></li>
+							<li><a href="http://www.ibm.com/developerworks/find/webcasts/">Webcasts</a></li>
+							<li><a href="http://www.ibm.com/developerworks/find/events/">Find events (briefings, webcasts, conferences...)</a></li>
+						</ul>            
+                    </div>
+                    <div class="dw-mast-more">
+						<ul class="ibm-link-list">
+							<li><a class="dw-more-link" href="http://www.ibm.com/developerworks/events/"><strong>More about Events</strong></a></li>
+						</ul>
+                    </div>
+                    <div class="dw-mast-close">
+						<ul>
+							<li><a href="#">Close [x]</a></li>
+						</ul>
+                    </div>
+				</div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+<div id="fdiv" class="ibm-access"><embed type="application/x-shockwave-flash" src="connect.swf" id="sflash" name="sflash" quality="high" menu="false" wmode="window" movie="https://www.ibm.com/developerworks/js/dw-mf/connect.swf" swliveconnect="true" allowscriptaccess="always" width="1" height="1"></div>
+<!-- MASTHEAD_END --><!-- MASTHEAD_END -->
+
+<div id="ibm-pcon">
+
+<!-- CONTENT_BEGIN -->
+<div id="ibm-content">
+
+<!-- Navigation_Trail_BEGIN -->
+<!-- &nbsp; -->
+      <div id="ibm-content-head"><ul id="ibm-navigation-trail"><li class="ibm-first"><a href="http://www.ibm.com/developerworks/">developerWorks</a></li><li><a href="http://www.ibm.com/developerworks/linux/">Linux</a></li><li><a href="http://www.ibm.com/developerworks/views/linux/library.jsp">Technical library</a></li></ul></div>
+<!-- Navigation_Trail_END -->
+
+<!-- dW_Summary Area_START -->
+<div id="dw-summary-article">
+
+<div class="dw-content-head">
+<h1>Anatomy of Linux process management</h1><p><em>Creation, management, scheduling, and destruction</em></p>
+</div>
+
+<div class="ibm-container-body ibm-two-column">
+
+<div class="ibm-column ibm-first">
+<div class="author"><a title="" class="dwauthor" rel="#authortip1" href="#author1">M. Tim Jones</a> (<a href="mailto:mtj@mtjones.com?subject=Anatomy%20of%20Linux%20process%20management">mtj@mtjones.com</a>), Consultant Engineer, Emulex Corp.</div><div style="display: none;" id="authortip1" class="dwauthor-onload-state ibm-no-print"><div><div class="position"><img src="p-mjones.jpg" alt="M. Tim Jones" width="64" height="80"></div>M. Tim Jones is an embedded firmware architect and the author of <i>Artificial
+          Intelligence: A Systems Approach, GNU/Linux Application Programming</i> (now in
+        its second edition), <i>AI Application Programming</i> (in its second edition),
+        and <i>BSD Sockets Programming from a Multilanguage Perspective.</i> His
+        engineering background ranges from the development of kernels for geosynchronous
+        spacecraft to embedded systems architecture and networking protocols development.
+        Tim is a Consultant Engineer for Emulex Corp. in Longmont, Colorado.</div></div>
+<p></p>
+<p><strong>Summary:</strong>&nbsp; The creation and management of user-space processes in
+            Linux® have many principles in common with UNIX® but also include
+            several unique optimizations specific to Linux. Here, review the life cycle of
+            Linux processes and explore the kernel internals for user process creation,
+            memory management, scheduling, and death.</p>
+
+<div id="dw-tag-content" class="ibm-no-print"><p><b>Tags for this article:</b>&nbsp; <a href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=linux">linux</a>, <a href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=management">management</a>, <a href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=process">process</a></p></div><div id="dw-moretags-access" class="ibm-access"></div>
+<p class="ibm-no-print"></p><div id="dw-tag-this" class="ibm-no-print"><a class="ibm-external-link" onclick="jQuery.launchTagThisWindow(); return false;" href="#">Tag this!</a></div><div id="interestShow" class="ibm-no-print"><div id="dw-interest-anon"><a id="intAnonBtn" class="ibm-external-link" href="http://www.ibm.com/developerworks/linux/library/l-linux-process-management/">Update My dW interests</a> (<a class="dw-interest" href="https://www.ibm.com/developerworks/dwwi/DWAuthRouter?m=loginpage&amp;d=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flinux%2Flibrary%2Fl-linux-process-management%2F">Log in</a> | <a class="dw-interest" href="#overlay" onclick="ibmCommon.Overlays.show('dwmyinterestadd', this);return false;">What's this?</a>) <a class="ibm-access" href="#dwmyinterestaddhelp">Skip to help for Update My dW interests</a></div></div><p></p>
+</div>
+
+<div class="ibm-column ibm-second">
+<p class="leading"><b>Date:</b>&nbsp; 20 Dec  2008
+<br><b>Level: </b>&nbsp;Intermediate
+<br class="ibm-ind-link"><b>PDF:</b>&nbsp; <a href="http://download.boulder.ibm.com/ibmdl/pub/software/dw/linux/l-linux-process-management/l-linux-process-management-pdf.pdf">A4 and Letter</a> (56KB | 11 pages)<a class="ibm-external-link" href="http://www.adobe.com/products/acrobat/readstep2.html">Get Adobe® Reader®</a>
+<br><strong>Also available in:&nbsp;</strong>
+
+&nbsp;<a href="http://www.ibm.com/developerworks/kr/library/l-linux-process-management/">Korean</a> 
+&nbsp;<a href="http://www.ibm.com/developerworks/ru/library/l-linux-process-management/">Russian</a> 
+&nbsp;<a href="http://www.ibm.com/developerworks/jp/linux/library/l-linux-process-management/">Japanese</a> 
+
+&nbsp;<a href="http://www.ibm.com/developerworks/br/library/l-linux-process-management/">Portuguese</a> 
+
+<br>
+<br><strong>Activity:</strong>&nbsp; 65372 views
+<br><strong>Comments:</strong> &nbsp; <span id="nCmts">1&nbsp;(<a class="dw-view-comment" href="#icomments">View</a>&nbsp;|&nbsp;<a onclick="showSignIn();return false;" href="#">Add comment</a> - Sign in)</span>
+<!-- Rating_Area_Begin -->
+</p><div id="art-rating-summary"><img alt="Average rating 4 stars based on 55 votes" src="stars120x20-4b.jpg" class="dw-avg-rating"> Average rating (55 votes)<br><a class="dw-view-comment" href="#iratings">Rate this article</a></div>
+<!-- Rating_Area_End -->
+<p></p>
+</div>
+
+</div>
+</div>
+<!-- dW_Summary_Area_END -->
+
+<!-- CONTENT_BODY -->
+<div id="ibm-content-body">
+
+<!-- MAIN_COLUMN_BEGIN -->
+<div id="ibm-content-main">
+
+<!-- Related_Searches_Area -->
+<!-- Related_Searches_Area_Begin -->
+
+
+<div id="dw-related-searches-article" style="display: block;">
+<div class="ibm-container ibm-alternate-two">
+<div class="ibm-container-body">
+
+<!--  START : HTML FOR ARTICLE SEARCH -->
+  <div id="article_results" style="display: block;"><ul id="dw-content-twisty" class="ibm-twisty">
+<li class="">
+<a class="ibm-twisty-trigger ibm-twisty-trigger-closed" href="#toggle"><img alt="+ Expand" src="c_001.gif" width="1" height="1"></a><span class="ibm-twisty-head"><strong>Show articles and other content related to my search: linux process management</strong></span>
+<div style="display: none;" class="ibm-twisty-body">
+<div id="dw-content-showhide" class="ibm-container ibm-simple-show-hide">
+<div class="ibm-container-body">
+<p style="display: block;" class="ibm-show-hide-controls">
+<a href="#show">Show descriptions</a> | <a class="ibm-active" href="#hide">Hide descriptions</a>
+</p><div class="ibm-rule"><hr></div><div class="ibm-rule"></div>
+<p>(1 - 10 of 131000 search results) <a href="http://www.ibm.com/search/csass/search/?sn=dw&amp;lang=en&amp;cc=US&amp;en=utf&amp;hpp=20&amp;dws=dw&amp;q=linux%20process%20management" class="ibm-external-link" target="results">View all search results</a>
+</p>
+<h3>
+<a class="ibm-show-hide-link" href="http://www.ibm.com/developerworks/linux/library/l-linux-process-management/?S_TACT=105AGY82&amp;S_CMP=MAVE" title="Anatomy of Linux process management" alt="Anatomy of Linux process management" target="results">Anatomy of Linux process management</a>
+</h3>
+<div class="ibm-hideable">
+<p>Dec 20, 2008 ... The creation and management of user-space processes in Linux have many    principles in common with UNIX but also include several unique ...</p>
+</div>
+<h3>
+<a class="ibm-show-hide-link" href="http://www.ibm.com/developerworks/linux/library/l-lpic1-v3-103-5/?S_TACT=105AGY82&amp;S_CMP=MAVE" title="Learn Linux, 101: Create, monitor, and kill processes" alt="Learn Linux, 101: Create, monitor, and kill processes" target="results">Learn Linux, 101: Create, monitor, and kill processes</a>
+</h3>
+<div class="ibm-hideable">
+<p>Feb 2, 2010 ... Summary: Learn about process management on Linux®: how to shuffle    processes between foreground and background, find out what&amp;#39;s ...</p>
+</div>
+<h3>
+<a class="ibm-show-hide-link" href="https://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?ps=50&amp;url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flibrary%2Fl-linux-process-management%2F&amp;lang=en?S_TACT=105AGY82&amp;S_CMP=MAVE" title="Bookmarks - Bookmarks to &amp;quot;Anatomy of Linux process management&amp;quot;" alt="Bookmarks - Bookmarks to &amp;quot;Anatomy of Linux process management&amp;quot;" target="results">Bookmarks - Bookmarks to &amp;quot;Anatomy of Linux process management&amp;quot;</a>
+</h3>
+<div class="ibm-hideable">
+<p>May 13, 2011 ... On developerWorks Bookmarks, IBMs resource for developers and IT professionals,    access tools, code, training, forums, blogs, community, ...</p>
+</div>
+<h3>
+<a class="ibm-show-hide-link" href="http://www.ibm.com/developerworks/linux/library/l-linux-kernel/?S_TACT=105AGY82&amp;S_CMP=MAVE" title="Anatomy of the Linux kernel" alt="Anatomy of the Linux kernel" target="results">Anatomy of the Linux kernel</a>
+</h3>
+<div class="ibm-hideable">
+<p>Jun 6, 2007 ... One example is the ability for Linux to run on a process with a memory    management unit (MMU), as well as those that provide no MMU. ...</p>
+</div>
+<h3>
+<a class="ibm-show-hide-link" href="http://www.ibm.com/developerworks/linux/library/l-embl/index.html?S_TACT=105AGY82&amp;S_CMP=MAVE" title="Embedded Linux applications: An overview" alt="Embedded Linux applications: An overview" target="results">Embedded Linux applications: An overview</a>
+</h3>
+<div class="ibm-hideable">
+<p>Aug 1, 2001 ... A boot utility; The Linux micro-kernel, composed of memory management,    process management and timing services; An initialization process ...</p>
+</div>
+<h3>
+<a class="ibm-show-hide-link" href="https://www.ibm.com/developerworks/mydeveloperworks/groups/service/forum/topicThread?topicUuid=cca83677-78a1-4f03-9891-afaea89f792f&amp;communityUuid=1a3c9146-6e51-4f4c-a13d-b6173d53ece5?S_TACT=105AGY82&amp;S_CMP=MAVE" title="Learn about Linux process management - IBM" alt="Learn about Linux process management - IBM" target="results">Learn about Linux process management - IBM</a>
+</h3>
+<div class="ibm-hideable">
+<p>On developerWorks Groups, IBMs resource for developers and IT professionals,    access tools, code, training, forums, blogs, community, standards, IT samples, ...</p>
+</div>
+<h3>
+<a class="ibm-show-hide-link" href="http://www.ibm.com/developerworks/linux/library/l-memory/?S_TACT=105AGY82&amp;S_CMP=MAVE" title="Inside memory management" alt="Inside memory management" target="results">Inside memory management</a>
+</h3>
+<div class="ibm-hideable">
+<p>Nov 16, 2004 ... Get an overview of the memory management techniques that are available to    Linux programmers, focusing on the C language but ... Each process on your    computer thinks that it has access to all of your physical memory. ...</p>
+</div>
+<h3>
+<a class="ibm-show-hide-link" href="http://www.ibm.com/developerworks/linux/library/l-lpic1-v3-103-6/?S_TACT=105AGY82&amp;S_CMP=MAVE" title="Learn Linux, 101: Process execution priorities" alt="Learn Linux, 101: Process execution priorities" target="results">Learn Linux, 101: Process execution priorities</a>
+</h3>
+<div class="ibm-hideable">
+<p>Feb 2, 2010 ... This article grounds you in the basic Linux techniques for managing execution    process priorities. Learn to: Understand process priorities; Set ...</p>
+</div>
+<h3>
+<a class="ibm-show-hide-link" href="http://www.ibm.com/developerworks/views/linux/libraryview.jsp?topic_by=All+topics+and+related+products&amp;sort_order=desc&amp;lcl_sort_order=desc&amp;search_by=anatomy&amp;search_flag=true&amp;type_by=Articles&amp;show_abstract=true&amp;start_no=1&amp;sort_by=Date&amp;end_no=100&amp;show_all=false?S_TACT=105AGY82&amp;S_CMP=MAVE" title="IBM developerWorks : Linux : Technical library" alt="IBM developerWorks : Linux : Technical library" target="results">IBM developerWorks : Linux : Technical library</a>
+</h3>
+<div class="ibm-hideable">
+<p>Results 1 - 17 of 17 ... Here, review the life cycle of Linux processes and explore the kernel internals for    user process creation, memory management, scheduling, ...</p>
+</div>
+<h3>
+<a class="ibm-show-hide-link" href="http://www.ibm.com/developerworks/linux/library/l-system-calls/?S_TACT=105AGY82&amp;S_CMP=MAVE" title="Kernel command using Linux system calls" alt="Kernel command using Linux system calls" target="results">Kernel command using Linux system calls</a>
+</h3>
+<div class="ibm-hideable">
+<p>Feb 10, 2010 ... Explore the Linux system call interface (SCI), learn how to add new system calls    ... you must use a process of crossing the user-space/kernel boundary. .....    Management, Lotus, Rational, Tivoli, WebSphere, Java, Linux, Open ...</p>
+</div>
+</div>
+</div>
+</div>
+</li>
+</ul>
+
+</div>
+<!--  END : HTML FOR ARTICLE SEARCH -->
+
+</div>
+</div>
+</div>
+<!-- Related_Searches_Area_End -->
+<!-- MAIN_COLUMN_CONTAINER_BEGIN -->
+<div class="ibm-container">
+
+<!-- MAIN_COLUMN_CONTENT_BEGIN -->
+<p>Linux is a very dynamic system with constantly changing computing needs.
+                The representation of the computational needs of Linux centers around the
+                common abstraction of the <i>process</i>. Processes can be short-lived (a
+                command executed from the command line) or long-lived (a network service).
+                For this reason, the general management of processes and their scheduling
+                is very important.</p>
+
+            <p>From user-space, processes are represented by process identifiers (PIDs).
+                From the user's perspective, a PID is a numeric value that uniquely
+                identifies the process. A PID doesn't change during the life of a process,
+                but PIDs can be reused after a process dies, so it's not always ideal to
+                cache them.</p>
+
+            <p>In user-space, you can create processes in any of several ways. You can
+                execute a program (which results in the creation of a new process) or,
+                within a program, you can invoke a <code>fork</code> or
+                <code>exec</code> system call. The
+                <code>fork</code> call results in the creation of a child
+                process, while an <code>exec</code> call replaces the
+                current process context with the new program. I discuss each of these
+                methods to understand how they work.</p>
+            
+            <p>For this article, I build the description of processes by first showing the
+                kernel representation of processes and how they're managed in the kernel,
+                then review the various means by which processes are created and scheduled
+                on one or more processors, and finally, what happens if they die.</p>
+            
+              <p><a name="N10098"><span class="atitle">Process
+                representation</span></a></p>
+            
+            <div class="ibm-container ibm-alt-header dw-container-sidebar"><a name="sidebar1"></a><h2>Read more by Tim Jones on
+                    developerWorks</h2><div class="ibm-container-body">
+                
+                <ul>
+                    <li>
+                        <a href="http://www.ibm.com/developerworks/views/linux/libraryview.jsp?topic_by=All+topics+and+related+products&amp;sort_order=desc&amp;lcl_sort_order=desc&amp;search_by=anatomy&amp;search_flag=true&amp;type_by=Articles&amp;show_abstract=true&amp;start_no=1&amp;sort_by=Date&amp;end_no=100&amp;show_all=false">Tim's <i>Anatomy of...</i> articles</a>
+                    </li>
+                    <li>
+                        <a href="http://www.ibm.com/developerworks/views/linux/libraryview.jsp?topic_by=All+topics+and+related+products&amp;sort_order=desc&amp;lcl_sort_order=desc&amp;search_by=tim+jones&amp;search_flag=true&amp;type_by=Articles&amp;show_abstract=false&amp;sort_by=Date&amp;end_no=100&amp;show_all=false">All
+				of Tim's articles on developerWorks</a>
+                    </li>
+                </ul>
+            </div></div>
+
+            
+
+          
+
+            <p>Within the Linux kernel, a process is represented by a rather large
+                structure called <code>task_struct</code>. This structure
+                contains all of the necessary data to represent the process, along with a
+                plethora of other data for accounting and to maintain relationships with
+                other processes (parents and children). A full description of the
+                <code>task_struct</code> is beyond the scope of this
+                article, but a portion of <code>task_struct</code> is shown
+                in Listing 1. This code contains the specific elements this article
+                explores. Note that <code>task_struct</code> resides in
+                ./linux/include/linux/sched.h.</p>
+
+            <br><a name="N100D3"><b>Listing 1. A small portion of task_struct</b></a><br><table width="65%" border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code-outline"><pre class="displaycode">	
+struct task_struct {
+
+	volatile long state;
+	void *stack;
+	unsigned int flags;
+
+	int prio, static_prio;
+
+	struct list_head tasks;
+
+	struct mm_struct *mm, *active_mm;
+
+	pid_t pid;
+	pid_t tgid;
+
+	struct task_struct *real_parent;
+
+	char comm[TASK_COMM_LEN];
+
+	struct thread_struct thread;
+
+	struct files_struct *files;
+
+	...
+
+};
+</pre></td></tr></tbody></table><br>
+
+            <p>In Listing 1, you can see several items that you'd expect, such as the
+                state of execution, a stack, a set of flags, the parent process, the
+                thread of execution (of which there can be many), and open files. I
+                explore these later in the article but will introduce a few here. The
+                <code>state</code> variable is a set of bits that indicate
+                the state of the task. The most common states indicate that the process is
+                running or in a run queue about to be running
+                (<code>TASK_RUNNING</code>), sleeping
+                (<code>TASK_INTERRUPTIBLE</code>), sleeping but unable to be
+                woken up (<code>TASK_UNINTERRUPTIBLE</code>), stopped
+                (<code>TASK_STOPPED</code>), or a few others. A complete
+                list of these flags is available in ./linux/include/linux/sched.h.</p>
+
+            <p>The <code>flags</code> word defines a large number of
+                indicators, indicating everything from whether the process is being
+                created (<code>PF_STARTING</code>) or exiting
+                (<code>PF_EXITING</code>), or even if the process is
+                currently allocating memory (<code>PF_MEMALLOC</code>). The
+                name of the executable (excluding the path) occupies the
+                <code>comm</code> (command) field.</p>
+
+            <p>Each process is also given a priority (called
+                <code>static_prio</code>), but the actual priority of the
+                process is determined dynamically based on loading and other factors. The
+                lower the priority value, the higher its actual priority.</p>
+
+            <p>The <code>tasks</code> field provides the linked-list
+                capability. It contains a <code>prev</code> pointer
+                (pointing to the previous task) and a <code>next</code>
+                pointer (pointing to the next task).</p>
+
+            <p>The process's address space is represented by the
+                <code>mm</code> and <code>active_mm</code>
+                fields. The <code>mm</code> represents the process's memory
+                descriptors, while the <code>active_mm</code> is the
+                previous process's memory descriptors (an optimization to improve context
+                switch times).</p>
+
+            <p>Finally, the <code>thread_struct</code> identifies the stored
+                state of the process. This element depends on the particular architecture
+                on which Linux is running, but you can see an example of this in
+                ./linux/include/asm-i386/processor.h. In this structure, you'll find the
+                storage for the process when it is switched from the executing context
+                (hardware registers, program counter, and so on).</p>
+
+            <div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="N10137"><span class="atitle">Process management</span></a></p>
+
+            <div class="ibm-container ibm-alt-header dw-container-sidebar"><h2>Maximum processes</h2><div class="ibm-container-body">
+                
+                <p>Although processes are dynamically allocated within Linux, certain
+                    maximums are observed. The maximum is represented in the kernel by a
+                    symbol called <code>max_threads</code>, which can be
+                    found in ./linux/kernel/fork.c). You can change this value from
+                    user-space through the proc file system at
+                    /proc/sys/kernel/threads-max.</p>
+            </div></div>
+
+            <p>Now, let's explore how you manage processes within Linux. In most cases,
+                processes are dynamically created and represented by a dynamically
+                allocated <code>task_struct</code>. One exception is the
+                <code>init</code> process itself, which always exists and is
+                represented by a statically allocated
+                <code>task_struct</code>. You can see an example of this in
+                ./linux/arch/i386/kernel/init_task.c.</p>
+
+            <p>All processes in Linux are collected in two different ways. The first is a
+                hash table, which is hashed by the PID value; the second is a circular
+                doubly linked list. The circular list is ideal for iterating through the
+                task list. As the list is circular, there's no head or tail; but as the
+                <code>init_task</code> always exists, you can use it as an
+                anchor point to iterate further. Let's look at an example of this to walk
+                through the current set of tasks.</p>
+
+            <p>The task list is not accessible from user-space, but you can easily solve
+                that problem by inserting code into the kernel in the form of a module. A
+                very simple program is shown in Listing 2 that iterates the task list and
+                provides a small amount of information about each task
+                (<code>name</code>, <code>pid</code>, and
+                <code>parent</code> name). Note here that the module uses
+                <code>printk</code> to emit the output. To view the output,
+                you need to view the /var/log/messages file with the
+                <code>cat</code> utility (or
+                <code>tail -f /var/log/messages</code> in real time). The
+                <code>next_task</code> function is a macro in sched.h that
+                simplifies the iteration of the task list (returns a
+                <code>task_struct</code> reference of the next task).</p>
+
+            <br><a name="N10189"><b>Listing 2. Simple kernel module to emit task information (procsview.c)</b></a><br><table width="65%" border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code-outline"><pre class="displaycode">
+#include &lt;linux/kernel.h&gt;
+#include &lt;linux/module.h&gt;
+#include &lt;linux/sched.h&gt;
+
+int init_module( void )
+{
+  /* Set up the anchor point */
+  struct task_struct *task = &amp;init_task;
+
+  /* Walk through the task list, until we hit the init_task again */
+  do {
+
+    printk( KERN_INFO "*** %s [%d] parent %s\n",
+		<strong>task-&gt;comm</strong>, <strong>task-&gt;pid</strong>, <strong>task-&gt;parent-&gt;comm</strong> );
+
+  } while ( (task = <strong>next_task</strong>(task)) != &amp;init_task );
+
+  return 0;
+
+}
+
+void cleanup_module( void )
+{
+  return;
+}
+</pre></td></tr></tbody></table><br>
+
+            <p>You can compile this module with the Makefile shown in Listing 3. When
+                compiled, you can insert the kernel object with
+                <code>insmod procsview.ko</code> and remove it with
+                <code>rmmod procsview</code>.</p>
+
+            <br><a name="N101AA"><b>Listing 3. Makefile to build the kernel module</b></a><br><table width="65%" border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code-outline"><pre class="displaycode">
+obj-m += procsview.o
+
+KDIR := /lib/modules/$(shell uname -r)/build
+PWD := $(shell pwd)
+
+default:
+	$(MAKE) -C $(KDIR) SUBDIRS=$(PWD) modules
+</pre></td></tr></tbody></table><br>
+
+            <p>After insertion, /var/log/messages displays output as shown below. You can
+                see here the idle task (called <code>swapper</code>) and the
+                <code>init</code> task (<i>pid 1</i>).</p>
+
+            <table width="65%" border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code-outline"><pre class="displaycode">Nov 12 22:19:51 mtj-desktop kernel: [8503.873310] *** swapper [0] parent swapper
+Nov 12 22:19:51 mtj-desktop kernel: [8503.904182] *** init [1] parent swapper
+Nov 12 22:19:51 mtj-desktop kernel: [8503.904215] *** kthreadd [2] parent swapper
+Nov 12 22:19:51 mtj-desktop kernel: [8503.904233] *** migration/0 [3] parent kthreadd
+...
+</pre></td></tr></tbody></table><br>
+
+            <p>Note that it's also possible to identify the currently running task. Linux
+                maintains a symbol called <code>current</code> that is the
+                currently running process (of type
+                <code>task_struct</code>). If at the end of
+                <code>init_module</code> you add the line:</p>
+
+            <table width="65%" border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code-outline"><pre class="displaycode">printk( KERN_INFO, "Current task is %s [%d], current-&gt;comm, current-&gt;pid );
+</pre></td></tr></tbody></table><br>
+
+            <p>you would see:</p>
+
+            <table width="65%" border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="code-outline"><pre class="displaycode">Nov 12 22:48:45 mtj-desktop kernel: [10233.323662] Current task is insmod [6538]
+</pre></td></tr></tbody></table><br>
+
+            <p>Note that the current task is <code>insmod</code>, because
+                the <code>init_module</code> function executes within the
+                context of the execution of the <code>insmod</code> command.
+                The <code>current</code> symbol actually refers to a
+                function (<code>get_current</code>) and can be found in an
+                arch-specific header (for example,
+                ./linux/include/asm-i386/current.h).</p>
+
+            <div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="N101F6"><span class="atitle">Process creation</span></a></p>
+
+            <div class="ibm-container ibm-alt-header dw-container-sidebar"><h2>System call functions</h2><div class="ibm-container-body">
+                
+                <p>You've probably seen a pattern with the system calls. In many cases,
+                    system calls are named <code>sys_*</code> and provide
+                    some of the initial functionality to implement the call (such as error
+                    checking or user-space activities). The real work is often delegated
+                    to another function called <code>do_*</code>.</p>
+            </div></div>
+
+            <p>So, let's walk through the creation of a process from user-space. The
+                underlying mechanism is the same for user-space tasks and kernel tasks, as
+                both eventually rely on a function called
+                <code>do_fork</code> to create the new process. In the case
+                of creating a kernel thread, the kernel calls a function called
+                <code>kernel_thread</code> (see
+                ./linux/arch/i386/kernel/process.c), which performs some initialization,
+                then calls <code>do_fork</code>.</p>
+
+            <p>A similar action occurs for user-space process creation. In user-space, a
+                program calls <code>fork</code>, which results in a system
+                call to the kernel function called <code>sys_fork</code>
+                (see ./linux/arch/i386/kernel/process.c). The function relationships are
+                shown graphically in Figure 1.</p>
+
+            
+                <br><a name="N1022B"><b>Figure 1. Function hierarchy for process
+                    creation</b></a><br>
+                <img alt="Function hierarchy for process creation" src="figure1.gif" width="422" height="300">
+            <br>
+
+            <p>From Figure 1, you can see that <code>do_fork</code> provides
+                the basis for process creation. You can find the
+                <code>do_fork</code> function in ./linux/kernel/fork.c
+                (along with the partner function,
+                <code>copy_process</code>).</p>
+
+            <p>The <code>do_fork</code> function begins with a call to
+                <code>alloc_pidmap</code>, which allocates a new PID. Next,
+                <code>do_fork</code> checks to see whether the debugger is
+                tracing the parent process. If it is, the
+                <code>CLONE_PTRACE</code> flag is set in the
+                <code>clone_flags</code> in preparation for forking. The
+                <code>do_fork</code> function then continues with a call to
+                <code>copy_process</code>, passing the flags, stack,
+                registers, parent process, and newly allocated PID.</p>
+
+            <p>The <code>copy_process</code> function is where the new
+                process is created as a copy of the parent. This function performs all
+                actions except for starting the process, which is handled later. The first
+                step in <code>copy_process</code> is validation of the
+                <code>CLONE</code> flags to ensure that they're consistent.
+                If they're not, an <code>EINVAL</code> error is returned.
+                Next, the Linux Security Module (LSM) is consulted to see whether the
+                current task may create a new task. To learn more about LSMs in the
+                context of Security-Enhanced Linux (SELinux), check out the
+                <a href="http://www.ibm.com/developerworks/linux/library/l-linux-process-management/resources.html">Resources</a> section.</p>
+
+            <p>Next, the <code>dup_task_struct</code> function (found in
+                ./linux/kernel/fork.c) is called, which allocates a new
+                <code>task_struct</code> and copies the current process's
+                descriptors into it. After a new thread stack is set up, some state
+                information is initialized and control returns to
+                <code>copy_process</code>. Back in
+                <code>copy_process</code>, some housekeeping is performed in
+                addition to several other limit and security checks, including a variety
+                of initialization on your new <code>task_struct</code>. A
+                sequence of copy functions is then invoked that copy individual aspects of
+                the process, from copying open file descriptors
+                (<code>copy_files</code>), copying signal information
+                (<code>copy_sighand</code> and
+                <code>copy_signal</code>), copying process memory
+                (<code>copy_mm</code>), and finally copying the thread
+                (<code>copy_thread</code>).</p>
+
+            <p>The new task is then assigned to a processor, with some additional checking
+                based on the processors on which the process is allowed to execute
+                (<code>cpus_allowed</code>). After the priority of the new
+                process inherits the priority of the parent, a small amount additional
+                housekeeping is performed, and control returns to
+                <code>do_fork</code>. At this point, your new process exists
+                but is not yet running. The <code>do_fork</code> function
+                fixes this with a call to <code>wake_up_new_task</code>.
+                This function, which you can find in ./linux/kernel/sched.c), initializes
+                some of the scheduler housekeeping information, places the new process in
+                a run queue, then wakes it up for execution. Finally, upon returning to
+                <code>do_fork</code>, the PID value is returned to the
+                caller and the process is complete.</p>
+
+            <div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="N102BE"><span class="atitle">Process scheduling</span></a></p>
+
+            <p>While a process exists in Linux, it can potentially be scheduled through
+                the Linux scheduler. Although outside of the scope of this article, the
+                Linux scheduler maintains a set of lists for each priority level on which
+                <code>task_struct</code> references reside. Tasks are
+                invoked through the <code>schedule</code> function
+                (available in ./linux/kernel/sched.c), which determines the best process
+                to run based on loading and prior process execution history. You can learn
+                more about the Linux version 2.6 scheduler in
+                <a href="http://www.ibm.com/developerworks/linux/library/l-linux-process-management/resources.html">Resources</a>.</p>
+
+            <div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="N102D2"><span class="atitle">Process
+                destruction</span></a></p>
+
+            <p>Process destruction can be driven by several events—from normal
+                process termination, through a signal, or through a call to the
+                <code>exit</code> function. However process exit is driven,
+                the process ends through a call to the kernel function
+                <code>do_exit</code> (available in ./linux/kernel/exit.c).
+                This process is shown graphically in Figure 2.</p>
+
+            
+                <br><a name="N102E6"><b>Figure 2. Function hierarchy for process
+                    destruction</b></a><br>
+                <img alt="Function hierarchy for process destruction" src="figure2.gif" width="376" height="234">
+            <br>
+
+            <p>The purpose behind <code>do_exit</code> is to remove all
+                references to the current process from the operating system (for all
+                resources that are not shared). The destruction process first indicates
+                that the process is exiting by setting the
+                <code>PF_EXITING</code> flag. Other aspects of the kernel
+                use this indication to avoid manipulating this process while it's being
+                removed. The cycle of detaching the process from the various resources
+                that it attained during its life is performed through a series of calls,
+                including <code>exit_mm</code> (to remove memory pages) to
+                <code>exit_keys</code> (which disposes of per-thread session
+                and process security keys). The <code>do_exit</code>
+                function performs various accountings for the disposal of the process,
+                then a series of notifications (for example, to signal the parent that the
+                child is exiting) is performed through a call to
+                <code>exit_notify</code>. Finally, the process state is
+                changed to <code>PF_DEAD</code>, and the
+                <code>schedule</code> function is called to select a new
+                process to execute. Note that if signalling is required to the parent (or
+                the process is being traced), the task will not completely disappear. If
+                no signalling is necessary, a call to
+                <code>release_task</code> will actually reclaim the memory
+                that the process used.</p>
+
+            <div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">Back to top</a></p><p><a name="N10319"><span class="atitle">Going further</span></a></p>
+
+            <p>Linux continues to evolve, and one area that will see further innovation
+                and optimization is process management. While keeping true to UNIX
+                principles, Linux continues to push the boundaries. New processor
+                architectures, symmetrical multiprocessing (SMP), and virtualization will
+                drive new advances in this area of the kernel. One example is the new O(1)
+                scheduler introduced in Linux version 2.6, which provides scalability for
+                systems with large numbers of tasks. Another is the updated threading
+                model using the Native POSIX Thread Library (NPTL), which enables
+                efficient threading beyond the prior LinuxThreads model. You can learn
+                more about these innovations and what's ahead in
+                <a href="#resources">Resources</a>.</p>
+        <!-- CMA ID: 360339 --> <!-- Site ID: 1 --><!--XSLT stylesheet used to transform this file: dw-document-html-6.0.xsl-->
+<br>
+<p><a name="resources"><span class="atitle">Resources</span></a></p><p><b>Learn</b></p><ul><li> One of the most innovative aspects of the
+                2.6 kernel is its O(1) scheduler. It allows Linux to scale to very large
+                numbers of processes without the typical overhead. You can learn more
+                about the 2.6 kernel schedule in
+                "<a href="http://www.ibm.com/developerworks/linux/library/l-scheduler/">Inside the Linux Scheduler</a>"
+                (developerWorks, June 2006). <br><br></li><li> For a great look at memory management in
+                Linux, check out Mel Gorman's <i>
+                    <a href="http://www.informit.com/content/images/0131453483/downloads/gorman_book.pdf">Understanding the Linux Virtual Memory Manager</a>
+                </i> (Prentice Hall, 2004), which is available in PDF form. This book
+                provides a detailed but accessible presentation of memory management in
+                Linux, including a chapter on process address spaces. <br><br></li><li> For a nice introduction to process
+                management, see <i>
+                    <a href="http://www.ibmpressbooks.com/articles/article.asp?p=389712">Performance Tuning for Linux: An Introduction to Kernels</a>
+                </i> (Prentice Hall, 2005). A sample chapter is available from
+                <a href="http://www.ibmpressbooks.com/index.asp">IBM Press</a>. <br><br></li><li> Linux provides an interesting approach to
+                system calls that involves transitioning between user-space and the kernel
+                (separate address spaces). You can read more about this in
+                "<a href="http://www.ibm.com/developerworks/linux/library/l-system-calls/">Kernel command using Linux system calls</a>"
+                (developerWorks, March 2007). <br><br></li><li> In this article, you saw cases in which
+                the kernel checked the security capabilities of the caller. The basic
+                interface between the kernel and the security framework is called the
+                    <i>Linux Security Module.</i> To explore this module in the context of
+                SELinux, read
+                "<a href="http://www.ibm.com/developerworks/linux/library/l-selinux/">Anatomy of Security-Enhanced Linux (SELinux)</a>"
+                (developerWorks, April 2008). <br><br></li><li> The
+                <a href="https://computing.llnl.gov/tutorials/pthreads/">Portable Operating System Interface (POSIX) standard for threads</a>
+                defines a standard application programming interface (API) for creating
+                and managing threads. You can find implementations for POSIX on Linux, Sun
+                Solaris, and even non-UNIX-based operating systems. <br><br></li><li> The
+                <a href="http://people.redhat.com/drepper/nptl-design.pdf">Native POSIX Thread Library</a>
+                is a threading implementation in the Linux kernel for efficiently
+                executing POSIX threads. This technology was introduced into the 2.6
+                kernel, where the prior implementation was called
+                    <i><a href="http://pauillac.inria.fr/%7Exleroy/linuxthreads/">LinuxThreads</a>.</i>
+            <br><br></li><li> Read
+                "<a href="http://www.ibm.com/developerworks/linux/library/l-task-killable/">TASK_KILLABLE: New process state in Linux</a>"
+                (developerWorks, September 2008) for an introduction to a useful
+                alternative to the TASK_UNINTERRUPTIBLE and TASK_INTERRUPTIBLE process
+                states. <br><br></li><li> Read more of
+                <a href="http://www.ibm.com/developerworks/views/linux/libraryview.jsp?topic_by=All+topics+and+related+products&amp;sort_order=desc&amp;lcl_sort_order=desc&amp;search_by=tim+jones&amp;search_flag=true&amp;type_by=Articles&amp;show_abstract=false&amp;sort_by=Date&amp;end_no=100&amp;show_all=false">Tim's 
+                articles on developerWorks</a>. <br><br></li><li> In the
+                <a href="http://www.ibm.com/developerworks/linux/">developerWorks Linux zone</a>,
+                find more resources for Linux developers (including developers who are 
+                <a href="http://www.ibm.com/developerworks/linux/newto/">new to Linux</a>), and scan our
+                <a href="http://www.ibm.com/developerworks/linux/library/l-top-10.html">most popular articles and
+tutorials</a>. <br><br></li><li> 
+                See all
+                <a href="http://www.ibm.com/developerworks/views/linux/libraryview.jsp?topic_by=All+topics+and+related+products&amp;sort_order=desc&amp;lcl_sort_order=desc&amp;search_by=linux+tip%3A&amp;search_flag=true&amp;type_by=All+Types&amp;show_abstract=true&amp;start_no=1&amp;sort_by=Date&amp;end_no=100&amp;show_all=false">
+Linux tips</a> and
+                <a href="http://www.ibm.com/developerworks/views/linux/libraryview.jsp?topic_by=All+topics+and+related+products&amp;sort_order=desc&amp;lcl_sort_order=desc&amp;search_by=&amp;search_flag=&amp;type_by=Tutorials&amp;show_abstract=true&amp;sort_by=Date&amp;end_no=100&amp;show_all=false">
+Linux tutorials</a> on developerWorks. 
+            <br><br></li><li> 
+                Stay current with
+                <a href="http://www.ibm.com/developerworks/offers/techbriefings/">developerWorks technical events and Webcasts</a>. 
+            <br><br></li></ul><p><b>Get products and technologies</b></p><ul><li> 
+                With
+                <a href="http://www.ibm.com/developerworks/downloads/">IBM trial software</a>,
+                available for download directly from developerWorks, build your next development
+                project on Linux. 
+            <br><br></li></ul><p><b>Discuss</b></p><ul><li> 
+                Get involved in the
+                <a href="http://www.ibm.com/developerworks/community">
+developerWorks community</a> through blogs, forums, podcasts, and spaces. 
+            <br><br></li></ul>
+<p><a name="author"><span class="atitle">About the author</span></a></p><div class="ibm-container ibm-portrait-module ibm-alternate-two"><div class="ibm-container-body"><img src="p-mjones.jpg" alt="M. Tim Jones" width="64" height="80"><p><a name="author1"></a>M. Tim Jones is an embedded firmware architect and the author of <i>Artificial
+          Intelligence: A Systems Approach, GNU/Linux Application Programming</i> (now in
+        its second edition), <i>AI Application Programming</i> (in its second edition),
+        and <i>BSD Sockets Programming from a Multilanguage Perspective.</i> His
+        engineering background ranges from the development of kernels for geosynchronous
+        spacecraft to embedded systems architecture and networking protocols development.
+        Tim is a Consultant Engineer for Emulex Corp. in Longmont, Colorado.</p></div></div>
+<!-- MAIN_COLUMN_CONTENT_END -->
+
+<!-- OVERLAYS_START -->
+<!-- Report_Abuse_Start -->
+<div class="ibm-common-overlay ibm-no-print" id="reportabuseoverlay">
+   <div class="ibm-head"><p><a class="ibm-common-overlay-close" href="#">Close [x]</a></p></div>
+   <div class="ibm-body">
+      <div class="ibm-main">
+         <a class="ibm-access" name="reportabuseoverlay">Report abuse help</a>   
+         <div class="ibm-title"><h1>Report abuse</h1></div>
+         <div class="ibm-container ibm-alternate">
+            <p><strong>Thank you.</strong>  This entry has been flagged for moderator attention.</p>
+            <div class="ibm-overlay-rule"><hr></div>
+            <div class="ibm-buttons-row">
+               <input onclick="ibmCommon.Overlays.hide('reportabuseoverlay');return false;" class="ibm-btn-cancel-sec dw-btn-cancel-sec" name="ibm-cancel" value="Close" type="button">
+            </div>
+         </div>
+      </div> 
+   </div>
+<div class="ibm-footer"></div>
+</div>
+<!-- Report_Abuse_Error_Start -->
+<div class="ibm-common-overlay ibm-no-print" id="reportabuseoverlayerror">
+   <div class="ibm-head"><p><a class="ibm-common-overlay-close" href="#">Close [x]</a></p></div>
+   <div class="ibm-body">
+      <div class="ibm-main">
+         <a class="ibm-access" name="reportabuseoverlayerror">Report abuse help</a>   
+         <div class="ibm-title"><h1>Report abuse</h1></div>
+         <div class="ibm-container ibm-alternate">
+            <p class="ibm-ind-error"><strong>Report abuse submission failed.  Please try again later.</strong></p>
+            <div class="ibm-overlay-rule"><hr></div>
+            <div class="ibm-buttons-row">
+               <input onclick="ibmCommon.Overlays.hide('reportabuseoverlayerror');return false;" class="ibm-btn-cancel-sec dw-btn-cancel-sec" name="ibm-cancel" value="Close" type="button">
+            </div>
+         </div>
+      </div> 
+   </div>
+<div class="ibm-footer"></div>
+</div>
+<!-- Sign in OVERLAY STARTS HERE --> 
+<div class="ibm-common-overlay" id="signin_overlay">
+<div class="ibm-head">
+<p><a class="ibm-common-overlay-close" href="#" onclick="clearForm();">Close [x]</a></p>
+</div>
+<div class="ibm-body">
+<div class="ibm-main">
+<div class="ibm-title ibm-subtitle">
+<h1>developerWorks: Sign in</h1>
+<div id="ibm-overlay-error-signin" class="no-display"></div>
+</div>
+
+<div class="ibm-container ibm-alternate ibm-buttons-last">
+<div class="ibm-container-body">
+<p class="ibm-overlay-intro">If you don't have an IBM ID and password, <a href="#" onclick="(function () {window.location='/developerworks/dwwi/DWAuthRouter?m=reg&amp;d='+encodeURIComponent(location.href);})();">register here</a>.</p>
+<form class="ibm-column-form" id="sFormId" action="http://www.ibm.com/developerworks/linux/library/l-linux-process-management/" method="post" name="sForm" onsubmit="return false;">
+<p><label for="ibmid">IBM ID:</label><span><input name="ibm-id" id="ibmid" size="25" value="" class="required" onkeypress="handleEP(event,this.form);" type="text"><br><a class="ibm-forward-link" href="http://www.ibm.com/developerworks/dwwi/jsp/WSHelp.jsp?lang=en_US">Forgot your IBM ID?</a></span>   
+</p> 
+<p><label for="password">Password:</label><span><input name="password" id="password" size="25" value="" class="required" onkeypress="handleEP(event,this.form);" type="password"><br><a class="ibm-forward-link" href="#" onclick="(function () {window.location='https://www.ibm.com/account/profile?page=forgot&amp;lang=en_US&amp;appname=ibm&amp;required=null&amp;d='+encodeURIComponent(getAuthUrl())+'%3Fm%3Dloginpage%26lang%3Den_US%26d%3D'+encodeURIComponent(location.href);})();">Forgot your password?</a><br><a class="ibm-forward-link" href="#" onclick="(function () {window.location='https://www.ibm.com/account/profile?page=chpw&amp;lang=en_US&amp;appname=ibm&amp;required=null&amp;d='+encodeURIComponent(location.href);})();">Change your password</a></span></p> 
+<p class="no-bottom-padding"> 
+   <label for="AfterSignIn">After sign in:</label> 
+   <span>
+
+      <select name="SignInAction" id="AfterSignIn">
+          <option value="">Stay on the current page</option>
+          <option value="/developerworks/mydeveloperworks/profiles/html/myProfileView.do">My developerWorks profile</option>
+          <option value="/developerworks/mydeveloperworks/homepage/">My developerWorks home</option>
+      </select>
+   </span>
+</p>
+<p class="dw-perm-box">
+	<span><input id="perm" name="perm_name" type="checkbox"><label for="perm"> Keep me signed in.</label></span>
+</p>
+<div class="ibm-overlay-rule"><hr></div>
+<p>By clicking <strong>Submit</strong>, you agree to the <a href="https://www.ibm.com/developerworks/community/terms/">developerWorks terms of use</a>.</p>
+<div class="ibm-buttons-row">
+   <p><input class="ibm-btn-arrow-pri" name="ibm-submit" value="Submit" onclick="signin();return false;" type="submit"><span class="ibm-sep">&nbsp;</span>
+<input value="Cancel" name="ibm-cancel" class="ibm-btn-cancel-sec" onclick="clearForm();ibmCommon.Overlays.hide('signin_overlay');return false;" type="button"></p>
+</div>
+</form>
+<div class="ibm-overlay-rule"><hr></div>
+<p>The first time you sign into developerWorks, a <strong>profile</strong> is created for you.  <strong>Select information in your developerWorks profile is displayed to the public, but you may edit the information at any time</strong>. Your first name, last name (unless you choose to hide them), and display name will accompany the content that you post.</p>
+<div class="dw-overlay-legal"><p>All information submitted is secure.</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+<!-- Sign in OVERLAY ENDS HERE --> 
+ 
+
+<!-- Display name OVERLAY STARTS HERE --> 
+<div class="ibm-common-overlay" id="displayname_overlay">
+<div class="ibm-head">
+<p><a class="ibm-common-overlay-close" href="#" onclick="clearForm();">Close [x]</a></p>
+</div>
+<div class="ibm-body">
+<div class="ibm-main">
+<div class="ibm-title ibm-subtitle">
+<h1>Choose your display name</h1>
+<div id="ibm-overlay-error-dname" class="no-display"></div>
+</div>
+<div class="ibm-container ibm-alternate ibm-buttons-last">
+<div class="ibm-container-body">
+<p class="ibm-overlay-intro">The first time you sign in to developerWorks, a profile is created for you, so you need to choose a display name.  Your display name accompanies the content you post on developerWorks.</p>
+<p><strong>Please choose a display name between 3-31 characters</strong>. Your display name must be unique in the developerWorks community and should not be your email address for privacy reasons.</p>
+<form id="dFormId" method="post" action="http://www.ibm.com/developerworks/linux/library/l-linux-process-management/" name="dForm" onsubmit="return false;" class="ibm-column-form">
+<p><label for="displayname">Display name:</label><span><input name="displayname" id="displayname" size="25" value="" onkeypress="handleEP(event,this.form);" type="text"></span><span class="ibm-form-note">(Must be between 3 – 31 characters.)</span>
+</p>
+
+<div class="ibm-overlay-rule"><hr>
+</div>
+<p>By clicking <strong>Submit</strong>, you agree to the <a href="https://www.ibm.com/developerworks/community/terms/">developerWorks terms of use</a>.</p>
+<div class="ibm-buttons-row">
+   <p><input class="ibm-btn-arrow-pri" name="ibm-submit" value="Submit" onclick="signin();return false;" type="submit"><span class="ibm-sep">&nbsp;</span>
+<input value="Cancel" name="ibm-cancel" class="ibm-btn-cancel-sec" onclick="clearForm();ibmCommon.Overlays.hide('displayname_overlay');return false;" type="button"></p>
+</div>
+</form>
+<div class="ibm-overlay-rule"><hr></div>
+<div class="dw-overlay-legal"><p>All information submitted is secure.</p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+<!-- Display name OVERLAY ENDS HERE -->
+<!-- OVERLAYS_END -->
+
+<!-- RATINGS START -->
+<p class="ibm-no-print"><span class="atitle"><a name="iratings">Rate this article</a></span></p>
+<input id="art-rating" name="ratinga" value="4" type="hidden"><div id="art-rating-module"><p id="submitErr" class="ibm-ind-error" style="display: none;"><strong>Error: Submission failed. Please try again.</strong></p><p><span id="ratingSectUI"><img alt="Average rating 4 stars based on 55 votes" src="stars120x20-4gw.jpg" class="dw-avg-rating"> Average rating (55 votes)</span></p><div class="ibm-container" id="ratingForm"><div class="ibm-container-body dw-container-ratings"><form action="http://www.ibm.com/developerworks/linux/library/l-linux-process-management/" class="dw-ratings-form" onsubmit="artRating.submitRating(); return false;"><input name="ratingstars" id="rat-1" value="1" type="radio"><label class="rating-label" id="star1" for="rat-1">1 star</label><img id="rat-1-img" alt="1 star" title="1 star" src="stars120x20-1w.jpg" class="rating-image"><span class="dw-rating-text">1 star</span><br><input name="ratingstars" id="rat-2" value="2" type="radio"><label class="rating-label" id="star2" for="rat-2">2 stars</label><img id="rat-2-img" alt="2 stars" title="2 stars" src="stars120x20-2w.jpg" class="rating-image2"><span class="dw-rating-text">2 stars</span><br><input name="ratingstars" id="rat-3" value="3" type="radio"><label class="rating-label" id="star3" for="rat-3">3 stars</label><img id="rat-3-img" alt="3 stars" title="3 stars" src="stars120x20-3w.jpg" class="rating-image2"><span class="dw-rating-text">3 stars</span><br><input name="ratingstars" id="rat-4" value="4" type="radio"><label class="rating-label" id="star4" for="rat-4">4 stars</label><img id="rat-4-img" alt="4 stars" title="4 stars" src="stars120x20-4w.jpg" class="rating-image2"><span class="dw-rating-text">4 stars</span><br><input name="ratingstars" id="rat-5" value="5" type="radio"><label class="rating-label" id="star5" for="rat-5">5 stars</label><img id="rat-5-img" alt="5 stars" title="5 stars" src="stars120x20-5w.jpg" class="rating-image2"><span class="dw-rating-text">5 stars</span><div class="ibm-buttons-row"><p class="ibm-first"><input value="Submit" name="ibm-submit" class="ibm-btn-arrow-pri dw-ratings-submit" type="submit"></p></div></form></div></div></div>
+
+<!-- RATINGS END -->
+
+<!-- INLINE_COMMENTS_START -->
+<p class="ibm-no-print"><span class="atitle"><a name="icomments">Comments</a></span></p>
+<div id="threadShow"><div id="cmtTog" style=""><div class="ibm-container ibm-alternate-two dw-commentbox dw-noborder"><p id="cmtHead"><label for="newCmt"><strong>Add comment:</strong></label></p><div class="ibm-container-body dw-commentbox dw-noborder"><p id="signInSect"> <a onclick="showSignIn();return false;" href="#">Sign in</a> or <a href="http://www.ibm.com/developerworks/dwwi/DWAuthRouter?m=register&amp;lang=en&amp;d=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flinux%2Flibrary%2Fl-linux-process-management%2F%23icomments">register</a>  to leave a comment.</p><p>Note: HTML elements are not supported within comments.</p><span id="infoCmt"></span><form focus="name" enctype="multipart/form-data" method="post" action="http://www.ibm.com/developerworks/linux/library/l-linux-process-management/" name="form" class="ibm-column-form"><p><textarea disabled="disabled" cols="120" rows="5" name="newCmt" id="newCmt" class="dw-inoperable"></textarea><br></p><div id="notifiedSect"><label for="comment_notification"><span><input name="comment_notification" id="comment_notification" value="1" disabled="disabled" type="checkbox"><span id="notifyText" class="ibm-form-note">Notify me when a comment is added</span></span></label><span id="maxCharsCount" class="ibm-form-note"><span id="charCount">1000</span> characters left</span></div><br><br><p></p><p class="ibm-buttons-row"><input disabled="disabled" value="Post" jquery1275054459750="11" name="postCmt" id="postCmt" class="ibm-btn-arrow-sec dw-btn-arrow-sec" alt="Post your comment" type="button"><br><br></p></form></div></div><div id="topControl" class="ibm-container ibm-alternate-two dw-comment-totals" style=""><div class="ibm-container-body"><form id="selectComments" method="get" action="http://www.ibm.com/developerworks/linux/library/l-linux-process-management/"><p><span class="dw-comment-totals-label"><strong>Total comments (<span id="numCmts">1</span>)</strong></span><span><img src="c.gif" alt="" width="100" height="10"></span><span class="dw-how-many-comments-label" style="display: none;" id="dropdownCmts"><label for="howManyComments">Show:</label>&nbsp;<select name="comments" id="howManyComments" class="dw-how-many-comments"><option selected="selected" value="recent">Most recent comments   </option></select><input class="ibm-btn-go" name="ibm-go" value="Go" src="short-btn.gif" alt="Go" type="image"><br></span></p></form></div></div><div id="cmtSect"><div class="comment"><div class="dw-icomment-container"><div class="dw-icomment-body dw-noborder"><div class="dw-icomment-body dw-noborder"><p>Very good explained article.<br><br>Thanks :)</p><p class="ibm-item-note-alternate dw-item-note-alternate-left">Posted by <strong><a href="http://www.ibm.com/developerworks/forums/profile.jspa?userID=272122">nirav.programmer</a></strong> on 29 January 2010</p><p class="ibm-ind-link ibm-item-note-alternate dw-item-note-alternate-right"><a class="ibm-caution-link dw-report-abuse" href="https://www.ibm.com/developerworks/community/report?lang=en&amp;referingURL=http://www.ibm.com/developerworks/linux/library/l-linux-process-management/&amp;mymessage=Comment:%20Very%20good%20explained%20article.Thanks%20%3A%29%0DPosted%20by%20nirav.programmer%20on%2029%20January%202010%0D%0D---%20Add%20any%20comments%20below%20this%20line%20---" target="_newtab">Report abuse</a></p><div class="dw-clear-both"></div></div></div></div></div></div></div><div id="bottomControl" class="ibm-container ibm-alternate-two dw-comment-totals" style="display: none;"><div class="ibm-container-body"><form id="selectComments2" method="get" action="http://www.ibm.com/developerworks/linux/library/l-linux-process-management/"><p><span class="dw-comment-totals-label"><strong>Total comments (<span id="numCmts2">1</span>)</strong></span><span><img src="c.gif" alt="" width="100" height="10"></span><span class="dw-how-many-comments-label" style="display: none;" id="dropdownCmts2"><label for="howManyComments2">Show:</label>&nbsp;<select name="comments" id="howManyComments2" class="dw-how-many-comments"><option selected="selected" value="recent">Most recent comments   </option></select><input class="ibm-btn-go" name="ibm-go" value="Go" src="short-btn.gif" alt="Go" type="image"><br></span></p></form></div></div></div>
+<!-- INLINE_COMMENTS_END -->
+
+<p class="ibm-ind-link ibm-back-to-top"><a class="ibm-anchor-up-link" href="#ibm-pcon">Back to top</a></p>
+
+<!-- Overlays -->
+<!-- Zone/Leaf_Interest_Overlay_Start -->
+<div class="ibm-common-overlay ibm-no-print" id="dwmyinterestadd">
+<div class="ibm-head"><p><a class="ibm-common-overlay-close" href="#close">Close [x]</a></p></div>
+<div class="ibm-body">
+<div class="ibm-main">
+<a class="ibm-access" name="dwmyinterestaddhelp">Help: Update or add to My dW interests</a>   
+<div class="ibm-title"><h1>What's this?</h1></div>
+<div class="ibm-container ibm-alternate">
+<p>This little timesaver lets you update your My developerWorks profile with just one click!  The general subject of this content (AIX and UNIX, Information Management, Lotus, Rational, Tivoli, WebSphere, Java, Linux, Open source, SOA and Web services, Web development, or XML) will be added to the interests section of your profile, if it's not there already.  You only need to be logged in to My developerWorks.</p>
+<p>And what's the point of adding your interests to your profile?  That's how you find other users with the same interests as yours, and see what they're reading and contributing to the community.  Your interests also help us recommend relevant developerWorks content to you.</p>
+<p><a href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/home.do?lang=en">View your My developerWorks profile</a></p>
+<p class="ibm-access"><a href="#interestShow">Return from help</a></p>
+</div> 
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+
+<div class="ibm-common-overlay ibm-no-print" id="dwmyinterestremove">
+<div class="ibm-head"><p><a class="ibm-common-overlay-close" href="#close">Close [x]</a></p></div>
+<div class="ibm-body">
+<div class="ibm-main">
+<a class="ibm-access" name="dwmyinterestremovehelp">Help: Remove from My dW interests</a> 
+<div class="ibm-title"><h1>What's this?</h1></div>
+<div class="ibm-container ibm-alternate">
+<p>Removing this interest does not alter your profile, but rather removes this piece of content from a list of all content for which you've indicated interest.  In a future enhancement to My developerWorks, you'll be able to see a record of that content.</p>
+<p><a href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/home.do?lang=en">View your My developerWorks profile</a></p>
+<p class="ibm-access"><a href="#interestShow">Return from help</a></p>
+</div> 
+</div>
+</div>
+<div class="ibm-footer"></div>
+</div>
+<!-- Zone/Leaf_Interest_Overlay_End --></div>
+<!-- MAIN_COLUMN_CONTAINER_END -->
+
+<!-- Rating_Meta_BEGIN -->
+<!--Rating_Meta_BEGIN--><div class="metavalue">static.content.url=http://www.ibm.com/developerworks/js/artrating/</div><div class="metavalue">SITE_ID=1</div><div class="metavalue">Zone=Linux</div><div class="metavalue">ArticleID=360339</div><div class="metavalue">ArticleTitle=Anatomy of Linux process management</div><div class="metavalue">publish-date=12202008</div><div class="metavalue">author1-email=mtj@mtjones.com</div><div class="metavalue">author1-email-cc=</div><div class="metavalue">url=http://www.ibm.com/developerworks/linux/library/l-linux-process-management/</div><!--Rating_Meta_END-->
+<!-- Rating_Meta_END -->
+
+</div>
+<!-- MAIN_COLUMN_END-->
+
+<!-- RIGHT_COLUMN_BEGIN -->
+<div id="ibm-content-sidebar">
+
+<!-- RIGHT_COLUMN_CONTENT_BEGIN --> 
+<div class="ibm-container"><h2>Table of contents</h2><div class="ibm-container-body"><img alt="" src="c_001.gif" width="1" height="1"><ul class="ibm-bullet-list"><li><a class="ibm-feature-link" href="#N10098">Process
+                representation</a></li><li><a class="ibm-feature-link" href="#N10137">Process management</a></li><li><a class="ibm-feature-link" href="#N101F6">Process creation</a></li><li><a class="ibm-feature-link" href="#N102BE">Process scheduling</a></li><li><a class="ibm-feature-link" href="#N102D2">Process
+                destruction</a></li><li><a class="ibm-feature-link" href="#N10319">Going further</a></li><li><a class="ibm-feature-link" href="#resources">Resources</a></li><li><a class="ibm-feature-link" href="#author">About the author</a></li><li><a class="ibm-feature-link" href="#icomments">Comments</a></li></ul></div></div>
+<!--XSLT stylesheet used to transform this content: s-danube.xsl--><div class="ibm-container"><h2>Local resources</h2><div class="ibm-container-body"><img src="spot-danube.jpg" alt="" width="188" height="58" border="0"><ul class="ibm-bullet-list"><li><a href="http://www.ibm.com/partnerworld/iic/shanghai.htm?S_TACT=105AGY81&amp;S_CMP=danube_cn_as" class="ibm-feature-link">IBM Innovation Center - 中国: 上海</a></li><li><a href="http://www.ibm.com/developerworks/cn/?S_TACT=105AGY81&amp;S_CMP=danube_cn_as" class="ibm-feature-link">developerWorks 中国</a></li><li><a href="http://www.ibm.com/developerworks/cn/downloads/?S_TACT=105AGY81&amp;S_CMP=danube_cn_as" class="ibm-feature-link">软件下载资源中心</a></li><li><a href="http://www.ibm.com/developerworks/cn/offers/techbriefings/?S_TACT=105AGY81&amp;S_CMP=danube_cn_as" class="ibm-feature-link">dW Live! 技术讲座</a></li><li><a href="http://www.ibm.com/developerworks/cn/training/?S_TACT=105AGY81&amp;S_CMP=danube_cn_as" class="ibm-feature-link">精品教程</a></li></ul></div></div>
+<!-- Tagging_Start -->
+<div id="dw-tag-cloud-container" class="ibm-container"><h2>Tags</h2>
+<div id="dw-tag-help"><a class="dwauthor" rel="#tagtip" id="dwtagtip"><img alt="Help" src="help_icon.gif" width="16" height="16" align="top"></a></div>
+<div style="display: none;" id="tagtip" class="dwauthor-onload-state ibm-no-print">Use the <strong>search field</strong> to find all types of content in My developerWorks with that tag.<p>Use the <strong>slider bar</strong> to see more or fewer tags.</p><p>For articles in technology zones (such as Java technology, Linux, Open source, XML), <strong>Popular tags</strong> shows the top tags 
+for <em>all technology zones</em>.  For articles in product zones (such as Info Mgmt, Rational, WebSphere), <strong>Popular tags</strong> shows the top tags for <em>just that product zone</em>.</p><p>For articles in technology zones (such as Java technology, Linux, Open source, XML), <strong>My tags</strong> shows your tags for <em>all technology zones</em>.  For articles in product zones (such as Info Mgmt, Rational, WebSphere), <strong>My tags</strong> shows your tags for <em>just that product zone</em>.</p></div>
+<div class="ibm-access">Use the search field to find all types of content in My developerWorks with that tag.  <em>Popular tags</em> shows the top tags for this particular content zone (for example, Java technology, Linux, WebSphere).  <em>My tags</em> shows your tags for this particular content zone (for example, Java technology, Linux, WebSphere).</div>
+<div class="ibm-container-body">
+<div class="dw-tag-search"><form action="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?lang=en" method="get" id="actualtagform" onsubmit="popupform(this, 'join')">
+<p><label for="tagfield"><strong>Search all tags</strong></label><input value="" id="tagfield" name="tag" maxlength="20" size="17" type="text">&nbsp;<input src="short-btn.gif" class="ibm-btn-view" alt="submit search" title="submit search" value="Search" type="image"></p></form></div>
+<div class="ibm-rule"><hr></div>
+<div id="dw-tag-select">
+<div id="dw-tag-select-popular"><p><strong>Popular article tags</strong>&nbsp;|&nbsp;<br><a id="a-my" href="javascript:;">My article tags</a><a href="#dw-tag-access" class="ibm-access">Skip to tags list</a></p></div>
+<div id="dw-tag-select-my" class="dw-hidetag"><p><a id="a-popular" href="javascript:;">Popular article tags</a>&nbsp;|&nbsp;<br><strong>My article tags</strong></p><a href="#dw-tag-access" class="ibm-access">Skip to tags list</a></div><div id="dw-tag-access" class="ibm-access"><h2>Popular tags</h2><ul>
+					
+						
+							
+							
+							
+							
+								
+							
+							
+						
+				<li class="f1-74">
+					
+					<a title="ajax 230" class="lotusF4 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=ajax&amp;lang=en">
+					
+						
+						
+							ajax	
+						
+					
+					<span class="ibm-access">(230)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f2-13">
+					
+					<a title="and 48" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=and&amp;lang=en">
+					
+						
+						
+							and	
+						
+					
+					<span class="ibm-access">(48)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f3-30">
+					
+					<a title="android 75" class="lotusF2 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=android&amp;lang=en">
+					
+						
+						
+							android	
+						
+					
+					<span class="ibm-access">(75)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f4-15">
+					
+					<a title="apache 51" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=apache&amp;lang=en">
+					
+						
+						
+							apache	
+						
+					
+					<span class="ibm-access">(51)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f5-36">
+					
+					<a title="application_and_information_integration 87" class="lotusF2 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=application_and_information_integration&amp;lang=en">
+					
+						
+							application_a...	
+						
+						
+					
+					<span class="ibm-access">(87)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+							
+								
+							
+						
+				<li class="f6-100">
+					
+					<a title="application_development 444" class="lotusF5 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=application_development&amp;lang=en">
+					
+						
+							application_...	
+						
+						
+					
+					<span class="ibm-access">(444)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+								
+							
+							
+						
+				<li class="f7-80">
+					
+					<a title="architecture 265" class="lotusF4 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=architecture&amp;lang=en">
+					
+						
+						
+							architecture	
+						
+					
+					<span class="ibm-access">(265)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f8-10">
+					
+					<a title="architecture_-_application 45" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=architecture_-_application&amp;lang=en">
+					
+						
+							architecture_-...	
+						
+						
+					
+					<span class="ibm-access">(45)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f9-7">
+					
+					<a title="atom 41" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=atom&amp;lang=en">
+					
+						
+						
+							atom	
+						
+					
+					<span class="ibm-access">(41)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f10-5">
+					
+					<a title="business_process_management 39" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=business_process_management&amp;lang=en">
+					
+						
+							business_proce...	
+						
+						
+					
+					<span class="ibm-access">(39)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f11-14">
+					
+					<a title="business_processes 50" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=business_processes&amp;lang=en">
+					
+						
+							business_proce...	
+						
+						
+					
+					<span class="ibm-access">(50)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f12-49">
+					
+					<a title="cloud 120" class="lotusF3 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=cloud&amp;lang=en">
+					
+						
+						
+							cloud	
+						
+					
+					<span class="ibm-access">(120)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f13-36">
+					
+					<a title="cloud_computing 87" class="lotusF2 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=cloud_computing&amp;lang=en">
+					
+						
+							cloud_computi...	
+						
+						
+					
+					<span class="ibm-access">(87)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f14-15">
+					
+					<a title="components 51" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=components&amp;lang=en">
+					
+						
+						
+							components	
+						
+					
+					<span class="ibm-access">(51)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f15-19">
+					
+					<a title="configuration_and_administration 56" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=configuration_and_administration&amp;lang=en">
+					
+						
+							configuration_...	
+						
+						
+					
+					<span class="ibm-access">(56)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f16-3">
+					
+					<a title="css_(cascading_style_sheets) 37" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=css_%2528cascading_style_sheets%2529&amp;lang=en">
+					
+						
+							css_(cascading...	
+						
+						
+					
+					<span class="ibm-access">(37)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f17-50">
+					
+					<a title="databases_and_data_management 125" class="lotusF3 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=databases_and_data_management&amp;lang=en">
+					
+						
+							databases_and...	
+						
+						
+					
+					<span class="ibm-access">(125)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f18-2">
+					
+					<a title="db2 36" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=db2&amp;lang=en">
+					
+						
+						
+							db2	
+						
+					
+					<span class="ibm-access">(36)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f19-8">
+					
+					<a title="design 43" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=design&amp;lang=en">
+					
+						
+						
+							design	
+						
+					
+					<span class="ibm-access">(43)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f20-1">
+					
+					<a title="development 35" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=development&amp;lang=en">
+					
+						
+						
+							development	
+						
+					
+					<span class="ibm-access">(35)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f21-13">
+					
+					<a title="dojo 48" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=dojo&amp;lang=en">
+					
+						
+						
+							dojo	
+						
+					
+					<span class="ibm-access">(48)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f22-14">
+					
+					<a title="dom_(document_object_model) 49" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=dom_%2528document_object_model%2529&amp;lang=en">
+					
+						
+							dom_(document_...	
+						
+						
+					
+					<span class="ibm-access">(49)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f23-49">
+					
+					<a title="eclipse 122" class="lotusF3 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=eclipse&amp;lang=en">
+					
+						
+						
+							eclipse	
+						
+					
+					<span class="ibm-access">(122)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f24-5">
+					
+					<a title="editing 39" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=editing&amp;lang=en">
+					
+						
+						
+							editing	
+						
+					
+					<span class="ibm-access">(39)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f25-3">
+					
+					<a title="formatting 37" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=formatting&amp;lang=en">
+					
+						
+						
+							formatting	
+						
+					
+					<span class="ibm-access">(37)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f26-13">
+					
+					<a title="frameworks 48" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=frameworks&amp;lang=en">
+					
+						
+						
+							frameworks	
+						
+					
+					<span class="ibm-access">(48)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f27-45">
+					
+					<a title="general_programming 109" class="lotusF3 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=general_programming&amp;lang=en">
+					
+						
+							general_progr...	
+						
+						
+					
+					<span class="ibm-access">(109)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f28-38">
+					
+					<a title="html 92" class="lotusF2 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=html&amp;lang=en">
+					
+						
+						
+							html	
+						
+					
+					<span class="ibm-access">(92)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f29-28">
+					
+					<a title="html5 71" class="lotusF2 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=html5&amp;lang=en">
+					
+						
+						
+							html5	
+						
+					
+					<span class="ibm-access">(71)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f30-17">
+					
+					<a title="integration 53" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=integration&amp;lang=en">
+					
+						
+						
+							integration	
+						
+					
+					<span class="ibm-access">(53)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f31-14">
+					
+					<a title="interoperability 49" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=interoperability&amp;lang=en">
+					
+						
+							interoperabili...	
+						
+						
+					
+					<span class="ibm-access">(49)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+							
+								
+							
+						
+				<li class="f32-89">
+					
+					<a title="java 336" class="lotusF5 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=java&amp;lang=en">
+					
+						
+						
+							java	
+						
+					
+					<span class="ibm-access">(336)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+								
+							
+							
+						
+				<li class="f33-69">
+					
+					<a title="java_technology 201" class="lotusF4 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=java_technology&amp;lang=en">
+					
+						
+							java_technol...	
+						
+						
+					
+					<span class="ibm-access">(201)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+								
+							
+							
+						
+				<li class="f34-61">
+					
+					<a title="javascript 163" class="lotusF4 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=javascript&amp;lang=en">
+					
+						
+						
+							javascript	
+						
+					
+					<span class="ibm-access">(163)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f35-18">
+					
+					<a title="jquery 55" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=jquery&amp;lang=en">
+					
+						
+						
+							jquery	
+						
+					
+					<span class="ibm-access">(55)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f36-1">
+					
+					<a title="jsf 35" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=jsf&amp;lang=en">
+					
+						
+						
+							jsf	
+						
+					
+					<span class="ibm-access">(35)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f37-3">
+					
+					<a title="json 37" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=json&amp;lang=en">
+					
+						
+						
+							json	
+						
+					
+					<span class="ibm-access">(37)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f38-6">
+					
+					<a title="json_(javascript_object_notation) 40" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=json_%2528javascript_object_notation%2529&amp;lang=en">
+					
+						
+							json_(javascri...	
+						
+						
+					
+					<span class="ibm-access">(40)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+							
+								
+							
+						
+				<li class="f39-87">
+					
+					<a title="linux 313" class="lotusF5 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=linux&amp;lang=en">
+					
+						
+						
+							linux	
+						
+					
+					<span class="ibm-access">(313)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f40-8">
+					
+					<a title="mashups 42" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=mashups&amp;lang=en">
+					
+						
+						
+							mashups	
+						
+					
+					<span class="ibm-access">(42)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f41-27">
+					
+					<a title="messaging 69" class="lotusF2 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=messaging&amp;lang=en">
+					
+						
+						
+							messaging	
+						
+					
+					<span class="ibm-access">(69)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f42-4">
+					
+					<a title="mobile 38" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=mobile&amp;lang=en">
+					
+						
+						
+							mobile	
+						
+					
+					<span class="ibm-access">(38)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f43-2">
+					
+					<a title="mobile_and_embedded_systems 36" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=mobile_and_embedded_systems&amp;lang=en">
+					
+						
+							mobile_and_emb...	
+						
+						
+					
+					<span class="ibm-access">(36)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f44-1">
+					
+					<a title="mobility 35" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=mobility&amp;lang=en">
+					
+						
+						
+							mobility	
+						
+					
+					<span class="ibm-access">(35)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f45-3">
+					
+					<a title="multimedia 37" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=multimedia&amp;lang=en">
+					
+						
+						
+							multimedia	
+						
+					
+					<span class="ibm-access">(37)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f46-5">
+					
+					<a title="namespaces 39" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=namespaces&amp;lang=en">
+					
+						
+						
+							namespaces	
+						
+					
+					<span class="ibm-access">(39)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+								
+							
+							
+						
+				<li class="f47-80">
+					
+					<a title="open_source 267" class="lotusF4 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=open_source&amp;lang=en">
+					
+						
+						
+							open_source	
+						
+					
+					<span class="ibm-access">(267)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f48-11">
+					
+					<a title="parsing 46" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=parsing&amp;lang=en">
+					
+						
+						
+							parsing	
+						
+					
+					<span class="ibm-access">(46)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f49-5">
+					
+					<a title="patterns 39" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=patterns&amp;lang=en">
+					
+						
+						
+							patterns	
+						
+					
+					<span class="ibm-access">(39)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f50-33">
+					
+					<a title="performance 81" class="lotusF2 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=performance&amp;lang=en">
+					
+						
+						
+							performance	
+						
+					
+					<span class="ibm-access">(81)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f51-2">
+					
+					<a title="perl 36" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=perl&amp;lang=en">
+					
+						
+						
+							perl	
+						
+					
+					<span class="ibm-access">(36)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f52-52">
+					
+					<a title="php 131" class="lotusF3 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=php&amp;lang=en">
+					
+						
+						
+							php	
+						
+					
+					<span class="ibm-access">(131)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f53-47">
+					
+					<a title="php_(hypertext_preprocessor) 114" class="lotusF3 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=php_%2528hypertext_preprocessor%2529&amp;lang=en">
+					
+						
+							php_(hypertex...	
+						
+						
+					
+					<span class="ibm-access">(114)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f54-6">
+					
+					<a title="programming 40" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=programming&amp;lang=en">
+					
+						
+						
+							programming	
+						
+					
+					<span class="ibm-access">(40)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f55-35">
+					
+					<a title="python 85" class="lotusF2 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=python&amp;lang=en">
+					
+						
+						
+							python	
+						
+					
+					<span class="ibm-access">(85)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f56-26">
+					
+					<a title="rest 67" class="lotusF2 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=rest&amp;lang=en">
+					
+						
+						
+							rest	
+						
+					
+					<span class="ibm-access">(67)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f57-3">
+					
+					<a title="ruby 37" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=ruby&amp;lang=en">
+					
+						
+						
+							ruby	
+						
+					
+					<span class="ibm-access">(37)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f58-29">
+					
+					<a title="schemas 73" class="lotusF2 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=schemas&amp;lang=en">
+					
+						
+						
+							schemas	
+						
+					
+					<span class="ibm-access">(73)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f59-33">
+					
+					<a title="security 81" class="lotusF2 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=security&amp;lang=en">
+					
+						
+						
+							security	
+						
+					
+					<span class="ibm-access">(81)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f60-17">
+					
+					<a title="services 54" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=services&amp;lang=en">
+					
+						
+						
+							services	
+						
+					
+					<span class="ibm-access">(54)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f61-49">
+					
+					<a title="soa 120" class="lotusF3 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=soa&amp;lang=en">
+					
+						
+						
+							soa	
+						
+					
+					<span class="ibm-access">(120)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f62-58">
+					
+					<a title="soa_(service-oriented_architecture) 152" class="lotusF3 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=soa_%2528service-oriented_architecture%2529&amp;lang=en">
+					
+						
+							soa_(service-...	
+						
+						
+					
+					<span class="ibm-access">(152)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f63-39">
+					
+					<a title="soap_(simple_object_access_protocol) 93" class="lotusF2 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=soap_%2528simple_object_access_protocol%2529&amp;lang=en">
+					
+						
+							soap_(simple_...	
+						
+						
+					
+					<span class="ibm-access">(93)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f64-12">
+					
+					<a title="spring 47" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=spring&amp;lang=en">
+					
+						
+						
+							spring	
+						
+					
+					<span class="ibm-access">(47)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f65-41">
+					
+					<a title="standards 99" class="lotusF3 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=standards&amp;lang=en">
+					
+						
+						
+							standards	
+						
+					
+					<span class="ibm-access">(99)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f66-21">
+					
+					<a title="standards_and_specifications 59" class="lotusF2 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=standards_and_specifications&amp;lang=en">
+					
+						
+							standards_and...	
+						
+						
+					
+					<span class="ibm-access">(59)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f67-19">
+					
+					<a title="tips 56" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=tips&amp;lang=en">
+					
+						
+						
+							tips	
+						
+					
+					<span class="ibm-access">(56)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f68-52">
+					
+					<a title="web 129" class="lotusF3 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=web&amp;lang=en">
+					
+						
+						
+							web	
+						
+					
+					<span class="ibm-access">(129)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f69-54">
+					
+					<a title="web_2.0 137" class="lotusF3 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=web_2.0&amp;lang=en">
+					
+						
+						
+							web_2.0	
+						
+					
+					<span class="ibm-access">(137)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f70-25">
+					
+					<a title="web_authoring 65" class="lotusF2 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=web_authoring&amp;lang=en">
+					
+						
+						
+							web_authoring	
+						
+					
+					<span class="ibm-access">(65)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f71-21">
+					
+					<a title="web_development 59" class="lotusF2 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=web_development&amp;lang=en">
+					
+						
+							web_developme...	
+						
+						
+					
+					<span class="ibm-access">(59)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+							
+								
+							
+						
+				<li class="f72-82">
+					
+					<a title="web_services 279" class="lotusF5 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=web_services&amp;lang=en">
+					
+						
+						
+							web_services	
+						
+					
+					<span class="ibm-access">(279)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f73-19">
+					
+					<a title="websphere 57" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=websphere&amp;lang=en">
+					
+						
+						
+							websphere	
+						
+					
+					<span class="ibm-access">(57)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f74-9">
+					
+					<a title="wsdl_(web_services_description_language) 44" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=wsdl_%2528web_services_description_language%2529&amp;lang=en">
+					
+						
+							wsdl_(web_serv...	
+						
+						
+					
+					<span class="ibm-access">(44)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f75-15">
+					
+					<a title="xhtml_(extensible_html) 51" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=xhtml_%2528extensible_html%2529&amp;lang=en">
+					
+						
+							xhtml_(extensi...	
+						
+						
+					
+					<span class="ibm-access">(51)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+							
+								
+							
+						
+				<li class="f76-98">
+					
+					<a title="xml 421" class="lotusF5 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=xml&amp;lang=en">
+					
+						
+						
+							xml	
+						
+					
+					<span class="ibm-access">(421)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f77-17">
+					
+					<a title="xpath_(xml_path_language) 54" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=xpath_%2528xml_path_language%2529&amp;lang=en">
+					
+						
+							xpath_(xml_pat...	
+						
+						
+					
+					<span class="ibm-access">(54)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f78-13">
+					
+					<a title="xquery_(xml_query_language) 48" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=xquery_%2528xml_query_language%2529&amp;lang=en">
+					
+						
+							xquery_(xml_qu...	
+						
+						
+					
+					<span class="ibm-access">(48)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f79-11">
+					
+					<a title="xslt 46" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=xslt&amp;lang=en">
+					
+						
+						
+							xslt	
+						
+					
+					<span class="ibm-access">(46)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f80-19">
+					
+					<a title="xslt_(xsl_transformations) 57" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=xslt_%2528xsl_transformations%2529&amp;lang=en">
+					
+						
+							xslt_(xsl_tran...	
+						
+						
+					
+					<span class="ibm-access">(57)</span>					
+					</a>&nbsp;
+				</li>
+					
+			</ul><p>End of Popular tags</p><h2>My tags</h2><div id="dw-tag-access-my" class="ibm-access"><center>To access My Tags, please <a href="http://www.ibm.com/developerworks/dwwi/DWAuthRouter?m=auth&amp;lang=en&amp;d=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flinux%2Flibrary%2Fl-linux-process-management%2F">sign in</a><p>Read Popular tags</p></center><br></div><p>End of My tags</p></div>
+<div id="dw-tag-cloud">
+	<div id="dogearTagCloud">
+		<div class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" id="content-slider"><a style="left: 0%;" class="ui-slider-handle ui-state-default ui-corner-all" href="#"></a></div>
+		
+			
+						
+						
+						
+						
+						
+									
+			
+				<div id="ui-slider-scale"><p><span class="content-slider-more">More</span><span class="content-slider-less">Less</span></p></div>
+			
+		
+	    <div id="cloud-container">
+			<ul>
+					
+						
+							
+							
+							
+							
+								
+							
+							
+						
+				<li class="f1-74">
+					
+					<a title="ajax 230" class="lotusF4 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=ajax&amp;lang=en">
+					
+						
+						
+							ajax	
+						
+					
+					<span class="ibm-access">(230)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f2-13">
+					
+					<a title="and 48" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=and&amp;lang=en">
+					
+						
+						
+							and	
+						
+					
+					<span class="ibm-access">(48)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f3-30">
+					
+					<a title="android 75" class="lotusF2 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=android&amp;lang=en">
+					
+						
+						
+							android	
+						
+					
+					<span class="ibm-access">(75)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f4-15">
+					
+					<a title="apache 51" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=apache&amp;lang=en">
+					
+						
+						
+							apache	
+						
+					
+					<span class="ibm-access">(51)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f5-36">
+					
+					<a title="application_and_information_integration 87" class="lotusF2 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=application_and_information_integration&amp;lang=en">
+					
+						
+							application_a...	
+						
+						
+					
+					<span class="ibm-access">(87)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+							
+								
+							
+						
+				<li class="f6-100">
+					
+					<a title="application_development 444" class="lotusF5 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=application_development&amp;lang=en">
+					
+						
+							application_...	
+						
+						
+					
+					<span class="ibm-access">(444)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+								
+							
+							
+						
+				<li class="f7-80">
+					
+					<a title="architecture 265" class="lotusF4 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=architecture&amp;lang=en">
+					
+						
+						
+							architecture	
+						
+					
+					<span class="ibm-access">(265)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f8-10">
+					
+					<a title="architecture_-_application 45" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=architecture_-_application&amp;lang=en">
+					
+						
+							architecture_-...	
+						
+						
+					
+					<span class="ibm-access">(45)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f9-7">
+					
+					<a title="atom 41" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=atom&amp;lang=en">
+					
+						
+						
+							atom	
+						
+					
+					<span class="ibm-access">(41)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f10-5">
+					
+					<a title="business_process_management 39" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=business_process_management&amp;lang=en">
+					
+						
+							business_proce...	
+						
+						
+					
+					<span class="ibm-access">(39)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f11-14">
+					
+					<a title="business_processes 50" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=business_processes&amp;lang=en">
+					
+						
+							business_proce...	
+						
+						
+					
+					<span class="ibm-access">(50)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f12-49">
+					
+					<a title="cloud 120" class="lotusF3 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=cloud&amp;lang=en">
+					
+						
+						
+							cloud	
+						
+					
+					<span class="ibm-access">(120)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f13-36">
+					
+					<a title="cloud_computing 87" class="lotusF2 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=cloud_computing&amp;lang=en">
+					
+						
+							cloud_computi...	
+						
+						
+					
+					<span class="ibm-access">(87)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f14-15">
+					
+					<a title="components 51" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=components&amp;lang=en">
+					
+						
+						
+							components	
+						
+					
+					<span class="ibm-access">(51)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f15-19">
+					
+					<a title="configuration_and_administration 56" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=configuration_and_administration&amp;lang=en">
+					
+						
+							configuration_...	
+						
+						
+					
+					<span class="ibm-access">(56)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f16-3">
+					
+					<a title="css_(cascading_style_sheets) 37" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=css_%2528cascading_style_sheets%2529&amp;lang=en">
+					
+						
+							css_(cascading...	
+						
+						
+					
+					<span class="ibm-access">(37)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f17-50">
+					
+					<a title="databases_and_data_management 125" class="lotusF3 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=databases_and_data_management&amp;lang=en">
+					
+						
+							databases_and...	
+						
+						
+					
+					<span class="ibm-access">(125)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f18-2">
+					
+					<a title="db2 36" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=db2&amp;lang=en">
+					
+						
+						
+							db2	
+						
+					
+					<span class="ibm-access">(36)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f19-8">
+					
+					<a title="design 43" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=design&amp;lang=en">
+					
+						
+						
+							design	
+						
+					
+					<span class="ibm-access">(43)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f20-1">
+					
+					<a title="development 35" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=development&amp;lang=en">
+					
+						
+						
+							development	
+						
+					
+					<span class="ibm-access">(35)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f21-13">
+					
+					<a title="dojo 48" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=dojo&amp;lang=en">
+					
+						
+						
+							dojo	
+						
+					
+					<span class="ibm-access">(48)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f22-14">
+					
+					<a title="dom_(document_object_model) 49" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=dom_%2528document_object_model%2529&amp;lang=en">
+					
+						
+							dom_(document_...	
+						
+						
+					
+					<span class="ibm-access">(49)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f23-49">
+					
+					<a title="eclipse 122" class="lotusF3 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=eclipse&amp;lang=en">
+					
+						
+						
+							eclipse	
+						
+					
+					<span class="ibm-access">(122)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f24-5">
+					
+					<a title="editing 39" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=editing&amp;lang=en">
+					
+						
+						
+							editing	
+						
+					
+					<span class="ibm-access">(39)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f25-3">
+					
+					<a title="formatting 37" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=formatting&amp;lang=en">
+					
+						
+						
+							formatting	
+						
+					
+					<span class="ibm-access">(37)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f26-13">
+					
+					<a title="frameworks 48" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=frameworks&amp;lang=en">
+					
+						
+						
+							frameworks	
+						
+					
+					<span class="ibm-access">(48)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f27-45">
+					
+					<a title="general_programming 109" class="lotusF3 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=general_programming&amp;lang=en">
+					
+						
+							general_progr...	
+						
+						
+					
+					<span class="ibm-access">(109)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f28-38">
+					
+					<a title="html 92" class="lotusF2 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=html&amp;lang=en">
+					
+						
+						
+							html	
+						
+					
+					<span class="ibm-access">(92)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f29-28">
+					
+					<a title="html5 71" class="lotusF2 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=html5&amp;lang=en">
+					
+						
+						
+							html5	
+						
+					
+					<span class="ibm-access">(71)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f30-17">
+					
+					<a title="integration 53" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=integration&amp;lang=en">
+					
+						
+						
+							integration	
+						
+					
+					<span class="ibm-access">(53)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f31-14">
+					
+					<a title="interoperability 49" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=interoperability&amp;lang=en">
+					
+						
+							interoperabili...	
+						
+						
+					
+					<span class="ibm-access">(49)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+							
+								
+							
+						
+				<li class="f32-89">
+					
+					<a title="java 336" class="lotusF5 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=java&amp;lang=en">
+					
+						
+						
+							java	
+						
+					
+					<span class="ibm-access">(336)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+								
+							
+							
+						
+				<li class="f33-69">
+					
+					<a title="java_technology 201" class="lotusF4 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=java_technology&amp;lang=en">
+					
+						
+							java_technol...	
+						
+						
+					
+					<span class="ibm-access">(201)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+								
+							
+							
+						
+				<li class="f34-61">
+					
+					<a title="javascript 163" class="lotusF4 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=javascript&amp;lang=en">
+					
+						
+						
+							javascript	
+						
+					
+					<span class="ibm-access">(163)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f35-18">
+					
+					<a title="jquery 55" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=jquery&amp;lang=en">
+					
+						
+						
+							jquery	
+						
+					
+					<span class="ibm-access">(55)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f36-1">
+					
+					<a title="jsf 35" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=jsf&amp;lang=en">
+					
+						
+						
+							jsf	
+						
+					
+					<span class="ibm-access">(35)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f37-3">
+					
+					<a title="json 37" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=json&amp;lang=en">
+					
+						
+						
+							json	
+						
+					
+					<span class="ibm-access">(37)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f38-6">
+					
+					<a title="json_(javascript_object_notation) 40" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=json_%2528javascript_object_notation%2529&amp;lang=en">
+					
+						
+							json_(javascri...	
+						
+						
+					
+					<span class="ibm-access">(40)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+							
+								
+							
+						
+				<li class="f39-87">
+					
+					<a title="linux 313" class="lotusF5 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=linux&amp;lang=en">
+					
+						
+						
+							linux	
+						
+					
+					<span class="ibm-access">(313)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f40-8">
+					
+					<a title="mashups 42" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=mashups&amp;lang=en">
+					
+						
+						
+							mashups	
+						
+					
+					<span class="ibm-access">(42)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f41-27">
+					
+					<a title="messaging 69" class="lotusF2 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=messaging&amp;lang=en">
+					
+						
+						
+							messaging	
+						
+					
+					<span class="ibm-access">(69)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f42-4">
+					
+					<a title="mobile 38" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=mobile&amp;lang=en">
+					
+						
+						
+							mobile	
+						
+					
+					<span class="ibm-access">(38)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f43-2">
+					
+					<a title="mobile_and_embedded_systems 36" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=mobile_and_embedded_systems&amp;lang=en">
+					
+						
+							mobile_and_emb...	
+						
+						
+					
+					<span class="ibm-access">(36)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f44-1">
+					
+					<a title="mobility 35" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=mobility&amp;lang=en">
+					
+						
+						
+							mobility	
+						
+					
+					<span class="ibm-access">(35)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f45-3">
+					
+					<a title="multimedia 37" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=multimedia&amp;lang=en">
+					
+						
+						
+							multimedia	
+						
+					
+					<span class="ibm-access">(37)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f46-5">
+					
+					<a title="namespaces 39" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=namespaces&amp;lang=en">
+					
+						
+						
+							namespaces	
+						
+					
+					<span class="ibm-access">(39)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+								
+							
+							
+						
+				<li class="f47-80">
+					
+					<a title="open_source 267" class="lotusF4 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=open_source&amp;lang=en">
+					
+						
+						
+							open_source	
+						
+					
+					<span class="ibm-access">(267)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f48-11">
+					
+					<a title="parsing 46" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=parsing&amp;lang=en">
+					
+						
+						
+							parsing	
+						
+					
+					<span class="ibm-access">(46)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f49-5">
+					
+					<a title="patterns 39" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=patterns&amp;lang=en">
+					
+						
+						
+							patterns	
+						
+					
+					<span class="ibm-access">(39)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f50-33">
+					
+					<a title="performance 81" class="lotusF2 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=performance&amp;lang=en">
+					
+						
+						
+							performance	
+						
+					
+					<span class="ibm-access">(81)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f51-2">
+					
+					<a title="perl 36" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=perl&amp;lang=en">
+					
+						
+						
+							perl	
+						
+					
+					<span class="ibm-access">(36)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f52-52">
+					
+					<a title="php 131" class="lotusF3 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=php&amp;lang=en">
+					
+						
+						
+							php	
+						
+					
+					<span class="ibm-access">(131)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f53-47">
+					
+					<a title="php_(hypertext_preprocessor) 114" class="lotusF3 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=php_%2528hypertext_preprocessor%2529&amp;lang=en">
+					
+						
+							php_(hypertex...	
+						
+						
+					
+					<span class="ibm-access">(114)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f54-6">
+					
+					<a title="programming 40" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=programming&amp;lang=en">
+					
+						
+						
+							programming	
+						
+					
+					<span class="ibm-access">(40)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f55-35">
+					
+					<a title="python 85" class="lotusF2 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=python&amp;lang=en">
+					
+						
+						
+							python	
+						
+					
+					<span class="ibm-access">(85)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f56-26">
+					
+					<a title="rest 67" class="lotusF2 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=rest&amp;lang=en">
+					
+						
+						
+							rest	
+						
+					
+					<span class="ibm-access">(67)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f57-3">
+					
+					<a title="ruby 37" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=ruby&amp;lang=en">
+					
+						
+						
+							ruby	
+						
+					
+					<span class="ibm-access">(37)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f58-29">
+					
+					<a title="schemas 73" class="lotusF2 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=schemas&amp;lang=en">
+					
+						
+						
+							schemas	
+						
+					
+					<span class="ibm-access">(73)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f59-33">
+					
+					<a title="security 81" class="lotusF2 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=security&amp;lang=en">
+					
+						
+						
+							security	
+						
+					
+					<span class="ibm-access">(81)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f60-17">
+					
+					<a title="services 54" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=services&amp;lang=en">
+					
+						
+						
+							services	
+						
+					
+					<span class="ibm-access">(54)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f61-49">
+					
+					<a title="soa 120" class="lotusF3 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=soa&amp;lang=en">
+					
+						
+						
+							soa	
+						
+					
+					<span class="ibm-access">(120)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f62-58">
+					
+					<a title="soa_(service-oriented_architecture) 152" class="lotusF3 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=soa_%2528service-oriented_architecture%2529&amp;lang=en">
+					
+						
+							soa_(service-...	
+						
+						
+					
+					<span class="ibm-access">(152)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f63-39">
+					
+					<a title="soap_(simple_object_access_protocol) 93" class="lotusF2 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=soap_%2528simple_object_access_protocol%2529&amp;lang=en">
+					
+						
+							soap_(simple_...	
+						
+						
+					
+					<span class="ibm-access">(93)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f64-12">
+					
+					<a title="spring 47" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=spring&amp;lang=en">
+					
+						
+						
+							spring	
+						
+					
+					<span class="ibm-access">(47)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f65-41">
+					
+					<a title="standards 99" class="lotusF3 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=standards&amp;lang=en">
+					
+						
+						
+							standards	
+						
+					
+					<span class="ibm-access">(99)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f66-21">
+					
+					<a title="standards_and_specifications 59" class="lotusF2 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=standards_and_specifications&amp;lang=en">
+					
+						
+							standards_and...	
+						
+						
+					
+					<span class="ibm-access">(59)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f67-19">
+					
+					<a title="tips 56" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=tips&amp;lang=en">
+					
+						
+						
+							tips	
+						
+					
+					<span class="ibm-access">(56)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f68-52">
+					
+					<a title="web 129" class="lotusF3 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=web&amp;lang=en">
+					
+						
+						
+							web	
+						
+					
+					<span class="ibm-access">(129)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+								
+							
+							
+							
+						
+				<li class="f69-54">
+					
+					<a title="web_2.0 137" class="lotusF3 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=web_2.0&amp;lang=en">
+					
+						
+						
+							web_2.0	
+						
+					
+					<span class="ibm-access">(137)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f70-25">
+					
+					<a title="web_authoring 65" class="lotusF2 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=web_authoring&amp;lang=en">
+					
+						
+						
+							web_authoring	
+						
+					
+					<span class="ibm-access">(65)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+								
+							
+							
+							
+							
+						
+				<li class="f71-21">
+					
+					<a title="web_development 59" class="lotusF2 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=web_development&amp;lang=en">
+					
+						
+							web_developme...	
+						
+						
+					
+					<span class="ibm-access">(59)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+							
+								
+							
+						
+				<li class="f72-82">
+					
+					<a title="web_services 279" class="lotusF5 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=web_services&amp;lang=en">
+					
+						
+						
+							web_services	
+						
+					
+					<span class="ibm-access">(279)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f73-19">
+					
+					<a title="websphere 57" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=websphere&amp;lang=en">
+					
+						
+						
+							websphere	
+						
+					
+					<span class="ibm-access">(57)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f74-9">
+					
+					<a title="wsdl_(web_services_description_language) 44" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=wsdl_%2528web_services_description_language%2529&amp;lang=en">
+					
+						
+							wsdl_(web_serv...	
+						
+						
+					
+					<span class="ibm-access">(44)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f75-15">
+					
+					<a title="xhtml_(extensible_html) 51" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=xhtml_%2528extensible_html%2529&amp;lang=en">
+					
+						
+							xhtml_(extensi...	
+						
+						
+					
+					<span class="ibm-access">(51)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+							
+							
+							
+							
+								
+							
+						
+				<li class="f76-98">
+					
+					<a title="xml 421" class="lotusF5 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=xml&amp;lang=en">
+					
+						
+						
+							xml	
+						
+					
+					<span class="ibm-access">(421)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f77-17">
+					
+					<a title="xpath_(xml_path_language) 54" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=xpath_%2528xml_path_language%2529&amp;lang=en">
+					
+						
+							xpath_(xml_pat...	
+						
+						
+					
+					<span class="ibm-access">(54)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f78-13">
+					
+					<a title="xquery_(xml_query_language) 48" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=xquery_%2528xml_query_language%2529&amp;lang=en">
+					
+						
+							xquery_(xml_qu...	
+						
+						
+					
+					<span class="ibm-access">(48)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f79-11">
+					
+					<a title="xslt 46" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=xslt&amp;lang=en">
+					
+						
+						
+							xslt	
+						
+					
+					<span class="ibm-access">(46)</span>					
+					</a>&nbsp;
+				</li>
+					
+						
+							
+								
+							
+							
+							
+							
+							
+						
+				<li class="f80-19">
+					
+					<a title="xslt_(xsl_transformations) 57" class="lotusF1 my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=xslt_%2528xsl_transformations%2529&amp;lang=en">
+					
+						
+							xslt_(xsl_tran...	
+						
+						
+					
+					<span class="ibm-access">(57)</span>					
+					</a>&nbsp;
+				</li>
+					
+			</ul>
+		</div>
+		
+			
+						
+						
+						
+						
+						
+			
+			
+				<div class="ibm-rule"><hr></div><p>View as <strong>cloud</strong>&nbsp;| <a id="alist" class="lotusAction" href="javascript:;">list</a></p>
+			
+		
+		</div> 
+
+		
+			
+			<div class="lotusChunk dw-hidetag" id="dogearTagList">
+			<div id="list-container">
+				<ul class="lotusList lotusEditable lotusTags lotusMeta">
+				
+					
+						
+			
+
+			
+				<li>				
+					<a title="ajax 230" class="lotusLeft my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=ajax&amp;lang=en">
+						
+							
+							
+								ajax	
+							
+						
+					</a>
+					230
+				</li>
+				
+			
+					
+						
+			
+
+			
+				<li>				
+					<a title="and 48" class="lotusLeft my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=and&amp;lang=en">
+						
+							
+							
+								and	
+							
+						
+					</a>
+					48
+				</li>
+				
+			
+					
+						
+			
+
+			
+				<li>				
+					<a title="android 75" class="lotusLeft my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=android&amp;lang=en">
+						
+							
+							
+								android	
+							
+						
+					</a>
+					75
+				</li>
+				
+			
+					
+						
+			
+
+			
+				<li>				
+					<a title="apache 51" class="lotusLeft my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=apache&amp;lang=en">
+						
+							
+							
+								apache	
+							
+						
+					</a>
+					51
+				</li>
+				
+			
+					
+						
+			
+
+			
+				<li>				
+					<a title="application_and_information_integration 87" class="lotusLeft my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=application_and_information_integration&amp;lang=en">
+						
+							
+								application_a...	
+							
+							
+						
+					</a>
+					87
+				</li>
+				
+			
+					
+						
+			
+
+			
+				<li>				
+					<a title="application_development 444" class="lotusLeft my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=application_development&amp;lang=en">
+						
+							
+								application_d...	
+							
+							
+						
+					</a>
+					444
+				</li>
+				
+			
+					
+						
+			
+
+			
+				<li>				
+					<a title="architecture 265" class="lotusLeft my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=architecture&amp;lang=en">
+						
+							
+							
+								architecture	
+							
+						
+					</a>
+					265
+				</li>
+				
+			
+					
+						
+			
+
+			
+				<li>				
+					<a title="architecture_-_application 45" class="lotusLeft my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=architecture_-_application&amp;lang=en">
+						
+							
+								architecture_...	
+							
+							
+						
+					</a>
+					45
+				</li>
+				
+			
+					
+						
+			
+
+			
+				<li>				
+					<a title="atom 41" class="lotusLeft my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=atom&amp;lang=en">
+						
+							
+							
+								atom	
+							
+						
+					</a>
+					41
+				</li>
+				
+			
+					
+						
+			
+
+			
+				<li>				
+					<a title="business_process_management 39" class="lotusLeft my" href="http://www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?tag=business_process_management&amp;lang=en">
+						
+							
+								business_proc...	
+							
+							
+						
+					</a>
+					39
+				</li>
+				
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+					
+			
+				
+			</ul>
+			</div>
+			
+				
+							
+							
+							
+							
+							
+								
+				
+					<div class="ibm-rule"><hr></div><p>View as <a id="acloud" class="lotusAction" href="javascript:;">cloud</a>&nbsp;| <strong>list</strong></p>
+				
+			
+			</div></div>  
+</div>   
+</div>
+</div>
+<!-- Tagging_End -->
+<!-- Dig_Deeper -->
+<div class="ibm-container"><h2>Dig deeper into Linux on developerWorks</h2><div class="ibm-container-body"><ul class="ibm-link-list"><li class="ibm-first"><a href="http://www.ibm.com/developerworks/linux/" class="ibm-forward-link">Overview</a></li><li><a href="http://www.ibm.com/developerworks/linux/newto/" class="ibm-forward-link">New to Linux</a></li><li><a href="http://www.ibm.com/developerworks/linux/find/projects/" class="ibm-forward-link">Open source projects</a></li><li><a href="http://www.ibm.com/developerworks/linux/library/" class="ibm-forward-link">Technical library (articles, tutorials, training, and more)</a></li><li><a href="http://www.ibm.com/developerworks/forums/dw_lforums.jsp" class="ibm-forward-link">Forums</a></li><li><a href="http://www.ibm.com/developerworks/linux/find/events/" class="ibm-forward-link">Events</a></li><li><a href="http://www.ibm.com/developerworks/newsletter/" class="ibm-forward-link">Newsletter</a></li></ul></div></div>
+<!-- High_Visibility_Offer -->
+<!--XSLT stylesheet used to transform this content: s-highvisibilityoffer.xsl--><div class="ibm-container"><h2>Seeking nominations</h2><div class="ibm-container-body"><img alt="IBM Champion logo" src="hivis-champion-community.jpg" width="188" height="70" border="0"><p class="ibm-ind-link"><a href="https://www.ibm.com/developerworks/champion/" class="ibm-forward-link">Nominate IBM Champions: experts who help you build a smarter planet with IBM</a></p></div></div>
+<!-- Special_Offers -->
+<div class="ibm-container"><h2>Special offers</h2><div class="ibm-container-body"><p class="dw-special-offers"><a href="http://www.ibm.com/developerworks/demos/"><img src="tile_v16_ondemanddemos.gif" alt="On demand demos: An easy way to watch and learn" width="158" height="50" border="0"></a></p><p class="dw-special-offers"><a href="http://www.ibm.com/developerworks/aboutdw/dwa/?ca=dti-dwarp"><img src="tile_v16_dwaarp.gif" alt="Get recognized! W Author Program" width="158" height="50" border="0"></a></p><p class="dw-special-offers"><a href="https://www.ibm.com/developerworks/cloud/index.html?ca=dti-cloudzone"><img src="tile_v16_cloudzonea.gif" alt="Cloud Computing resources for IT professionals" width="158" height="50" border="0"></a></p><div class="ibm-rule"><hr></div><p class="ibm-ind-link"><a class="ibm-forward-link" href="http://www.ibm.com/developerworks/downloads/?ca=dti-tilemoreoffers">Trial software offers</a></p></div></div>
+<!-- RIGHT_COLUMN_CONTENT_END -->
+
+</div>
+<!-- RIGHT_COLUMN_END -->
+
+<!-- CONTENT_BODY_END -->
+</div>
+
+</div>
+<!-- CONTENT_END -->
+
+ <!-- END_IBM-PCON -->
+</div>
+
+<!-- FOOTER_BEGIN -->
+<div id="ibm-footer">
+<!-- IBM footer container; disabled -->
+</div>
+
+<div id="ibm-page-tools-dw">
+	<div id="dw-footer-top-row">
+		<ul id="dw-foot-options">
+			<li id="dw-print"><a class="ibm-print-link" href="#">Print this page</a></li>
+		</ul>
+		<ul id="ibm-foot-options-dw">
+			<li id="dw-foot-0"><a href="#">Share this page</a></li>
+			<li id="dw-foot-1"><a href="#">Follow developerWorks</a></li>
+		</ul>
+	</div>
+
+	<!-- TOP ROW SLIDER -->
+    <div id="dw-page-tools-menu">    
+        <div class="ibm-ribbon-pane-dw">
+            <div class="ibm-ribbon-section-dw">
+				<!-- Share this page -->			
+                <div class="dw-footer-columns">
+                    <div class="dw-footer-col-3-1">
+                        <h2>Share this page:</h2>                       
+						<ul class="ibm-link-list">
+							<li><a id="dw-foot-0-0" class="ibm-facebook-link" href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flinux%2Flibrary%2Fl-linux-process-management%2F&amp;t=Anatomy%20of%20Linux%20process%20management">Facebook</a></li>
+							<li><a class="ibm-linkedin-link" href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flinux%2Flibrary%2Fl-linux-process-management%2F&amp;title=Anatomy%20of%20Linux%20process%20management">LinkedIn</a></li>
+							<li><a class="ibm-twitter-link" href="http://twitter.com/home?status=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flinux%2Flibrary%2Fl-linux-process-management%2F%20-%20Anatomy%20of%20Linux%20process%20management">Twitter</a></li>
+						</ul>
+                    </div>
+                    <div class="dw-footer-col-3-2">
+						<ul class="ibm-link-list">
+							<li><a class="ibm-delicious-link" href="http://delicious.com/post?url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flinux%2Flibrary%2Fl-linux-process-management%2F&amp;title=Anatomy%20of%20Linux%20process%20management">Delicious</a></li>
+							<li><a class="ibm-digg-link" href="http://digg.com/submit?phase=2&amp;url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flinux%2Flibrary%2Fl-linux-process-management%2F&amp;title=Anatomy%20of%20Linux%20process%20management">Digg</a></li>
+							<li><a class="ibm-stumbleupon" href="http://www.stumbleupon.com/submit?url=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Flinux%2Flibrary%2Fl-linux-process-management%2F&amp;title=Anatomy%20of%20Linux%20process%20management">StumbleUpon</a></li>
+						</ul>
+                    </div>
+                    <div class="dw-footer-col-3-3">
+						<ul class="ibm-link-list">
+							<li><a class="ibm-email-link" href="#">Email this page</a></li>
+						</ul>
+                    </div>
+                    <div class="dw-footer-close">
+						<ul>
+							<li><a href="#">Close [x]</a></li>
+						</ul>
+                    </div>
+                </div>
+                <!-- Follow developerWorks -->
+                <div class="dw-footer-columns">
+                    <div class="dw-footer-col-1-1">
+                        <h2>Follow developerWorks:</h2>
+						<ul class="ibm-link-list">
+							<li><a id="dw-foot-1-0" class="ibm-facebook-link" href="http://www.facebook.com/developerworks">Facebook</a></li>
+							<li><a class="ibm-twitter-link" href="http://twitter.com/developerWorks">Twitter</a></li>
+						</ul>
+                    </div>
+                    <div class="dw-footer-close">
+						<ul>
+							<li><a href="#">Close [x]</a></li>
+						</ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="ibm-footer-module-dw">
+	<div class="dw-footer-columns">
+		<div class="dw-footer-col-6-1"> 
+			<h2><a href="http://www.ibm.com/developerworks/topics/">Technical topics</a></h2>
+			<ul>
+				<li><a href="http://www.ibm.com/developerworks/aix/">AIX and UNIX</a></li>
+				<li><a href="http://www.ibm.com/developerworks/ibmi/">IBM i</a></li>
+				<li class="dw-footer-newline dw-footer-newline-en"><a href="http://www.ibm.com/developerworks/data/">Information<br> Management</a></li>
+				<li><a href="http://www.ibm.com/developerworks/lotus/">Lotus</a></li>
+				<li><a href="http://www.ibm.com/developerworks/rational/">Rational</a></li>
+				<li><a href="http://www.ibm.com/developerworks/tivoli/">Tivoli</a></li>
+				<li><a href="http://www.ibm.com/developerworks/websphere/">WebSphere</a></li>
+			</ul>
+			<ul>
+				<li class="dw-footer-newgroup"><a href="http://www.ibm.com/developerworks/cloud/">Cloud computing</a></li>
+				<li><a href="http://www.ibm.com/developerworks/industry/">Industries</a></li>
+				<li class="dw-footer-newline dw-footer-newline-en"><a href="http://www.ibm.com/developerworks/servicemanagement/">Integrated Service<br> Management</a></li>
+			</ul>
+		</div>
+		<div class="dw-footer-col-6-2">
+			<ul>
+				<li><a href="http://www.ibm.com/developerworks/java/">Java technology</a></li>
+				<li><a href="http://www.ibm.com/developerworks/linux/">Linux</a></li>
+				<li><a href="http://www.ibm.com/developerworks/opensource/">Open source</a></li>
+				<li><a href="http://www.ibm.com/developerworks/webservices/">SOA and web services</a></li>
+				<li><a href="http://www.ibm.com/developerworks/web/">Web development</a></li>
+				<li><a href="http://www.ibm.com/developerworks/xml/">XML</a></li>
+			</ul>
+			<h2 class="dw-footer-more"><a href="http://www.ibm.com/developerworks/topics/">More...</a></h2>
+		</div>
+		<div class="dw-footer-col-6-3">
+			<h2><a href="http://www.ibm.com/developerworks/downloads/">Evaluation software</a></h2>
+			<ul>
+				<li><a href="http://www.ibm.com/developerworks/downloads/product.html">By IBM product</a></li>
+				<li><a href="http://www.ibm.com/developerworks/downloads/evalmethod.html">By evaluation method</a></li>
+				<li><a href="http://www.ibm.com/developerworks/downloads/industry.html">By industry</a></li>
+			</ul>
+			<h2 class="dw-footer-newgroup"><a href="http://www.ibm.com/developerworks/events/">Events</a></h2>
+			<ul>
+				<li><a href="http://www.ibm.com/developerworks/briefings/">Briefings</a></li>
+				<li><a href="http://www.ibm.com/developerworks/find/webcasts/">Webcasts</a></li>
+				<li><a href="http://www.ibm.com/developerworks/find/events/">Find events</a></li>
+			</ul>
+		</div>
+		<div class="dw-footer-col-6-4">
+			<h2><a href="http://www.ibm.com/developerworks/community/">Community</a></h2>
+			<ul>
+				<li><a href="http://www.ibm.com/developerworks/forums/">Forums</a></li>
+				<li><a href="http://www.ibm.com/developerworks/community/groups/">Groups</a></li>
+				<li><a href="http://www.ibm.com/developerworks/community/blogs/">Blogs</a></li>
+				<li><a href="http://www.ibm.com/developerworks/mydeveloperworks/wikis/">Wikis</a></li>
+				<li><a href="https://www.ibm.com/developerworks/community/terms/">Terms of use</a></li>
+				<li><a href="https://www.ibm.com/developerworks/community/report/">Report abuse</a></li>
+			</ul>
+			<ul>
+				<li class="dw-footer-newgroup dw-footer-newline"><a href="http://www.ibm.com/developerworks/champion/">IBM Champion<br> program</a></li>
+			</ul>
+			<h2 class="dw-footer-more"><a href="http://www.ibm.com/developerworks/community/">More...</a></h2>
+		</div>
+		<div class="dw-footer-col-6-5">
+			<h2><a href="http://www.ibm.com/developerworks/aboutdw/">About developerWorks</a></h2>
+			<ul>
+				<li><a href="https://www.ibm.com/developerworks/feedback">Site help and feedback</a></li>
+				<li><a href="http://www.ibm.com/developerworks/aboutdw/contacts.html">Contacts</a></li>
+				<li><a href="https://www.ibm.com/developerworks/ideas">Article submissions</a></li>
+			</ul>
+			<h2 class="dw-footer-headonly dw-footer-newgroup">Related resources</h2>
+			<ul>
+				<li><a href="http://www.ibm.com/developerworks/university/">Students and faculty</a></li>
+				<li><a href="http://www.ibm.com/isv/">Business Partners</a></li>
+			</ul>
+		</div>
+		<div class="dw-footer-col-6-6">
+			<h2><a href="http://www.ibm.com/">IBM</a></h2>
+			<ul>
+				<li><a href="http://www.ibm.com/solutions/">Solutions</a></li>
+				<li><a href="http://www.ibm.com/software/">Software</a></li>
+				<li><a href="http://www.ibm.com/software/sw-services/">Software services</a></li>
+				<li><a href="http://www.ibm.com/support/">Support</a></li>
+				<li><a href="http://www.ibm.com/support/publications/us/library/index.shtml">Product information</a></li>
+				<li><a href="http://www.ibm.com/redbooks/">Redbooks</a></li>
+				<li><a href="http://www.ibm.com/privacy/">Privacy</a></li>
+				<li><a href="http://www.ibm.com/accessibility/">Accessibility</a></li>
+			</ul>
+		</div>
+	</div>
+	<!-- Language selector no-script -->
+	
+</div><!-- FOOTER_END -->
+
+ <!-- END_IBM-TOP -->
+<div id="ibm-overlay-top"></div></div>
+ 
+ <!-- SCRIPTS_INCLUDE_BEGIN -->
+<!-- JQuery start -->
+
+
+
+
+<!-- xM Masthead/Footer -->
+
+
+
+
+
+
+
+
+
+
+ <!-- JQuery end -->
+ <!-- Overlay js -->
+
+<!-- My dW Interest article -->
+
+<!-- BEGIN: Use this section to set page specific variables for the Unica Page Tag -->
+
+<!--END --><!-- SCRIPTS_INCLUDE_END -->
+
+<div id="ibm-metrics">
+
+</div>
+
+
+<div style="position: absolute; z-index: 95; display: none;" id="cluetip-waitimage"></div><div class="" style="z-index: 96; display: none; position: absolute; width: 275px; left: 71.5px; top: 222px;" id="cluetip"><div style="z-index: 95; opacity: 0.1; top: 1px; left: 1px; position: absolute; background-color: rgb(0, 0, 0); display: block; height: 243px; width: 275px;"></div><div style="z-index: 94; opacity: 0.1; top: 2px; left: 2px; position: absolute; background-color: rgb(0, 0, 0); display: block; height: 243px; width: 275px;"></div><div style="z-index: 93; opacity: 0.1; top: 3px; left: 3px; position: absolute; background-color: rgb(0, 0, 0); display: block; height: 243px; width: 275px;"></div><div style="z-index: 92; opacity: 0.1; top: 4px; left: 4px; position: absolute; background-color: rgb(0, 0, 0); display: block; height: 243px; width: 275px;"></div><div style="z-index: 91; opacity: 0.1; top: 5px; left: 5px; position: absolute; background-color: rgb(0, 0, 0); display: block; height: 243px; width: 275px;"></div><div style="z-index: 90; opacity: 0.1; top: 6px; left: 6px; position: absolute; background-color: rgb(0, 0, 0); display: block; height: 243px; width: 275px;"></div><div style="position: relative; z-index: 97; overflow: visible; height: auto;" id="cluetip-outer"><h3 style="display: none;" id="cluetip-title"></h3><div id="cluetip-inner"></div></div><div id="cluetip-extra"></div><div style="z-index: 97; display: none;" id="cluetip-arrows" class="cluetip-arrows"></div></div></body>
+</html>
