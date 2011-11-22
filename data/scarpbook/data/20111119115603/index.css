@@ -1,0 +1,142 @@
+/* ::::: http://bits.wikimedia.org/zh.wikipedia.org/load.php?debug=false&lang=zh-cn&modules=ext.wikihiero%7Cmediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&only=styles&skin=vector&* ::::: */
+
+@media screen {
+	.mw-content-ltr { direction: ltr; }
+	.sitedir-ltr textarea, .sitedir-ltr input { direction: ltr; }
+	div#mw-js-message { margin: 1em 5%; padding: 0.5em 2.5%; border: 1px solid rgb(221, 221, 221); background-color: rgb(252, 252, 252); }
+	.editsection { float: right; margin-left: 5px; }
+	.mw-content-ltr .editsection, .mw-content-rtl .mw-content-ltr .editsection { float: right; }
+	#catlinks { text-align: left; }
+	#catlinks ul { display: inline; margin: 0px; padding: 0px; list-style: none outside none; }
+	#catlinks li { display: inline-block; line-height: 1.35em; padding: 0pt 0.7em; border-left: 1px solid rgb(170, 170, 170); margin: 0.3em 0pt; }
+	#catlinks li:first-child { padding-left: 0.4em; border-left: medium none; }
+	.visualClear { clear: both; }
+	.mw-content-ltr ul, .mw-content-rtl .mw-content-ltr ul { margin: 0.3em 0pt 0pt 1.5em; padding: 0pt; }
+	.mw-content-ltr ul, .mw-content-rtl .mw-content-ltr ul { margin: 0.3em 0pt 0pt 1.5em; }
+	h1:lang(hi), h1:lang(ml) { line-height: 1.5em; }
+	h2:lang(hi), h2:lang(ml), h3:lang(hi), h3:lang(ml), h4:lang(hi), h4:lang(ml), h5:lang(hi), h5:lang(ml), h6:lang(hi), h6:lang(ml) { line-height: 1.2em; }
+	ol:lang(bcc) li, ol:lang(bqi) li, ol:lang(fa) li, ol:lang(glk) li, ol:lang(kk-arab) li, ol:lang(mzn) li { list-style-type: -moz-persian; }
+	ol:lang(ckb) li { list-style-type: -moz-arabic-indic; }
+	ol:lang(as) li, ol:lang(bn) li { list-style-type: -moz-bengali; }
+	ol:lang(or) li { list-style-type: -moz-oriya; }
+	.ltr { direction: ltr; unicode-bidi: embed; }
+}
+@media screen {
+	html, body { height: 100%; margin: 0pt; padding: 0pt; font-family: sans-serif; font-size: 1em; }
+	body { background-color: rgb(243, 243, 243); background-image: url('undefined'); }
+	div#content { margin-left: 10em; padding: 1em; background-image: url('undefined'); background-position: left top; background-repeat: repeat-y; background-color: white; color: black; direction: ltr; }
+	#mw-page-base { height: 5em; background-color: white; background-image: url('undefined'); background-position: left bottom; background-repeat: repeat-x; }
+	#mw-head-base { margin-top: -5em; margin-left: 10em; height: 5em; background-image: url('undefined'); background-position: left bottom; background-repeat: repeat-x; }
+	div#mw-head { position: absolute; top: 0pt; right: 0pt; width: 100%; }
+	div#mw-head h5 { margin: 0pt; padding: 0pt; }
+	div.emptyPortlet { display: none; }
+	#p-personal { position: absolute; top: 0pt; right: 0.75em; }
+	#p-personal h5 { display: none; }
+	#p-personal ul { list-style: none outside none; margin: 0pt; padding-left: 10em; }
+	#p-personal li { line-height: 1.125em; float: left; }
+	#p-personal li { margin-left: 0.75em; margin-top: 0.5em; font-size: 0.75em; white-space: nowrap; }
+	#left-navigation { position: absolute; left: 10em; top: 2.5em; }
+	#right-navigation { float: right; margin-top: 2.5em; }
+	div.vectorTabs h5, div.vectorMenu h5 span { display: none; }
+	div.vectorTabs { float: left; height: 2.5em; }
+	div.vectorTabs { background-image: url('undefined'); background-position: left bottom; background-repeat: no-repeat; padding-left: 1px; }
+	div.vectorTabs ul { float: left; }
+	div.vectorTabs ul { height: 100%; list-style: none outside none; margin: 0pt; padding: 0pt; }
+	div.vectorTabs ul li { float: left; }
+	div.vectorTabs ul li { line-height: 1.125em; display: inline-block; height: 100%; margin: 0pt; padding: 0pt; background-color: rgb(243, 243, 243); background-image: url('undefined'); background-position: left bottom; background-repeat: repeat-x; white-space: nowrap; }
+	div.vectorTabs ul > li { display: block; }
+	div.vectorTabs li.selected { background-image: url('undefined'); }
+	div.vectorTabs li a { display: inline-block; height: 1.9em; padding-left: 0.5em; padding-right: 0.5em; color: rgb(6, 69, 173); cursor: pointer; font-size: 0.8em; }
+	div.vectorTabs span a { display: inline-block; padding-top: 1.25em; }
+	div.vectorTabs span > a { float: left; display: block; }
+	div.vectorTabs span { display: inline-block; background-image: url('undefined'); background-position: right bottom; background-repeat: no-repeat; }
+	div.vectorTabs li.selected a, div.vectorTabs li.selected a:visited { color: rgb(51, 51, 51); text-decoration: none; }
+	div.vectorTabs li.new a, div.vectorTabs li.new a:visited { color: rgb(165, 88, 88); }
+	div.vectorMenu { direction: ltr; float: left; background-image: url('undefined'); background-position: 100% 60%; background-repeat: no-repeat; cursor: pointer; }
+	div#mw-head div.vectorMenu h5 { float: left; background-image: url('undefined'); background-repeat: no-repeat; }
+	div#mw-head div.vectorMenu h5 { background-position: left bottom; margin-left: -1px; }
+	div#mw-head div.vectorMenu > h5 { background-image: none; }
+	div#mw-head div.vectorMenu h4 { display: inline-block; float: left; font-size: 0.8em; padding-left: 0.5em; padding-top: 1.375em; font-weight: normal; border: medium none; }
+	div.vectorMenu h5 a { display: inline-block; width: 24px; height: 2.5em; text-decoration: none; background-image: url('undefined'); background-repeat: no-repeat; }
+	div.vectorMenu h5 a { background-position: right bottom; }
+	div.vectorMenu h5 > a { display: block; }
+	div.vectorMenu div.menu { position: relative; display: none; clear: both; text-align: left; }
+	div.vectorMenu:hover div.menu, div.vectorMenu div.menuForceShow { display: block; }
+	div.vectorMenu ul { position: absolute; background-color: white; border-right: 1px solid silver; border-width: 0pt 1px 1px; border-style: solid; border-color: silver; -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; -moz-border-image: none; list-style: none outside none; padding: 0pt; margin: 0pt 0pt 0pt -1px; text-align: left; }
+	div.vectorMenu ul, x:-moz-any-link { min-width: 5em; }
+	div.vectorMenu ul, x:-moz-any-link, x:default { min-width: 0pt; }
+	div.vectorMenu li { padding: 0pt; margin: 0pt; text-align: left; line-height: 1em; }
+	div.vectorMenu li a { display: inline-block; padding: 0.5em; white-space: nowrap; color: rgb(6, 69, 173); cursor: pointer; font-size: 0.8em; }
+	div.vectorMenu li > a { display: block; }
+	div.vectorMenu li.selected a, div.vectorMenu li.selected a:visited { color: rgb(51, 51, 51); text-decoration: none; }
+	#p-search h5 { display: none; }
+	#p-search { float: left; }
+	#p-search { margin-right: 0.5em; margin-left: 0.5em; }
+	#p-search form, #p-search input { margin: 0.4em 0pt 0pt; }
+	div#simpleSearch { display: block; width: 14em; height: 1.4em; margin-top: 0.65em; position: relative; min-height: 1px; border: 1px solid rgb(170, 170, 170); color: black; background-color: white; background-image: url('undefined'); background-position: left top; background-repeat: repeat-x; }
+	div#simpleSearch input { color: black; direction: ltr; }
+	div#simpleSearch input:focus { outline: medium none; }
+	div#simpleSearch input#searchInput { position: absolute; top: 0pt; left: 0pt; width: 90%; margin: 0pt; padding: 0.2em 0pt 0.2em 0.2em; outline: medium none; border: medium none; font-size: 13px; background-color: transparent; direction: ltr; }
+	div#simpleSearch button#searchButton { position: absolute; width: 10%; right: 0pt; top: 0pt; padding: 0.3em 0.4em 0.2em 0pt; margin: 0pt; border: medium none; cursor: pointer; background-color: transparent; background-image: none; }
+	div#simpleSearch button#searchButton img { border: medium none; margin: -3px 0pt 0pt; padding: 0pt; }
+	div#simpleSearch button#searchButton > img { margin: 0pt; }
+	div#mw-panel { position: absolute; top: 160px; padding-top: 1em; width: 10em; left: 0pt; }
+	div#mw-panel div.portal { padding-bottom: 1.5em; direction: ltr; }
+	div#mw-panel div.portal h5 { font-weight: normal; color: rgb(68, 68, 68); padding: 0pt 0.25em 0.25em 1.75em; cursor: default; border: medium none; font-size: 0.75em; }
+	div#mw-panel div.portal div.body { margin: 0pt 0pt 0pt 1.25em; padding-top: 0.5em; background-image: url('undefined'); background-repeat: no-repeat; background-position: left top; }
+	div#mw-panel div.portal div.body ul { list-style: none outside none; padding: 0pt; margin: 0pt; }
+	div#mw-panel div.portal div.body ul li { line-height: 1.125em; padding: 0pt 0pt 0.5em; margin: 0pt; overflow: hidden; font-size: 0.75em; }
+	div#mw-panel div.portal div.body ul li a { color: rgb(6, 69, 173); }
+	div#mw-panel div.portal div.body ul li a:visited { color: rgb(11, 0, 128); }
+	div#footer { margin-left: 10em; margin-top: 0pt; padding: 0.75em; background-image: url('undefined'); background-position: left top; background-repeat: repeat-x; direction: ltr; }
+	div#footer ul { list-style: none outside none; margin: 0pt; padding: 0pt; }
+	div#footer ul li { margin: 0pt; padding: 0.5em 0pt; color: rgb(51, 51, 51); font-size: 0.7em; }
+	div#footer #footer-icons { float: right; }
+	body.ltr div#footer #footer-places { float: left; }
+	div#footer #footer-info li { line-height: 1.4em; }
+	div#footer #footer-icons li { float: left; margin-left: 0.5em; line-height: 2em; text-align: right; }
+	div#footer #footer-places li { float: left; margin-right: 1em; line-height: 2em; }
+	#p-logo { position: absolute; top: -160px; left: 0pt; width: 10em; height: 160px; }
+	#p-logo a { display: block; width: 10em; height: 160px; background-repeat: no-repeat; background-position: center center; text-decoration: none; }
+	div#content { line-height: 1.5em; }
+	#bodyContent { font-size: 0.8em; }
+	a { text-decoration: none; color: rgb(6, 69, 173); background: none repeat scroll 0% 0% transparent; }
+	a:visited { color: rgb(11, 0, 128); }
+	a:active { color: rgb(250, 167, 0); }
+	a:hover, a:focus { text-decoration: underline; }
+	img { border: medium none; vertical-align: middle; }
+	h1, h2, h3, h4, h5, h6 { color: black; background: none repeat scroll 0% 0% transparent; font-weight: normal; margin: 0pt; overflow: hidden; padding-top: 0.5em; padding-bottom: 0.17em; border-bottom: 1px solid rgb(170, 170, 170); width: auto; }
+	h1 { font-size: 188%; }
+	h2 { font-size: 150%; }
+	h2 .editsection { font-size: 67%; }
+	h3, h4, h5, h6 { border-bottom: medium none; font-weight: bold; }
+	h4 { font-size: 116%; }
+	h5 { font-size: 100%; }
+	.editsection { float: right; }
+	p { margin: 0.4em 0pt 0.5em; line-height: 1.5em; }
+	ul { line-height: 1.5em; list-style-type: square; margin: 0.3em 0pt 0pt 1.5em; padding: 0pt; list-style-image: url('undefined'); }
+	li { margin-bottom: 0.1em; }
+	form { border: medium none; margin: 0pt; }
+	#siteNotice { position: relative; text-align: center; font-size: 0.8em; margin: 0pt; }
+	#localNotice { margin-bottom: 0.9em; }
+	.catlinks { border: 1px solid rgb(170, 170, 170); background-color: rgb(249, 249, 249); padding: 5px; margin-top: 1em; clear: both; }
+	#siteSub { display: none; }
+	#jump-to-nav { display: none; }
+	#contentSub, #contentSub2 { font-size: 84%; line-height: 1.2em; margin: 0pt 0pt 1.4em 1em; color: rgb(125, 125, 125); width: auto; }
+	h1, h2 { margin-bottom: 0.6em; }
+	h3, h4, h5 { margin-bottom: 0.3em; }
+	#firstHeading { margin-top: 0pt; padding-top: 0pt; margin-bottom: 0.1em; line-height: 1.2em; font-size: 1.6em; padding-bottom: 0pt; }
+	div#content a.external, div#content a[href^="gopher://"] { background: url('undefined') no-repeat scroll right center transparent; padding-right: 13px; }
+	div#content a.external { color: rgb(51, 102, 187); }
+	div#content a.external:visited { color: rgb(102, 51, 102); }
+	div#content a.external:active { color: rgb(187, 102, 51); }
+	div#content .printfooter { display: none; }
+	#pt-userpage, #pt-anonuserpage, #pt-login { background: url('undefined') no-repeat scroll left top transparent; padding-left: 15px ! important; text-transform: none; }
+	#bodyContent { position: relative; width: 100%; }
+	#mw-js-message { font-size: 0.8em; }
+	div#bodyContent { line-height: 1.5em; }
+	div.vectorTabs ul { background-image: url('undefined'); background-position: right bottom; background-repeat: no-repeat; }
+}
+/* ::::: http://bits.wikimedia.org/zh.wikipedia.org/load.php?debug=false&lang=zh-cn&modules=site&only=styles&skin=vector&* ::::: */
+
+a:lang(ar), a:lang(ckb), a:lang(fa), a:lang(kk-arab), a:lang(mzn), a:lang(ps), a:lang(ur) { text-decoration: none; }

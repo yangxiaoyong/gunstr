@@ -1,0 +1,60 @@
+/* ::::: http://s7.addthis.com/static/r07/widget70.css ::::: */
+
+:first-child + html #at_email textarea { height: 42px ! important; }
+* html #at16psf input, :first-child + html #at16psf input { padding: 0pt; }
+:first-child + html #at_email #at16eatdr { top: 115px ! important; width: 272px ! important; }
+#_atssh { width: 1px ! important; height: 1px ! important; border: 0pt none ! important; }
+/* ::::: http://kernelnewbies.org/moin/navigation/css/common.css ::::: */
+
+html { background: url('wikiwall.jpg') repeat scroll 0% 0% rgb(177, 184, 224); color: black; font-family: Arial,Lucida Grande,sans-serif; font-size: 0.75em; line-height: 1.25em; }
+h1 { margin: 0.5em 0pt; padding: 0pt; font-size: 2.4em; font-weight: normal; line-height: 1.2em; }
+h2, h3, h4, h5, h6 { margin: 1.4em 0pt 0pt; padding: 2px 5px; font-weight: bold; color: black; line-height: 1.2em; }
+h2 { font-size: 1.4em; }
+li p { margin: 0.25em 0pt; }
+a, img, img.drawing { border: 0pt none; }
+table { margin: 0.5em 0pt; border-collapse: collapse; }
+td { padding: 0.25em; border: 1px solid rgb(192, 192, 192); }
+td p { margin: 0pt; padding: 0pt; }
+/* ::::: http://kernelnewbies.org/moin/navigation/css/screen.css ::::: */
+
+body { color: black; margin-top: 0px; margin-right: 0px; margin-left: 0px; }
+a { text-decoration: none; }
+a:link { text-decoration: none; }
+a:link:hover, a:link:active { text-decoration: underline; color: green; }
+a:visited { text-decoration: none; color: blue; }
+a:visited:hover { text-decoration: none; color: red; }
+.midHeader { background-color: rgb(238, 238, 238); border: medium none; margin-left: 10px; margin-right: 8px; margin-top: 5px; padding-right: 5px; }
+.midHeader p { text-align: right; font-family: fantasy; font-variant: small-caps; font-size: large; }
+#logo { float: left; clear: both; }
+#logo img { vertical-align: middle; margin: 0pt 10px 0pt 0pt; clear: both; }
+table.columnizer { width: 100%; padding: 8px; margin-top: 0px; clear: left; }
+tr.columnizer { vertical-align: top; }
+td.nav { border: medium none; width: 170px; vertical-align: top; }
+td.content { border: medium none; text-align: left; vertical-align: top; }
+#sidebar { background: none repeat scroll 0% 0% rgb(238, 238, 238); margin-right: 5px; margin-left: 8px; margin-top: 8px; padding: 5px 5px 15px 6px; font-size: 1em; }
+#sidebar div {  }
+.sideBarTitle { margin-bottom: 0pt; }
+.actionsmenu { padding: 0pt 0pt 0pt 5px; }
+#sidebar ul { list-style-type: none; list-style-position: outside; margin-left: 0pt; margin-top: 0pt; padding-top: 0pt; padding-left: 0pt; }
+#sidebar li { margin-left: 10px; text-decoration: none; }
+#sidebar a, .current { text-decoration: none; }
+#sidebar a:hover { background-color: rgb(238, 238, 238); text-decoration: none; }
+#page { color: black; background-color: white; line-height: 1.25em; margin-right: 5px; margin-top: 8px; margin-left: 2px; padding: 0.5mm 5mm 5px; }
+#page p { margin: 0.6em 1ex; padding: 0pt; }
+#page a { color: rgb(0, 102, 204); background-color: transparent; }
+#page a:hover { text-decoration: underline; }
+#footer { font-size: 1em; margin: 0pt; clear: both; text-align: center; }
+#footer a { background-color: transparent; text-decoration: none; }
+#footer a:hover { text-decoration: none; }
+#footer li { display: inline; padding: 0pt 2px; margin: 0pt 4px; text-align: center; }
+.editbar { display: block; margin: 0pt 5px 0pt 8px; padding: 0pt 8px 4px; white-space: nowrap; height: 2.5em; background: none repeat scroll 0% 0% white; font-size: 1em; float: right; }
+.editbar form, .editbar form div { display: inline; margin: 0pt; }
+.editbar li { float: left; display: inline; padding: 0pt; margin: 4px 6px; }
+.editbar a, .editbar a:visited { color: rgb(0, 68, 179); }
+#pagebottom { clear: both; }
+#pageinfo { font-style: italic; }
+#pageinfo { text-align: center; font-style: normal; margin-bottom: 0pt; }
+#username { margin: 0pt 10px; padding: 8px 0pt 0pt; text-align: right; font-size: 1em; white-space: nowrap; }
+#username li { display: inline; padding: 0pt 2px; }
+#username li:before { content: "| "; color: black; }
+#username li:first-child:before { content: ""; }

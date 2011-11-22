@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="../../sitemap.xsl" type="text/xsl" media="all"?>
+<site>
+<page file="index.html" text="Hypertext Transfer Protocol -- HTTP/1.1" title="Hypertext Transfer Protocol -- HTTP/1.1">
+<page file="rfc2616-sec17.html" text="[47]" title="HTTP/1.1: References"/>
+<page file="rfc2616-sec1.html" text="Introduction " title="HTTP/1.1: Introduction"/>
+<page file="rfc2616-sec2.html" text="Notational Conventions and Generic Grammar " title="HTTP/1.1: Notational Conventions and Generic Grammar"/>
+<page file="rfc2616-sec3.html" text="Protocol Parameters " title="HTTP/1.1: Protocol Parameters"/>
+<page file="rfc2616-sec4.html" text="HTTP Message " title="HTTP/1.1: HTTP Message"/>
+<page file="rfc2616-sec5.html" text="Request " title="HTTP/1.1: Request"/>
+<page file="rfc2616-sec6.html" text="Response " title="HTTP/1.1: Response"/>
+<page file="rfc2616-sec7.html" text="Entity " title="HTTP/1.1: Entity"/>
+<page file="rfc2616-sec8.html" text="Connections " title="HTTP/1.1: Connections"/>
+<page file="rfc2616-sec9.html" text="Method Definitions " title="HTTP/1.1: Method Definitions"/>
+<page file="rfc2616-sec10.html" text="Status Code Definitions " title="HTTP/1.1: Status Code Definitions"/>
+<page file="rfc2616-sec11.html" text="Access Authentication " title="HTTP/1.1: Access Authentication"/>
+<page file="rfc2616-sec12.html" text="Content Negotiation " title="HTTP/1.1: Content Negotiation"/>
+<page file="rfc2616-sec13.html" text="Caching in HTTP " title="HTTP/1.1: Caching in HTTP"/>
+<page file="rfc2616-sec14.html" text="Header Field Definitions " title="HTTP/1.1: Header Field Definitions"/>
+<page file="rfc2616-sec15.html" text="Security Considerations " title="HTTP/1.1: Security Considerations"/>
+<page file="rfc2616-sec16.html" text="Acknowledgments " title="HTTP/1.1: Acknowledgments"/>
+<page file="rfc2616-sec18.html" text="Authors' Addresses " title="HTTP/1.1: Authors' Addresses"/>
+<page file="rfc2616-sec19.html" text="Appendices " title="HTTP/1.1: Appendices"/>
+<page file="rfc2616-sec20.html" text="Index " title="HTTP/1.1: Index"/>
+<page file="rfc2616-sec21.html" text="Full Copyright Statement " title="HTTP/1.1: Full Copyright Statement"/>
+<page file="rfc2616.html" text="HTTP/1.1" title=""/>
+</page>
+</site>

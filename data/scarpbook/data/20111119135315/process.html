@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    
+    
+    <title>tornado.process — Utilities for multiple processes — Tornado v2.1.1 documentation</title>
+    
+    
+    
+    
+    
+    
+    <link rel="top" title="Tornado v2.1.1 documentation" href="http://en.tornadoweb.cn/documentation/index.html">
+    <link rel="up" title="Utilities" href="http://en.tornadoweb.cn/documentation/utilities.html">
+    <link rel="next" title="tornado.stack_context — Exception handling across asynchronous callbacks" href="http://en.tornadoweb.cn/documentation/stack_context.html">
+    <link rel="prev" title="tornado.options — Command-line parsing" href="http://en.tornadoweb.cn/documentation/options.html"> 
+  
+<link rel="stylesheet" type="text/css" href="process.css" media="all">
+</head>
+<body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index" accesskey="I">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="stack_context.html" title="tornado.stack_context — Exception handling across asynchronous callbacks" accesskey="N">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="options.html" title="tornado.options — Command-line parsing" accesskey="P">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="utilities.html" accesskey="U">Utilities</a> »</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-tornado.process">
+<span id="tornado-process-utilities-for-multiple-processes"></span><h1><tt class="docutils literal"><span class="pre">tornado.process</span></tt> — Utilities for multiple processes<a class="headerlink" href="#module-tornado.process" title="Permalink to this headline">¶</a></h1>
+<p>Utilities for working with multiple processes.</p>
+<dl class="function">
+<dt id="tornado.process.cpu_count">
+<tt class="descclassname">tornado.process.</tt><tt class="descname">cpu_count</tt><big>(</big><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/process.html#cpu_count"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.process.cpu_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of processors on this machine.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tornado.process.fork_processes">
+<tt class="descclassname">tornado.process.</tt><tt class="descname">fork_processes</tt><big>(</big><em>num_processes</em>, <em>max_restarts=100</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/process.html#fork_processes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.process.fork_processes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts multiple worker processes.</p>
+<p>If <tt class="docutils literal"><span class="pre">num_processes</span></tt> is None or &lt;= 0, we detect the number of cores
+available on this machine and fork that number of child
+processes. If <tt class="docutils literal"><span class="pre">num_processes</span></tt> is given and &gt; 0, we fork that
+specific number of sub-processes.</p>
+<p>Since we use processes and not threads, there is no shared memory
+between any server code.</p>
+<p>Note that multiple processes are not compatible with the autoreload
+module (or the debug=True option to <a indepth="true" class="reference internal" href="web.html#tornado.web.Application" title="tornado.web.Application"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.web.Application</span></tt></a>).
+When using multiple processes, no IOLoops can be created or
+referenced until after the call to <tt class="docutils literal"><span class="pre">fork_processes</span></tt>.</p>
+<p>In each child process, <tt class="docutils literal"><span class="pre">fork_processes</span></tt> returns its <em>task id</em>, a
+number between 0 and <tt class="docutils literal"><span class="pre">num_processes</span></tt>.  Processes that exit
+abnormally (due to a signal or non-zero exit status) are restarted
+with the same id (up to <tt class="docutils literal"><span class="pre">max_restarts</span></tt> times).  In the parent
+process, <tt class="docutils literal"><span class="pre">fork_processes</span></tt> returns None if all child processes
+have exited normally, but will otherwise only exit by throwing an
+exception.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tornado.process.task_id">
+<tt class="descclassname">tornado.process.</tt><tt class="descname">task_id</tt><big>(</big><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/process.html#task_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.process.task_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the current task id, if any.</p>
+<p>Returns None if this process was not created by <a class="reference internal" href="#tornado.process.fork_processes" title="tornado.process.fork_processes"><tt class="xref py py-obj docutils literal"><span class="pre">fork_processes</span></tt></a>.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a indepth="true" href="options.html" title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">tornado.options</span></tt> — Command-line parsing</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a indepth="true" href="stack_context.html" title="next chapter"><tt class="docutils literal"><span class="pre">tornado.stack_context</span></tt> — Exception handling across asynchronous callbacks</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="http://en.tornadoweb.cn/documentation/_sources/process.txt" rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none;">
+  <h3>Quick search</h3>
+    <form class="search" action="http://en.tornadoweb.cn/documentation/search.html" method="get">
+      <input value="" name="q" size="18" type="text">
+      <input value="Go" type="submit">
+      <input name="check_keywords" value="yes" type="hidden">
+      <input name="area" value="default" type="hidden">
+    </form>
+    <p class="searchtip" style="font-size: 90%;">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="stack_context.html" title="tornado.stack_context — Exception handling across asynchronous callbacks">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="options.html" title="tornado.options — Command-line parsing">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="utilities.html">Utilities</a> »</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        © Copyright 2011, Facebook.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  
+
+
+</body></html>

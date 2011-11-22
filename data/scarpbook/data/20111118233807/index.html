@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en_US">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta charset="utf-8">
+  <title>There's more to HTML escaping than &amp;, &lt;, &gt;, and "</title>
+
+  
+
+
+  
+
+
+  <meta name="viewport" content="width=device-width">
+
+  <link rel="openid.server" href="http://www.myopenid.com/server">
+  <link rel="openid.delegate" href="http://wonko.myopenid.com/">
+  <meta http-equiv="X-XRDS-Location" content="http://wonko.myopenid.com/xrds">
+
+  <link rel="alternate" type="application/atom+xml" href="http://feeds.feedburner.com/wonko" title="Posts">
+    <link rel="alternate" type="application/atom+xml" href="http://wonko.com/post/atom/html-escaping" title="Comments on this post">
+
+  <link rel="icon" href="favicon.png">
+  <link rel="shortcut icon" href="favicon.png">
+  <link rel="home" href="http://wonko.com/">
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body>
+  <div id="doc">
+    <div id="hd">
+  <h1>
+    <a id="logo" href="http://wonko.com/" rel="home">
+      wonko.com
+    </a>
+  </h1>
+
+  <ul class="links robots-nocontent">
+    <li><a href="http://wonko.com/" rel="home">Home</a></li>
+    <li><a href="http://wonko.com/page/about">About</a></li>
+    <li><a href="http://wonko.com/archive/2">Archives</a></li>
+      <li><a href="http://wonko.com/comment/">Comments</a></li>
+  </ul>
+</div>
+
+<div id="adminToolbar" class="toolbar robots-nocontent hidden">
+    <form id="login" action="http://wonko.com/admin/login" method="post">
+      <div>
+        <label for="username">Username:</label>
+        <input value="" id="username" name="username" maxlength="64" title="Enter your username" type="text">
+
+        <label for="password">Password:</label>
+        <input id="password" name="password" maxlength="64" title="Enter your password" type="password">
+
+        <input value="Login" type="submit">
+      </div>
+    </form>
+</div>
+
+
+
+    <div id="bd">
+      <div id="main">
+        
+        <div id="post-696" class="post hentry">
+  <div class="hd">
+    <h1 class="entry-title">
+      <a href="http://wonko.com/post/html-escaping" rel="bookmark" title="Permalink for this post">
+        There's more to HTML escaping than &amp;, &lt;, &gt;, and "
+      </a>
+    </h1>
+
+    <address class="vcard author">
+      <a class="email fn" href="mailto:ryan@wonko.com">Ryan Grove</a>
+    </address>
+
+    <span class="date robots-nocontent">
+      <abbr class="published" title="2011-04-23T15:49:42-07:00">
+        Saturday April 23, 2011 @ 03:49 PM (PDT)
+      </abbr>
+    </span>
+  </div>
+
+  <div class="bd entry-content">
+    
+<p>A few days ago <a href="https://twitter.com/yaypie/status/60445055223214080">I tweeted</a>:</p>
+<blockquote cite="https://twitter.com/yaypie/status/60445055223214080">
+If I had a dollar for every HTML escaper that only escapes &amp;, &lt;, &gt;, and ", I'd have $0. Because my account would've been pwned via XSS."
+</blockquote>
+<p>This was exaggeration for effect—there aren’t many cases where a simple <abbr title="Cross-site scripting"><span class="caps">XSS</span></abbr> injection could actually empty a bank account—but I wanted to make a point.</p>
+<p>By some coincidence, I’ve found myself working with various open source projects recently that take a half-assed approach to <span class="caps">HTML</span> escaping. It’s something that tends to be implemented as an afterthought, which is unfortunate because it can be critical for the security of users of these projects. I won’t name any names in this post (pull requests are forthcoming), but I will explain some of the common problems I’ve seen, why they’re problems, and what can be done to fix them.</p>
+<p>This post is not an introduction to <span class="caps">HTML</span> escaping. It assumes that you already know what <span class="caps">HTML</span> escaping is and why it’s necessary. This post also is not a comprehensive catalog of <span class="caps">XSS</span> vectors; the examples here are illustrative, but they certainly aren’t the only attacks you need to worry about. The intent of this post is to explain some dangers that you may not be aware of, and to encourage you to read more about them and write safer code.</p>
+<p>Note that this post only discusses <em>escaping</em>, which is something entirely different (and far less complicated) than <em>sanitizing</em>. <span class="caps">HTML</span> sanitization is a topic for another time.</p>
+<h3 id="escaping-1">Escaping &lt; and &gt; isn’t enough</h3>
+<p>The worst <span class="caps">HTML</span> escaper I’ve seen in a major open source project only escapes the <code>&lt;</code> and <code>&gt;</code> characters. This may actually be worse than not escaping anything at all, since it gives the illusion of security, but is trivial to defeat.</p>
+<p>For example, let’s say I have the following template, and I’m going to replace the placeholder values, indicated in <code>[square brackets]</code>, with <span class="caps">HTML</span>-escaped user input:</p>
+<pre class="prettyprint"><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"/user/[username]"</span><span class="tag">&gt;</span><span class="pln">[username]</span><span class="tag">&lt;/a&gt;</span></pre>
+<p>The attacker enters <code>foo" onmouseover="alert(1)</code> as their username. End result, even after escaping:</p>
+<pre class="prettyprint"><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"/user/foo"</span><span class="pln"> </span><span class="atn">onmouseover</span><span class="pun">=</span><span class="atv">"</span><span class="pln">alert</span><span class="pun">(</span><span class="lit">1</span><span class="pun">)</span><span class="atv">"</span><span class="tag">&gt;</span><span class="pln">foo" onmouseover="alert(1)</span><span class="tag">&lt;/a&gt;</span></pre>
+<p>Because the <code>"</code> character wasn’t escaped and the attacker’s input was used in an attribute value, the attacker was able to inject arbitrary attributes and therefore JavaScript (which, in a real <span class="caps">XSS</span> attack, would probably be something more harmful than an alert).</p>
+<p>This is a classic example of making input safer in one context—in this case, as the content of an <code>&lt;a&gt;</code> element—without considering the other contexts in which it’s likely to be used, such as inside an attribute value.</p>
+<h3 id="escaping-2">Escaping &amp;, &lt;, &gt;, and " isn’t enough</h3>
+<p>The characters <code>&amp;</code>, <code>&lt;</code>, <code>&gt;</code>, and <code>"</code> are the ones most commonly targeted by <span class="caps">HTML</span> escaper implementations. This seems to be the minimum set of characters that people think need to be escaped. Unfortunately, it’s still not safe if you don’t have complete control over where the escaped values will be used.</p>
+<p>Consider the following template, in which the template author has used single-quoted attribute values:</p>
+<pre class="prettyprint"><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">'/user/[username]'</span><span class="tag">&gt;</span><span class="pln">[username]</span><span class="tag">&lt;/a&gt;</span></pre>
+<p>This is exploitable using the same attack as the previous example, but with single quotes instead of double quotes: <code>foo' onmouseover='alert(1)</code>:</p>
+<pre class="prettyprint"><span class="tag">&lt;a</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">'/user/foo'</span><span class="pln"> </span><span class="atn">onmouseover</span><span class="pun">=</span><span class="atv">'</span><span class="pln">alert</span><span class="pun">(</span><span class="lit">1</span><span class="pun">)</span><span class="atv">'</span><span class="tag">&gt;</span><span class="pln">foo' onmouseover='alert(1)</span><span class="tag">&lt;/a&gt;</span></pre>
+<p>You may be saying, “But I always use double quotes to quote attribute values!” Are you also the only person who will ever use your <span class="caps">HTML</span> escaper? And are you immune to typos?</p>
+<h3 id="escaping-3">Escaping &amp;, &lt;, &gt;, ", and ' isn't enough</h3>
+<p>This is the character set used by PHP’s ubiquitous <a href="http://php.net/htmlspecialchars"><code>htmlspecialchars</code></a> function, and as you may have guessed, it still falls down on attribute values for two reasons.</p>
+<p>First, as Hacker News users DanBlake and nbpoole <a href="http://news.ycombinator.com/item?id=2525126">pointed out</a> in a discussion of this blog post, Internet Explorer treats <code>`</code> as an attribute delimiter. It may be an edge case, but it’s still a potential attack vector, so <code>`</code> needs to be escaped too.</p>
+<p>Second, <span class="caps">HTML</span> also allows attribute values to be completely unquoted. Believe it or not, unquoted attribute values are fairly popular (some people are too lazy to quote them, others are performance zealots who can’t bear the thought of wasting those extra bytes).</p>
+<p>Unquoted attribute values are one of the single biggest <span class="caps">XSS</span> vectors there is. If you don’t quote your attribute values, you’re essentially leaving the door wide open for naughty people to inject naughty things into your <span class="caps">HTML</span>. Very few escaper implementations cover all the edge cases necessary to prevent unquoted attribute values from becoming <span class="caps">XSS</span> vectors.</p>
+<h3 id="escaping-4">Escaping &amp;, &lt;, &gt;, ", ', `,  , !, @, $, %, (, ), =, +, {, }, [, and ] is almost enough</h3>
+<p>All those characters up there (including the space character!) can be used to break out of an unquoted <span class="caps">HTML</span> attribute value. If you escape every last one of them, then you’re probably pretty close to being safe. But you’re still not so safe that you can just start throwing around user input willy nilly.</p>
+<p>Why? Because this still doesn’t cover some context-specific cases like inserting user input into the body of an inline <code>&lt;script&gt;</code> element or using user input as part of a <span class="caps">URL</span>.</p>
+<h3 id="context">Context is key</h3>
+<p>If you haven’t figured it out already, the primary message I’m trying to convey here is that <em>you must be aware of the context in which you’re working with user input</em>. Some contexts are more susceptible to attack than others, and there’s no single magic escaping bullet that will protect you or your users in all cases.</p>
+<p>In other words, you don’t need to escape everything all the time, but you <em>do</em> need to escape everything that’s important in the particular contexts in which you’re displaying user input.</p>
+<p>But there’s still one more wrench to throw into the works…</p>
+<h3 id="charset">Always specify a charset, or <span class="caps">UTF</span>-7 will eat your face</h3>
+<p>Even if you do everything else right, serving a page that doesn’t explicitly specify a character set can leave Internet Explorer users open to <span class="caps">XSS</span>, thanks to the way IE sniffs out the charset when it isn’t specified.</p>
+<p>If an attacker is able to get your page to echo back something that looks like <span class="caps">UTF</span>-7 encoding early enough in the page, he may be able to trick IE into rendering the page using <span class="caps">UTF</span>-7. This could turn the following seemingly harmless input…</p>
+<pre>+ADw-script+AD4-alert(1)+ADw-/script+AD4-
+</pre>
+<p>…into something potentially harmful:</p>
+<pre class="prettyprint"><span class="tag">&lt;script&gt;</span><span class="pln">alert</span><span class="pun">(</span><span class="lit">1</span><span class="pun">)</span><span class="tag">&lt;/script&gt;</span></pre>
+<p>I recommend specifying a <span class="caps">UTF</span>-8 charset in both the <code>Content-Type</code> <span class="caps">HTTP</span> response header <em>and</em> a <code>&lt;meta&gt;</code> tag, since it’s easy for one or the other to get switched off or omitted inadvertently as a codebase ages (this has happened to me).</p>
+<h3 id="further-reading">Further reading</h3>
+<p>As I mentioned in the disclaimer at the top of this post, this is not a comprehensive reference of all the things that can go wrong with <span class="caps">HTML</span> escaping. It’s not even a guide. It’s more of a tip-of-the-iceberg preview. Please don’t assume that, having read this post, you now know everything there is to know about <span class="caps">HTML</span> escaping. I can guarantee that you don’t, because <em>I</em> don’t.</p>
+<p>I learned a lot from the following sources, and I highly recommend them if you’re interested in learning more:</p>
+<ul>
+	<li><a href="https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_Sheet"><abbr title="The Open Web Application Security Project"><span class="caps">OWASP</span></abbr> <span class="caps">XSS</span> Prevention Cheat Sheet</a></li>
+	<li><a href="http://code.google.com/p/doctype/wiki/ArticleXSS">Everything you ever wanted to know about <span class="caps">XSS</span> attacks</a> (Google Doctype)</li>
+	<li><a href="http://ha.ckers.org/xss.html">RSnake’s <span class="caps">XSS</span> Cheat Sheet</a></li>
+</ul>
+  </div>
+
+  <div class="ft">
+      <div class="tags">
+        <span class="icon tag"></span>
+        <ul>
+            <li><a href="http://wonko.com/tag/escaping" rel="tag">escaping</a></li>
+            <li><a href="http://wonko.com/tag/html" rel="tag">html</a></li>
+            <li><a href="http://wonko.com/tag/programming" rel="tag">programming</a></li>
+            <li><a href="http://wonko.com/tag/security" rel="tag">security</a></li>
+            <li><a href="http://wonko.com/tag/web+development" rel="tag">web development</a></li>
+            <li><a href="http://wonko.com/tag/xss" rel="tag">xss</a></li>
+        </ul>
+      </div>
+
+  </div>
+</div>
+
+  <div id="comments">
+  <h3>Comments</h3>
+  <div id="comment-6742" class="comment">
+  <div class="hd">
+      <h4>
+        <a href="#comment-6742">Remember string literals in JS</a>
+      </h4>
+
+  </div>
+
+  <div class="bd">
+    <p>If you include untrusted strings as string literals in inline JavaScript, be sure to escape the less-than sign as \u003C. Otherwise, an attacker can inject stuff that is sensitive to how the HTML tokenizer tokenizes over the inline script.</p>
+  </div>
+
+  <div class="ft">
+      <a class="gravatar" href="http://www.gravatar.com/" rel="nofollow"><img src="a7657471c231304d1d7e0d5144ee8200.jpg" alt="Gravatar icon"></a>
+    <div class="author">
+        <a href="http://hsivonen.iki.fi/" rel="nofollow">
+          Henri Sivonen
+        </a>
+    </div>
+    <div class="date robots-nocontent">
+      <a href="#comment-6742">
+        Sunday April 24, 2011 @ 01:42 AM (PDT)
+      </a>
+    </div>
+  </div>
+</div>
+<div id="comment-6743" class="comment">
+  <div class="hd">
+      <h4>
+        <a href="#comment-6743">The Spanner</a>
+      </h4>
+
+  </div>
+
+  <div class="bd">
+    <p>Great read, thanks for posting!</p>
+<p>I’ve followed Gareth Heyes on his blog The Spanner for years — http://www.thespanner.co.uk/, where he shares some of the findings from his work.</p>
+  </div>
+
+  <div class="ft">
+      <a class="gravatar" href="http://www.gravatar.com/" rel="nofollow"><img src="b3aed82e0716182ade6192a3836c143c.jpg" alt="Gravatar icon"></a>
+    <div class="author">
+        <a href="http://roderick.dk/" rel="nofollow">
+          Morgan Roderick
+        </a>
+    </div>
+    <div class="date robots-nocontent">
+      <a href="#comment-6743">
+        Sunday April 24, 2011 @ 02:34 AM (PDT)
+      </a>
+    </div>
+  </div>
+</div>
+<div id="comment-6744" class="comment">
+  <div class="hd">
+      <h4>
+        <a href="#comment-6744">Re: Remember string literals in JS</a>
+      </h4>
+
+  </div>
+
+  <div class="bd">
+    <p>@Henri: See the OWASP guide’s section on <a href="https://www.owasp.org/index.php/XSS_%28Cross_Site_Scripting%29_Prevention_Cheat_Sheet#RULE_.233_-_JavaScript_Escape_Before_Inserting_Untrusted_Data_into_HTML_JavaScript_Data_Values" rel="nofollow">escaping untrusted data for use in JavaScript</a>. You’ll need to do a bit more than just escaping <code>&lt;</code>, and in some contexts even fully escaped strings can still be unsafe.</p>
+  </div>
+
+  <div class="ft">
+      <a class="gravatar" href="http://www.gravatar.com/" rel="nofollow"><img src="683e9380d7cc0724a35dadfb4eeb142b.jpg" alt="Gravatar icon"></a>
+    <div class="author">
+        <a href="http://wonko.com/" rel="nofollow">
+          Ryan Grove
+        </a>
+    </div>
+    <div class="date robots-nocontent">
+      <a href="#comment-6744">
+        Sunday April 24, 2011 @ 01:39 PM (PDT)
+      </a>
+    </div>
+  </div>
+</div>
+<div id="comment-6751" class="comment">
+  <div class="hd">
+      <h4>
+        <a href="#comment-6751">Quoting attribute values is best practice</a>
+      </h4>
+
+  </div>
+
+  <div class="bd">
+    <p>Personally I’d just consider quoting attribute values to be best practice. <br>
+“Escaping &lt; and &gt; isn’t enough”<br>
+I think these HTML escapers are not for attribute values. They are for spewing text into the content of an element.</p>
+  </div>
+
+  <div class="ft">
+      <a class="gravatar" href="http://www.gravatar.com/" rel="nofollow"><img src="704a1e4bb9b4982564141ff4c15b7eda.jpg" alt="Gravatar icon"></a>
+    <div class="author">
+        <a href="http://yuhongbao.blogspot.com/" rel="nofollow">
+          Yuhong Bao
+        </a>
+    </div>
+    <div class="date robots-nocontent">
+      <a href="#comment-6751">
+        Saturday May 07, 2011 @ 07:46 PM (PDT)
+      </a>
+    </div>
+  </div>
+</div>
+<div id="comment-6752" class="comment">
+  <div class="hd">
+      <h4>
+        <a href="#comment-6752">Re: Quoting attribute values is best practice</a>
+      </h4>
+
+  </div>
+
+  <div class="bd">
+    <p>@Yuhong: Attribute values should definitely always be quoted. But authors of library- and framework-level tools such as template languages can’t assume that their users will always adhere to best practices.</p>
+<p>For that reason, authors of these tools need to be responsible about which characters they escape, and about documenting what they escape so that users aren’t left assuming they’re safe when they actually might not be. Better safe than sorry.</p>
+  </div>
+
+  <div class="ft">
+      <a class="gravatar" href="http://www.gravatar.com/" rel="nofollow"><img src="683e9380d7cc0724a35dadfb4eeb142b.jpg" alt="Gravatar icon"></a>
+    <div class="author">
+        <a href="http://wonko.com/" rel="nofollow">
+          Ryan Grove
+        </a>
+    </div>
+    <div class="date robots-nocontent">
+      <a href="#comment-6752">
+        Saturday May 07, 2011 @ 08:12 PM (PDT)
+      </a>
+    </div>
+  </div>
+</div>
+<div id="comment-6753" class="comment">
+  <div class="hd">
+      <h4>
+        <a href="#comment-6753">The text has a font issue</a>
+      </h4>
+
+  </div>
+
+  <div class="bd">
+    <p>Something is wrong with the font on your site. The letter d has some sort of slash attached to it in Firefox 4 and Chrome 11 on Windows 7.</p>
+<p>http://i.imgur.com/yaL97.png</p>
+  </div>
+
+  <div class="ft">
+      <a class="gravatar" href="http://www.gravatar.com/" rel="nofollow"><img src="c73cf57935725d1b5639f791d6bbc1ef.jpg" alt="Gravatar icon"></a>
+    <div class="author">
+        Gigi
+    </div>
+    <div class="date robots-nocontent">
+      <a href="#comment-6753">
+        Saturday May 07, 2011 @ 08:31 PM (PDT)
+      </a>
+    </div>
+  </div>
+</div>
+<div id="comment-6754" class="comment">
+  <div class="hd">
+      <h4>
+        <a href="#comment-6754">Re: The text has a font issue</a>
+      </h4>
+
+  </div>
+
+  <div class="bd">
+    <p>@Gigi: Weird. Thanks for pointing that out. I’m using <a href="http://www.fontsquirrel.com/fonts/Charis-SIL" rel="nofollow">Charis SIL</a> via <code>font-face</code>, and it looks great on my Mac, but now that you mention it I do see the strange “d” in my Windows 7 VM.</p>
+  </div>
+
+  <div class="ft">
+      <a class="gravatar" href="http://www.gravatar.com/" rel="nofollow"><img src="683e9380d7cc0724a35dadfb4eeb142b.jpg" alt="Gravatar icon"></a>
+    <div class="author">
+        <a href="http://wonko.com/" rel="nofollow">
+          Ryan Grove
+        </a>
+    </div>
+    <div class="date robots-nocontent">
+      <a href="#comment-6754">
+        Saturday May 07, 2011 @ 08:37 PM (PDT)
+      </a>
+    </div>
+  </div>
+</div>
+<div id="comment-6755" class="comment">
+  <div class="hd">
+      <h4>
+        <a href="#comment-6755">Don't forget about "a href"</a>
+      </h4>
+
+  </div>
+
+  <div class="bd">
+    <p><code>&lt;a href="[untrusted]"&gt;</code> is another special context, because you have to make sure they’re not using the <code>javascript:</code> pseudo protocol (and if you thought it had to start with “javascript:” to trigger JS parsing, you’d be wrong).</p>
+  </div>
+
+  <div class="ft">
+      <a class="gravatar" href="http://www.gravatar.com/" rel="nofollow"><img src="b93edc3f9dba759e0ad846a9c27685b8.jpg" alt="Gravatar icon"></a>
+    <div class="author">
+        <a href="http://markjaquith.com/" rel="nofollow">
+          Mark Jaquith
+        </a>
+    </div>
+    <div class="date robots-nocontent">
+      <a href="#comment-6755">
+        Sunday May 08, 2011 @ 03:36 AM (PDT)
+      </a>
+    </div>
+  </div>
+</div>
+<div id="comment-6756" class="comment">
+  <div class="hd">
+      <h4>
+        <a href="#comment-6756">When escaping the less-than sign, use "\u003C"</a>
+      </h4>
+
+  </div>
+
+  <div class="bd">
+    <p>@Ryan: you misunderstood what Henri said. Henri is the developer of the HTML5 validator and the author of the HTML5 parsing engine of Firefox. Henri said: When escaping the less-than sign, use “\u003C”. He doesn’t suggest that you should only do that ;)</p>
+  </div>
+
+  <div class="ft">
+      <a class="gravatar" href="http://www.gravatar.com/" rel="nofollow"><img src="39814c0daf5f82f744e8c017c00429f9.jpg" alt="Gravatar icon"></a>
+    <div class="author">
+        <a href="http://my.opera.com/karlcow" rel="nofollow">
+          karl
+        </a>
+    </div>
+    <div class="date robots-nocontent">
+      <a href="#comment-6756">
+        Sunday May 08, 2011 @ 06:52 AM (PDT)
+      </a>
+    </div>
+  </div>
+</div>
+<div id="comment-6757" class="comment">
+  <div class="hd">
+      <h4>
+        <a href="#comment-6757">You forgot one!</a>
+      </h4>
+
+  </div>
+
+  <div class="bd">
+    <p>You probably want to escape colon (:) too, in that long list of characters.</p>
+<p>However, personally I’ve come to like client-side templating engines better. Serve a HTML template, and populate it with JQuery text() or something like Pure. Not as SEO friendly, but I believe you can generally find a balance that works.</p>
+  </div>
+
+  <div class="ft">
+      <a class="gravatar" href="http://www.gravatar.com/" rel="nofollow"><img src="a36afadc530a6936e9e336a729f7ecf3.jpg" alt="Gravatar icon"></a>
+    <div class="author">
+        Jon Watte
+    </div>
+    <div class="date robots-nocontent">
+      <a href="#comment-6757">
+        Sunday May 08, 2011 @ 03:21 PM (PDT)
+      </a>
+    </div>
+  </div>
+</div>
+<div id="comment-6758" class="comment">
+  <div class="hd">
+      <h4>
+        <a href="#comment-6758">Nice article...</a>
+      </h4>
+
+  </div>
+
+  <div class="bd">
+    <p>… and an eye opener or as for me: a kick in the butt to read up on security in web programming. Thanks.</p>
+  </div>
+
+  <div class="ft">
+      <a class="gravatar" href="http://www.gravatar.com/" rel="nofollow"><img src="b16b5d7745532faee0e9a880aec65616.jpg" alt="Gravatar icon"></a>
+    <div class="author">
+        <a href="http://sidearm.se/" rel="nofollow">
+          Martin
+        </a>
+    </div>
+    <div class="date robots-nocontent">
+      <a href="#comment-6758">
+        Monday May 09, 2011 @ 11:10 AM (PDT)
+      </a>
+    </div>
+  </div>
+</div>
+<div id="comment-6768" class="comment">
+  <div class="hd">
+      <h4>
+        <a href="#comment-6768">Strip_tags</a>
+      </h4>
+
+  </div>
+
+  <div class="bd">
+    <p>Hi, thanks for this article.<br>
+What do you think of using a function like strip_tags (PHP) ?</p>
+  </div>
+
+  <div class="ft">
+      <a class="gravatar" href="http://www.gravatar.com/" rel="nofollow"><img src="5f1bbbe9162baeee7a264e6f811dc353.jpg" alt="Gravatar icon"></a>
+    <div class="author">
+        Pascal
+    </div>
+    <div class="date robots-nocontent">
+      <a href="#comment-6768">
+        Thursday May 12, 2011 @ 12:41 AM (PDT)
+      </a>
+    </div>
+  </div>
+</div>
+<div id="comment-6769" class="comment">
+  <div class="hd">
+      <h4>
+        <a href="#comment-6769">Re: Strip_tags</a>
+      </h4>
+
+  </div>
+
+  <div class="bd">
+    <p>@Pascal: <code>strip_tags()</code> is a live grenade that’s almost guaranteed to blow up in your face. There are many, many ways to use it unsafely and very few ways to use it safely, so I recommend avoiding it altogether.</p>
+<p>Here are just a few of the problems with <code>strip_tags()</code>:</p>
+<ul><li>It only removes content between balanced <code>&lt;</code> and <code>&gt;</code> characters. Unbalanced brackets can result in <code>&gt;</code> characters being left in the string.</li>
+</ul><ul><li>It doesn’t remove or escape <code>"</code>, <code>'</code>, <code>`</code>, or any of the other characters that are unsafe inside attribute values.</li>
+</ul><ul><li>If you pass a list of allowable tags to <code>strip_tags()</code>, then it will leave those tags <em>and all of their attributes</em>. This virtually guarantees an XSS vulnerability, since attributes can be used to execute JavaScript on almost any element.</li>
+</ul><p>There are more problems, but hopefully this gives you some idea of why <code>strip_tags()</code> is best avoided. In short, <code>strip_tags()</code> tries to be an HTML sanitizer, but it doesn’t do many of the very important things that an HTML sanitizer must do to actually sanitize HTML.</p>
+  </div>
+
+  <div class="ft">
+      <a class="gravatar" href="http://www.gravatar.com/" rel="nofollow"><img src="683e9380d7cc0724a35dadfb4eeb142b.jpg" alt="Gravatar icon"></a>
+    <div class="author">
+        <a href="http://wonko.com/" rel="nofollow">
+          Ryan Grove
+        </a>
+    </div>
+    <div class="date robots-nocontent">
+      <a href="#comment-6769">
+        Thursday May 12, 2011 @ 10:34 AM (PDT)
+      </a>
+    </div>
+  </div>
+</div>
+<div id="comment-6780" class="comment">
+  <div class="hd">
+
+  </div>
+
+  <div class="bd">
+    <p>THis is a huge issue when input moves from one user to storage and then out to other users. Can you name other instances where this can be used. As far as a user hacking his own webpage there is no way around this since grease monkey and other tools alow script injection.</p>
+  </div>
+
+  <div class="ft">
+      <a class="gravatar" href="http://www.gravatar.com/" rel="nofollow"><img src="17778e106eb286982c03ff7ee13a72a3.jpg" alt="Gravatar icon"></a>
+    <div class="author">
+        <a href="http://www.designcortex.com/" rel="nofollow">
+          TheAgonizer
+        </a>
+    </div>
+    <div class="date robots-nocontent">
+      <a href="#comment-6780">
+        Saturday May 14, 2011 @ 08:04 PM (PDT)
+      </a>
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+
+
+      </div>
+    </div>
+
+    <div id="sidebar" class="robots-nocontent">
+  <dl>
+    <dt>Other Stuff</dt>
+    <dd><a href="http://flickr.com/photos/wonko/">Photos</a></dd>
+    <dd><a href="http://wonko.com/page/videos">Videos</a></dd>
+    <dd><a href="https://github.com/rgrove">GitHub</a></dd>
+
+    <dt>Search</dt>
+    <dd>
+      <form id="search" action="http://www.google.com/search" method="get">
+        <p>
+          <input id="search-query" name="q" maxlength="255" value="" type="text">
+          <input name="sitesearch" value="http://wonko.com/" type="hidden">
+        </p>
+      </form>
+    </dd>
+
+      <dt><a href="http://twitter.com/yaypie/">Twitter</a></dt>
+      <dd id="twitter">
+        <div>Canada's new polymer cash sounds cool. I'd guess the raised ink would also make it more accessible to blind people. <a href="http://t.co/JSxfo82P">http://t.co/JSxfo82P</a></div>
+        <a class="time" href="http://twitter.com/yaypie/statuses/137417116390400001">
+          10:29 PM Nov 17, 2011
+        </a>
+      </dd>
+
+    <dt id="flickr-title">
+      <a href="http://flickr.com/photos/wonko/">Flickr</a>
+    </dt>
+    <dd id="flickr">
+        <a href="http://www.flickr.com/photos/24453935@N00/6213619862">
+          <img src="6213619862_b540c2d920_s.jpg" alt="Sand and wind" title="Sand and wind ">
+        </a>
+        <a href="http://www.flickr.com/photos/24453935@N00/6179752957">
+          <img src="6179752957_af661d287d_s.jpg" alt="IMG_2451" title="IMG_2451 ">
+        </a>
+        <a href="http://www.flickr.com/photos/24453935@N00/6180279436">
+          <img src="6180279436_4272563d80_s.jpg" alt="IMG_2443" title="IMG_2443 ">
+        </a>
+        <a href="http://www.flickr.com/photos/24453935@N00/6180279240">
+          <img src="6180279240_82c8f54f36_s.jpg" alt="IMG_2439" title="IMG_2439 ">
+        </a>
+    </dd>
+
+    <dt id="bookmarks-title">
+      <a href="http://pinboard.in/u:rgrove">Bookmarks</a>
+    </dt>
+    <dd id="bookmarks">
+      <ul>
+          <li>
+            <a href="http://www.businessweek.com/magazine/apples-supplychain-secret-hoard-lasers-11032011.html" title="">
+              Apple's Supply Chain Secret
+            </a>
+          </li>
+          <li>
+            <a href="http://www.theleagueofmoveabletype.com/" title="">
+              The League of Moveable Type
+            </a>
+          </li>
+          <li>
+            <a href="http://www.propublica.org/article/u.s.-government-glossed-over-cancer-concerns-as-it-rolled-out-airport-x-ray" title="&quot;Because of a regulatory Catch-22, the airport X-ray scanners have escaped the oversight required for X-ray machines used in doctors’ offices and hospitals. The reason is that the scanners do not have a medical purpose, so the FDA cannot subject them to the rigorous evaluation it applies to medical devices.
+
+Still, the FDA has limited authority to oversee some non-medical products and can set mandatory safety regulations. But the agency let the scanners fall under voluntary standards set by a nonprofit group heavily influenced by industry.
+
+As for the TSA, it skipped a public comment period required before deploying the scanners. Then, in defending them, it relied on a small body of unpublished research to insist the machines were safe, and ignored contrary opinions from U.S. and European authorities that recommended precautions, especially for pregnant women. Finally, the manufacturer, Rapiscan Systems, unleashed an intense and sophisticated lobbying campaign, ultimately winning large contracts.&quot;">
+              U.S. Government Glossed Over Cancer Concerns As It Rolled Out Airport X-Ray Scanners
+            </a>
+          </li>
+          <li>
+            <a href="http://boingboing.net/2011/10/31/air-space-a-trip-through-an-airport-detention-center.html" title="">
+              Air Space - a trip through an airport detention center
+            </a>
+          </li>
+          <li>
+            <a href="http://www.davidflanagan.com/2011/10/html-parsing-wi.html" title="">
+              HTML Parsing with JavaScript
+            </a>
+          </li>
+      </ul>
+    </dd>
+
+    <dt>Feeds</dt>
+    <dd>
+      <span class="icon feed"></span>
+      <a href="http://feeds.feedburner.com/wonko" type="application/atom+xml">
+        Posts
+      </a>
+    </dd>
+    <dd>
+      <span class="icon feed"></span>
+      <a href="http://wonko.com/comment/atom" type="application/atom+xml">
+        Comments
+      </a>
+    </dd>
+      <dd>
+        <span class="icon feed"></span>
+        <a href="http://wonko.com/post/atom/html-escaping" rel="alternate" type="application/atom+xml">
+          Comments on this post
+        </a>
+      </dd>
+  </dl>
+</div>
+
+    <div id="ft" class="robots-nocontent">
+  Copyright © 2002-2011
+
+    <a href="mailto:ryan@wonko.com">
+      Ryan Grove</a>.
+
+  All rights reserved.
+
+  <br>
+  Powered by <a href="http://thothblog.org/">Thoth</a>.
+</div>
+
+  </div>
+
+  
+
+
+
+
+</body>
+</html>

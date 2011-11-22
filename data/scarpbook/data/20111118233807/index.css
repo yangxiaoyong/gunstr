@@ -1,0 +1,173 @@
+/* ::::: http://wonko.com/css/thoth.css ::::: */
+
+html { color: rgb(0, 0, 0); background: none repeat scroll 0% 0% rgb(255, 255, 255); }
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td { margin: 0pt; padding: 0pt; }
+fieldset, img { border: 0pt none; }
+address, caption, cite, code, dfn, em, strong, th, var { font-style: normal; font-weight: normal; }
+li { list-style: none outside none; }
+h1, h2, h3, h4, h5, h6 { font-size: 100%; font-weight: normal; }
+abbr, acronym { border: 0pt none; font-variant: normal; }
+input, textarea, select { font-family: inherit; font-size: inherit; font-weight: inherit; }
+input, textarea, select {  }
+h1, h2, h3 { margin: 1em 0pt; }
+h1, h2, h3, h4, h5, h6, strong { font-weight: bold; }
+abbr, acronym { border-bottom: 1px dotted rgb(0, 0, 0); cursor: help; }
+em { font-style: italic; }
+blockquote, ul, ol, dl { margin: 1em; }
+dl { margin-left: 0pt; }
+ol, ul { margin-left: 2em; }
+ul li { list-style: disc outside none; }
+dl dd { margin-left: 1em; }
+p, fieldset, table, pre { margin-bottom: 1em; }
+body, button, input, select { font: 13px/1.231 Helvetica,'Bitstream Vera Sans',sans-serif; }
+a { color: rgb(0, 102, 204); text-decoration: none; }
+a:hover { text-decoration: underline; }
+a img { border: 0pt none; }
+blockquote { border-width: 1px 1px 1px 5px; border-style: solid; border-color: rgb(239, 239, 239); -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; -moz-border-image: none; font-size: 12px; line-height: 1.3em; margin-left: 1em; padding: 5px; }
+body { background: none repeat scroll 0% 0% rgb(237, 237, 237); color: rgb(0, 0, 0); margin: 0pt; padding: 0pt; }
+h1, h2 { border-bottom: 1px solid rgb(207, 207, 207); font-size: 16px; font-weight: bold; }
+h3 { font-size: 16px; font-weight: bold; }
+html { background: none repeat scroll 0% 0% transparent; }
+input { font-size: 13px; }
+p { margin-top: 1em; }
+code, pre, textarea { font: 11px Menlo,'Bitstream Vera Sans Mono','DejaVu Sans Mono',Monaco,Consolas,fixed; }
+pre { background: none repeat scroll 0% 0% rgb(252, 252, 252); border-width: 1px 1px 1px 5px; border-style: solid; border-color: rgb(223, 223, 223); -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; -moz-border-image: none; overflow-x: auto; padding: 2px 5px; width: 96%; }
+#doc { margin: 0pt auto; padding: 0pt; min-width: 550px; }
+#hd { color: rgb(255, 255, 255); }
+#hd a { color: rgb(255, 255, 255); text-decoration: none; }
+#hd h1 { background: none repeat scroll 0% 0% rgb(77, 76, 76); border: 0pt none; font-size: 32px; margin: 0pt; padding: 0.3em 0.2em 0.1em; }
+#bd { background: none repeat scroll 0% 0% rgb(255, 255, 255); border-right: 1px solid rgb(211, 211, 211); border-width: 0pt 1px 1px; border-style: none solid solid; border-color: -moz-use-text-color rgb(211, 211, 211) rgb(211, 211, 211); -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; -moz-border-image: none; padding-top: 0.8em; margin: 0pt auto; max-width: 800px; }
+#bd:after { clear: both; content: "."; display: block; height: 0pt; visibility: hidden; }
+#ft { clear: both; color: rgb(102, 102, 102); font-size: 11px; margin: 0pt auto; max-width: 800px; padding: 1em 0pt; }
+#ft a { color: rgb(102, 102, 102); }
+#main { margin: 0pt 205px 20px 1.5em; padding: 0pt; }
+#sidebar { border-left: 1px solid rgb(223, 223, 223); float: right; margin: 0pt 0pt 0.5em; padding: 0pt 0pt 1em 0.7em; width: 175px; }
+#sidebar a { color: rgb(0, 0, 0); text-decoration: none; }
+#sidebar a:hover { font-weight: bold; }
+#sidebar dl { margin: 0pt; }
+#sidebar dl dt { clear: both; font-size: 14px; font-weight: bold; margin: 1em 0pt 0.2em; padding: 0pt 0.2em 0pt 0pt; }
+#sidebar dl dt a:hover { text-decoration: underline; }
+#sidebar dl dd { font-size: 12px; margin: 0pt 5px 0pt 1px; }
+#sidebar dl dd p { margin: 0pt; }
+#sidebar #search-query { width: 150px; }
+.post abbr.published { border: 0pt none; }
+.post address.author { display: none; }
+.post { margin: 0pt 0pt 1.5em; padding-bottom: 1px; }
+.post .hd h1, .post .hd h2 { border-bottom: 1px dotted rgb(207, 207, 207); display: block; margin-bottom: 0pt; width: 100%; }
+.post .hd h1 a, .post .hd h2 a { color: rgb(0, 0, 0); }
+.post .hd .date { color: rgb(136, 136, 136); font-size: 85%; }
+.post .ft { text-align: right; }
+.post .tags { float: left; font-size: 11px; min-height: 15px; text-align: left; width: 60%; }
+.post .ft:after { clear: left; content: "."; display: block; height: 0pt; visibility: hidden; }
+.post .tags a { color: rgb(115, 173, 231); }
+.post .tags ul { margin: 0pt; padding: 0pt 0pt 0pt 21px; }
+.post .tags ul li { display: inline; list-style: none outside none; margin-right: 0.3em; white-space: nowrap; }
+.post .tags .icon.tag { float: left; vertical-align: middle; }
+div.comment { border-width: 1px; border-style: solid solid dotted; border-color: rgb(255, 255, 255) rgb(255, 255, 255) rgb(207, 207, 207); -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; -moz-border-image: none; color: rgb(34, 34, 34); margin: 0.5em 0pt; padding: 5px; }
+div.comment:hover { background: none repeat scroll 0% 0% rgb(247, 252, 255); border: 1px solid rgb(167, 215, 255); color: rgb(0, 0, 0); }
+.comment h4 { font-size: 14px; margin: 0pt; }
+.comment h4 a { color: rgb(51, 51, 51); }
+.comment:hover h4 a { color: rgb(0, 0, 0); }
+.comment .bd { line-height: 1.2em; margin-bottom: 0.8em; }
+.comment .ft:after { clear: left; content: "."; display: block; height: 0pt; visibility: hidden; }
+.comment .gravatar { border: 1px solid rgb(207, 207, 207); float: left; margin: -2px 6px 6px 0pt; padding: 1px; }
+.comment .gravatar:hover { border-color: rgb(160, 160, 160); }
+.comment .gravatar, .comment .gravatar img { height: 32px; width: 32px; }
+.comment .author { margin-top: 5px; }
+.comment .date { font-size: 11px; }
+.comment .date a { color: inherit; }
+#adminToolbar { background: none repeat scroll 0% 0% rgb(245, 245, 245); border-right: 1px solid rgb(211, 211, 211); border-width: medium 1px 1px; border-style: none solid solid; border-color: -moz-use-text-color rgb(211, 211, 211) rgb(211, 211, 211); -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; -moz-border-image: none; color: rgb(0, 0, 0); font-size: 12px; height: 24px; margin: 0pt auto; max-width: 820px; padding: 3px 4px 4px; }
+#adminToolbar form input { padding: 2px; }
+#adminToolbar form label { margin-left: 1em; }
+#adminToolbar form label:first-child { margin-left: 7px; }
+.icon { background: url('thoth-sprite.png') no-repeat scroll 0% 0% transparent; display: inline-block; vertical-align: middle; }
+.icon.feed { background-position: -97px -1px; height: 14px; margin-bottom: 3px; width: 14px; }
+.icon.tag { background-position: -79px -1px; height: 15px; width: 15px; }
+.noseeum, .hidden { display: none; }
+/* ::::: http://wonko.com/css/wonko.css?20110513 ::::: */
+
+/* ::::: http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic ::::: */
+
+@font-face {
+	font-family: "PT Serif";
+	font-style: normal;
+	font-weight: bold;
+	src: local("PT Serif Bold"), local("PTSerif-Bold"), url('qabk9ixt-lftj_dqzv7xpibn6udyhwbl620a-irfubk.woff') format("woff");
+}
+@font-face {
+	font-family: "PT Serif";
+	font-style: italic;
+	font-weight: bold;
+	src: local("PT Serif Bold Italic"), local("PTSerif-BoldItalic"), url('foydq9xjp--nfyix2tbz9qfharv2pggt5kf0an0s4mm.woff') format("woff");
+}
+@font-face {
+	font-family: "PT Serif";
+	font-style: italic;
+	font-weight: normal;
+	src: local("PT Serif Italic"), local("PTSerif-Italic"), url('03apdn7fff3h6ngcgalqzbsxeywm7fgeyasgu71clg0.woff') format("woff");
+}
+@font-face {
+	font-family: "PT Serif";
+	font-style: normal;
+	font-weight: normal;
+	src: local("PT Serif"), local("PTSerif-Regular"), url('sdri4fy9boijubgq53yzcfeszw2xoq-xsnqo47m55da.woff') format("woff");
+}
+a { color: rgb(0, 51, 204); }
+a:hover { text-decoration: underline; }
+body, html { background: none repeat scroll 0% 0% rgb(255, 255, 255); color: rgb(51, 51, 51); line-height: normal; }
+body { margin: 1.5em 3.5em; }
+body, input, select, td, th { font-family: 'Lucida Grande','Lucida Sans Unicode',sans-serif; }
+blockquote { border: 0pt none; font-size: 14px; font-style: italic; padding: 0pt; }
+form { margin: 0pt; }
+h1, h2, h3, h4, h5, h6 { border: 0pt none; margin: 0.8em 0pt; }
+h1 { font-size: 18px; }
+#doc { margin: 0pt auto; max-width: 980px; min-width: 780px; }
+#hd { border-bottom: 1px solid rgb(234, 234, 234); color: rgb(51, 51, 51); position: relative; }
+#hd h1 { background: none repeat scroll 0% 0% transparent; font: italic bold 52px Georgia,'Times New Roman',serif; margin: 0pt; padding: 0pt 0pt 4px; }
+#hd h1 a { color: rgb(255, 119, 0); text-decoration: none; text-shadow: -1px 1px 2px rgb(0, 0, 0); }
+#hd h1 a:hover { color: rgb(255, 102, 0); }
+#hd .links { bottom: 0.7em; color: rgb(51, 51, 51); margin: 0pt; padding: 0pt; position: absolute; right: 0pt; }
+#hd .links li { float: left; font-family: Verdana,sans-serif; list-style: none outside none; margin-left: 0.8em; }
+#hd .links a { color: rgb(0, 51, 204); display: inline; }
+#hd .links a:hover { text-decoration: underline; }
+#bd { border: 0pt none; float: left; margin-right: -205px; max-width: 100%; padding: 0pt; width: 100%; }
+#ft { clear: left; margin: 0pt; width: 500px; }
+#ft a:hover { border-bottom-color: rgb(102, 102, 102); }
+#main { margin: 0pt 240px 0pt 0pt; }
+#main p { margin: 1.2em 0pt; }
+#sidebar { background: none repeat scroll 0% 0% rgb(255, 255, 255); border: 0pt none; margin: 0pt 0pt 2em; padding-left: 1em; position: relative; z-index: 1; }
+#sidebar a { color: rgb(0, 51, 204); }
+#sidebar a:hover { font-weight: normal; text-decoration: underline; }
+#sidebar dt a { color: rgb(51, 51, 51); }
+#sidebar dt a:hover { color: rgb(0, 51, 204); font-weight: bold; }
+#bookmarks ul { margin: 0pt 0pt 0pt 14px; padding-left: 0pt; }
+#flickr { height: 161px; }
+#flickr a img { border: 1px solid rgb(0, 0, 0); display: block; float: left; height: 75px; margin: 0pt 3px 3px 0pt; padding: 0pt; width: 75px; }
+#flickr a:hover img { border-color: rgb(0, 51, 204); opacity: 0.8; }
+#sidebar #twitter { font-size: 11px; text-align: right; }
+#twitter div { text-align: left; }
+.post { border-bottom: 1px solid rgb(234, 234, 234); margin: 1.5em 0pt 2em; padding-bottom: 2.2em; }
+.post .hd h1, .post .hd h2 { border: 0pt none; font-size: 18px; margin: 0pt; }
+.post .hd h1 a, .post .hd h2 a { color: rgb(51, 51, 51); }
+.post .hd h1 a:hover, .post .hd h2 a:hover { color: rgb(0, 51, 204); }
+.post .hd .date { color: rgb(153, 153, 153); font-size: 12px; }
+.post .bd { font: 14px/1.4em 'PT Serif',Georgia,'DejaVu Serif','Bitstream Vera Serif','Times New Roman',serif; }
+.post .bd:after { clear: both; content: "."; display: block; height: 0pt; visibility: hidden; }
+.post .ft { font-size: 11px; margin-top: 0.7em; }
+.post .tags a { color: rgb(0, 51, 204); }
+.post .tags ul li { margin-right: 0.3em; }
+div.comment { margin: 1em 0pt 1em -5px; padding-bottom: 0.5em; }
+div.comment:hover { background: inherit; border-color: rgb(207, 207, 207); }
+.comment .hd h4 { margin-bottom: 1.2em; }
+.comment .hd h4 a:hover { color: rgb(0, 51, 204); }
+.comment .bd { font: 14px/1.3em 'PT Serif',Georgia,'DejaVu Serif','Bitstream Vera Serif','Times New Roman',serif; }
+#main .comment .bd p { margin-top: 0pt; }
+.comment .ft { color: rgb(68, 68, 68); margin-top: 1.3em; }
+#adminToolbar { background: none repeat scroll 0% 0% rgb(255, 255, 255); border-width: 0pt 0pt 1px; border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color rgb(234, 234, 234); -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; -moz-border-image: none; margin: 0pt; max-width: none; }
+.lit { color: rgb(0, 102, 102); }
+.pun { color: rgb(102, 102, 0); }
+.pln { color: rgb(0, 0, 0); }
+.tag { color: rgb(0, 0, 136); }
+.atn { color: rgb(102, 0, 102); }
+.atv { color: rgb(0, 136, 0); }
+abbr { border: medium none; }

@@ -1,0 +1,225 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    
+    
+    <title>tornado.wsgi — Interoperability with other Python frameworks and servers — Tornado v2.1.1 documentation</title>
+    
+    
+    
+    
+    
+    
+    <link rel="top" title="Tornado v2.1.1 documentation" href="http://en.tornadoweb.cn/documentation/index.html">
+    <link rel="up" title="Integration with other services" href="http://en.tornadoweb.cn/documentation/integration.html">
+    <link rel="next" title="Utilities" href="http://en.tornadoweb.cn/documentation/utilities.html">
+    <link rel="prev" title="tornado.websocket — Bidirectional communication to the browser" href="http://en.tornadoweb.cn/documentation/websocket.html"> 
+  
+<link rel="stylesheet" type="text/css" href="wsgi.css" media="all">
+</head>
+<body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index" accesskey="I">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="utilities.html" title="Utilities" accesskey="N">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="websocket.html" title="tornado.websocket — Bidirectional communication to the browser" accesskey="P">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="integration.html" accesskey="U">Integration with other services</a> »</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-tornado.wsgi">
+<span id="tornado-wsgi-interoperability-with-other-python-frameworks-and-servers"></span><h1><tt class="docutils literal"><span class="pre">tornado.wsgi</span></tt> — Interoperability with other Python frameworks and servers<a class="headerlink" href="#module-tornado.wsgi" title="Permalink to this headline">¶</a></h1>
+<p>WSGI support for the Tornado web framework.</p>
+<p>WSGI is the Python standard for web servers, and allows for interoperability
+between Tornado and other Python web frameworks and servers.  This module
+provides WSGI support in two ways:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#tornado.wsgi.WSGIApplication" title="tornado.wsgi.WSGIApplication"><tt class="xref py py-obj docutils literal"><span class="pre">WSGIApplication</span></tt></a> is a version of <a indepth="true" class="reference internal" href="web.html#tornado.web.Application" title="tornado.web.Application"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.web.Application</span></tt></a> that can run 
+inside a WSGI server.  This is useful for running a Tornado app on another
+HTTP server, such as Google App Engine.  See the <a class="reference internal" href="#tornado.wsgi.WSGIApplication" title="tornado.wsgi.WSGIApplication"><tt class="xref py py-obj docutils literal"><span class="pre">WSGIApplication</span></tt></a> class
+documentation for limitations that apply.</li>
+<li><a class="reference internal" href="#tornado.wsgi.WSGIContainer" title="tornado.wsgi.WSGIContainer"><tt class="xref py py-obj docutils literal"><span class="pre">WSGIContainer</span></tt></a> lets you run other WSGI applications and frameworks on the
+Tornado HTTP server.  For example, with this class you can mix Django
+and Tornado handlers in a single server.</li>
+</ul>
+<div class="section" id="wsgiapplication">
+<h2>WSGIApplication<a class="headerlink" href="#wsgiapplication" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tornado.wsgi.WSGIApplication">
+<em class="property">class </em><tt class="descclassname">tornado.wsgi.</tt><tt class="descname">WSGIApplication</tt><big>(</big><em>handlers=None</em>, <em>default_host=''</em>, <em>**settings</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/wsgi.html#WSGIApplication"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.wsgi.WSGIApplication" title="Permalink to this definition">¶</a></dt>
+<dd><p>A WSGI equivalent of <a indepth="true" class="reference internal" href="web.html#tornado.web.Application" title="tornado.web.Application"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.web.Application</span></tt></a>.</p>
+<p>WSGIApplication is very similar to web.Application, except no
+asynchronous methods are supported (since WSGI does not support
+non-blocking requests properly). If you call self.flush() or other
+asynchronous methods in your request handlers running in a
+WSGIApplication, we throw an exception.</p>
+<p>Example usage:</p>
+<div class="highlight-none"><div class="highlight"><pre>import tornado.web
+import tornado.wsgi
+import wsgiref.simple_server
+
+class MainHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.write("Hello, world")
+
+if __name__ == "__main__":
+    application = tornado.wsgi.WSGIApplication([
+        (r"/", MainHandler),
+    ])
+    server = wsgiref.simple_server.make_server('', 8888, application)
+    server.serve_forever()
+</pre></div>
+</div>
+<p>See the ‘appengine’ demo for an example of using this module to run
+a Tornado app on Google AppEngine.</p>
+<p>Since no asynchronous methods are available for WSGI applications, the
+httpclient and auth modules are both not available for WSGI applications.
+We support the same interface, but handlers running in a WSGIApplication
+do not support flush() or asynchronous methods.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="tornado.wsgi.HTTPRequest">
+<em class="property">class </em><tt class="descclassname">tornado.wsgi.</tt><tt class="descname">HTTPRequest</tt><big>(</big><em>environ</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/wsgi.html#HTTPRequest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.wsgi.HTTPRequest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mimics <a indepth="true" class="reference internal" href="httpserver.html#tornado.httpserver.HTTPRequest" title="tornado.httpserver.HTTPRequest"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.httpserver.HTTPRequest</span></tt></a> for WSGI applications.</p>
+<p>Parses the given WSGI environ to construct the request.</p>
+<dl class="method">
+<dt id="tornado.wsgi.HTTPRequest.supports_http_1_1">
+<tt class="descname">supports_http_1_1</tt><big>(</big><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/wsgi.html#HTTPRequest.supports_http_1_1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.wsgi.HTTPRequest.supports_http_1_1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if this request supports HTTP/1.1 semantics</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="tornado.wsgi.HTTPRequest.cookies">
+<tt class="descname">cookies</tt><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/wsgi.html#HTTPRequest.cookies"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.wsgi.HTTPRequest.cookies" title="Permalink to this definition">¶</a></dt>
+<dd><p>A dictionary of Cookie.Morsel objects.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.wsgi.HTTPRequest.full_url">
+<tt class="descname">full_url</tt><big>(</big><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/wsgi.html#HTTPRequest.full_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.wsgi.HTTPRequest.full_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reconstructs the full URL for this request.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.wsgi.HTTPRequest.request_time">
+<tt class="descname">request_time</tt><big>(</big><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/wsgi.html#HTTPRequest.request_time"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.wsgi.HTTPRequest.request_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the amount of time it took for this request to execute.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="wsgicontainer">
+<h2>WSGIContainer<a class="headerlink" href="#wsgicontainer" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tornado.wsgi.WSGIContainer">
+<em class="property">class </em><tt class="descclassname">tornado.wsgi.</tt><tt class="descname">WSGIContainer</tt><big>(</big><em>wsgi_application</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/wsgi.html#WSGIContainer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.wsgi.WSGIContainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes a WSGI-compatible function runnable on Tornado’s HTTP server.</p>
+<p>Wrap a WSGI function in a WSGIContainer and pass it to HTTPServer to
+run it. For example:</p>
+<div class="highlight-none"><div class="highlight"><pre>def simple_app(environ, start_response):
+    status = "200 OK"
+    response_headers = [("Content-type", "text/plain")]
+    start_response(status, response_headers)
+    return ["Hello world!\n"]
+
+container = tornado.wsgi.WSGIContainer(simple_app)
+http_server = tornado.httpserver.HTTPServer(container)
+http_server.listen(8888)
+tornado.ioloop.IOLoop.instance().start()
+</pre></div>
+</div>
+<p>This class is intended to let other frameworks (Django, web.py, etc)
+run on the Tornado HTTP server and I/O loop.</p>
+<p>The <a indepth="true" class="reference internal" href="web.html#tornado.web.FallbackHandler" title="tornado.web.FallbackHandler"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.web.FallbackHandler</span></tt></a> class is often useful for mixing
+Tornado and WSGI apps in the same server.  See
+<a class="reference external" href="https://github.com/bdarnell/django-tornado-demo">https://github.com/bdarnell/django-tornado-demo</a> for a complete example.</p>
+<dl class="staticmethod">
+<dt id="tornado.wsgi.WSGIContainer.environ">
+<em class="property">static </em><tt class="descname">environ</tt><big>(</big><em>request</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/wsgi.html#WSGIContainer.environ"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.wsgi.WSGIContainer.environ" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a <a indepth="true" class="reference internal" href="httpserver.html#tornado.httpserver.HTTPRequest" title="tornado.httpserver.HTTPRequest"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.httpserver.HTTPRequest</span></tt></a> to a WSGI environment.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a indepth="true" href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">tornado.wsgi</span></tt> — Interoperability with other Python frameworks and servers</a><ul>
+<li><a class="reference internal" href="#wsgiapplication">WSGIApplication</a></li>
+<li><a class="reference internal" href="#wsgicontainer">WSGIContainer</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a indepth="true" href="websocket.html" title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">tornado.websocket</span></tt> — Bidirectional communication to the browser</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a indepth="true" href="utilities.html" title="next chapter">Utilities</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="http://en.tornadoweb.cn/documentation/_sources/wsgi.txt" rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none;">
+  <h3>Quick search</h3>
+    <form class="search" action="http://en.tornadoweb.cn/documentation/search.html" method="get">
+      <input value="" name="q" size="18" type="text">
+      <input value="Go" type="submit">
+      <input name="check_keywords" value="yes" type="hidden">
+      <input name="area" value="default" type="hidden">
+    </form>
+    <p class="searchtip" style="font-size: 90%;">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="utilities.html" title="Utilities">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="websocket.html" title="tornado.websocket — Bidirectional communication to the browser">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="integration.html">Integration with other services</a> »</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        © Copyright 2011, Facebook.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  
+
+
+</body></html>

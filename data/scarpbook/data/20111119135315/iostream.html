@@ -1,0 +1,248 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    
+    
+    <title>tornado.iostream — Convenient wrappers for non-blocking sockets — Tornado v2.1.1 documentation</title>
+    
+    
+    
+    
+    
+    
+    <link rel="top" title="Tornado v2.1.1 documentation" href="http://en.tornadoweb.cn/documentation/index.html">
+    <link rel="up" title="Asynchronous networking" href="http://en.tornadoweb.cn/documentation/networking.html">
+    <link rel="next" title="tornado.httpclient — Non-blocking HTTP client" href="http://en.tornadoweb.cn/documentation/httpclient.html">
+    <link rel="prev" title="tornado.ioloop — Main event loop" href="http://en.tornadoweb.cn/documentation/ioloop.html"> 
+  
+<link rel="stylesheet" type="text/css" href="iostream.css" media="all">
+</head>
+<body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index" accesskey="I">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="httpclient.html" title="tornado.httpclient — Non-blocking HTTP client" accesskey="N">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="ioloop.html" title="tornado.ioloop — Main event loop" accesskey="P">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="networking.html" accesskey="U">Asynchronous networking</a> »</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-tornado.iostream">
+<span id="tornado-iostream-convenient-wrappers-for-non-blocking-sockets"></span><h1><tt class="docutils literal"><span class="pre">tornado.iostream</span></tt> — Convenient wrappers for non-blocking sockets<a class="headerlink" href="#module-tornado.iostream" title="Permalink to this headline">¶</a></h1>
+<p>A utility class to write to and read from a non-blocking socket.</p>
+<dl class="class">
+<dt id="tornado.iostream.IOStream">
+<em class="property">class </em><tt class="descclassname">tornado.iostream.</tt><tt class="descname">IOStream</tt><big>(</big><em>socket</em>, <em>io_loop=None</em>, <em>max_buffer_size=104857600</em>, <em>read_chunk_size=4096</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/iostream.html#IOStream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.iostream.IOStream" title="Permalink to this definition">¶</a></dt>
+<dd><p>A utility class to write to and read from a non-blocking socket.</p>
+<p>We support a non-blocking <tt class="docutils literal"><span class="pre">write()</span></tt> and a family of <tt class="docutils literal"><span class="pre">read_*()</span></tt> methods.
+All of the methods take callbacks (since writing and reading are
+non-blocking and asynchronous).</p>
+<p>The socket parameter may either be connected or unconnected.  For
+server operations the socket is the result of calling socket.accept().
+For client operations the socket is created with socket.socket(),
+and may either be connected before passing it to the IOStream or
+connected with IOStream.connect.</p>
+<p>A very simple (and broken) HTTP client using this class:</p>
+<div class="highlight-none"><div class="highlight"><pre>from tornado import ioloop
+from tornado import iostream
+import socket
+
+def send_request():
+    stream.write("GET / HTTP/1.0\r\nHost: friendfeed.com\r\n\r\n")
+    stream.read_until("\r\n\r\n", on_headers)
+
+def on_headers(data):
+    headers = {}
+    for line in data.split("\r\n"):
+       parts = line.split(":")
+       if len(parts) == 2:
+           headers[parts[0].strip()] = parts[1].strip()
+    stream.read_bytes(int(headers["Content-Length"]), on_body)
+
+def on_body(data):
+    print data
+    stream.close()
+    ioloop.IOLoop.instance().stop()
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM, 0)
+stream = iostream.IOStream(s)
+stream.connect(("friendfeed.com", 80), send_request)
+ioloop.IOLoop.instance().start()
+</pre></div>
+</div>
+<dl class="method">
+<dt id="tornado.iostream.IOStream.connect">
+<tt class="descname">connect</tt><big>(</big><em>address</em>, <em>callback=None</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/iostream.html#IOStream.connect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.iostream.IOStream.connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Connects the socket to a remote address without blocking.</p>
+<p>May only be called if the socket passed to the constructor was
+not previously connected.  The address parameter is in the
+same format as for socket.connect, i.e. a (host, port) tuple.
+If callback is specified, it will be called when the
+connection is completed.</p>
+<p>Note that it is safe to call IOStream.write while the
+connection is pending, in which case the data will be written
+as soon as the connection is ready.  Calling IOStream read
+methods before the socket is connected works on some platforms
+but is non-portable.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.iostream.IOStream.read_until_regex">
+<tt class="descname">read_until_regex</tt><big>(</big><em>regex</em>, <em>callback</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/iostream.html#IOStream.read_until_regex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.iostream.IOStream.read_until_regex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call callback when we read the given regex pattern.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.iostream.IOStream.read_until">
+<tt class="descname">read_until</tt><big>(</big><em>delimiter</em>, <em>callback</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/iostream.html#IOStream.read_until"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.iostream.IOStream.read_until" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call callback when we read the given delimiter.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.iostream.IOStream.read_bytes">
+<tt class="descname">read_bytes</tt><big>(</big><em>num_bytes</em>, <em>callback</em>, <em>streaming_callback=None</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/iostream.html#IOStream.read_bytes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.iostream.IOStream.read_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call callback when we read the given number of bytes.</p>
+<p>If a <tt class="docutils literal"><span class="pre">streaming_callback</span></tt> is given, it will be called with chunks
+of data as they become available, and the argument to the final
+<tt class="docutils literal"><span class="pre">callback</span></tt> will be empty.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.iostream.IOStream.read_until_close">
+<tt class="descname">read_until_close</tt><big>(</big><em>callback</em>, <em>streaming_callback=None</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/iostream.html#IOStream.read_until_close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.iostream.IOStream.read_until_close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads all data from the socket until it is closed.</p>
+<p>If a <tt class="docutils literal"><span class="pre">streaming_callback</span></tt> is given, it will be called with chunks
+of data as they become available, and the argument to the final
+<tt class="docutils literal"><span class="pre">callback</span></tt> will be empty.</p>
+<p>Subject to <tt class="docutils literal"><span class="pre">max_buffer_size</span></tt> limit from <a class="reference internal" href="#tornado.iostream.IOStream" title="tornado.iostream.IOStream"><tt class="xref py py-obj docutils literal"><span class="pre">IOStream</span></tt></a> constructor if
+a <tt class="docutils literal"><span class="pre">streaming_callback</span></tt> is not used.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.iostream.IOStream.write">
+<tt class="descname">write</tt><big>(</big><em>data</em>, <em>callback=None</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/iostream.html#IOStream.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.iostream.IOStream.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the given data to this stream.</p>
+<p>If callback is given, we call it when all of the buffered write
+data has been successfully written to the stream. If there was
+previously buffered write data and an old write callback, that
+callback is simply overwritten with this new callback.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.iostream.IOStream.set_close_callback">
+<tt class="descname">set_close_callback</tt><big>(</big><em>callback</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/iostream.html#IOStream.set_close_callback"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.iostream.IOStream.set_close_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call the given callback when the stream is closed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.iostream.IOStream.close">
+<tt class="descname">close</tt><big>(</big><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/iostream.html#IOStream.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.iostream.IOStream.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close this stream.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.iostream.IOStream.reading">
+<tt class="descname">reading</tt><big>(</big><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/iostream.html#IOStream.reading"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.iostream.IOStream.reading" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if we are currently reading from the stream.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.iostream.IOStream.writing">
+<tt class="descname">writing</tt><big>(</big><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/iostream.html#IOStream.writing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.iostream.IOStream.writing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if we are currently writing to the stream.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.iostream.IOStream.closed">
+<tt class="descname">closed</tt><big>(</big><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/iostream.html#IOStream.closed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.iostream.IOStream.closed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if the stream has been closed.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tornado.iostream.SSLIOStream">
+<em class="property">class </em><tt class="descclassname">tornado.iostream.</tt><tt class="descname">SSLIOStream</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/iostream.html#SSLIOStream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.iostream.SSLIOStream" title="Permalink to this definition">¶</a></dt>
+<dd><p>A utility class to write to and read from a non-blocking SSL socket.</p>
+<p>If the socket passed to the constructor is already connected,
+it should be wrapped with:</p>
+<div class="highlight-none"><div class="highlight"><pre>ssl.wrap_socket(sock, do_handshake_on_connect=False, **kwargs)
+</pre></div>
+</div>
+<p>before constructing the SSLIOStream.  Unconnected sockets will be
+wrapped when IOStream.connect is finished.</p>
+<p>Creates an SSLIOStream.</p>
+<p>If a dictionary is provided as keyword argument ssl_options,
+it will be used as additional keyword arguments to ssl.wrap_socket.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a indepth="true" href="ioloop.html" title="previous chapter"><tt class="docutils literal docutils literal"><span class="pre">tornado.ioloop</span></tt> — Main event loop</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a indepth="true" href="httpclient.html" title="next chapter"><tt class="docutils literal docutils literal"><span class="pre">tornado.httpclient</span></tt> — Non-blocking HTTP client</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="http://en.tornadoweb.cn/documentation/_sources/iostream.txt" rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none;">
+  <h3>Quick search</h3>
+    <form class="search" action="http://en.tornadoweb.cn/documentation/search.html" method="get">
+      <input value="" name="q" size="18" type="text">
+      <input value="Go" type="submit">
+      <input name="check_keywords" value="yes" type="hidden">
+      <input name="area" value="default" type="hidden">
+    </form>
+    <p class="searchtip" style="font-size: 90%;">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="httpclient.html" title="tornado.httpclient — Non-blocking HTTP client">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="ioloop.html" title="tornado.ioloop — Main event loop">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="networking.html">Asynchronous networking</a> »</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        © Copyright 2011, Facebook.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  
+
+
+</body></html>

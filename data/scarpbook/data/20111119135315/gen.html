@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    
+    
+    <title>tornado.gen — Simplify asynchronous code — Tornado v2.1.1 documentation</title>
+    
+    
+    
+    
+    
+    
+    <link rel="top" title="Tornado v2.1.1 documentation" href="http://en.tornadoweb.cn/documentation/index.html">
+    <link rel="up" title="Utilities" href="http://en.tornadoweb.cn/documentation/utilities.html">
+    <link rel="next" title="tornado.httputil — Manipulate HTTP headers and URLs" href="http://en.tornadoweb.cn/documentation/httputil.html">
+    <link rel="prev" title="tornado.autoreload — Automatically detect code changes in development" href="http://en.tornadoweb.cn/documentation/autoreload.html"> 
+  
+<link rel="stylesheet" type="text/css" href="gen.css" media="all">
+</head>
+<body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index" accesskey="I">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="httputil.html" title="tornado.httputil — Manipulate HTTP headers and URLs" accesskey="N">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="autoreload.html" title="tornado.autoreload — Automatically detect code changes in development" accesskey="P">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="utilities.html" accesskey="U">Utilities</a> »</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-tornado.gen">
+<span id="tornado-gen-simplify-asynchronous-code"></span><h1><tt class="docutils literal"><span class="pre">tornado.gen</span></tt> — Simplify asynchronous code<a class="headerlink" href="#module-tornado.gen" title="Permalink to this headline">¶</a></h1>
+<p><tt class="docutils literal"><span class="pre">tornado.gen</span></tt> is a generator-based interface to make it easier to
+work in an asynchronous environment.  Code using the <tt class="docutils literal"><span class="pre">gen</span></tt> module
+is technically asynchronous, but it is written as a single generator
+instead of a collection of separate functions.</p>
+<p>For example, the following asynchronous handler:</p>
+<div class="highlight-none"><div class="highlight"><pre>class AsyncHandler(RequestHandler):
+    @asynchronous
+    def get(self):
+        http_client = AsyncHTTPClient()
+        http_client.fetch("http://example.com",
+                          callback=self.on_fetch)
+
+    def on_fetch(self, response):
+        do_something_with_response(response)
+        self.render("template.html")
+</pre></div>
+</div>
+<p>could be written with <tt class="docutils literal"><span class="pre">gen</span></tt> as:</p>
+<div class="highlight-none"><div class="highlight"><pre>class GenAsyncHandler(RequestHandler):
+    @asynchronous
+    @gen.engine
+    def get(self):
+        http_client = AsyncHTTPClient()
+        response = yield gen.Task(http_client.fetch, "http://example.com")
+        do_something_with_response(response)
+        self.render("template.html")
+</pre></div>
+</div>
+<p><a class="reference internal" href="#tornado.gen.Task" title="tornado.gen.Task"><tt class="xref py py-obj docutils literal"><span class="pre">Task</span></tt></a> works with any function that takes a <tt class="docutils literal"><span class="pre">callback</span></tt> keyword
+argument.  You can also yield a list of <tt class="docutils literal"><span class="pre">Tasks</span></tt>, which will be
+started at the same time and run in parallel; a list of results will
+be returned when they are all finished:</p>
+<div class="highlight-none"><div class="highlight"><pre>def get(self):
+    http_client = AsyncHTTPClient()
+    response1, response2 = yield [gen.Task(http_client.fetch, url1),
+                                  gen.Task(http_client.fetch, url2)]
+</pre></div>
+</div>
+<p>For more complicated interfaces, <a class="reference internal" href="#tornado.gen.Task" title="tornado.gen.Task"><tt class="xref py py-obj docutils literal"><span class="pre">Task</span></tt></a> can be split into two parts:
+<a class="reference internal" href="#tornado.gen.Callback" title="tornado.gen.Callback"><tt class="xref py py-obj docutils literal"><span class="pre">Callback</span></tt></a> and <a class="reference internal" href="#tornado.gen.Wait" title="tornado.gen.Wait"><tt class="xref py py-obj docutils literal"><span class="pre">Wait</span></tt></a>:</p>
+<div class="highlight-none"><div class="highlight"><pre>class GenAsyncHandler2(RequestHandler):
+    @asynchronous
+    @gen.engine
+    def get(self):
+        http_client = AsyncHTTPClient()
+        http_client.fetch("http://example.com",
+                          callback=(yield gen.Callback("key"))
+        response = yield gen.Wait("key")
+        do_something_with_response(response)
+        self.render("template.html")
+</pre></div>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">key</span></tt> argument to <a class="reference internal" href="#tornado.gen.Callback" title="tornado.gen.Callback"><tt class="xref py py-obj docutils literal"><span class="pre">Callback</span></tt></a> and <a class="reference internal" href="#tornado.gen.Wait" title="tornado.gen.Wait"><tt class="xref py py-obj docutils literal"><span class="pre">Wait</span></tt></a> allows for multiple
+asynchronous operations to be started at different times and proceed
+in parallel: yield several callbacks with different keys, then wait
+for them once all the async operations have started.</p>
+<p>The result of a <a class="reference internal" href="#tornado.gen.Wait" title="tornado.gen.Wait"><tt class="xref py py-obj docutils literal"><span class="pre">Wait</span></tt></a> or <a class="reference internal" href="#tornado.gen.Task" title="tornado.gen.Task"><tt class="xref py py-obj docutils literal"><span class="pre">Task</span></tt></a> yield expression depends on how the callback
+was run.  If it was called with no arguments, the result is <tt class="xref docutils literal"><span class="pre">None</span></tt>.  If
+it was called with one argument, the result is that argument.  If it was
+called with more than one argument or any keyword arguments, the result
+is an <a class="reference internal" href="#tornado.gen.Arguments" title="tornado.gen.Arguments"><tt class="xref py py-obj docutils literal"><span class="pre">Arguments</span></tt></a> object, which is a named tuple <tt class="docutils literal"><span class="pre">(args,</span> <span class="pre">kwargs)</span></tt>.</p>
+<div class="section" id="decorator">
+<h2>Decorator<a class="headerlink" href="#decorator" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="tornado.gen.engine">
+<tt class="descclassname">tornado.gen.</tt><tt class="descname">engine</tt><big>(</big><em>func</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/gen.html#engine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.gen.engine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator for asynchronous generators.</p>
+<p>Any generator that yields objects from this module must be wrapped
+in this decorator.  The decorator only works on functions that are
+already asynchronous.  For <a indepth="true" class="reference internal" href="web.html#tornado.web.RequestHandler" title="tornado.web.RequestHandler"><tt class="xref py py-obj docutils literal"><span class="pre">RequestHandler</span></tt></a>
+<tt class="docutils literal"><span class="pre">get</span></tt>/<tt class="docutils literal"><span class="pre">post</span></tt>/etc methods, this means that both the <a class="reference internal" href="#tornado.gen.engine" title="tornado.gen.engine"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.gen.engine</span></tt></a>
+and <a indepth="true" class="reference internal" href="web.html#tornado.web.asynchronous" title="tornado.web.asynchronous"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.web.asynchronous</span></tt></a> decorators must be used (in either order).
+In most other cases, it means that it doesn’t make sense to use
+<tt class="docutils literal"><span class="pre">gen.engine</span></tt> on functions that don’t already take a callback argument.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="yield-points">
+<h2>Yield points<a class="headerlink" href="#yield-points" title="Permalink to this headline">¶</a></h2>
+<p>Instances of the following classes may be used in yield expressions
+in the generator.</p>
+<dl class="class">
+<dt id="tornado.gen.Task">
+<em class="property">class </em><tt class="descclassname">tornado.gen.</tt><tt class="descname">Task</tt><big>(</big><em>func</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/gen.html#Task"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.gen.Task" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs a single asynchronous operation.</p>
+<p>Takes a function (and optional additional arguments) and runs it with
+those arguments plus a <tt class="docutils literal"><span class="pre">callback</span></tt> keyword argument.  The argument passed
+to the callback is returned as the result of the yield expression.</p>
+<p>A <a class="reference internal" href="#tornado.gen.Task" title="tornado.gen.Task"><tt class="xref py py-obj docutils literal"><span class="pre">Task</span></tt></a> is equivalent to a <a class="reference internal" href="#tornado.gen.Callback" title="tornado.gen.Callback"><tt class="xref py py-obj docutils literal"><span class="pre">Callback</span></tt></a>/<a class="reference internal" href="#tornado.gen.Wait" title="tornado.gen.Wait"><tt class="xref py py-obj docutils literal"><span class="pre">Wait</span></tt></a> pair (with a unique
+key generated automatically):</p>
+<div class="highlight-none"><div class="highlight"><pre>result = yield gen.Task(func, args)
+
+func(args, callback=(yield gen.Callback(key)))
+result = yield gen.Wait(key)
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="tornado.gen.Callback">
+<em class="property">class </em><tt class="descclassname">tornado.gen.</tt><tt class="descname">Callback</tt><big>(</big><em>key</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/gen.html#Callback"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.gen.Callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a callable object that will allow a matching <a class="reference internal" href="#tornado.gen.Wait" title="tornado.gen.Wait"><tt class="xref py py-obj docutils literal"><span class="pre">Wait</span></tt></a> to proceed.</p>
+<p>The key may be any value suitable for use as a dictionary key, and is
+used to match <tt class="docutils literal"><span class="pre">Callbacks</span></tt> to their corresponding <tt class="docutils literal"><span class="pre">Waits</span></tt>.  The key
+must be unique among outstanding callbacks within a single run of the
+generator function, but may be reused across different runs of the same
+function (so constants generally work fine).</p>
+<p>The callback may be called with zero or one arguments; if an argument
+is given it will be returned by <a class="reference internal" href="#tornado.gen.Wait" title="tornado.gen.Wait"><tt class="xref py py-obj docutils literal"><span class="pre">Wait</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="tornado.gen.Wait">
+<em class="property">class </em><tt class="descclassname">tornado.gen.</tt><tt class="descname">Wait</tt><big>(</big><em>key</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/gen.html#Wait"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.gen.Wait" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the argument passed to the result of a previous <a class="reference internal" href="#tornado.gen.Callback" title="tornado.gen.Callback"><tt class="xref py py-obj docutils literal"><span class="pre">Callback</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="tornado.gen.WaitAll">
+<em class="property">class </em><tt class="descclassname">tornado.gen.</tt><tt class="descname">WaitAll</tt><big>(</big><em>keys</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/gen.html#WaitAll"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.gen.WaitAll" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the results of multiple previous <tt class="xref py py-obj docutils literal"><span class="pre">Callbacks</span></tt>.</p>
+<p>The argument is a sequence of <a class="reference internal" href="#tornado.gen.Callback" title="tornado.gen.Callback"><tt class="xref py py-obj docutils literal"><span class="pre">Callback</span></tt></a> keys, and the result is
+a list of results in the same order.</p>
+<p><a class="reference internal" href="#tornado.gen.WaitAll" title="tornado.gen.WaitAll"><tt class="xref py py-obj docutils literal"><span class="pre">WaitAll</span></tt></a> is equivalent to yielding a list of <a class="reference internal" href="#tornado.gen.Wait" title="tornado.gen.Wait"><tt class="xref py py-obj docutils literal"><span class="pre">Wait</span></tt></a> objects.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="other-classes">
+<h2>Other classes<a class="headerlink" href="#other-classes" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tornado.gen.Arguments">
+<em class="property">class </em><tt class="descclassname">tornado.gen.</tt><tt class="descname">Arguments</tt><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/gen.html#Arguments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.gen.Arguments" title="Permalink to this definition">¶</a></dt>
+<dd><p>The result of a yield expression whose callback had more than one
+argument (or keyword arguments).</p>
+<p>The <a class="reference internal" href="#tornado.gen.Arguments" title="tornado.gen.Arguments"><tt class="xref py py-obj docutils literal"><span class="pre">Arguments</span></tt></a> object can be used as a tuple <tt class="docutils literal"><span class="pre">(args,</span> <span class="pre">kwargs)</span></tt>
+or an object with attributes <tt class="docutils literal"><span class="pre">args</span></tt> and <tt class="docutils literal"><span class="pre">kwargs</span></tt>.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a indepth="true" href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">tornado.gen</span></tt> — Simplify asynchronous code</a><ul>
+<li><a class="reference internal" href="#decorator">Decorator</a></li>
+<li><a class="reference internal" href="#yield-points">Yield points</a></li>
+<li><a class="reference internal" href="#other-classes">Other classes</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a indepth="true" href="autoreload.html" title="previous chapter"><tt class="docutils literal docutils literal"><span class="pre">tornado.autoreload</span></tt> — Automatically detect code changes in development</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a indepth="true" href="httputil.html" title="next chapter"><tt class="docutils literal"><span class="pre">tornado.httputil</span></tt> — Manipulate HTTP headers and URLs</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="http://en.tornadoweb.cn/documentation/_sources/gen.txt" rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none;">
+  <h3>Quick search</h3>
+    <form class="search" action="http://en.tornadoweb.cn/documentation/search.html" method="get">
+      <input value="" name="q" size="18" type="text">
+      <input value="Go" type="submit">
+      <input name="check_keywords" value="yes" type="hidden">
+      <input name="area" value="default" type="hidden">
+    </form>
+    <p class="searchtip" style="font-size: 90%;">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="httputil.html" title="tornado.httputil — Manipulate HTTP headers and URLs">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="autoreload.html" title="tornado.autoreload — Automatically detect code changes in development">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="utilities.html">Utilities</a> »</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        © Copyright 2011, Facebook.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  
+
+
+</body></html>

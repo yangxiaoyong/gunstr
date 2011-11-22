@@ -1,0 +1,424 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" class="client-js" dir="ltr">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Cross-site request forgery - Wikipedia, the free encyclopedia</title>
+
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="generator" content="MediaWiki 1.18wmf1">
+<link rel="alternate" type="application/x-wiki" title="Edit this page" href="http://en.wikipedia.org/w/index.php?title=Cross-site_request_forgery&amp;action=edit">
+<link rel="edit" title="Edit this page" href="http://en.wikipedia.org/w/index.php?title=Cross-site_request_forgery&amp;action=edit">
+<link rel="apple-touch-icon" href="http://en.wikipedia.org/apple-touch-icon.png">
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="http://en.wikipedia.org/w/opensearch_desc.php" title="Wikipedia (en)">
+<link rel="EditURI" type="application/rsd+xml" href="http://en.wikipedia.org/w/api.php?action=rsd">
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/">
+<link rel="alternate" type="application/atom+xml" title="Wikipedia Atom feed" href="http://en.wikipedia.org/w/index.php?title=Special:RecentChanges&amp;feed=atom">
+
+<meta name="ResourceLoaderDynamicStyles" content="">
+
+
+
+
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/w/skins-1.18/vector/csshover.min.htc")}</style><![endif]-->
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Cross-site_request_forgery action-view skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div class="js-messagebox" id="mw-js-message" style="display: none;"></div>
+						<!-- sitenotice -->
+			<div id="siteNotice"><div id="centralNotice" class="expanded cn-fundraising">
+
+
+
+<div id="B11_Donate_Jimmy2_AvsB">
+<a id="variable_lp" href="https://donate.wikimedia.org/wiki/Special:FundraiserLandingPage?uselang=en&amp;country=CN&amp;template=Lp-layout-default&amp;appeal-template=Appeal-template-default&amp;appeal=Appeal-default&amp;form-template=Form-template-default&amp;form-countryspecific=Form-countryspecific-variable1&amp;utm_medium=sitenotice&amp;utm_source=B11_Donate_Jimmy2_AvsB&amp;utm_campaign=C11_1114_AvsB_CN">
+<div id="cn-bold-blue-text">
+  Please read:<br>A personal appeal from<br>Wikipedia founder Jimmy Wales
+</div>
+<div class="cn-bottom-right-float">
+  <div id="notice-button-2011-start"></div>
+  <div id="notice-button-2011-label">Read now</div>
+  <div id="notice-button-2011-end"></div>
+</div>
+</a>
+
+<div id="cn-toggle-box">
+  <a href="#" onclick="hideBanner();return false;"><img src="closewindow.png" alt="Close" border="0"></a>
+</div>
+
+</div>
+
+</div><!-- centralNotice loads here --></div>
+			<!-- /sitenotice -->
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Cross-site request forgery</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+								<!-- tagline -->
+				<div id="siteSub">From Wikipedia, the free encyclopedia</div>
+				<!-- /tagline -->
+								<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Jump to: <a href="#mw-head">navigation</a>,
+					<a href="#p-search">search</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodycontent -->
+				<div dir="ltr" class="mw-content-ltr" lang="en"><p><b>Cross-site request forgery</b>, also known as a <b>one-click attack</b> or <b>session riding</b> and abbreviated as <b>CSRF</b> (pronounced <i>sea-surf</i><sup id="cite_ref-Shiflett_0-0" class="reference"><a href="#cite_note-Shiflett-0"><span>[</span>1<span>]</span></a></sup>) or <b>XSRF</b>, is a type of malicious <a href="http://en.wikipedia.org/wiki/Exploit_%28computer_science%29" title="Exploit (computer science)" class="mw-redirect">exploit</a> of a <a href="http://en.wikipedia.org/wiki/Website" title="Website">website</a> whereby unauthorized commands are transmitted from a <a href="http://en.wikipedia.org/wiki/User_%28computing%29" title="User (computing)">user</a> that the website trusts.<sup id="cite_ref-Ristic_1-0" class="reference"><a href="#cite_note-Ristic-1"><span>[</span>2<span>]</span></a></sup> Unlike <a href="http://en.wikipedia.org/wiki/Cross-site_scripting" title="Cross-site scripting">cross-site scripting</a> (XSS), which exploits the trust a user has for a particular site, CSRF exploits the trust that a site has in a user's browser.</p>
+<table id="toc" class="toc">
+<tbody><tr>
+<td>
+<div id="toctitle">
+<h2>Contents</h2>
+<span class="toctoggle">&nbsp;[<a href="#" class="internal" id="togglelink">hide</a>]&nbsp;</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Background"><span class="tocnumber">1</span> <span class="toctext">Background</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Example_and_characteristics"><span class="tocnumber">2</span> <span class="toctext">Example and characteristics</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Limitations"><span class="tocnumber">3</span> <span class="toctext">Limitations</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Severity"><span class="tocnumber">4</span> <span class="toctext">Severity</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Forging_login_requests"><span class="tocnumber">5</span> <span class="toctext">Forging login requests</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Other_approaches_to_CSRF"><span class="tocnumber">6</span> <span class="toctext">Other approaches to CSRF</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#Prevention"><span class="tocnumber">7</span> <span class="toctext">Prevention</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#See_also"><span class="tocnumber">8</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#References"><span class="tocnumber">9</span> <span class="toctext">References</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#External_links"><span class="tocnumber">10</span> <span class="toctext">External links</span></a></li>
+</ul>
+</td>
+</tr>
+</tbody></table>
+<h2><span class="editsection">[<a href="http://en.wikipedia.org/w/index.php?title=Cross-site_request_forgery&amp;action=edit&amp;section=1" title="Edit section: Background">edit</a>]</span> <span class="mw-headline" id="Background">Background</span></h2>
+<p>CSRF vulnerabilities have been known and in some cases exploited since 2001.<sup id="cite_ref-Burns_2-0" class="reference"><a href="#cite_note-Burns-2"><span>[</span>3<span>]</span></a></sup> Because it is carried out from the user's <a href="http://en.wikipedia.org/wiki/IP_address" title="IP address">IP address</a>, some website logs might not have evidence of CSRF.<sup id="cite_ref-Ristic_1-1" class="reference"><a href="#cite_note-Ristic-1"><span>[</span>2<span>]</span></a></sup> Exploits are under-reported, at least publicly, and as of 2007<sup id="cite_ref-3" class="reference"><a href="#cite_note-3"><span>[</span>4<span>]</span></a></sup> there are few well-documented examples. About 18 million users of <a href="http://en.wikipedia.org/wiki/EBay" title="EBay">eBay</a>'s <a href="http://en.wikipedia.org/wiki/Internet_Auction_Co." title="Internet Auction Co." class="mw-redirect">Internet Auction Co.</a> at Auction.co.kr in <a href="http://en.wikipedia.org/wiki/Korea" title="Korea">Korea</a> lost personal information in February 2008<sup class="Template-Fact" style="white-space: nowrap;">[<i><a href="http://en.wikipedia.org/wiki/Wikipedia:Citation_needed" title="Wikipedia:Citation needed"><span title="This claim needs references to reliable sources from March 2011">citation needed</span></a></i>]</sup>. Customers of a bank in <a href="http://en.wikipedia.org/wiki/Mexico" title="Mexico">Mexico</a> were attacked in early 2008 with an image tag in email. The link in the image tag changed the DNS entry for the bank in their ADSL router to point to a malicious website, impersonating the bank.<sup id="cite_ref-List-webappsec_4-0" class="reference"><a href="#cite_note-List-webappsec-4"><span>[</span>5<span>]</span></a></sup></p>
+<h2><span class="editsection">[<a href="http://en.wikipedia.org/w/index.php?title=Cross-site_request_forgery&amp;action=edit&amp;section=2" title="Edit section: Example and characteristics">edit</a>]</span> <span class="mw-headline" id="Example_and_characteristics">Example and characteristics</span></h2>
+<div class="thumb tright">
+<div class="thumbinner" style="width: 222px;"><a href="http://en.wikipedia.org/wiki/File:NVD-CVE-2007-1332.png" class="image"><img alt="" src="220px-nvd-cve-2007-1332.png" class="thumbimage" width="220" height="184"></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="http://en.wikipedia.org/wiki/File:NVD-CVE-2007-1332.png" class="internal" title="Enlarge"><img src="magnify-clip.png" alt="" width="15" height="11"></a></div>
+A <a href="http://en.wikipedia.org/wiki/National_Vulnerability_Database" title="National Vulnerability Database">National Vulnerability Database</a> page describing a CSRF hole</div>
+</div>
+</div>
+<p>The attack works by including a link or script in a page that accesses a site to which the user is known (or is supposed) to have been authenticated.<sup id="cite_ref-Shiflett_0-1" class="reference"><a href="#cite_note-Shiflett-0"><span>[</span>1<span>]</span></a></sup> For example, one user, Bob, might be browsing a chat forum where another user, Fred, has posted a message. Suppose that Fred has crafted an <a rel="nofollow" class="external text" href="http://www.w3.org/TR/html4/struct/objects.html#h-13.2">HTML image element</a> that references an action on Bob's bank's website (rather than an image file), e.g.,</p>
+<p><code>&lt;img src="http://bank.example.com/withdraw?account=bob&amp;amount=1000000&amp;for=Fred"&gt;</code></p>
+<p>If Bob's bank keeps his authentication information in a <a href="http://en.wikipedia.org/wiki/HTTP_cookie" title="HTTP cookie">cookie</a>, and if the cookie hasn't expired, then the attempt by Bob's <a href="http://en.wikipedia.org/wiki/Web_browser" title="Web browser">browser</a> to load the image will submit the withdrawal form with his cookie, thus authorizing a transaction without Bob's approval.</p>
+<p>A cross-site request forgery is a <a href="http://en.wikipedia.org/wiki/Confused_Deputy" title="Confused Deputy" class="mw-redirect">confused deputy attack</a> against a Web browser. The deputy in the bank example is Bob's Web browser which is confused into misusing Bob's authority at Fred's direction.</p>
+<p>The following characteristics are common to CSRF:</p>
+<ul>
+<li>Involve sites that rely on a user's <a href="http://en.wikipedia.org/wiki/Online_identity" title="Online identity">identity</a></li>
+<li>Exploit the site's trust in that identity</li>
+<li>Trick the user's browser into sending <a href="http://en.wikipedia.org/wiki/HTTP" title="HTTP" class="mw-redirect">HTTP</a> requests to a target site</li>
+<li>Involve HTTP requests that have <a href="http://en.wikipedia.org/wiki/HTTP#Safe_methods" title="HTTP" class="mw-redirect">side effects</a></li>
+</ul>
+<p>At risk are <a href="http://en.wikipedia.org/wiki/Web_application" title="Web application">web applications</a> that perform actions based on input from trusted and <a href="http://en.wikipedia.org/wiki/Authentication" title="Authentication">authenticated</a> users without requiring the user to <a href="http://en.wikipedia.org/wiki/Authorization" title="Authorization">authorize</a> the specific action. A user who is authenticated by a <a href="http://en.wikipedia.org/wiki/HTTP_cookie" title="HTTP cookie">cookie</a> saved in the user's <a href="http://en.wikipedia.org/wiki/Web_browser" title="Web browser">web browser</a> could unknowingly send an <a href="http://en.wikipedia.org/wiki/HTTP" title="HTTP" class="mw-redirect">HTTP</a> request to a site that trusts the user and thereby causes an unwanted action.</p>
+<p>CSRF attacks using image tags are often made from <a href="http://en.wikipedia.org/wiki/Internet_forum" title="Internet forum">Internet forums</a>, where users are allowed to post images but not <a href="http://en.wikipedia.org/wiki/JavaScript" title="JavaScript">JavaScript</a>.</p>
+<h2><span class="editsection">[<a href="http://en.wikipedia.org/w/index.php?title=Cross-site_request_forgery&amp;action=edit&amp;section=3" title="Edit section: Limitations">edit</a>]</span> <span class="mw-headline" id="Limitations">Limitations</span></h2>
+<p>Several things have to happen for cross-site request forgery to succeed:</p>
+<ol>
+<li>The attacker must target either a site that doesn't check the <a href="http://en.wikipedia.org/wiki/HTTP_referrer" title="HTTP referrer">referrer header</a> (which is common) or a victim with a browser or plugin bug that allows referrer <a href="http://en.wikipedia.org/wiki/Spoofing_attack" title="Spoofing attack">spoofing</a> (which is rare).</li>
+<li>The attacker must find a form submission at the target site, or a URL that has side effects, that does something (e.g., transfers money, or changes the victim's e-mail address or password).</li>
+<li>The attacker must determine the right values for all the form's or URL's inputs; if any of them are required to be secret authentication values or IDs that the attacker can't guess, the attack will fail.</li>
+<li>The attacker must lure the victim to a Web page with malicious code while the victim is logged in to the target site.</li>
+</ol>
+<p>Note that the attack is blind; i.e., the attacker can't see what the target website sends back to the victim in response to the forged requests, unless he exploits a <a href="http://en.wikipedia.org/wiki/Cross-site_scripting" title="Cross-site scripting">cross-site scripting</a> or other bug at the target website. Similarly, the attacker can only target any links or submit any forms that come up after the initial forged request, if those subsequent links or forms are similarly predictable. (Multiple targets can be simulated by including multiple images on a page, or by using JavaScript to introduce a delay between clicks.)</p>
+<p>Given these constraints, an attacker might have difficulty finding logged-in victims or attackable form submissions. On the other hand, attack attempts are easy to mount and invisible to victims, and application designers are less familiar with and prepared for CSRF attacks than they are for, say, password-guessing dictionary attacks.</p>
+<h2><span class="editsection">[<a href="http://en.wikipedia.org/w/index.php?title=Cross-site_request_forgery&amp;action=edit&amp;section=4" title="Edit section: Severity">edit</a>]</span> <span class="mw-headline" id="Severity">Severity</span></h2>
+<p>Unlike other types of vulnerabilities, there is no limit on impact of CSRF. According to the United States Department Of Homeland Security the most dangerous CSRF vulnerability ranks in at the 909th most dangerous software bug ever found, making this vulnerability more dangerous than most <a href="http://en.wikipedia.org/wiki/Buffer_overflows" title="Buffer overflows" class="mw-redirect">buffer overflows</a>.<sup id="cite_ref-5" class="reference"><a href="#cite_note-5"><span>[</span>6<span>]</span></a></sup> Other severity metrics have been issued for CSRF vulnerabilities that result in remote code execution with root privileges<sup id="cite_ref-6" class="reference"><a href="#cite_note-6"><span>[</span>7<span>]</span></a></sup> as well as a vulnerability that can compromise a <a href="http://en.wikipedia.org/wiki/Root_certificate" title="Root certificate">root certificate</a>, which will completely undermine a <a href="http://en.wikipedia.org/wiki/Public_key_infrastructure" title="Public key infrastructure">public key infrastructure</a>.<sup id="cite_ref-7" class="reference"><a href="#cite_note-7"><span>[</span>8<span>]</span></a></sup></p>
+<h2><span class="editsection">[<a href="http://en.wikipedia.org/w/index.php?title=Cross-site_request_forgery&amp;action=edit&amp;section=5" title="Edit section: Forging login requests">edit</a>]</span> <span class="mw-headline" id="Forging_login_requests">Forging login requests</span></h2>
+<p>An attacker may forge a request to log the victim in to a target website using the attacker's credentials; this is known as <i>login CSRF</i>. Login CSRF makes various novel attacks possible; for instance, an attacker can later log in to the site with his legitimate credentials and view private information like activity history that has been saved in the account.<sup id="cite_ref-8" class="reference"><a href="#cite_note-8"><span>[</span>9<span>]</span></a></sup> The attack has been demonstrated against <a href="http://en.wikipedia.org/wiki/YouTube" title="YouTube">YouTube</a>.<sup id="cite_ref-9" class="reference"><a href="#cite_note-9"><span>[</span>10<span>]</span></a></sup></p>
+<h2><span class="editsection">[<a href="http://en.wikipedia.org/w/index.php?title=Cross-site_request_forgery&amp;action=edit&amp;section=6" title="Edit section: Other approaches to CSRF">edit</a>]</span> <span class="mw-headline" id="Other_approaches_to_CSRF">Other approaches to CSRF</span></h2>
+<p>Additionally, while typically described as a static type of attack, CSRF can also be dynamically constructed as part of a payload for a <a href="http://en.wikipedia.org/wiki/Cross-site_scripting" title="Cross-site scripting">cross-site scripting</a> attack, as demonstrated by the <a href="http://en.wikipedia.org/wiki/Samy_%28XSS%29" title="Samy (XSS)">Samy</a> worm, or constructed on the fly from session information leaked via offsite content and sent to a target as a malicious URL. CSRF tokens could also be sent to a client by an attacker due to <a href="http://en.wikipedia.org/wiki/Session_fixation" title="Session fixation">session fixation</a> or other vulnerabilities, or guessed via a brute-force attack,<sup id="cite_ref-10" class="reference"><a href="#cite_note-10"><span>[</span>11<span>]</span></a></sup> rendered on a malicious page that generates thousands of failed requests. The attack class of "Dynamic CSRF", or using a per-client payload for session-specific forgery, was described<sup id="cite_ref-11" class="reference"><a href="#cite_note-11"><span>[</span>12<span>]</span></a></sup> in 2009 by Nathan Hamiel and Shawn Moyer at the BlackHat Briefings,<sup id="cite_ref-12" class="reference"><a href="#cite_note-12"><span>[</span>13<span>]</span></a></sup> though the taxonomy has yet to gain wider adoption.</p>
+<h2><span class="editsection">[<a href="http://en.wikipedia.org/w/index.php?title=Cross-site_request_forgery&amp;action=edit&amp;section=7" title="Edit section: Prevention">edit</a>]</span> <span class="mw-headline" id="Prevention">Prevention</span></h2>
+<p>Individual Web users using unmodified versions of the most popular browsers can do relatively little to prevent cross-site request forgery. Logging out of sites and avoiding their "remember me" features can mitigate CSRF risk; not displaying external images or not clicking links in spam or untrusted e-mails may also help.</p>
+<p>Browser extensions such as RequestPolicy (for <a href="http://en.wikipedia.org/wiki/Mozilla_Firefox" title="Mozilla Firefox" class="mw-redirect">Mozilla Firefox</a>) can prevent CSRF by providing a default-deny policy for cross-site requests. However, this can significantly interfere with the normal operation of many websites. The CsFire extension (also for Firefox) can mitigate the impact of CSRF with less impact on normal browsing, by removing authentication information from cross-site requests.</p>
+<p>Web sites have various CSRF countermeasures available:</p>
+<ul>
+<li>Requiring a secret, user-specific token in all form submissions and side-effect URLs prevents CSRF; the attacker's site cannot put the right token in its submissions<sup id="cite_ref-Shiflett_0-2" class="reference"><a href="#cite_note-Shiflett-0"><span>[</span>1<span>]</span></a></sup></li>
+<li>Requiring the client to provide authentication data in the same HTTP Request used to perform any operation with security implications (money transfer, etc.)</li>
+<li>Limiting the lifetime of session cookies</li>
+<li>Checking the HTTP <code>Referer</code> header</li>
+<li>Ensuring that there is no clientaccesspolicy.xml file granting unintended access to Silverlight controls<sup id="cite_ref-13" class="reference"><a href="#cite_note-13"><span>[</span>14<span>]</span></a></sup></li>
+<li>Ensuring that there is no crossdomain.xml file granting unintended access to Flash movies<sup id="cite_ref-14" class="reference"><a href="#cite_note-14"><span>[</span>15<span>]</span></a></sup></li>
+<li>Verifying that the request's header contains a X-Requested-With. Used by <a href="http://en.wikipedia.org/wiki/Ruby_on_Rails" title="Ruby on Rails">Ruby on Rails</a> (before v2.0) and <a href="http://en.wikipedia.org/wiki/Django_%28Web_framework%29" title="Django (Web framework)">Django</a> (before v1.2.5). This protection has been proven unsecure<sup id="cite_ref-15" class="reference"><a href="#cite_note-15"><span>[</span>16<span>]</span></a></sup> under a combination of browser plugins and redirects which can allow an attacker to provide custom HTTP headers on a request to any website, hence allow a forged requests.</li>
+</ul>
+<p>A variation on this approach is to double submit cookies for users who use JavaScript. If an authentication cookie is read using JavaScript before the post is made, JavaScript's stricter (and more correct) <a href="http://en.wikipedia.org/wiki/Same_origin_policy" title="Same origin policy">cross-domain rules</a> will be applied. If the server requires requests to contain the value of the authentication cookie in the body of POST requests or the URL of dangerous GET requests, then the request must have come from a trusted domain, since other domains are unable to read cookies from the trusting domain.</p>
+<p>Checking the <a href="http://en.wikipedia.org/wiki/HTTP_referer" title="HTTP referer" class="mw-redirect">HTTP <code>Referer</code> header</a> to see if the request is coming from an authorized page is commonly used for embedded network devices because it does not increase memory requirements. However a request that omits the <code>Referer</code> header must be treated as unauthorized because an attacker can suppress the <code>Referer</code> header by issuing requests from FTP or HTTPS URLs. This strict <code>Referer</code> validation may cause issues with browsers or proxies that omit the <code>Referer</code> header for privacy reasons. Also, old versions of Flash (before 9.0.18) allow malicious Flash to generate GET or POST requests with arbitrary http request headers using <a rel="nofollow" class="external text" href="http://secunia.com/advisories/22467/">CRLF Injection</a>. Similar CRLF injection vulnerabilities in a client can be used to spoof the referrer of an http request.</p>
+<p>To prevent forgery of login requests, sites can use these CSRF countermeasures in the login process, even before the user is logged in.</p>
+<p>Sites with especially strict security needs, like banks, often log users off after (for example) 15 minutes of inactivity.</p>
+<p>Using the <a href="http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods" title="Hypertext Transfer Protocol">HTTP specified usage for GET and POST</a>, in which GET requests never have a permanent effect, is good practice but is not sufficient to prevent CSRF. Attackers can write JavaScript or ActionScript that invisibly submits a POST form to the target domain. However, filtering out unexpected GETs prevents some particular attacks, such as cross-site attacks using malicious image URLs or link addresses and cross-site information leakage through <code>&lt;script&gt;</code> elements (<i>JavaScript hijacking</i>); it also prevents (non-security-related) problems with aggressive <a href="http://en.wikipedia.org/wiki/Web_crawler" title="Web crawler">web crawlers</a> and <a href="http://en.wikipedia.org/wiki/Link_prefetching" title="Link prefetching">link prefetching</a>.<sup id="cite_ref-Shiflett_0-3" class="reference"><a href="#cite_note-Shiflett-0"><span>[</span>1<span>]</span></a></sup></p>
+<h2><span class="editsection">[<a href="http://en.wikipedia.org/w/index.php?title=Cross-site_request_forgery&amp;action=edit&amp;section=8" title="Edit section: See also">edit</a>]</span> <span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/Confused_deputy_problem" title="Confused deputy problem">Confused deputy problem</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Replay_attack" title="Replay attack">Replay attack</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Session_fixation" title="Session fixation">Session fixation</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Heap_spraying" title="Heap spraying">Heap spraying</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Cross-document_messaging" title="Cross-document messaging">Cross-document messaging</a></li>
+</ul>
+<h2><span class="editsection">[<a href="http://en.wikipedia.org/w/index.php?title=Cross-site_request_forgery&amp;action=edit&amp;section=9" title="Edit section: References">edit</a>]</span> <span class="mw-headline" id="References">References</span></h2>
+<div class="reflist" style="list-style-type: decimal;">
+<ol class="references">
+<li id="cite_note-Shiflett-0">^ <a href="#cite_ref-Shiflett_0-0"><sup><i><b>a</b></i></sup></a> <a href="#cite_ref-Shiflett_0-1"><sup><i><b>b</b></i></sup></a> <a href="#cite_ref-Shiflett_0-2"><sup><i><b>c</b></i></sup></a> <a href="#cite_ref-Shiflett_0-3"><sup><i><b>d</b></i></sup></a> <span class="citation web">Shiflett, Chris (December 13, 2004). <a rel="nofollow" class="external text" href="http://shiflett.org/articles/cross-site-request-forgeries">"Security Corner: Cross-Site Request Forgeries"</a>. php|architect (via shiflett.org)<span class="printonly">. <a rel="nofollow" class="external free" href="http://shiflett.org/articles/cross-site-request-forgeries">http://shiflett.org/articles/cross-site-request-forgeries</a></span><span class="reference-accessdate">. Retrieved 2008-07-03</span>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=bookitem&amp;rft.btitle=Security+Corner%3A+Cross-Site+Request+Forgeries&amp;rft.atitle=&amp;rft.aulast=Shiflett%2C+Chris&amp;rft.au=Shiflett%2C+Chris&amp;rft.date=December+13%2C+2004&amp;rft.pub=php%26%23124%3Barchitect+%28via+shiflett.org%29&amp;rft_id=http%3A%2F%2Fshiflett.org%2Farticles%2Fcross-site-request-forgeries&amp;rfr_id=info:sid/en.wikipedia.org:Cross-site_request_forgery"><span style="display: none;">&nbsp;</span></span></li>
+<li id="cite_note-Ristic-1">^ <a href="#cite_ref-Ristic_1-0"><sup><i><b>a</b></i></sup></a> <a href="#cite_ref-Ristic_1-1"><sup><i><b>b</b></i></sup></a> <span class="citation book">Ristic, Ivan (2005). <i>Apache Security</i>. O'Reilly Media. p.&nbsp;280. <a href="http://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="http://en.wikipedia.org/wiki/Special:BookSources/0-596-00724-8" title="Special:BookSources/0-596-00724-8">0-596-00724-8</a>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.btitle=Apache+Security&amp;rft.aulast=Ristic%2C+Ivan&amp;rft.au=Ristic%2C+Ivan&amp;rft.date=2005&amp;rft.pages=p.%26nbsp%3B280&amp;rft.pub=O%27Reilly+Media&amp;rft.isbn=0-596-00724-8&amp;rfr_id=info:sid/en.wikipedia.org:Cross-site_request_forgery"><span style="display: none;">&nbsp;</span></span></li>
+<li id="cite_note-Burns-2"><b><a href="#cite_ref-Burns_2-0">^</a></b> <span class="citation web">Burns, Jesse (2005). <a rel="nofollow" class="external text" href="http://www.isecpartners.com/files/XSRF_Paper_0.pdf">"Cross Site Request Forgery: An Introduction To A Common Web Weakness"</a>. Information Security Partners, LLC<span class="printonly">. <a rel="nofollow" class="external free" href="http://www.isecpartners.com/files/XSRF_Paper_0.pdf">http://www.isecpartners.com/files/XSRF_Paper_0.pdf</a></span><span class="reference-accessdate">. Retrieved 2011-10-06</span>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=bookitem&amp;rft.btitle=Cross+Site+Request+Forgery%3A+An+Introduction+To+A+Common+Web+Weakness&amp;rft.atitle=&amp;rft.aulast=Burns%2C+Jesse&amp;rft.au=Burns%2C+Jesse&amp;rft.date=2005&amp;rft.pub=Information+Security+Partners%2C+LLC&amp;rft_id=http%3A%2F%2Fwww.isecpartners.com%2Ffiles%2FXSRF_Paper_0.pdf&amp;rfr_id=info:sid/en.wikipedia.org:Cross-site_request_forgery"><span style="display: none;">&nbsp;</span></span></li>
+<li id="cite_note-3"><b><a href="#cite_ref-3">^</a></b> <span class="citation web">Christey, Steve and Martin, Robert A. (May 22, 2007). <a rel="nofollow" class="external text" href="http://cwe.mitre.org/documents/vuln-trends/index.html">"Vulnerability Type Distributions in CVE (version 1.1)"</a>. MITRE Corporation<span class="printonly">. <a rel="nofollow" class="external free" href="http://cwe.mitre.org/documents/vuln-trends/index.html">http://cwe.mitre.org/documents/vuln-trends/index.html</a></span><span class="reference-accessdate">. Retrieved 2008-06-07</span>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=bookitem&amp;rft.btitle=Vulnerability+Type+Distributions+in+CVE+%28version+1.1%29&amp;rft.atitle=&amp;rft.aulast=Christey%2C+Steve+and+Martin%2C+Robert+A.&amp;rft.au=Christey%2C+Steve+and+Martin%2C+Robert+A.&amp;rft.date=May+22%2C+2007&amp;rft.pub=MITRE+Corporation&amp;rft_id=http%3A%2F%2Fcwe.mitre.org%2Fdocuments%2Fvuln-trends%2Findex.html&amp;rfr_id=info:sid/en.wikipedia.org:Cross-site_request_forgery"><span style="display: none;">&nbsp;</span></span></li>
+<li id="cite_note-List-webappsec-4"><b><a href="#cite_ref-List-webappsec_4-0">^</a></b> <span class="citation web"><a rel="nofollow" class="external text" href="http://www.webappsec.org/projects/whid/byclass_class_attack_method_value_cross_site_request_forgery_%28csrf%29.shtml">"List of incidents for which Attack Method is Cross Site Request Forgery (CSRF)"</a>. Web Application Security Consortium. February 2008<span class="printonly">. <a rel="nofollow" class="external free" href="http://www.webappsec.org/projects/whid/byclass_class_attack_method_value_cross_site_request_forgery_%28csrf%29.shtml">http://www.webappsec.org/projects/whid/byclass_class_attack_method_value_cross_site_request_forgery_(csrf).shtml</a></span><span class="reference-accessdate">. Retrieved 2008-07-04</span>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=bookitem&amp;rft.btitle=List+of+incidents+for+which+Attack+Method+is+Cross+Site+Request+Forgery+%28CSRF%29&amp;rft.atitle=&amp;rft.date=February+2008&amp;rft.pub=Web+Application+Security+Consortium&amp;rft_id=http%3A%2F%2Fwww.webappsec.org%2Fprojects%2Fwhid%2Fbyclass_class_attack_method_value_cross_site_request_forgery_%28csrf%29.shtml&amp;rfr_id=info:sid/en.wikipedia.org:Cross-site_request_forgery"><span style="display: none;">&nbsp;</span></span></li>
+<li id="cite_note-5"><b><a href="#cite_ref-5">^</a></b> <a rel="nofollow" class="external text" href="http://www.kb.cert.org/CERT_WEB%5Cservices%5Cvul-notes.nsf/bymetric?open&amp;start=908">US-CERT vulnerability list by severity metric</a></li>
+<li id="cite_note-6"><b><a href="#cite_ref-6">^</a></b> <a rel="nofollow" class="external text" href="http://www.kb.cert.org/vuls/id/584089">cPanel Remote Root</a></li>
+<li id="cite_note-7"><b><a href="#cite_ref-7">^</a></b> <a rel="nofollow" class="external text" href="http://www.kb.cert.org/vuls/id/264385">OpenCA CSRF</a></li>
+<li id="cite_note-8"><b><a href="#cite_ref-8">^</a></b> Adam Barth, Collin Jackson, and John C. Mitchell, <a rel="nofollow" class="external text" href="http://www.adambarth.com/papers/2008/barth-jackson-mitchell-b.pdf">Robust Defenses for Cross-Site Request Forgery</a>, <i>Proceedings of the 15th ACM Conference on Computer and Communications Security,</i> ACM 2007</li>
+<li id="cite_note-9"><b><a href="#cite_ref-9">^</a></b> Jeremiah Grossman, <a rel="nofollow" class="external text" href="http://www.vimeo.com/1762861">Google YouTube crossdomain security flaw</a></li>
+<li id="cite_note-10"><b><a href="#cite_ref-10">^</a></b> Inferno Security Blog <a rel="nofollow" class="external text" href="http://securethoughts.com/2009/07/hacking-csrf-tokens-using-css-history-hack/">Brute-forcing CSRF tokens</a></li>
+<li id="cite_note-11"><b><a href="#cite_ref-11">^</a></b> <a rel="nofollow" class="external text" href="http://voices.washingtonpost.com/securityfix/2009/07/weaponizing_web_20.html">Weaponizing Web 2.0</a></li>
+<li id="cite_note-12"><b><a href="#cite_ref-12">^</a></b> <a rel="nofollow" class="external text" href="http://www.neohaxor.org/2009/08/11/dynamic-cross-site-request-forgery/">Dynamic CSRF</a></li>
+<li id="cite_note-13"><b><a href="#cite_ref-13">^</a></b> <a rel="nofollow" class="external text" href="http://msdn.microsoft.com/en-us/library/cc197955.aspx">Client access policy file to allow cross-domain access by Silverlight controls</a></li>
+<li id="cite_note-14"><b><a href="#cite_ref-14">^</a></b> <a rel="nofollow" class="external text" href="http://www.adobe.com/devnet/flashplayer/articles/cross_domain_policy.html">Cross-domain policy file usage recommendations for Flash Player</a></li>
+<li id="cite_note-15"><b><a href="#cite_ref-15">^</a></b> <span class="citation web"><a rel="nofollow" class="external text" href="http://docs.djangoproject.com/en/1.2/releases/1.2.5/#csrf-exception-for-ajax-requests">"Django 1.2.5 release notes"</a>. <i>Django</i><span class="printonly">. <a rel="nofollow" class="external free" href="http://docs.djangoproject.com/en/1.2/releases/1.2.5/#csrf-exception-for-ajax-requests">http://docs.djangoproject.com/en/1.2/releases/1.2.5/#csrf-exception-for-ajax-requests</a></span>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=bookitem&amp;rft.btitle=Django+1.2.5+release+notes&amp;rft.atitle=Django&amp;rft_id=http%3A%2F%2Fdocs.djangoproject.com%2Fen%2F1.2%2Freleases%2F1.2.5%2F%23csrf-exception-for-ajax-requests&amp;rfr_id=info:sid/en.wikipedia.org:Cross-site_request_forgery"><span style="display: none;">&nbsp;</span></span></li>
+</ol>
+</div>
+<h2><span class="editsection">[<a href="http://en.wikipedia.org/w/index.php?title=Cross-site_request_forgery&amp;action=edit&amp;section=10" title="Edit section: External links">edit</a>]</span> <span class="mw-headline" id="External_links">External links</span></h2>
+<ul>
+<li><a rel="nofollow" class="external text" href="http://yehg.net/lab/pr0js/view.php/A_Most-Neglected_Fact_About_CSRF.pdf">A Most-Neglected Fact About Cross Site Request Forgery</a></li>
+<li><a rel="nofollow" class="external text" href="http://packetstormsecurity.org/papers/attack/Using_XSS_to_bypass_CSRF_protection.pdf">Using XSS to bypass CSRF protection</a></li>
+<li><a rel="nofollow" class="external text" href="http://www.threadstrong.com/courses/csrf/">eLearning: Cross-Site Request Forgery Explained</a></li>
+<li><a rel="nofollow" class="external text" href="http://www.cgisecurity.com/csrf-faq.html">The Cross-Site Request Forgery FAQ</a></li>
+<li><a rel="nofollow" class="external text" href="http://www.owasp.org/index.php/CSRF_Guard">Free Cross-Site Request Forgery Solution from OWASP</a></li>
+<li><a rel="nofollow" class="external text" href="http://projects.webappsec.org/Cross-Site+Request+Forgery">Cross-Site Request Forgery from The Web Application Security Consortium Threat Classification Project</a></li>
+<li><a rel="nofollow" class="external text" href="http://ha.ckers.org/xss.html">XSS Cheat Sheet</a></li>
+</ul>
+
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 4327/1000000
+Post-expand include size: 25379/2048000 bytes
+Template argument size: 9657/2048000 bytes
+Expensive parser function count: 1/500
+-->
+
+<!-- Saved in parser cache with key enwiki:pcache:idhash:30874632-0!*!0!!en!4!* and timestamp 20111019090447 -->
+</div>				<!-- /bodycontent -->
+								<!-- printfooter -->
+				<div class="printfooter">
+				Retrieved from "<a href="http://en.wikipedia.org/w/index.php?title=Cross-site_request_forgery&amp;oldid=454206426">http://en.wikipedia.org/w/index.php?title=Cross-site_request_forgery&amp;oldid=454206426</a>"				</div>
+				<!-- /printfooter -->
+												<!-- catlinks -->
+				<div class="articleFeedback" id="mw-articlefeedback"><div class="articleFeedback-panel">	<div class="articleFeedback-buffer articleFeedback-ui">		<div class="articleFeedback-switch articleFeedback-switch-report articleFeedback-visibleWith-form" rel="report">View page ratings</div>		<div style="display: none;" class="articleFeedback-switch articleFeedback-switch-form articleFeedback-visibleWith-report" rel="form">Rate this page</div>		<div class="articleFeedback-title articleFeedback-visibleWith-form">Rate this page</div>		<div style="display: none;" class="articleFeedback-title articleFeedback-visibleWith-report">Page ratings</div>		<div class="articleFeedback-explanation articleFeedback-visibleWith-form"><a href="http://en.wikipedia.org/wiki/Wikipedia:Article%20Feedback%20Tool" class="articleFeedback-explanation-link">What's this?</a></div>		<div style="display: none;" class="articleFeedback-description articleFeedback-visibleWith-report">Current average ratings.</div>		<div style="clear: both;"></div>		<div class="articleFeedback-ratings"><div rel="trustworthy" class="articleFeedback-rating">	<div original-title="Do you feel this page has sufficient citations and that those citations come from trustworthy sources?" class="articleFeedback-label">Trustworthy</div>	<input name="r1" type="hidden">	<div class="articleFeedback-rating-labels articleFeedback-visibleWith-form">		<div class="articleFeedback-rating-label" rel="1"></div>		<div class="articleFeedback-rating-label" rel="2"></div>		<div class="articleFeedback-rating-label" rel="3"></div>		<div class="articleFeedback-rating-label" rel="4"></div>		<div class="articleFeedback-rating-label" rel="5"></div>		<div original-title="Remove this rating" class="articleFeedback-rating-clear"></div>	</div>	<div class="articleFeedback-visibleWith-form">		<div class="articleFeedback-rating-tooltip"></div>	</div>	<div style="display: none;" class="articleFeedback-rating-average articleFeedback-visibleWith-report"></div>	<div style="display: none;" class="articleFeedback-rating-meter articleFeedback-visibleWith-report"><div></div></div>	<div style="display: none;" class="articleFeedback-rating-count articleFeedback-visibleWith-report"></div>	<div style="clear: both;"></div></div><div rel="objective" class="articleFeedback-rating">	<div original-title="Do you feel that this page shows a fair representation of all perspectives on the issue?" class="articleFeedback-label">Objective</div>	<input name="r2" type="hidden">	<div class="articleFeedback-rating-labels articleFeedback-visibleWith-form">		<div class="articleFeedback-rating-label" rel="1"></div>		<div class="articleFeedback-rating-label" rel="2"></div>		<div class="articleFeedback-rating-label" rel="3"></div>		<div class="articleFeedback-rating-label" rel="4"></div>		<div class="articleFeedback-rating-label" rel="5"></div>		<div original-title="Remove this rating" class="articleFeedback-rating-clear"></div>	</div>	<div class="articleFeedback-visibleWith-form">		<div class="articleFeedback-rating-tooltip"></div>	</div>	<div style="display: none;" class="articleFeedback-rating-average articleFeedback-visibleWith-report"></div>	<div style="display: none;" class="articleFeedback-rating-meter articleFeedback-visibleWith-report"><div></div></div>	<div style="display: none;" class="articleFeedback-rating-count articleFeedback-visibleWith-report"></div>	<div style="clear: both;"></div></div><div rel="complete" class="articleFeedback-rating">	<div original-title="Do you feel that this page covers the essential topic areas that it should?" class="articleFeedback-label">Complete</div>	<input name="r3" type="hidden">	<div class="articleFeedback-rating-labels articleFeedback-visibleWith-form">		<div class="articleFeedback-rating-label" rel="1"></div>		<div class="articleFeedback-rating-label" rel="2"></div>		<div class="articleFeedback-rating-label" rel="3"></div>		<div class="articleFeedback-rating-label" rel="4"></div>		<div class="articleFeedback-rating-label" rel="5"></div>		<div original-title="Remove this rating" class="articleFeedback-rating-clear"></div>	</div>	<div class="articleFeedback-visibleWith-form">		<div class="articleFeedback-rating-tooltip"></div>	</div>	<div style="display: none;" class="articleFeedback-rating-average articleFeedback-visibleWith-report"></div>	<div style="display: none;" class="articleFeedback-rating-meter articleFeedback-visibleWith-report"><div></div></div>	<div style="display: none;" class="articleFeedback-rating-count articleFeedback-visibleWith-report"></div>	<div style="clear: both;"></div></div><div rel="wellwritten" class="articleFeedback-rating">	<div original-title="Do you feel that this page is well-organized and well-written?" class="articleFeedback-label">Well-written</div>	<input name="r4" type="hidden">	<div class="articleFeedback-rating-labels articleFeedback-visibleWith-form">		<div class="articleFeedback-rating-label" rel="1"></div>		<div class="articleFeedback-rating-label" rel="2"></div>		<div class="articleFeedback-rating-label" rel="3"></div>		<div class="articleFeedback-rating-label" rel="4"></div>		<div class="articleFeedback-rating-label" rel="5"></div>		<div original-title="Remove this rating" class="articleFeedback-rating-clear"></div>	</div>	<div class="articleFeedback-visibleWith-form">		<div class="articleFeedback-rating-tooltip"></div>	</div>	<div style="display: none;" class="articleFeedback-rating-average articleFeedback-visibleWith-report"></div>	<div style="display: none;" class="articleFeedback-rating-meter articleFeedback-visibleWith-report"><div></div></div>	<div style="display: none;" class="articleFeedback-rating-count articleFeedback-visibleWith-report"></div>	<div style="clear: both;"></div></div></div>		<div style="clear: both;"></div>		<div class="articleFeedback-options">			<div class="articleFeedback-expertise articleFeedback-visibleWith-form">				<input id="articleFeedback-expertise-general" value="general" disabled="disabled" type="checkbox"><label for="articleFeedback-expertise-general" class="articleFeedback-expertise-disabled">I am highly knowledgeable about this topic (optional)</label>				<div class="articleFeedback-expertise-options">					<div><input id="articleFeedback-expertise-studies" value="studies" type="checkbox"><label for="articleFeedback-expertise-studies">I have a relevant college/university degree</label></div>					<div><input id="articleFeedback-expertise-profession" value="profession" type="checkbox"><label for="articleFeedback-expertise-profession">It is part of my profession</label></div>					<div><input id="articleFeedback-expertise-hobby" value="hobby" type="checkbox"><label for="articleFeedback-expertise-hobby">It is a deep personal passion</label></div>					<div><input id="articleFeedback-expertise-other" value="other" type="checkbox"><label for="articleFeedback-expertise-other">The source of my knowledge is not listed here</label></div>					<div class="articleFeedback-helpimprove">						<input id="articleFeedback-expertise-helpimprove-email" value="helpimprove-email" type="checkbox">						<label for="articleFeedback-expertise-helpimprove-email">I would like to help improve Wikipedia, send me an e-mail (optional)</label>						<input value="" placeholder="email@example.org" class="articleFeedback-helpimprove-email" type="text">						<div class="articleFeedback-helpimprove-note">We will send you a confirmation e-mail. We will not share your e-mail address with outside parties as per our <a href="http://wikimediafoundation.org/wiki/Feedback_privacy_statement">feedback privacy statement</a>.</div>					</div>				</div>			</div>			<div style="clear: both;"></div>		</div>		<button aria-disabled="true" role="button" class="articleFeedback-submit articleFeedback-visibleWith-form ui-button ui-widget ui-state-default ui-corner-all ui-button-disabled ui-state-disabled ui-button-text-only ui-button-blue" type="submit" disabled="disabled"><span class="ui-button-text">Submit ratings</span></button>		<div class="articleFeedback-success articleFeedback-visibleWith-form"><span>Saved successfully</span></div>		<div class="articleFeedback-pending articleFeedback-visibleWith-form"><span>Your ratings have not been submitted yet</span></div>		<div style="clear: both;"></div>		<div class="articleFeedback-notices articleFeedback-visibleWith-form">			<div class="articleFeedback-expiry">				<div class="articleFeedback-expiry-title">Your ratings have expired</div>				<div class="articleFeedback-expiry-message">Please reevaluate this page and submit new ratings.</div>			</div>		</div>	</div>	<div class="articleFeedback-error"><div class="articleFeedback-error-message">An error has occured. Please try again later.</div></div>	<div class="articleFeedback-pitches"><div rel="survey" class="articleFeedback-pitch">	<div class="articleFeedback-buffer">		<div class="articleFeedback-title">Thanks! Your ratings have been saved.</div>		<div class="articleFeedback-pop">			<div class="articleFeedback-message">Please take a moment to complete a short survey.</div>			<div class="articleFeedback-body"></div>			<button role="button" class="articleFeedback-accept ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-button-green"><span class="ui-button-text">Start survey</span></button>			<button class="articleFeedback-reject">Maybe later</button>		</div>	</div></div><div rel="join" class="articleFeedback-pitch">	<div class="articleFeedback-buffer">		<div class="articleFeedback-title">Thanks! Your ratings have been saved.</div>		<div class="articleFeedback-pop">			<div class="articleFeedback-message">Do you want to create an account?</div>			<div class="articleFeedback-body">An account will help you track your edits, get involved in discussions, and be a part of the community.</div>			<button role="button" class="articleFeedback-accept ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-button-green"><span class="ui-button-text">Create an account</span></button><span class="articleFeedback-pitch-or">or</span><button role="button" class="articleFeedback-altAccept ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-button-green"><span class="ui-button-text">Log in</span></button>			<button class="articleFeedback-reject">Maybe later</button>		</div>	</div></div><div rel="edit" class="articleFeedback-pitch">	<div class="articleFeedback-buffer">		<div class="articleFeedback-title">Thanks! Your ratings have been saved.</div>		<div class="articleFeedback-pop">			<div class="articleFeedback-message">Did you know that you can edit this page?</div>			<div class="articleFeedback-body"></div>			<button role="button" class="articleFeedback-accept ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-button-green"><span class="ui-button-text">Edit this page</span></button>			<button class="articleFeedback-reject">Maybe later</button>		</div>	</div></div></div>	<div style="clear: both;"></div></div><div class="articleFeedback-lock"></div>		</div><div id="catlinks" class="catlinks"><div id="mw-normal-catlinks"><a href="http://en.wikipedia.org/wiki/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="http://en.wikipedia.org/wiki/Category:Web_security_exploits" title="Category:Web security exploits">Web security exploits</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-cats-hidden">Hidden categories: <ul><li><a href="http://en.wikipedia.org/wiki/Category:All_articles_with_unsourced_statements" title="Category:All articles with unsourced statements">All articles with unsourced statements</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Articles_with_unsourced_statements_from_March_2011" title="Category:Articles with unsourced statements from March 2011">Articles with unsourced statements from March 2011</a></li></ul></div></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+				<!-- debughtml -->
+								<!-- /debughtml -->
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Personal tools</h5>
+	<ul>
+		<li id="pt-login"><a href="http://en.wikipedia.org/w/index.php?title=Special:UserLogin&amp;returnto=Cross-site_request_forgery&amp;campaign=ACP1" title="You are encouraged to log in; however, it is not mandatory. [alt-shift-o]" accesskey="o">Log in / create account</a></li>
+	</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Namespaces</h5>
+	<ul>
+					<li id="ca-nstab-main" class="selected"><span><a href="http://en.wikipedia.org/wiki/Cross-site_request_forgery" title="View the content page [alt-shift-c]" accesskey="c">Article</a></span></li>
+					<li id="ca-talk"><span><a href="http://en.wikipedia.org/wiki/Talk:Cross-site_request_forgery" title="Discussion about the content page [alt-shift-t]" accesskey="t">Discussion</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Variants</span><a href="#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Views</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="http://en.wikipedia.org/wiki/Cross-site_request_forgery">Read</a></span></li>
+					<li id="ca-edit"><span><a href="http://en.wikipedia.org/w/index.php?title=Cross-site_request_forgery&amp;action=edit" title="You can edit this page. 
+Please use the preview button before saving. [alt-shift-e]" accesskey="e">Edit</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="http://en.wikipedia.org/w/index.php?title=Cross-site_request_forgery&amp;action=history" title="Past versions of this page [alt-shift-h]" accesskey="h">View history</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Actions</span><a href="#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Search</label></h5>
+	<form action="http://en.wikipedia.org/w/index.php" id="searchform">
+		<input name="title" value="Special:Search" type="hidden">
+				<div id="simpleSearch">
+						<input autocomplete="off" placeholder="Search" tabindex="1" name="search" value="" title="Search Wikipedia [alt-shift-f]" accesskey="f" id="searchInput" type="text">						<button type="submit" name="button" title="Search Wikipedia for this text" id="searchButton"><img src="search-ltr.png" alt="Search"></button>					</div>
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint collapsible-nav">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url('wiki.png');" href="http://en.wikipedia.org/wiki/Main_Page" title="Visit the main page"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal first persistent" id="p-navigation">
+	<h5>Navigation</h5>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage-description"><a href="http://en.wikipedia.org/wiki/Main_Page" title="Visit the main page [alt-shift-z]" accesskey="z">Main page</a></li>
+			<li id="n-contents"><a href="http://en.wikipedia.org/wiki/Portal:Contents" title="Guides to browsing Wikipedia">Contents</a></li>
+			<li id="n-featuredcontent"><a href="http://en.wikipedia.org/wiki/Portal:Featured_content" title="Featured content – the best of Wikipedia">Featured content</a></li>
+			<li id="n-currentevents"><a href="http://en.wikipedia.org/wiki/Portal:Current_events" title="Find background information on current events">Current events</a></li>
+			<li id="n-randompage"><a href="http://en.wikipedia.org/wiki/Special:Random" title="Load a random article [alt-shift-x]" accesskey="x">Random article</a></li>
+			<li id="n-sitesupport"><a href="http://wikimediafoundation.org/wiki/Special:Landingcheck?landing_page=WMFJA085&amp;language=en&amp;utm_source=donate&amp;utm_medium=sidebar&amp;utm_campaign=20101204SB002" title="Support us">Donate to Wikipedia</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- interaction -->
+<div class="portal expanded" id="p-interaction">
+	<h5 tabindex="2">Interaction</h5>
+	<div style="display: block;" class="body">
+		<ul>
+			<li id="n-help"><a href="http://en.wikipedia.org/wiki/Help:Contents" title="Guidance on how to use and edit Wikipedia">Help</a></li>
+			<li id="n-aboutsite"><a href="http://en.wikipedia.org/wiki/Wikipedia:About" title="Find out about Wikipedia">About Wikipedia</a></li>
+			<li id="n-portal"><a href="http://en.wikipedia.org/wiki/Wikipedia:Community_portal" title="About the project, what you can do, where to find things">Community portal</a></li>
+			<li id="n-recentchanges"><a href="http://en.wikipedia.org/wiki/Special:RecentChanges" title="A list of recent changes in the wiki [alt-shift-r]" accesskey="r">Recent changes</a></li>
+			<li id="n-contact"><a href="http://en.wikipedia.org/wiki/Wikipedia:Contact_us" title="How to contact Wikipedia">Contact Wikipedia</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /interaction -->
+
+<!-- TOOLBOX -->
+<div class="portal collapsed" id="p-tb">
+	<h5 tabindex="3">Toolbox</h5>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="http://en.wikipedia.org/wiki/Special:WhatLinksHere/Cross-site_request_forgery" title="List of all English Wikipedia pages containing links to this page [alt-shift-j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="http://en.wikipedia.org/wiki/Special:RecentChangesLinked/Cross-site_request_forgery" title="Recent changes in pages linked from this page [alt-shift-k]" accesskey="k">Related changes</a></li>
+			<li id="t-upload"><a href="http://en.wikipedia.org/wiki/Wikipedia:Upload" title="Upload files [alt-shift-u]" accesskey="u">Upload file</a></li>
+			<li id="t-specialpages"><a href="http://en.wikipedia.org/wiki/Special:SpecialPages" title="A list of all special pages [alt-shift-q]" accesskey="q">Special pages</a></li>
+			<li id="t-permalink"><a href="http://en.wikipedia.org/w/index.php?title=Cross-site_request_forgery&amp;oldid=454206426" title="Permanent link to this revision of the page">Permanent link</a></li>
+<li id="t-cite"><a href="http://en.wikipedia.org/w/index.php?title=Special:Cite&amp;page=Cross-site_request_forgery&amp;id=454206426" title="Information on how to cite this page">Cite this page</a></li>		<li id="t-articlefeedback"><a href="#mw-articlefeedback">Rate this page</a></li></ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- coll-print_export -->
+<div class="portal collapsed" id="p-coll-print_export">
+	<h5 tabindex="4">Print/export</h5>
+	<div class="body">
+		<ul id="collectionPortletList"><li id="coll-create_a_book"><a href="http://en.wikipedia.org/w/index.php?title=Special:Book&amp;bookcmd=book_creator&amp;referer=Cross-site+request+forgery" title="Create a book or page collection" rel="nofollow">Create a book</a></li><li id="coll-download-as-rl"><a href="http://en.wikipedia.org/w/index.php?title=Special:Book&amp;bookcmd=render_article&amp;arttitle=Cross-site+request+forgery&amp;oldid=454206426&amp;writer=rl" title="Download a PDF version of this wiki page" rel="nofollow">Download as PDF</a></li><li id="t-print"><a href="http://en.wikipedia.org/w/index.php?title=Cross-site_request_forgery&amp;printable=yes" title="Printable version of this page [alt-shift-p]" accesskey="p">Printable version</a></li></ul>	</div>
+</div>
+
+<!-- /coll-print_export -->
+
+<!-- LANGUAGES -->
+<div class="portal expanded" id="p-lang">
+	<h5 tabindex="5">Languages</h5>
+	<div style="display: block;" class="body">
+		<ul>
+			<li class="interwiki-cs"><a href="http://cs.wikipedia.org/wiki/Cross-site_request_forgery">Česky</a></li>
+			<li class="interwiki-de"><a href="http://de.wikipedia.org/wiki/Cross-Site_Request_Forgery">Deutsch</a></li>
+			<li class="interwiki-es"><a href="http://es.wikipedia.org/wiki/Cross_Site_Request_Forgery">Español</a></li>
+			<li class="interwiki-fr"><a href="http://fr.wikipedia.org/wiki/Cross-site_request_forgery">Français</a></li>
+			<li class="interwiki-ko"><a href="http://ko.wikipedia.org/wiki/%EC%82%AC%EC%9D%B4%ED%8A%B8_%EA%B0%84_%EC%9A%94%EC%B2%AD_%EC%9C%84%EC%A1%B0">한국어</a></li>
+			<li class="interwiki-it"><a href="http://it.wikipedia.org/wiki/Cross-site_request_forgery">Italiano</a></li>
+			<li class="interwiki-ja"><a href="http://ja.wikipedia.org/wiki/%E3%82%AF%E3%83%AD%E3%82%B9%E3%82%B5%E3%82%A4%E3%83%88%E3%83%AA%E3%82%AF%E3%82%A8%E3%82%B9%E3%83%88%E3%83%95%E3%82%A9%E3%83%BC%E3%82%B8%E3%82%A7%E3%83%AA">日本語</a></li>
+			<li class="interwiki-no"><a href="http://no.wikipedia.org/wiki/Cross-site_request_forgery">‪Norsk (bokmål)‬</a></li>
+			<li class="interwiki-pl"><a href="http://pl.wikipedia.org/wiki/Cross-site_request_forgery">Polski</a></li>
+			<li class="interwiki-ru"><a href="http://ru.wikipedia.org/wiki/%D0%9F%D0%BE%D0%B4%D0%B4%D0%B5%D0%BB%D0%BA%D0%B0_%D0%BC%D0%B5%D0%B6%D1%81%D0%B0%D0%B9%D1%82%D0%BE%D0%B2%D1%8B%D1%85_%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81%D0%BE%D0%B2">Русский</a></li>
+			<li class="interwiki-ta"><a href="http://ta.wikipedia.org/wiki/%E0%AE%95%E0%AF%81%E0%AE%B1%E0%AF%81%E0%AE%95%E0%AF%8D%E0%AE%95%E0%AF%81_%E0%AE%87%E0%AE%A3%E0%AF%88%E0%AE%AF_%E0%AE%AA%E0%AF%8A%E0%AE%AF%E0%AF%8D_%E0%AE%95%E0%AF%8B%E0%AE%B0%E0%AE%BF%E0%AE%95%E0%AF%8D%E0%AE%95%E0%AF%88_%E0%AE%86%E0%AE%B5%E0%AE%A3%E0%AE%AE%E0%AF%8D">தமிழ்</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last modified on 6 October 2011 at 09:15.<br></li>
+											<li id="footer-info-copyright">Text is available under the <a rel="license" href="http://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License">Creative Commons Attribution-ShareAlike License</a><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/" style="display: none;"></a>;
+additional terms may apply.
+See <a href="http://wikimediafoundation.org/wiki/Terms_of_use">Terms of use</a> for details.<br>
+Wikipedia® is a registered trademark of the <a href="http://www.wikimediafoundation.org/">Wikimedia Foundation, Inc.</a>, a non-profit organization.<br></li><li class="noprint"><a class="internal" href="http://en.wikipedia.org/wiki/Wikipedia:Contact_us">Contact us</a></li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="http://wikimediafoundation.org/wiki/Privacy_policy" title="wikimedia:Privacy policy">Privacy policy</a></li>
+											<li id="footer-places-about"><a href="http://en.wikipedia.org/wiki/Wikipedia:About" title="Wikipedia:About">About Wikipedia</a></li>
+											<li id="footer-places-disclaimer"><a href="http://en.wikipedia.org/wiki/Wikipedia:General_disclaimer" title="Wikipedia:General disclaimer">Disclaimers</a></li>
+											<li id="footer-places-mobileview"><a href="http://en.wikipedia.org/w/index.php?title=Cross-site_request_forgery&amp;useformat=mobile">Mobile view</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://wikimediafoundation.org/"><img src="wikimedia-button.png" alt="Wikimedia Foundation" width="88" height="31"></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31"></a>
+					</li>
+				</ul>
+						<div style="clear: both;"></div>
+		</div>
+		<!-- /footer -->
+		<!-- fixalpha -->
+		
+		<!-- /fixalpha -->
+		
+
+
+
+<!-- Served by srv269 in 0.050 secs. -->
+	
+
+<div class="suggestions" style="top: 72px; width: 204px; display: none; left: auto; right: 29px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div></body>
+</html>

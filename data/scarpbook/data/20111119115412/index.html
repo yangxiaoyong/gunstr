@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+<meta content="IE=7" http-equiv="X-UA-Compatible">
+<link href="http://img.baidu.com/img/baike/wap/iphone4_logo.png" rel="apple-touch-icon">
+<title>线程安全_百度百科 </title>
+
+
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body id="view">
+<div id="userbar"><ul class="userbar"><li><a href="http://www.baidu.com/" class="nslog:87">百度首页</a></li>		<li class="split">|</li>		<li class="last"><a href="https://passport.baidu.com/?login&amp;tpl=wk" class="nslog:88" onclick="userlogin();return false">登录</a></li></ul></div>
+<div id="wrap">
+<div id="header">
+<div id="search">
+<div id="logo">
+<a href="http://baike.baidu.com/"><img alt="到百科首页" class="nslog:1008" src="logo-baike.gif" width="137" height="46" border="0"></a>
+</div>
+<div id="search-content">
+<p class="nv nslog-area" data-nslog-type="1009">
+<a href="http://news.baidu.com/ns?fr=bk&amp;cl=2&amp;rn=20&amp;tn=news&amp;word=%CF%DF%B3%CC%B0%B2%C8%AB">新闻</a><a href="http://www.baidu.com/s?fr=bk&amp;cl=3&amp;wd=%CF%DF%B3%CC%B0%B2%C8%AB&amp;t=5">网页</a><a href="http://tieba.baidu.com/f?fr=bk&amp;kw=%CF%DF%B3%CC%B0%B2%C8%AB">贴吧</a><a href="http://zhidao.baidu.com/q?fr=bk&amp;ct=17&amp;pn=0&amp;tn=ikaslist&amp;rn=10&amp;word=%CF%DF%B3%CC%B0%B2%C8%AB">知道</a><a href="http://mp3.baidu.com/m?fr=bk&amp;tn=baidump3&amp;ct=134217728&amp;lm=-1&amp;word=%CF%DF%B3%CC%B0%B2%C8%AB">MP3</a><a href="http://image.baidu.com/i?fr=bk&amp;tn=baiduimage&amp;ct=201326592&amp;lm=-1&amp;cl=2&amp;word=%CF%DF%B3%CC%B0%B2%C8%AB">图片</a><a href="http://video.baidu.com/v?fr=bk&amp;ct=301989888&amp;rn=20&amp;pn=0&amp;db=0&amp;s=24&amp;word=%CF%DF%B3%CC%B0%B2%C8%AB">视频</a><strong>百科</strong><a href="http://wenku.baidu.com/search?fr=bk&amp;word=%CF%DF%B3%CC%B0%B2%C8%AB&amp;lm=0&amp;od=0">文库</a>
+</p>
+<form action="http://baike.baidu.com/searchword/" method="get" name="f1" target="_self">
+<input autocomplete="off" id="word" maxlength="400" name="word" tabindex="1" value="线程安全">
+<input class="search-btn nslog:1010" onclick="document.f1.pic.value=1" tabindex="2" value="进入词条" type="submit"><input class="search-btn nslog:1011" onclick="document.f1.pic.value=2" tabindex="3" value="搜索词条" type="submit">
+<input id="sw1" name="pic" value="1" type="hidden">
+<input name="sug" value="1" type="hidden">
+<input id="search-enc" name="enc" value="gbk" type="hidden">
+<iframe style="display: none; position: absolute; border-width: 0px;" class="tangram_sug_sd" src="index_1.html"></iframe><div style="display: none;" class="tangram_sug_wpr" id="tangram_sug_1321674808088"></div></form>
+</div>
+<div id="help">
+<a class="nslog:1012" href="http://www.baidu.com/search/baike_help.html" target="_top">帮助</a><a class="nslog:1013" href="#" onclick="setSug();return false">设置</a>
+</div>
+<div class="clear"></div>
+</div><div class="nslog-area" data-nslog-type="1000" id="path">
+
+<ul class="nav f14 clearfix">    
+            <li class="home"><a href="http://baike.baidu.com/">首页</a></li>
+                <li><a href="http://baike.baidu.com/ziran/">自然</a></li>
+                 <li><a href="http://baike.baidu.com/wenhua/">文化</a></li>
+                 <li><a href="http://baike.baidu.com/dili/">地理</a></li>
+                 <li><a href="http://baike.baidu.com/lishi/">历史</a></li>
+                 <li><a href="http://baike.baidu.com/shenghuo/">生活</a></li>
+                 <li><a href="http://baike.baidu.com/shehui/">社会</a></li>
+                 <li><a href="http://baike.baidu.com/yishu/">艺术</a></li>
+                 <li><a href="http://baike.baidu.com/renwu/">人物</a></li>
+                 <li><a href="http://baike.baidu.com/jingji/">经济</a></li>
+                 <li><a href="http://baike.baidu.com/kexue/">科技</a></li>
+                 <li><a href="http://baike.baidu.com/tiyu/">体育</a></li>
+             <li>          <a href="http://baike.baidu.com/hezuo/" target="_top" onclick="nslog(location.href,3020);">百科合作</a></li>
+     <li>          <a href="http://baike.baidu.com/cms/s/core/index.html" target="_top" onclick="nslog(location.href,3021);">核心用户</a></li>
+     <li>          <a href="http://baike.baidu.com/cms/s/zhuanti-hot1110/index.html?name=hotword1110&amp;fr=bkhomehotword1110" target="_top" onclick="nslog(location.href,3022);">10月热词</a></li>
+    
+       
+</ul>
+
+
+
+</div>
+</div>
+<div id="page">
+<div class="layout grid-m0s245 w1000" id="content-wrap">
+<div class="col-main article" id="content">
+<div class="main-wrap main-shadow">
+<div class="content-hd">
+<div class="content-hd-wrap"></div>
+</div>
+<div class="content-bd main-body">
+<div class="text">
+<div class="bk-editable-lemma-btns">
+<a class="dividable-lemma lemma-top-link" data-edit-id="1298606" hidefocus="true" href="http://baike.baidu.com/divideload?lemmaid=1298606" id="subSet" style="display: none;">拆分词条</a>
+<span class="lemma-top-link-divider lemma-top-link" id="link-divider"></span>
+<span class="throwbtl-link-span"><a href="#" onclick="userlogin();return false;" class="throwbtl-link-head lemma-top-link throwbtl-link-view" hidefocus="true">求助编辑</a></span>
+<span class="editable-lemma " data-edit-id="1298606"></span>
+<span style="height: 100%;"></span>
+</div>
+<h1 class="title">线程安全</h1>
+
+<div class="clear"></div>
+<fieldset class="text_dir nslog-area" data-nslog-type="1016" data-subindex="0" id="catalog-0">
+<p>目录</p>
+<dl style="width: 177px; visibility: hidden; padding-bottom: 20px;" class="holder1" id="catalog-holder-0">
+<dd><a href="#1" class="nslog:1274" name="STAT_ONCLICK_UNSUBMIT_CATALOG">什么是线程安全？</a></dd><dd><a href="#2" class="nslog:1274" name="STAT_ONCLICK_UNSUBMIT_CATALOG">举例</a></dd><dd><a href="#3" class="nslog:1274" name="STAT_ONCLICK_UNSUBMIT_CATALOG">线程安全性</a></dd><dd><a href="#4" class="nslog:1274" name="STAT_ONCLICK_UNSUBMIT_CATALOG">线程安全程度</a><ol style="display: none;"><li><a href="#4_1">不可变</a></li><li><a href="#4_2">线程安全</a></li><li><a href="#4_3">有条件的线程安全</a></li><li><a href="#4_4">线程兼容</a></li><li><a href="#4_5">线程对立</a></li></ol></dd></dl>
+<dl style="width: 177px; display: block;" class="holder2 arr" id="catalog-holder-2-0">
+<dd><a href="#1" class="nslog:1274" name="STAT_ONCLICK_UNSUBMIT_CATALOG">什么是线程安全？</a></dd><dd><a href="#2" class="nslog:1274" name="STAT_ONCLICK_UNSUBMIT_CATALOG">举例</a></dd><dd><a href="#3" class="nslog:1274" name="STAT_ONCLICK_UNSUBMIT_CATALOG">线程安全性</a></dd><dd><a href="#4" class="nslog:1274" name="STAT_ONCLICK_UNSUBMIT_CATALOG">线程安全程度</a><ol style="display: none;"><li><a href="#4_1">不可变</a></li><li><a href="#4_2">线程安全</a></li><li><a href="#4_3">有条件的线程安全</a></li><li><a href="#4_4">线程兼容</a></li><li><a href="#4_5">线程对立</a></li></ol></dd><div class="nslog:1017 catalog-holder" id="catalog-holder0">展开</div></dl>
+</fieldset>
+<div class="clear"></div>
+
+<div class="lemma-main-content" id="lemmaContent-0">
+　　<div style="float: right; visibility: hidden; padding-bottom: 3px;" class="text_pic"><a href="http://baike.baidu.com/albums/1298606/1298606.html#0$7ab514d1a982b7c0572c84d4" target="_top"><img class="editorImg log-set-param" log-set-param="img_view" title="" src="7ab514d1a982b7c0572c84d4.jpg"></a><p class="pic-info"></p></div><div class="bpctrl"></div><h2 class="headline-1 first bk-sidecatalog-title"><span class="text_edit editable-title" data-edit-id="1298606:1298606:1"><a href="#" class="nslog:1019" onclick='bk.view.editLemma("/edit/",1298606,1298606,1);return false'>编辑本段</a></span><a name="1"></a><span class="headline-content">什么是线程安全？</span></h2>　　如果你的代码所在的进程中有多个线程在同时运行，而这些线程可能会同时运行这段代码。如果每次运行结果和单线程运行的结果是一样的，而且其他的变量的值也和预期的是一样的，就是线程安全的。 
+<div class="spctrl"></div>　　或者说:一个类或者程序所提供的接口对于线程来说是原子操作或者多个线程之间的切换不会导致该接口的执行结果存在二义性,也就是说我们不用考虑同步的问题。
+<div class="spctrl"></div>　　线程安全问题都是由全局变量及静态变量引起的。
+<div class="spctrl"></div>　　若每个线程中对<a target="_top" href="http://baike.baidu.com/view/261041.htm">全局变量</a>、静态变量只有读操作，而无写操作，一般来说，这个全局变量是线程安全的；若有多个线程同时执行写操作，一般都需要考虑线程同步，否则就可能影响线程安全。<div class="bpctrl"></div><h2 class="headline-1 bk-sidecatalog-title"><span class="text_edit editable-title" data-edit-id="1298606:1298606:2"><a href="#" class="nslog:1019" onclick='bk.view.editLemma("/edit/",1298606,1298606,2);return false'>编辑本段</a></span><a name="2"></a><span class="headline-content">举例</span></h2>　　比如一个 ArrayList 类，在添加一个元素的时候，它可能会有两步来完成：1. 在 Items[Size] 的位置存放此元素；2. 增大 Size 的值。 
+<div class="spctrl"></div>　　在单线程运行的情况下，如果 Size = 0，添加一个元素后，此元素在位置 0，而且 Size=1； 
+<div class="spctrl"></div>　　而如果是在<a target="_top" href="http://baike.baidu.com/view/65706.htm">多线程</a>情况下，比如有两个线程，线程 A 先将元素存放在位置 0。但是此时 CPU 调度线程A暂停，线程 B 得到运行的机会。线程B也向此 ArrayList 添加元素，因为此时 Size 仍然等于 0 （注意哦，我们假设的是添加一个元素是要两个步骤哦，而线程A仅仅完成了步骤1），所以线程B也将元素存放在位置0。然后线程A和线程B都继续运行，都增加 Size 的值。 
+<div class="spctrl"></div>　　那好，现在我们来看看 ArrayList 的情况，元素实际上只有一个，存放在位置 0，而 Size 却等于 2。这就是“线程不安全”了。<div class="bpctrl"></div><h2 class="headline-1 bk-sidecatalog-title"><span class="text_edit editable-title" data-edit-id="1298606:1298606:3"><a href="#" class="nslog:1019" onclick='bk.view.editLemma("/edit/",1298606,1298606,3);return false'>编辑本段</a></span><a name="3"></a><span class="headline-content">线程安全性</span></h2>　　类要成为线程安全的，首先必须在单线程环境中有正确的行为。如果一个类实现正确(这是说它符合规格说明的另一种方式)，那么没有一种对这个类的对象的操作序列(读或者写公共字段以及调用公共方法)可以让对象处于无效状态，观察到对象处于无效状态、或者违反类的任何不可变量、前置条件或者后置条件的情况。
+<div class="spctrl"></div>　　此外，一个类要成为线程安全的，在被多个线程访问时，不管运行时环境执行这些线程有什么样的时序安排或者交错，它必须仍然有如上所述的正确行为，并且在调用的代码中没有任何额外的同步。其效果就是，在所有线程看来，对于线程安全对象的操作是以固定的、全局一致的顺序发生的。
+<div class="spctrl"></div>　　正确性与线程安全性之间的关系非常类似于在描述 ACID(原子性、一致性、独立性和持久性)事务时使用的一致性与独立性之间的关系：从特定线程的角度看，由不同线程所执行的对象操作是先后(虽然顺序不定)而不是并行执行的。<div class="bpctrl"></div><h2 class="headline-1 bk-sidecatalog-title"><span class="text_edit editable-title" data-edit-id="1298606:1298606:4"><a href="#" class="nslog:1019" onclick='bk.view.editLemma("/edit/",1298606,1298606,4);return false'>编辑本段</a></span><a name="4"></a><span class="headline-content">线程安全程度</span></h2>　　线程安全性不是一个非真即假的命题。 Vector 的方法都是同步的，并且 Vector 明确地设计为在多线程环境中工作。但是它的线程安全性是有限制的，即在某些方法之间有状态依赖(类似地，如果在迭代过程中 Vector 被其他线程修改，那么由 Vector.iterator() 返回的 iterator会抛出ConcurrentModifiicationException)。
+<div class="spctrl"></div>　　对于 Java 类中常见的线程安全性级别，没有一种<a target="_top" href="http://baike.baidu.com/view/509073.htm">分类系统</a>可被广泛接受，不过重要的是在编写类时尽量记录下它们的线程安全行为。
+<div class="spctrl"></div>　　Bloch 给出了描述五类线程安全性的分类方法：不可变、线程安全、有条件线程安全、线程兼容和线程对立。只要明确地记录下线程安全特性，那么您是否使用这种系统都没关系。这种系统有其局限性 -- 各类之间的界线不是百分之百地明确，而且有些情况它没照顾到 -- 但是这套系统是一个很好的起点。这种分类系统的核心是调用者是否可以或者必须用外部同步包围操作(或者一系列操作)。下面几节分别描述了线程安全性的这五种类别。<h3 class="headline-2 bk-sidecatalog-title"><a name="4_1"></a><span class="headline-content">不可变</span></h3>　　不可变的对象一定是线程安全的，并且永远也不需要额外的同步<sup>[1]</sup><a name="ref_[1]"></a>。因为一个不可变的对象只要构建正确，其外部可见状态永远也不会改变，永远也不会看到它处于不一致的状态。Java 类库中大多数基本数值类如 Integer 、 String 和 BigInteger 都是不可变的。<h3 class="headline-2 bk-sidecatalog-title"><a name="4_2"></a><span class="headline-content">线程安全</span></h3>　　线程安全的对象具有在上面“线程安全”一节中描述的属性 -- 由类的规格说明所规定的约束在对象被多个线程访问时仍然有效，不管运行时环境如何排列，线程都不需要任何额外的同步。这种线程安全性保证是很严格的 -- 许多类，如 Hashtable 或者 Vector 都不能满足这种严格的定义。<h3 class="headline-2 bk-sidecatalog-title"><a name="4_3"></a><span class="headline-content">有条件的线程安全</span></h3>　　有条件的线程安全类对于单独的操作可以是线程安全的，但是某些操作序列可能需要外部同步。条件线程安全的最常见的例子是遍历由 Hashtable 或者 Vector 或者返回的迭代器 -- 由这些类返回的 fail-fast 迭代器假定在迭代器进行遍历的时候底层集合不会有变化。为了保证其他线程不会在遍历的时候改变集合，进行迭代的线程应该确保它是独占性地访问集合以实现遍历的完整性。通常，独占性的访问是由对锁的同步保证的 -- 并且类的文档应该说明是哪个锁(通常是对象的内部<a target="_top" href="http://baike.baidu.com/view/45702.htm">监视器</a>(intrinsic monitor))。 
+<div class="spctrl"></div>　　如果对一个有条件线程安全类进行记录，那么您应该不仅要记录它是有条件线程安全的，而且还要记录必须防止哪些操作序列的并发访问。用户可以合理地假设其他操作序列不需要任何额外的同步。<h3 class="headline-2 bk-sidecatalog-title"><a name="4_4"></a><span class="headline-content">线程兼容</span></h3>　　线程兼容类不是线程安全的，但是可以通过正确使用同步而在并发环境中安全地使用。这可能意味着用一个 synchronized 块包围每一个方法调用，或者创建一个包装器对象，其中每一个方法都是同步的(就像 Collections.synchronizedList() 一样)。也可能意味着用 synchronized 块包围某些操作序列。为了最大程度地利用线程兼容类，如果所有调用都使用同一个块，那么就不应该要求调用者对该块同步。这样做会使线程兼容的对象作为变量实例包含在其他线程安全的对象中，从而可以利用其所有者对象的同步。 
+<div class="spctrl"></div>　　许多常见的类是线程兼容的，如集合类 ArrayList 和 HashMap 、 java.text.SimpleDateFormat 、或者 JDBC 类 Connection 和 ResultSet 。<h3 class="headline-2 bk-sidecatalog-title"><a name="4_5"></a><span class="headline-content">线程对立</span></h3>　　线程对立类是那些不管是否调用了外部同步都不能在并发使用时安全地呈现的类。线程对立很少见，当类修改静态数据，而静态数据会影响在其他线程中执行的其他类的行为，这时通常会出现线程对立。线程对立类的一个例子是调用 System.setOut() 的类。<div class="bpctrl" style="clear: both;"></div><div class="clear"></div>
+</div>
+<div class="clear"></div>
+<div class="reinforce" id="lemmaExtend">
+<dl class="nslog-area log-set-param" data-nslog-type="2" id="viewRefer" log-set-param="ext_reference">
+<dt>参考资料</dt>
+<dd class="reference">
+<ul>
+<li class="layout">
+<span class="ref-index"><span class="r-index">1</span><span class="slide s-right"></span></span>
+<div class="ref-bd line-1">
+<p>
+线程安全程度及其类别<a class="ref-top" href="#ref_[1]" id="refIndex_1" name="refIndex_1" title="向上跳转">&nbsp;&nbsp;</a>
+</p>
+<p class="refUrl"><a href="http://www.ibm.com/developerworks/cn/java/j-jtp09263/" target="_top">http://www.ibm.com/developerworks/cn/java/j-jtp09263/</a></p>
+</div>
+</li>
+</ul>
+</dd>
+</dl>
+<dl class="nslog-area log-set-param" data-nslog-type="19" id="viewExtCati" log-set-param="module_tag">
+<dt>开放分类：</dt>
+<dd>
+<a href="http://baike.baidu.com/taglist?tag=%B4%FA%C2%EB&amp;tagfromview" target="_top">代码</a>，<a href="http://baike.baidu.com/taglist?tag=%D4%AA%CB%D8&amp;tagfromview" target="_top">元素</a>，<a href="http://baike.baidu.com/taglist?tag=%B5%A5%CF%DF%B3%CC&amp;tagfromview" target="_top">单线程</a></dd>
+</dl>
+<div class="clear"></div>
+<div class="clear"></div>
+</div>
+
+</div>
+<div class="clear"></div>
+</div>
+<div class="content-ft">
+<div class="reinforce">
+<dl class="nslog-area" data-nslog-type="18" id="relatedLemmaDown">
+<dt>
+“线程安全”相关词条：
+</dt>
+<dd class="relative">
+<div class="clear"></div>
+<div>
+<a class="relatedhelp" href="http://www.baidu.com/search/baike_help.html#%E5%A6%82%E4%BD%95%E5%AE%8C%E5%96%84%E7%9B%B8%E5%85%B3%E8%AF%8D%E6%9D%A1" target="_top" title="什么是相关词条">什么是相关词条</a>
+<a class="myedit nslog:1005" href="#" onclick='userlogin.check(bk.view.editRelated,false,"editrelated");return false'>我来完善</a>
+</div>
+<div class="clear"></div>
+</dd>
+</dl>
+</div>
+<div class="clear"></div>
+<div class="clear"></div>
+<div class="end">
+<p class="declare">百度百科中的词条内容仅供参考，如果您需要解决具体问题（尤其在法律、医学等领域），建议您咨询相关领域专业人士。</p>
+<div class="text_vote1" id="vote_btn"><b id="vote_num">313</b><span id="vote_txt">本词条对我有帮助</span></div>
+</div><div class="layout share">
+<div class="share-item-title">
+<a class="cang nslog:99" href="http://cang.baidu.com/do/add" onclick='window.open("http://cang.baidu.com/do/add?it="+encodeURIComponent(document.title)+"&amp;iu="+encodeURIComponent(location.href)+"&amp;tn=%E7%99%BE%E7%A7%91%E8%AF%8D%E6%9D%A1%2C&amp;fr=bk#nw=1","_s","scrollbars=no,width=600,height=450,left=75,top=20,status=no,resizable= yes");return false' target="_top" title="添加到搜藏">添加到搜藏</a>
+</div>
+<div class="share-item clearfix">
+<span class="share-tip">分享到:</span>
+<a class="itieBa nslog:97" href="http://tieba.baidu.com/i/sys/share?link=http%3A%2F%2Fbaike.baidu.com%2Fview%2F1298606.htm&amp;type=text&amp;title=%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8_%E7%99%BE%E5%BA%A6%E7%99%BE%E7%A7%91&amp;content=%E3%80%90%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E3%80%91%20%20%E5%A6%82%E6%9E%9C%E4%BD%A0%E7%9A%84%E4%BB%A3%E7%A0%81%E6%89%80%E5%9C%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%E4%B8%AD%E6%9C%89%E5%A4%9A%E4%B8%AA%E7%BA%BF%E7%A8%8B%E5%9C%A8%E5%90%8C%E6%97%B6%E8%BF%90%E8%A1%8C%EF%BC%8C%E8%80%8C%E8%BF%99%E4%BA%9B%E7%BA%BF%E7%A8%8B%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%90%8C%E6%97%B6%E8%BF%90%E8%A1%8C%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%E3%80%82%E5%A6%82%E6%9E%9C%E6%AF%8F%E6%AC%A1%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C%E5%92%8C%E5%8D%95%E7%BA%BF%E7%A8%8B%E8%BF%90%E8%A1%8C%E7%9A%84%E7%BB%93%E6%9E%9C%E6%98%AF%E4%B8%80%E6%A0%B7%E7%9A%84%EF%BC%8C%E8%80%8C%E4%B8%94%E5%85%B6%E4%BB%96%E7%9A%84%E5%8F%98%E9%87%8F%E7%9A%84%E5%80%BC%E4%B9%9F%E5%92%8C%E9%A2%84%E6%9C%9F%E7%9A%84......" target="_top" title="分享到i贴吧"></a>
+<a class="itieBa nslog:359" href="http://apps.hi.baidu.com/share?url=http%3A%2F%2Fbaike.baidu.com%2Fview%2F1298606.htm" style="background-position: 0pt -271px;" target="_top" title="转贴到百度空间"></a>
+<a class="tsina" href="#" onclick='window.open("http://service.weibo.com/share/share.php?url=http%3A%2F%2Fbaike.baidu.com%2Fview%2F1298606.htm&amp;type=3&amp;count=0&amp;appkey=3417820038&amp;title=【线程安全】  如果你的代码所在的进程中有多个线程在同时运行，而这些线程可能会同时运行这段代码。如果每次运行结果和单线程运行的结果是一样的，而且其他的变量的值也和预期的......&amp;pic=http://imgsrc.baidu.com/baike/abpic/item/7ab514d1a982b7c0572c84d4.jpg&amp;ralateUid=1647247597&amp;rnd="+new Date().valueOf(),"newwindow","height=440,width=430,top="+(screen.height-440)/2+",left="+(screen.width-430)/2+", toolbar=no, menubar=no, scrollbars=no,resizable=yes,location=no, status=no");nslog(location.href,94,{name:"tsina",id:"1298606",title:"线程安全"});return false' title="分享到新浪微博"></a>
+<a class="tdouban" href="javascript:void((function(s,d,e,r,l,p,t,ab,z,c){var%20f='http://www.douban.com/recommend/',u=z||d.location,p=['?&amp;url=',e(u),'&amp;title=',e(t||d.title),'&amp;abstract=',e(ab||'')].join('');function%20a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=440,height=430,left=',(s.width-440)/2,',top=',(s.height-430)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,'BAIDUBAIKE','http://baike.baidu.com','','%E3%80%90%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8_%E7%99%BE%E5%BA%A6%E7%99%BE%E7%A7%91%E3%80%91','%20%20%E5%A6%82%E6%9E%9C%E4%BD%A0%E7%9A%84%E4%BB%A3%E7%A0%81%E6%89%80%E5%9C%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%E4%B8%AD%E6%9C%89%E5%A4%9A%E4%B8%AA%E7%BA%BF%E7%A8%8B%E5%9C%A8%E5%90%8C%E6%97%B6%E8%BF%90%E8%A1%8C%EF%BC%8C%E8%80%8C%E8%BF%99%E4%BA%9B%E7%BA%BF%E7%A8%8B%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%90%8C%E6%97%B6%E8%BF%90%E8%A1%8C%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%E3%80%82%E5%A6%82%E6%9E%9C%E6%AF%8F%E6%AC%A1%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C%E5%92%8C%E5%8D%95%E7%BA%BF%E7%A8%8B%E8%BF%90%E8%A1%8C%E7%9A%84%E7%BB%93%E6%9E%9C%E6%98%AF%E4%B8%80%E6%A0%B7%E7%9A%84%EF%BC%8C%E8%80%8C%E4%B8%94%E5%85%B6%E4%BB%96%E7%9A%84%E5%8F%98%E9%87%8F%E7%9A%84%E5%80%BC%E4%B9%9F%E5%92%8C%E9%A2%84%E6%9C%9F%E7%9A%84......','http://baike.baidu.com/view/1298606.htm',''));nslog(location.href,257,{name:'tdouban',id:'1298606',title:'%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8'})" title="分享到豆瓣网"></a>
+<a class="tsohu" href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f='http://t.sohu.com/third/post.jsp?',u=z||d.location,p=['&amp;url=',e(u),'&amp;title=',e(t||d.title),'&amp;content=',c||'gb2312','&amp;pic=',e(p||'')].join('');function%20a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=660,height=470,left=',(s.width-660)/2,',top=',(s.height-470)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,'','','','%E3%80%90%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E3%80%91%20%20%E5%A6%82%E6%9E%9C%E4%BD%A0%E7%9A%84%E4%BB%A3%E7%A0%81%E6%89%80%E5%9C%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%E4%B8%AD%E6%9C%89%E5%A4%9A%E4%B8%AA%E7%BA%BF%E7%A8%8B%E5%9C%A8%E5%90%8C%E6%97%B6%E8%BF%90%E8%A1%8C%EF%BC%8C%E8%80%8C%E8%BF%99%E4%BA%9B%E7%BA%BF%E7%A8%8B%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%90%8C%E6%97%B6%E8%BF%90%E8%A1%8C%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%E3%80%82%E5%A6%82%E6%9E%9C%E6%AF%8F%E6%AC%A1%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C%E5%92%8C%E5%8D%95%E7%BA%BF%E7%A8%8B%E8%BF%90%E8%A1%8C%E7%9A%84%E7%BB%93%E6%9E%9C%E6%98%AF%E4%B8%80%E6%A0%B7%E7%9A%84%EF%BC%8C%E8%80%8C%E4%B8%94%E5%85%B6%E4%BB%96%E7%9A%84%E5%8F%98%E9%87%8F%E7%9A%84%E5%80%BC%E4%B9%9F%E5%92%8C%E9%A2%84%E6%9C%9F%E7%9A%84......','http://baike.baidu.com/view/1298606.htm','utf-8'));nslog(location.href,327,{name:'tsohu',id:'1298606',title:'%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8'})" title="分享到搜狐微博"></a>
+<a href="javascript:void((function(){var%20url%20=%20'link=http://baike.baidu.com&amp;source='+%20encodeURIComponent('%E7%99%BE%E5%BA%A6%E7%99%BE%E7%A7%91')+%20'&amp;info='+encodeURIComponent('%E3%80%90%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E3%80%91%20%20%E5%A6%82%E6%9E%9C%E4%BD%A0%E7%9A%84%E4%BB%A3%E7%A0%81%E6%89%80%E5%9C%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%E4%B8%AD%E6%9C%89%E5%A4%9A%E4%B8%AA%E7%BA%BF%E7%A8%8B%E5%9C%A8%E5%90%8C%E6%97%B6%E8%BF%90%E8%A1%8C%EF%BC%8C%E8%80%8C%E8%BF%99%E4%BA%9B%E7%BA%BF%E7%A8%8B%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%90%8C%E6%97%B6%E8%BF%90%E8%A1%8C%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%E3%80%82%E5%A6%82%E6%9E%9C%E6%AF%8F%E6%AC%A1%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C%E5%92%8C%E5%8D%95%E7%BA%BF%E7%A8%8B%E8%BF%90%E8%A1%8C%E7%9A%84%E7%BB%93%E6%9E%9C%E6%98%AF%E4%B8%80%E6%A0%B7%E7%9A%84%EF%BC%8C%E8%80%8C%E4%B8%94%E5%85%B6%E4%BB%96%E7%9A%84%E5%8F%98%E9%87%8F%E7%9A%84%E5%80%BC%E4%B9%9F%E5%92%8C%E9%A2%84%E6%9C%9F%E7%9A%84......http://baike.baidu.com/view/1298606.htm');window.open('http://t.163.com/article/user/checkLogin.do?'+url+'&amp;'+new%20Date().getTime(),'newwindow','height=330,width=550,top='+(screen.height-280)/2+',left='+(screen.width-550)/2+',%20toolbar=no,%20menubar=no,%20scrollbars=no,resizable=yes,location=no,%20status=no');})());nslog(location.href,1275,{name:'t163',id:'1298606',title:'%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8'})" style="color: rgb(114, 113, 113); background: url('wblog.gif') no-repeat scroll left center transparent;" target="_self" title="分享到网易微博"></a>
+<a href="javascript:void((function(s,d,e,r,l,p,t,z,c){%20var%20f='http://share.renren.com/share/buttonshare/post/2001',%20u=z||d.location,%20p=['?url=',%20e(u),%20'&amp;title=',e(t||d.title),%20'&amp;source=',e(r),%20'&amp;sourceUrl=',e(l),%20'&amp;content=',e(c||d.title),%20'&amp;pic=',e(p||'')].join('');%20function%20a(){%20if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=440,height=430,left=',(s.width-440)/2,',top=',(s.height-430)/2].join('')))%20u.href=[f,p].join('');%20};%20if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();%20})%20(screen,document,encodeURIComponent,'BAIDUBAIKE','http://baike.baidu.com','','%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8_%E7%99%BE%E5%BA%A6%E7%99%BE%E7%A7%91'%20,window.location.href,'%E3%80%90%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E3%80%91%20%20%E5%A6%82%E6%9E%9C%E4%BD%A0%E7%9A%84%E4%BB%A3%E7%A0%81%E6%89%80%E5%9C%A8%E7%9A%84%E8%BF%9B%E7%A8%8B%E4%B8%AD%E6%9C%89%E5%A4%9A%E4%B8%AA%E7%BA%BF%E7%A8%8B%E5%9C%A8%E5%90%8C%E6%97%B6%E8%BF%90%E8%A1%8C%EF%BC%8C%E8%80%8C%E8%BF%99%E4%BA%9B%E7%BA%BF%E7%A8%8B%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%90%8C%E6%97%B6%E8%BF%90%E8%A1%8C%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%E3%80%82%E5%A6%82%E6%9E%9C%E6%AF%8F%E6%AC%A1%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C%E5%92%8C%E5%8D%95%E7%BA%BF%E7%A8%8B%E8%BF%90%E8%A1%8C%E7%9A%84%E7%BB%93%E6%9E%9C%E6%98%AF%E4%B8%80%E6%A0%B7%E7%9A%84%EF%BC%8C%E8%80%8C%E4%B8%94%E5%85%B6%E4%BB%96%E7%9A%84%E5%8F%98%E9%87%8F%E7%9A%84%E5%80%BC%E4%B9%9F%E5%92%8C%E9%A2%84%E6%9C%9F%E7%9A%84......'));nslog(window.location.href,%201640,{name:'renren',id:'1298606',title:'%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8'});" style="background: url('share-tinybtn.png') no-repeat scroll left center transparent;" title="分享到人人"></a>
+</div>
+</div>
+<dl class="lemma-ext-bottom nslog-area" data-nslog-type="16">
+<dt>合作编辑者</dt>
+<dd>
+<div class="onelineonly">
+<span id="co-editors">
+<span>
+<a title="查看此用户资料" class="usercard" username="qq414958897" target="_top" href="http://passport.baidu.com/?business&amp;aid=7&amp;default_tab=2&amp;un=qq414958897#3">qq414958897</a></span>
+<span>
+，<a title="查看此用户资料" class="usercard" username="用户名总忘啊" target="_top" href="http://passport.baidu.com/?business&amp;aid=7&amp;default_tab=2&amp;un=%D3%C3%BB%A7%C3%FB%D7%DC%CD%FC%B0%A1#3">用户名总忘啊</a></span>
+<span>
+，<a title="查看此用户资料" class="usercard" username="lidongwang1985" target="_top" href="http://passport.baidu.com/?business&amp;aid=7&amp;default_tab=2&amp;un=lidongwang1985#3">lidongwang1985</a></span>
+<span>
+，<a title="查看此用户资料" class="usercard" username="百科ROBOT" target="_top" href="http://passport.baidu.com/?business&amp;aid=7&amp;default_tab=2&amp;un=%B0%D9%BF%C6ROBOT#3">百科ROBOT</a></span>
+<span>
+，<a title="查看此用户资料" class="usercard" username="enxiaowei0" target="_top" href="http://passport.baidu.com/?business&amp;aid=7&amp;default_tab=2&amp;un=enxiaowei0#3">enxiaowei0</a></span>
+<span>
+，<a title="查看此用户资料" class="usercard" username="boythl" target="_top" href="http://passport.baidu.com/?business&amp;aid=7&amp;default_tab=2&amp;un=boythl#3">boythl</a></span>
+
+
+
+
+</span>
+</div>
+<a class="f12 ref_more" href="http://baike.baidu.com/update/id=1298606?from=au" id="more-coeditor" style="" target="_top">更多</a>
+<div class="clear"></div>
+<div class="try f12">如果您认为本词条还需进一步完善，百科欢迎您也来参与<a class="try-edit" href="#" onclick='bk.view.editLemma("/edit/","1298606");return false'>编辑词条</a>在开始编辑前，您还可以先学习<a href="http://www.baidu.com/search/baike_help.html#%E7%BC%96%E8%BE%91%E5%8E%9F%E5%88%99" target="_top">如何编辑词条</a></div>
+</dd>
+</dl>
+<p class="bk-feedback">
+如想投诉，请到<a class="nslog:1006" href="http://tousu.baidu.com/baike" target="_top">百度百科投诉中心</a>；如想提出意见、建议，请到<a class="nslog:1007" href="http://tieba.baidu.com/f?kw=%b0%d9%b6%c8%b0%d9%bf%c6" target="_top">百度百科吧</a>。
+</p>
+<div class="clear"></div>
+</div>
+</div>
+</div>
+<div class="col-sub" id="side">
+<div class="userinfo-side">
+<div id="userInfoDiv">
+</div>
+</div>
+<div class="box2" id="lemma-overview">
+<div class="box2-inner">
+<h2>词条统计</h2>
+<p class="info f12">
+浏览次数：约 <span id="viewPV">31549</span>
+次
+<br>
+编辑次数：11次 <a class="nslog:1021" href="http://baike.baidu.com/update/id=1298606" target="_top">历史版本</a>
+<br>
+最近更新：<span id="lastModifyTime">2011-07-05</span>
+<br>
+创建者：<span class="nslog:1022"><a title="查看此用户资料" class="usercard" username="一个厨师" target="_top" href="http://passport.baidu.com/?business&amp;aid=7&amp;default_tab=2&amp;un=%D2%BB%B8%F6%B3%F8%CA%A6#3">一个厨师</a></span>
+</p>
+</div>
+</div>
+<div class="box2 nslog-area" id="pro-contributors">
+<div class="box2-inner">
+<h2><span><a href="http://baike.baidu.com/update/id=1298606" target="_top">更多</a></span>贡献光荣榜</h2>
+<div class="usercard-info" title=""><img src="what-contri.gif">鼠标滑过用户名，我们有名片啦！</div>
+<div id="contri-div">
+<table class="topuser f12" width="235px;" border="0" cellpadding="0" cellspacing="0">
+<tbody><tr>
+<td class="contri-type" colspan="4"><strong>辛勤贡献者：</strong><img src="what.gif" title="贡献复杂版本，被称为辛勤贡献者" align="absmiddle"></td>
+</tr>
+<tr>
+<td width="18px">
+</td>
+<th width="100px;"><a title="查看此用户资料" class="usercard" username="enxiaowei0" target="_top" href="http://passport.baidu.com/?business&amp;aid=7&amp;default_tab=2&amp;un=enxiaowei0#3">enxiaowei0</a></th>
+<td width="67px" align="right">
+<a href="http://www.baidu.com/search/baike_help.html#%E7%99%BE%E7%A7%91%E7%A7%AF%E5%88%86%E4%BD%93%E7%B3%BB" target="_top"><img class="usertitle level2" src="blank.gif" style="width: 67px;" align="absmiddle"></a>
+</td>
+<td align="right">
+<a href="http://www.baidu.com/search/baike_help.html#%E5%A4%8D%E6%9D%82%E7%BC%96%E8%BE%91" target="_top"><img src="complexversionabs.gif" title="为词条改进贡献了复杂版本的用户，被称为辛勤贡献者" align="absmiddle"></a>&nbsp;<a class="contri-a nslog:1040" href="http://baike.baidu.com/history/id=11699200" target="_top">版本</a>
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+</div>
+<div class="box2" id="bkDynamic" style="">
+<div class="box2-inner">
+<h5 id="profileTitle">最新动态</h5>
+<div class="f12">
+<dl class="task nslog-area" data-nslog-type="1023" id="task" style=""><dt><strong>贴吧客户端发布</strong>：<a href="http://c.tieba.baidu.com/c/s/download/pc" target="_top"></a></dt> <dd><a href="http://c.tieba.baidu.com/c/s/download/pc" target="_top"><img src="dda6b18cde55e6ffad0dff13c36179a0.png" width="160" height="81"></a></dd></dl>
+<dl class="notice nslog-area" data-nslog-type="1024" id="notice"><dt><strong>百科消息</strong>：</dt><dd><a href="http://c.tieba.baidu.com/c/s/download/pc" target="_top">贴吧iPhone、android客户端发布</a></dd><dd><a href="http://baike.baidu.com/cms/s/qunyinghui/index.html" target="_top">百度百科科海论剑活动隆重开启</a></dd><dd><a href="http://s.baidu.com/bbs/view/e80bf00ffe3e65376dacad84" target="_top">想圆美食梦来百度身边免费吃大餐</a></dd><dd><a href="http://s.baidu.com/bbs/view/d9c2b414db0f82287a621d84" target="_top">App store下载评论百度身边有礼</a></dd><dd><a href="http://baike.baidu.com/cms/s/cinderella/index.html?name=cinderella&amp;fr=bkhomecinderella" target="_top">百度百科专题现实中的灰姑娘们</a></dd><dd><a href="http://zhidao.baidu.com/uoperator/showsport%EF%BC%9Ffr=bk_index_sport_183" target="_top">知道秋季运动会好礼等你拿</a></dd><dd><a href="http://baike.baidu.com/cms/s/shipinanquan/index.html?name=shipinanquan&amp;fr=bkhomeshipinanquan" target="_top">百度百科聚焦食品安全</a></dd><dd><a href="http://baike.baidu.com/cms/s/bkguide/index.html" target="_top">百科新手指南助你做知识达人</a></dd><dd><a href="http://lvyou.baidu.com/event/s/dreamtraveller/index.html?fr=baike" target="_top">寻找热爱旅行的梦想旅行家</a></dd><dd><a href="http://baike.baidu.com/cms/s/shoujizhuanti/index.html?name=shoujizhuanti&amp;fr=bkhomeshoujizhuanti" target="_top">百科解密智能手机系统之谜</a></dd><dd><a href="http://baike.baidu.com/cms/s/xinhuanzhugege/index.html?name=xinhuanzhugege&amp;fr=bkCtXinhuanzhugege" target="_top">百度百科《新还珠格格》专题</a></dd><dd><a href="http://baike.baidu.com/cms/s/zhuti-hosi/index.html" target="_top">百科探秘之星象与灾难专题</a></dd></dl>
+</div>
+</div>
+</div>
+<div class="box2" id="mabox" style="display: none;">
+<div class="box2-inner" id="box2-inner">
+
+
+</div>
+</div>
+<div class="clear">
+</div>
+</div>
+</div><img src="c.gif" style="display: none;"><input id="titleVal" value="线程安全" type="hidden">
+</div>
+<div class="nslog-area" data-nslog-type="1001" id="footer">
+© 2011 Baidu <a href="http://www.baidu.com/search/baike_help.html#%E7%99%BE%E7%A7%91%E5%8D%8F%E8%AE%AE" target="_top">权利声明</a>
+</div>
+</div>
+<div id="sidecatalog" style="position: fixed; display: none; top: 484px; left: 847px;">
+<div class="sidebar" id="sidebar"></div>
+<a class="gotop" href="#" id="gotop" title="返回顶部"></a>
+</div>
+<div id="side-catalog-content" style="display: none; position: fixed; overflow: hidden; height: 268px; top: 306px; left: 874px;"><div id="side-catalog-up"><div></div></div><div id="side-lemma-title">线程安全</div><div style="height: 198px;" id="side-title-panel"><div id="side-title-list"><h2><a href="#" class="nslog:1026" data-index="0" title="什么是线程安全？">什么是线程安全？</a></h2><h2><a href="#" class="nslog:1026" data-index="1" title="举例">举例</a></h2><h2><a href="#" class="nslog:1026" data-index="2" title="线程安全性">线程安全性</a></h2><h2><a href="#" class="nslog:1026" data-index="3" title="线程安全程度">线程安全程度</a></h2><h3><a href="#" class="nslog:1026" data-index="4" title="不可变">不可变</a></h3><h3><a href="#" class="nslog:1026" data-index="5" title="线程安全">线程安全</a></h3><h3><a href="#" class="nslog:1026" data-index="6" title="有条件的线程安全">有条件的线程安全</a></h3><h3><a href="#" class="nslog:1026" data-index="7" title="线程兼容">线程兼容</a></h3><h3><a href="#" class="nslog:1026" data-index="8" title="线程对立">线程对立</a></h3></div></div><div id="side-catalog-down"><div></div></div></div>
+
+
+
+
+<div id="usercard-wrap"><div style="opacity: 0;" class="user-card fix"><div class="top-bg"></div><div class="card-body fix"><div class="uc-l"><div class="uc-pic"></div><div class="uc-name"><a class="uc-id" href="http://baike.baidu.com/view/1298606.htm"></a></div><div class="uc-level"></div></div><div class="uc-r"><div class="uc-items"><div class="uc-role fix"></div><div class="uc-badge fix"></div><div class="uc-honor"></div><div class="uc-going-task fix"></div><div class="uc-gq"></div><div class="uc-default"></div><div class="uc-edit"></div></div><span class="pillar"></span></div></div></div></div></body>
+</html>

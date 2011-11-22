@@ -1,0 +1,352 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    
+    
+    <title>tornado.ioloop — Main event loop — Tornado v2.1.1 documentation</title>
+    
+    
+    
+    
+    
+    
+    <link rel="top" title="Tornado v2.1.1 documentation" href="http://en.tornadoweb.cn/documentation/index.html">
+    <link rel="up" title="Asynchronous networking" href="http://en.tornadoweb.cn/documentation/networking.html">
+    <link rel="next" title="tornado.iostream — Convenient wrappers for non-blocking sockets" href="http://en.tornadoweb.cn/documentation/iostream.html">
+    <link rel="prev" title="Asynchronous networking" href="http://en.tornadoweb.cn/documentation/networking.html"> 
+  
+<link rel="stylesheet" type="text/css" href="ioloop.css" media="all">
+</head>
+<body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index" accesskey="I">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="iostream.html" title="tornado.iostream — Convenient wrappers for non-blocking sockets" accesskey="N">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="networking.html" title="Asynchronous networking" accesskey="P">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="networking.html" accesskey="U">Asynchronous networking</a> »</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-tornado.ioloop">
+<span id="tornado-ioloop-main-event-loop"></span><h1><tt class="docutils literal"><span class="pre">tornado.ioloop</span></tt> — Main event loop<a class="headerlink" href="#module-tornado.ioloop" title="Permalink to this headline">¶</a></h1>
+<p>An I/O event loop for non-blocking sockets.</p>
+<p>Typical applications will use a single <a class="reference internal" href="#tornado.ioloop.IOLoop" title="tornado.ioloop.IOLoop"><tt class="xref py py-obj docutils literal"><span class="pre">IOLoop</span></tt></a> object, in the
+<a class="reference internal" href="#tornado.ioloop.IOLoop.instance" title="tornado.ioloop.IOLoop.instance"><tt class="xref py py-obj docutils literal"><span class="pre">IOLoop.instance</span></tt></a> singleton.  The <a class="reference internal" href="#tornado.ioloop.IOLoop.start" title="tornado.ioloop.IOLoop.start"><tt class="xref py py-obj docutils literal"><span class="pre">IOLoop.start</span></tt></a> method should usually
+be called at the end of the <tt class="docutils literal"><span class="pre">main()</span></tt> function.  Atypical applications may
+use more than one <a class="reference internal" href="#tornado.ioloop.IOLoop" title="tornado.ioloop.IOLoop"><tt class="xref py py-obj docutils literal"><span class="pre">IOLoop</span></tt></a>, such as one <a class="reference internal" href="#tornado.ioloop.IOLoop" title="tornado.ioloop.IOLoop"><tt class="xref py py-obj docutils literal"><span class="pre">IOLoop</span></tt></a> per thread, or per <tt class="xref py py-obj docutils literal"><span class="pre">unittest</span></tt>
+case.</p>
+<p>In addition to I/O events, the <a class="reference internal" href="#tornado.ioloop.IOLoop" title="tornado.ioloop.IOLoop"><tt class="xref py py-obj docutils literal"><span class="pre">IOLoop</span></tt></a> can also schedule time-based events.
+<a class="reference internal" href="#tornado.ioloop.IOLoop.add_timeout" title="tornado.ioloop.IOLoop.add_timeout"><tt class="xref py py-obj docutils literal"><span class="pre">IOLoop.add_timeout</span></tt></a> is a non-blocking alternative to <tt class="xref py py-obj docutils literal"><span class="pre">time.sleep</span></tt>.</p>
+<div class="section" id="ioloop-objects">
+<h2>IOLoop objects<a class="headerlink" href="#ioloop-objects" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tornado.ioloop.IOLoop">
+<em class="property">class </em><tt class="descclassname">tornado.ioloop.</tt><tt class="descname">IOLoop</tt><big>(</big><em>impl=None</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/ioloop.html#IOLoop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.ioloop.IOLoop" title="Permalink to this definition">¶</a></dt>
+<dd><p>A level-triggered I/O loop.</p>
+<p>We use epoll (Linux) or kqueue (BSD and Mac OS X; requires python
+2.6+) if they are available, or else we fall back on select(). If
+you are implementing a system that needs to handle thousands of
+simultaneous connections, you should use a system that supports either
+epoll or queue.</p>
+<p>Example usage for a simple TCP server:</p>
+<div class="highlight-none"><div class="highlight"><pre>import errno
+import functools
+import ioloop
+import socket
+
+def connection_ready(sock, fd, events):
+    while True:
+        try:
+            connection, address = sock.accept()
+        except socket.error, e:
+            if e.args[0] not in (errno.EWOULDBLOCK, errno.EAGAIN):
+                raise
+            return
+        connection.setblocking(0)
+        handle_connection(connection, address)
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM, 0)
+sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+sock.setblocking(0)
+sock.bind(("", port))
+sock.listen(128)
+
+io_loop = ioloop.IOLoop.instance()
+callback = functools.partial(connection_ready, sock)
+io_loop.add_handler(sock.fileno(), callback, io_loop.READ)
+io_loop.start()
+</pre></div>
+</div>
+</dd></dl>
+
+<div class="section" id="running-an-ioloop">
+<h3>Running an IOLoop<a class="headerlink" href="#running-an-ioloop" title="Permalink to this headline">¶</a></h3>
+<dl class="staticmethod">
+<dt id="tornado.ioloop.IOLoop.instance">
+<em class="property">static </em><tt class="descclassname">IOLoop.</tt><tt class="descname">instance</tt><big>(</big><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/ioloop.html#IOLoop.instance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.ioloop.IOLoop.instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a global IOLoop instance.</p>
+<p>Most single-threaded applications have a single, global IOLoop.
+Use this method instead of passing around IOLoop instances
+throughout your code.</p>
+<p>A common pattern for classes that depend on IOLoops is to use
+a default argument to enable programs with multiple IOLoops
+but not require the argument for simpler applications:</p>
+<div class="highlight-none"><div class="highlight"><pre>class MyClass(object):
+    def __init__(self, io_loop=None):
+        self.io_loop = io_loop or IOLoop.instance()
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="tornado.ioloop.IOLoop.initialized">
+<em class="property">static </em><tt class="descclassname">IOLoop.</tt><tt class="descname">initialized</tt><big>(</big><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/ioloop.html#IOLoop.initialized"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.ioloop.IOLoop.initialized" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if the singleton instance has been created.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.ioloop.IOLoop.install">
+<tt class="descclassname">IOLoop.</tt><tt class="descname">install</tt><big>(</big><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/ioloop.html#IOLoop.install"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.ioloop.IOLoop.install" title="Permalink to this definition">¶</a></dt>
+<dd><p>Installs this IOloop object as the singleton instance.</p>
+<p>This is normally not necessary as <a class="reference internal" href="#tornado.ioloop.IOLoop.instance" title="tornado.ioloop.IOLoop.instance"><tt class="xref py py-obj docutils literal"><span class="pre">instance()</span></tt></a> will create
+an IOLoop on demand, but you may want to call <a class="reference internal" href="#tornado.ioloop.IOLoop.install" title="tornado.ioloop.IOLoop.install"><tt class="xref py py-obj docutils literal"><span class="pre">install</span></tt></a> to use
+a custom subclass of IOLoop.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.ioloop.IOLoop.start">
+<tt class="descclassname">IOLoop.</tt><tt class="descname">start</tt><big>(</big><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/ioloop.html#IOLoop.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.ioloop.IOLoop.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts the I/O loop.</p>
+<p>The loop will run until one of the I/O handlers calls stop(), which
+will make the loop stop after the current event iteration completes.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.ioloop.IOLoop.running">
+<tt class="descclassname">IOLoop.</tt><tt class="descname">running</tt><big>(</big><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/ioloop.html#IOLoop.running"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.ioloop.IOLoop.running" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns true if this IOLoop is currently running.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.ioloop.IOLoop.stop">
+<tt class="descclassname">IOLoop.</tt><tt class="descname">stop</tt><big>(</big><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/ioloop.html#IOLoop.stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.ioloop.IOLoop.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop the loop after the current event loop iteration is complete.
+If the event loop is not currently running, the next call to start()
+will return immediately.</p>
+<p>To use asynchronous methods from otherwise-synchronous code (such as
+unit tests), you can start and stop the event loop like this:</p>
+<div class="highlight-none"><div class="highlight"><pre>ioloop = IOLoop()
+async_method(ioloop=ioloop, callback=ioloop.stop)
+ioloop.start()
+</pre></div>
+</div>
+<p>ioloop.start() will return after async_method has run its callback,
+whether that callback was invoked before or after ioloop.start.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.ioloop.IOLoop.close">
+<tt class="descclassname">IOLoop.</tt><tt class="descname">close</tt><big>(</big><em>all_fds=False</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/ioloop.html#IOLoop.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.ioloop.IOLoop.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Closes the IOLoop, freeing any resources used.</p>
+<p>If <tt class="docutils literal"><span class="pre">all_fds</span></tt> is true, all file descriptors registered on the
+IOLoop will be closed (not just the ones created by the IOLoop itself.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="i-o-events">
+<h3>I/O events<a class="headerlink" href="#i-o-events" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="tornado.ioloop.IOLoop.add_handler">
+<tt class="descclassname">IOLoop.</tt><tt class="descname">add_handler</tt><big>(</big><em>fd</em>, <em>handler</em>, <em>events</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/ioloop.html#IOLoop.add_handler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.ioloop.IOLoop.add_handler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Registers the given handler to receive the given events for fd.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.ioloop.IOLoop.update_handler">
+<tt class="descclassname">IOLoop.</tt><tt class="descname">update_handler</tt><big>(</big><em>fd</em>, <em>events</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/ioloop.html#IOLoop.update_handler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.ioloop.IOLoop.update_handler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Changes the events we listen for fd.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.ioloop.IOLoop.remove_handler">
+<tt class="descclassname">IOLoop.</tt><tt class="descname">remove_handler</tt><big>(</big><em>fd</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/ioloop.html#IOLoop.remove_handler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.ioloop.IOLoop.remove_handler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop listening for events on fd.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="timeouts">
+<h3>Timeouts<a class="headerlink" href="#timeouts" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="tornado.ioloop.IOLoop.add_callback">
+<tt class="descclassname">IOLoop.</tt><tt class="descname">add_callback</tt><big>(</big><em>callback</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/ioloop.html#IOLoop.add_callback"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.ioloop.IOLoop.add_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls the given callback on the next I/O loop iteration.</p>
+<p>It is safe to call this method from any thread at any time.
+Note that this is the <em>only</em> method in IOLoop that makes this
+guarantee; all other interaction with the IOLoop must be done
+from that IOLoop’s thread.  add_callback() may be used to transfer
+control from other threads to the IOLoop’s thread.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.ioloop.IOLoop.add_timeout">
+<tt class="descclassname">IOLoop.</tt><tt class="descname">add_timeout</tt><big>(</big><em>deadline</em>, <em>callback</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/ioloop.html#IOLoop.add_timeout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.ioloop.IOLoop.add_timeout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls the given callback at the time deadline from the I/O loop.</p>
+<p>Returns a handle that may be passed to remove_timeout to cancel.</p>
+<p><tt class="docutils literal"><span class="pre">deadline</span></tt> may be a number denoting a unix timestamp (as returned
+by <tt class="docutils literal"><span class="pre">time.time()</span></tt> or a <tt class="docutils literal"><span class="pre">datetime.timedelta</span></tt> object for a deadline
+relative to the current time.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.ioloop.IOLoop.remove_timeout">
+<tt class="descclassname">IOLoop.</tt><tt class="descname">remove_timeout</tt><big>(</big><em>timeout</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/ioloop.html#IOLoop.remove_timeout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.ioloop.IOLoop.remove_timeout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cancels a pending timeout.</p>
+<p>The argument is a handle as returned by add_timeout.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="tornado.ioloop.PeriodicCallback">
+<em class="property">class </em><tt class="descclassname">tornado.ioloop.</tt><tt class="descname">PeriodicCallback</tt><big>(</big><em>callback</em>, <em>callback_time</em>, <em>io_loop=None</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/ioloop.html#PeriodicCallback"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.ioloop.PeriodicCallback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Schedules the given callback to be called periodically.</p>
+<p>The callback is called every callback_time milliseconds.</p>
+<p><a class="reference internal" href="#tornado.ioloop.PeriodicCallback.start" title="tornado.ioloop.PeriodicCallback.start"><tt class="xref py py-obj docutils literal"><span class="pre">start</span></tt></a> must be called after the PeriodicCallback is created.</p>
+<dl class="method">
+<dt id="tornado.ioloop.PeriodicCallback.start">
+<tt class="descname">start</tt><big>(</big><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/ioloop.html#PeriodicCallback.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.ioloop.PeriodicCallback.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts the timer.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.ioloop.PeriodicCallback.stop">
+<tt class="descname">stop</tt><big>(</big><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/ioloop.html#PeriodicCallback.stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.ioloop.PeriodicCallback.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stops the timer.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="debugging-and-error-handling">
+<h3>Debugging and error handling<a class="headerlink" href="#debugging-and-error-handling" title="Permalink to this headline">¶</a></h3>
+<dl class="method">
+<dt id="tornado.ioloop.IOLoop.handle_callback_exception">
+<tt class="descclassname">IOLoop.</tt><tt class="descname">handle_callback_exception</tt><big>(</big><em>callback</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/ioloop.html#IOLoop.handle_callback_exception"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.ioloop.IOLoop.handle_callback_exception" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is called whenever a callback run by the IOLoop
+throws an exception.</p>
+<p>By default simply logs the exception as an error.  Subclasses
+may override this method to customize reporting of exceptions.</p>
+<p>The exception itself is not passed explicitly, but is available
+in sys.exc_info.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.ioloop.IOLoop.set_blocking_signal_threshold">
+<tt class="descclassname">IOLoop.</tt><tt class="descname">set_blocking_signal_threshold</tt><big>(</big><em>seconds</em>, <em>action</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/ioloop.html#IOLoop.set_blocking_signal_threshold"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.ioloop.IOLoop.set_blocking_signal_threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sends a signal if the ioloop is blocked for more than s seconds.</p>
+<p>Pass seconds=None to disable.  Requires python 2.6 on a unixy
+platform.</p>
+<p>The action parameter is a python signal handler.  Read the
+documentation for the python ‘signal’ module for more information.
+If action is None, the process will be killed if it is blocked for
+too long.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.ioloop.IOLoop.set_blocking_log_threshold">
+<tt class="descclassname">IOLoop.</tt><tt class="descname">set_blocking_log_threshold</tt><big>(</big><em>seconds</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/ioloop.html#IOLoop.set_blocking_log_threshold"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.ioloop.IOLoop.set_blocking_log_threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logs a stack trace if the ioloop is blocked for more than s seconds.
+Equivalent to set_blocking_signal_threshold(seconds, self.log_stack)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.ioloop.IOLoop.log_stack">
+<tt class="descclassname">IOLoop.</tt><tt class="descname">log_stack</tt><big>(</big><em>signal</em>, <em>frame</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/ioloop.html#IOLoop.log_stack"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.ioloop.IOLoop.log_stack" title="Permalink to this definition">¶</a></dt>
+<dd><p>Signal handler to log the stack trace of the current thread.</p>
+<p>For use with set_blocking_signal_threshold.</p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a indepth="true" href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">tornado.ioloop</span></tt> — Main event loop</a><ul>
+<li><a class="reference internal" href="#ioloop-objects">IOLoop objects</a><ul>
+<li><a class="reference internal" href="#running-an-ioloop">Running an IOLoop</a></li>
+<li><a class="reference internal" href="#i-o-events">I/O events</a></li>
+<li><a class="reference internal" href="#timeouts">Timeouts</a></li>
+<li><a class="reference internal" href="#debugging-and-error-handling">Debugging and error handling</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a indepth="true" href="networking.html" title="previous chapter">Asynchronous networking</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a indepth="true" href="iostream.html" title="next chapter"><tt class="docutils literal docutils literal"><span class="pre">tornado.iostream</span></tt> — Convenient wrappers for non-blocking sockets</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="http://en.tornadoweb.cn/documentation/_sources/ioloop.txt" rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none;">
+  <h3>Quick search</h3>
+    <form class="search" action="http://en.tornadoweb.cn/documentation/search.html" method="get">
+      <input value="" name="q" size="18" type="text">
+      <input value="Go" type="submit">
+      <input name="check_keywords" value="yes" type="hidden">
+      <input name="area" value="default" type="hidden">
+    </form>
+    <p class="searchtip" style="font-size: 90%;">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="iostream.html" title="tornado.iostream — Convenient wrappers for non-blocking sockets">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="networking.html" title="Asynchronous networking">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="networking.html">Asynchronous networking</a> »</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        © Copyright 2011, Facebook.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  
+
+
+</body></html>

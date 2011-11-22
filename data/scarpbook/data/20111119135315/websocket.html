@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    
+    
+    <title>tornado.websocket — Bidirectional communication to the browser — Tornado v2.1.1 documentation</title>
+    
+    
+    
+    
+    
+    
+    <link rel="top" title="Tornado v2.1.1 documentation" href="http://en.tornadoweb.cn/documentation/index.html">
+    <link rel="up" title="Integration with other services" href="http://en.tornadoweb.cn/documentation/integration.html">
+    <link rel="next" title="tornado.wsgi — Interoperability with other Python frameworks and servers" href="http://en.tornadoweb.cn/documentation/wsgi.html">
+    <link rel="prev" title="tornado.platform.twisted — Run code written for Twisted on Tornado" href="http://en.tornadoweb.cn/documentation/twisted.html"> 
+  
+<link rel="stylesheet" type="text/css" href="websocket.css" media="all">
+</head>
+<body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index" accesskey="I">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="wsgi.html" title="tornado.wsgi — Interoperability with other Python frameworks and servers" accesskey="N">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="twisted.html" title="tornado.platform.twisted — Run code written for Twisted on Tornado" accesskey="P">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="integration.html" accesskey="U">Integration with other services</a> »</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-tornado.websocket">
+<span id="tornado-websocket-bidirectional-communication-to-the-browser"></span><h1><tt class="docutils literal"><span class="pre">tornado.websocket</span></tt> — Bidirectional communication to the browser<a class="headerlink" href="#module-tornado.websocket" title="Permalink to this headline">¶</a></h1>
+<p>Server-side implementation of the WebSocket protocol.</p>
+<p><a class="reference external" href="http://dev.w3.org/html5/websockets/">WebSockets</a> allow for bidirectional
+communication between the browser and server.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The WebSocket protocol is still in development.  This module currently
+implements the “hixie-76” and “hybi-10” versions of the protocol.  
+See this <a class="reference external" href="http://en.wikipedia.org/wiki/WebSockets#Browser_support">browser compatibility table</a> on Wikipedia.</p>
+</div>
+<dl class="class">
+<dt id="tornado.websocket.WebSocketHandler">
+<em class="property">class </em><tt class="descclassname">tornado.websocket.</tt><tt class="descname">WebSocketHandler</tt><big>(</big><em>application</em>, <em>request</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/websocket.html#WebSocketHandler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.websocket.WebSocketHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Subclass this class to create a basic WebSocket handler.</p>
+<p>Override on_message to handle incoming messages. You can also override
+open and on_close to handle opened and closed connections.</p>
+<p>See <a class="reference external" href="http://dev.w3.org/html5/websockets/">http://dev.w3.org/html5/websockets/</a> for details on the
+JavaScript interface. This implement the protocol as specified at
+<a class="reference external" href="http://tools.ietf.org/html/draft-ietf-hybi-thewebsocketprotocol-10">http://tools.ietf.org/html/draft-ietf-hybi-thewebsocketprotocol-10</a>
+The older protocol version specified at
+<a class="reference external" href="http://tools.ietf.org/html/draft-hixie-thewebsocketprotocol-76">http://tools.ietf.org/html/draft-hixie-thewebsocketprotocol-76</a>.
+is also supported.</p>
+<p>Here is an example Web Socket handler that echos back all received messages
+back to the client:</p>
+<div class="highlight-none"><div class="highlight"><pre>class EchoWebSocket(websocket.WebSocketHandler):
+    def open(self):
+        print "WebSocket opened"
+
+    def on_message(self, message):
+        self.write_message(u"You said: " + message)
+
+    def on_close(self):
+        print "WebSocket closed"
+</pre></div>
+</div>
+<p>Web Sockets are not standard HTTP connections. The “handshake” is HTTP,
+but after the handshake, the protocol is message-based. Consequently,
+most of the Tornado HTTP facilities are not available in handlers of this
+type. The only communication methods available to you are write_message()
+and close(). Likewise, your request handler class should
+implement open() method rather than get() or post().</p>
+<p>If you map the handler above to “/websocket” in your application, you can
+invoke it in JavaScript with:</p>
+<div class="highlight-none"><div class="highlight"><pre>var ws = new WebSocket("ws://localhost:8888/websocket");
+ws.onopen = function() {
+   ws.send("Hello, world");
+};
+ws.onmessage = function (evt) {
+   alert(evt.data);
+};
+</pre></div>
+</div>
+<p>This script pops up an alert box that says “You said: Hello, world”.</p>
+<dl class="method">
+<dt id="tornado.websocket.WebSocketHandler.write_message">
+<tt class="descname">write_message</tt><big>(</big><em>message</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/websocket.html#WebSocketHandler.write_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.websocket.WebSocketHandler.write_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sends the given message to the client of this Web Socket.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.websocket.WebSocketHandler.open">
+<tt class="descname">open</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/websocket.html#WebSocketHandler.open"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.websocket.WebSocketHandler.open" title="Permalink to this definition">¶</a></dt>
+<dd><p>Invoked when a new WebSocket is opened.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.websocket.WebSocketHandler.on_message">
+<tt class="descname">on_message</tt><big>(</big><em>message</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/websocket.html#WebSocketHandler.on_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.websocket.WebSocketHandler.on_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handle incoming messages on the WebSocket</p>
+<p>This method must be overloaded</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.websocket.WebSocketHandler.on_close">
+<tt class="descname">on_close</tt><big>(</big><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/websocket.html#WebSocketHandler.on_close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.websocket.WebSocketHandler.on_close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Invoked when the WebSocket is closed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.websocket.WebSocketHandler.close">
+<tt class="descname">close</tt><big>(</big><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/websocket.html#WebSocketHandler.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.websocket.WebSocketHandler.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Closes this Web Socket.</p>
+<p>Once the close handshake is successful the socket will be closed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.websocket.WebSocketHandler.async_callback">
+<tt class="descname">async_callback</tt><big>(</big><em>callback</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/websocket.html#WebSocketHandler.async_callback"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.websocket.WebSocketHandler.async_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrap callbacks with this if they are used on asynchronous requests.</p>
+<p>Catches exceptions properly and closes this WebSocket if an exception
+is uncaught.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tornado.websocket.WebSocketProtocol">
+<em class="property">class </em><tt class="descclassname">tornado.websocket.</tt><tt class="descname">WebSocketProtocol</tt><big>(</big><em>handler</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/websocket.html#WebSocketProtocol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.websocket.WebSocketProtocol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base class for WebSocket protocol versions.</p>
+<dl class="method">
+<dt id="tornado.websocket.WebSocketProtocol.async_callback">
+<tt class="descname">async_callback</tt><big>(</big><em>callback</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/websocket.html#WebSocketProtocol.async_callback"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.websocket.WebSocketProtocol.async_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrap callbacks with this if they are used on asynchronous requests.</p>
+<p>Catches exceptions properly and closes this WebSocket if an exception
+is uncaught.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tornado.websocket.WebSocketProtocol76">
+<em class="property">class </em><tt class="descclassname">tornado.websocket.</tt><tt class="descname">WebSocketProtocol76</tt><big>(</big><em>handler</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/websocket.html#WebSocketProtocol76"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.websocket.WebSocketProtocol76" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implementation of the WebSockets protocol, version hixie-76.</p>
+<p>This class provides basic functionality to process WebSockets requests as
+specified in
+<a class="reference external" href="http://tools.ietf.org/html/draft-hixie-thewebsocketprotocol-76">http://tools.ietf.org/html/draft-hixie-thewebsocketprotocol-76</a></p>
+<dl class="method">
+<dt id="tornado.websocket.WebSocketProtocol76.challenge_response">
+<tt class="descname">challenge_response</tt><big>(</big><em>challenge</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/websocket.html#WebSocketProtocol76.challenge_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.websocket.WebSocketProtocol76.challenge_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates the challenge response that’s needed in the handshake</p>
+<p>The challenge parameter should be the raw bytes as sent from the
+client.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.websocket.WebSocketProtocol76.write_message">
+<tt class="descname">write_message</tt><big>(</big><em>message</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/websocket.html#WebSocketProtocol76.write_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.websocket.WebSocketProtocol76.write_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sends the given message to the client of this Web Socket.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.websocket.WebSocketProtocol76.close">
+<tt class="descname">close</tt><big>(</big><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/websocket.html#WebSocketProtocol76.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.websocket.WebSocketProtocol76.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Closes the WebSocket connection.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tornado.websocket.WebSocketProtocol8">
+<em class="property">class </em><tt class="descclassname">tornado.websocket.</tt><tt class="descname">WebSocketProtocol8</tt><big>(</big><em>handler</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/websocket.html#WebSocketProtocol8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.websocket.WebSocketProtocol8" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implementation of the WebSocket protocol, version 8 (draft version 10).</p>
+<p>Compare
+<a class="reference external" href="http://tools.ietf.org/html/draft-ietf-hybi-thewebsocketprotocol-10">http://tools.ietf.org/html/draft-ietf-hybi-thewebsocketprotocol-10</a></p>
+<dl class="method">
+<dt id="tornado.websocket.WebSocketProtocol8.write_message">
+<tt class="descname">write_message</tt><big>(</big><em>message</em>, <em>binary=False</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/websocket.html#WebSocketProtocol8.write_message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.websocket.WebSocketProtocol8.write_message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sends the given message to the client of this Web Socket.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.websocket.WebSocketProtocol8.close">
+<tt class="descname">close</tt><big>(</big><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/websocket.html#WebSocketProtocol8.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.websocket.WebSocketProtocol8.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Closes the WebSocket connection.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a indepth="true" href="twisted.html" title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">tornado.platform.twisted</span></tt> — Run code written for Twisted on Tornado</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a indepth="true" href="wsgi.html" title="next chapter"><tt class="docutils literal docutils literal"><span class="pre">tornado.wsgi</span></tt> — Interoperability with other Python frameworks and servers</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="http://en.tornadoweb.cn/documentation/_sources/websocket.txt" rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none;">
+  <h3>Quick search</h3>
+    <form class="search" action="http://en.tornadoweb.cn/documentation/search.html" method="get">
+      <input value="" name="q" size="18" type="text">
+      <input value="Go" type="submit">
+      <input name="check_keywords" value="yes" type="hidden">
+      <input name="area" value="default" type="hidden">
+    </form>
+    <p class="searchtip" style="font-size: 90%;">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="wsgi.html" title="tornado.wsgi — Interoperability with other Python frameworks and servers">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="twisted.html" title="tornado.platform.twisted — Run code written for Twisted on Tornado">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="integration.html">Integration with other services</a> »</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        © Copyright 2011, Facebook.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  
+
+
+</body></html>

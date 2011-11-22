@@ -1,0 +1,82 @@
+/* ::::: http://haacked.com/css/lightbox.css ::::: */
+
+/* ::::: http://haacked.com/skins/_System/csharp.css ::::: */
+
+.csharpcode, .csharpcode pre { font-size: small; color: black; font-family: Consolas,"Courier New",Courier,Monospace; background-color: rgb(255, 255, 255); }
+.csharpcode .kwrd { color: rgb(0, 0, 255); }
+.csharpcode .str { color: rgb(0, 96, 128); }
+.csharpcode .html { color: rgb(128, 0, 0); }
+.csharpcode .attr { color: rgb(255, 0, 0); }
+/* ::::: http://haacked.com/skins/_System/commonstyle.css ::::: */
+
+.dropshadow { float: left; clear: left; background: url('shadowalpha.png') no-repeat scroll right bottom transparent ! important; margin: 10px 0pt 10px 10px ! important; padding: 0pt; display: block; }
+.innerbox { position: relative; bottom: 6px; right: 6px; border: 1px solid rgb(153, 153, 153); padding: 4px; margin: 0pt; display: block; }
+.innerbox { margin: 0pt; }
+.clear { clear: both; }
+/* ::::: http://haacked.com/skins/_System/commonlayout.css ::::: */
+
+/* ::::: http://haacked.com/scripts/XFNHighlighter.css ::::: */
+
+/* ::::: http://haacked.com/Skins/Haacked/css-10.css ::::: */
+
+.dropshadow { float: left; clear: left; background: url('shadowalpha.png') no-repeat scroll right bottom transparent ! important; margin: 10px 0pt 10px 10px ! important; padding: 0pt; display: block; }
+.innerbox { position: relative; bottom: 6px; right: 6px; border: 1px solid rgb(153, 153, 153); padding: 4px; margin: 0pt; display: block; }
+.innerbox { margin: 0pt; }
+.clear { clear: both; }
+.csharpcode, .csharpcode pre { font-size: small; color: black; font-family: Consolas,"Courier New",Courier,Monospace; background-color: rgb(255, 255, 255); }
+.csharpcode .kwrd { color: rgb(0, 0, 255); }
+.csharpcode .str { color: rgb(0, 96, 128); }
+.csharpcode .html { color: rgb(128, 0, 0); }
+.csharpcode .attr { color: rgb(255, 0, 0); }
+a:hover { cursor: pointer; text-decoration: underline; }
+body { background-color: rgb(14, 22, 28); cursor: default; font: 0.8em/160% 'Trebuchet MS','Lucida Sans Unicode','Lucida Grande','Lucida',Arial,Verdana,sans-serif; margin: 0pt; padding: 0pt; text-align: center; }
+#archives-page h4, .entry h1, .day-entries h1 { color: rgb(251, 71, 39); font-size: 195%; line-height: 128%; }
+.entry h1 a { text-decoration: none; font-size: 140%; }
+p, .form, fieldset, ul, ol, li, dl, dt, dd, img, h1, h2, h3, h4, h5 { border: 0pt none; margin: 0pt; padding: 0pt; }
+#body { background: url('body.bg.gif') repeat-y scroll 0pt 0pt transparent; margin: 0pt auto; width: 928px; clear: both; }
+#body #left { background: url('content.bg.gif') repeat-x scroll 0pt 0pt rgb(255, 255, 255); float: left; width: 618px; margin-bottom: 10px; }
+#body #left .entry { padding: 20px; color: rgb(51, 51, 51); }
+#body #left .entry p, #body #left .entry ul, #body #left .entry ol { font-family: calibri; font-size: 130%; line-height: 160%; padding-bottom: 15px; }
+#body #left .entry ul, #body #left .entry ol { padding-left: 25px; }
+#body #left .entry ul.entry-links { margin-bottom: 14px; padding: 0pt; }
+#body #left .entry ul.entry-links li { display: inline; margin-right: 14px; font-size: 75%; margin-left: 0pt; padding-left: 0pt; }
+#body #left .entry ul.entry-links li a { color: rgb(127, 127, 127); margin-left: 5px; position: relative; top: -4px; text-decoration: none; }
+#body #left .entry ul.entry-links li a:hover { color: rgb(254, 71, 3); }
+html #body #left div.share { font-style: italic; font-size: 90%; text-align: center; background-color: rgb(255, 255, 238); border: 1px solid rgb(238, 238, 221); margin-top: 5px; }
+#body #left a { color: rgb(208, 48, 16); }
+#body #left a:visited { color: rgb(160, 64, 64); }
+#body #left a:hover { color: rgb(0, 184, 255); }
+#body #left h1 a:visited, #body #left h1 a { color: rgb(251, 71, 39); }
+#body #left h1 a:hover { color: rgb(255, 153, 0); }
+#body #wrapper { background: url('body.footer.gif') no-repeat scroll 0pt 100% transparent; padding: 0pt 0pt 1px 8px; float: left; }
+#container { background: url('header.bg.jpg') no-repeat scroll 50% 0pt transparent; margin: 0pt auto; min-width: 928px; padding-bottom: 38px; text-align: left; }
+#header { height: 156px; margin: 0pt auto; width: 928px; }
+#header #buttons { text-align: right; }
+#header #buttons a { margin-left: 10px; }
+#header #logo { float: left; }
+#header #logo a { display: block; height: 108px; margin-left: 28px; text-indent: -5000px; width: 352px; }
+#header #navigation { padding-top: 30px; }
+#header #navigation #pages { float: right; margin-top: 13px; }
+#header #navigation #pages li a { background-position: 0pt 0pt; background-repeat: no-repeat; display: block; float: left; height: 36px; text-indent: -5000px; }
+#header #navigation #pages li a:hover { background-position: 0pt -36px; }
+#header #navigation #pages li.pagearchives a { background-image: url('archives.gif'); width: 90px; }
+#header #navigation #pages li.pagecontact a { background-image: url('contact.gif'); width: 86px; }
+#header #navigation #pages li.pagehome a { background-image: url('home.gif'); width: 62px; }
+#header #navigation #pages li.pageprivacy a { background-image: url('privacy.gif'); width: 82px; }
+#header #navigation #pages li.pageresume a { background-image: url('resume.gif'); width: 80px; }
+#header ul { list-style: none outside none; }
+#header ul li { display: inline; }
+.entry blockquote { padding: 5px 10px 5px 20px; font-family: verdana,helvetica,sans-serif; font-size: 95%; line-height: 1.5em; background: url('quotes.gif') no-repeat scroll 0pt 0pt rgb(250, 252, 253); }
+#feedburner-count { margin-bottom: -8px; }
+li.permalink span a, li.commentCount span a, li.printIcon span a { padding-left: 20px; text-decoration: none; }
+li.printIcon span a { background: url('printer.png') no-repeat scroll left top transparent; }
+li.permalink span a { background: url('link.gif') no-repeat scroll left top transparent; }
+li.commentCount span a { background: url('comments.gif') no-repeat scroll left top transparent; }
+.previous-next { text-align: center; margin-top: 0pt; }
+div.dropshadow { width: 590px; position: relative; left: -10px; }
+/* ::::: http://haacked.com/Skins/Haacked/style.css ::::: */
+
+/* ::::: http://haacked.com/customcss.aspx ::::: */
+
+div.entry p img { margin: 0pt 5px; }
+div.code { width: 550px; }

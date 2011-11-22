@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    
+    
+    <title>What’s new in Tornado 2.1 — Tornado v2.1.1 documentation</title>
+    
+    
+    
+    
+    
+    
+    <link rel="top" title="Tornado v2.1.1 documentation" href="http://en.tornadoweb.cn/documentation/index.html">
+    <link rel="up" title="Release notes" href="http://en.tornadoweb.cn/documentation/releases.html">
+    <link rel="next" title="What’s new in Tornado 2.0" href="http://en.tornadoweb.cn/documentation/releases/v2.0.0.html">
+    <link rel="prev" title="What’s new in Tornado 2.1.1" href="http://en.tornadoweb.cn/documentation/releases/v2.1.1.html"> 
+  
+<link rel="stylesheet" type="text/css" href="v2.1.0.css" media="all">
+</head>
+<body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index" accesskey="I">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="v2.0.0.html" title="What’s new in Tornado 2.0" accesskey="N">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="v2.1.1.html" title="What’s new in Tornado 2.1.1" accesskey="P">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="releases.html" accesskey="U">Release notes</a> »</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="what-s-new-in-tornado-2-1">
+<h1>What’s new in Tornado 2.1<a class="headerlink" href="#what-s-new-in-tornado-2-1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="sep-20-2011">
+<h2>Sep 20, 2011<a class="headerlink" href="#sep-20-2011" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="backwards-incompatible-changes">
+<h3>Backwards-incompatible changes<a class="headerlink" href="#backwards-incompatible-changes" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Support for secure cookies written by pre-1.0 releases of Tornado has
+been removed.  The <tt class="xref py py-obj docutils literal"><span class="pre">RequestHandler.get_secure_cookie</span></tt> method no longer
+takes an <tt class="docutils literal"><span class="pre">include_name</span></tt> parameter.</li>
+<li>The <tt class="docutils literal"><span class="pre">debug</span></tt> application setting now causes stack traces to be displayed
+in the browser on uncaught exceptions.  Since this may leak sensitive
+information, debug mode is not recommended for public-facing servers.</li>
+</ul>
+</div>
+<div class="section" id="security-fixes">
+<h3>Security fixes<a class="headerlink" href="#security-fixes" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Diginotar has been removed from the default CA certificates file used
+by <tt class="xref py py-obj docutils literal"><span class="pre">SimpleAsyncHTTPClient</span></tt>.</li>
+</ul>
+</div>
+<div class="section" id="new-modules">
+<h3>New modules<a class="headerlink" href="#new-modules" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a indepth="true" class="reference internal" href="gen.html#module-tornado.gen" title="tornado.gen"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.gen</span></tt></a>:  A generator-based interface to simplify writing
+asynchronous functions.</li>
+<li><a indepth="true" class="reference internal" href="netutil.html#module-tornado.netutil" title="tornado.netutil"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.netutil</span></tt></a>:  Parts of <a indepth="true" class="reference internal" href="httpserver.html#module-tornado.httpserver" title="tornado.httpserver"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.httpserver</span></tt></a> have been extracted into
+a new module for use with non-HTTP protocols.</li>
+<li><a indepth="true" class="reference internal" href="twisted.html#module-tornado.platform.twisted" title="tornado.platform.twisted"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.platform.twisted</span></tt></a>:  A bridge between the Tornado IOLoop and the
+Twisted Reactor, allowing code written for Twisted to be run on Tornado.</li>
+<li><a indepth="true" class="reference internal" href="process.html#module-tornado.process" title="tornado.process"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.process</span></tt></a>:  Multi-process mode has been improved, and can now restart
+crashed child processes.  A new entry point has been added at
+<a indepth="true" class="reference internal" href="process.html#tornado.process.fork_processes" title="tornado.process.fork_processes"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.process.fork_processes</span></tt></a>, although
+<tt class="xref py py-obj docutils literal"><span class="pre">tornado.httpserver.HTTPServer.start</span></tt> is still supported.</li>
+</ul>
+</div>
+<div class="section" id="tornado-web">
+<h3><tt class="docutils literal"><span class="pre">tornado.web</span></tt><a class="headerlink" href="#tornado-web" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a indepth="true" class="reference internal" href="web.html#tornado.web.RequestHandler.write_error" title="tornado.web.RequestHandler.write_error"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.web.RequestHandler.write_error</span></tt></a> replaces <tt class="docutils literal"><span class="pre">get_error_html</span></tt> as the
+preferred way to generate custom error pages (<tt class="docutils literal"><span class="pre">get_error_html</span></tt> is still
+supported, but deprecated)</li>
+<li>In <a indepth="true" class="reference internal" href="web.html#tornado.web.Application" title="tornado.web.Application"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.web.Application</span></tt></a>, handlers may be specified by
+(fully-qualified) name instead of importing and passing the class object
+itself.</li>
+<li>It is now possible to use a custom subclass of <tt class="docutils literal"><span class="pre">StaticFileHandler</span></tt>
+with the <tt class="docutils literal"><span class="pre">static_handler_class</span></tt> application setting, and this subclass
+can override the behavior of the <tt class="docutils literal"><span class="pre">static_url</span></tt> method.</li>
+<li><a indepth="true" class="reference internal" href="web.html#tornado.web.StaticFileHandler" title="tornado.web.StaticFileHandler"><tt class="xref py py-obj docutils literal"><span class="pre">StaticFileHandler</span></tt></a> subclasses can now override
+<tt class="docutils literal"><span class="pre">get_cache_time</span></tt> to customize cache control behavior.</li>
+<li><a indepth="true" class="reference internal" href="web.html#tornado.web.RequestHandler.get_secure_cookie" title="tornado.web.RequestHandler.get_secure_cookie"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.web.RequestHandler.get_secure_cookie</span></tt></a> now has a <tt class="docutils literal"><span class="pre">max_age_days</span></tt>
+parameter to allow applications to override the default one-month expiration.</li>
+<li><a indepth="true" class="reference internal" href="web.html#tornado.web.RequestHandler.set_cookie" title="tornado.web.RequestHandler.set_cookie"><tt class="xref py py-obj docutils literal"><span class="pre">set_cookie</span></tt></a> now accepts a <tt class="docutils literal"><span class="pre">max_age</span></tt> keyword
+argument to set the <tt class="docutils literal"><span class="pre">max-age</span></tt> cookie attribute (note underscore vs dash)</li>
+<li><a indepth="true" class="reference internal" href="web.html#tornado.web.RequestHandler.set_default_headers" title="tornado.web.RequestHandler.set_default_headers"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.web.RequestHandler.set_default_headers</span></tt></a> may be overridden to set
+headers in a way that does not get reset during error handling.</li>
+<li><tt class="xref py py-obj docutils literal"><span class="pre">RequestHandler.add_header</span></tt> can now be used to set a header that can
+appear multiple times in the response.</li>
+<li><tt class="xref py py-obj docutils literal"><span class="pre">RequestHandler.flush</span></tt> can now take a callback for flow control.</li>
+<li>The <tt class="docutils literal"><span class="pre">application/json</span></tt> content type can now be gzipped.</li>
+<li>The cookie-signing functions are now accessible as static functions
+<tt class="xref py py-obj docutils literal"><span class="pre">tornado.web.create_signed_value</span></tt> and <tt class="xref py py-obj docutils literal"><span class="pre">tornado.web.decode_signed_value</span></tt>.</li>
+</ul>
+</div>
+<div class="section" id="tornado-httpserver">
+<h3><tt class="docutils literal"><span class="pre">tornado.httpserver</span></tt><a class="headerlink" href="#tornado-httpserver" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>To facilitate some advanced multi-process scenarios, <tt class="docutils literal"><span class="pre">HTTPServer</span></tt>
+has a new method <tt class="docutils literal"><span class="pre">add_sockets</span></tt>, and socket-opening code is
+available separately as <a indepth="true" class="reference internal" href="netutil.html#tornado.netutil.bind_sockets" title="tornado.netutil.bind_sockets"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.netutil.bind_sockets</span></tt></a>.</li>
+<li>The <tt class="docutils literal"><span class="pre">cookies</span></tt> property is now available on <a indepth="true" class="reference internal" href="httpserver.html#tornado.httpserver.HTTPRequest" title="tornado.httpserver.HTTPRequest"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.httpserver.HTTPRequest</span></tt></a>
+(it is also available in its old location as a property of
+<a indepth="true" class="reference internal" href="web.html#tornado.web.RequestHandler" title="tornado.web.RequestHandler"><tt class="xref py py-obj docutils literal"><span class="pre">RequestHandler</span></tt></a>)</li>
+<li><tt class="xref py py-obj docutils literal"><span class="pre">tornado.httpserver.HTTPServer.bind</span></tt> now takes a backlog argument with the
+same meaning as <tt class="docutils literal"><span class="pre">socket.listen</span></tt>.</li>
+<li><a indepth="true" class="reference internal" href="httpserver.html#tornado.httpserver.HTTPServer" title="tornado.httpserver.HTTPServer"><tt class="xref py py-obj docutils literal"><span class="pre">HTTPServer</span></tt></a> can now be run on a unix socket as well
+as TCP.</li>
+<li>Fixed exception at startup when <tt class="docutils literal"><span class="pre">socket.AI_ADDRCONFIG</span></tt> is not available,
+as on Windows XP</li>
+</ul>
+</div>
+<div class="section" id="ioloop-and-iostream">
+<h3><tt class="docutils literal"><span class="pre">IOLoop</span></tt> and <tt class="docutils literal"><span class="pre">IOStream</span></tt><a class="headerlink" href="#ioloop-and-iostream" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a indepth="true" class="reference internal" href="iostream.html#tornado.iostream.IOStream" title="tornado.iostream.IOStream"><tt class="xref py py-obj docutils literal"><span class="pre">IOStream</span></tt></a> performance has been improved, especially for
+small synchronous requests.</li>
+<li>New methods <a indepth="true" class="reference internal" href="iostream.html#tornado.iostream.IOStream.read_until_close" title="tornado.iostream.IOStream.read_until_close"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.iostream.IOStream.read_until_close</span></tt></a> and
+<a indepth="true" class="reference internal" href="iostream.html#tornado.iostream.IOStream.read_until_regex" title="tornado.iostream.IOStream.read_until_regex"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.iostream.IOStream.read_until_regex</span></tt></a>.</li>
+<li><tt class="xref py py-obj docutils literal"><span class="pre">IOStream.read_bytes</span></tt> and <tt class="xref py py-obj docutils literal"><span class="pre">IOStream.read_until_close</span></tt> now take a
+<tt class="docutils literal"><span class="pre">streaming_callback</span></tt> argument to return data as it is received rather
+than all at once.</li>
+<li><tt class="xref py py-obj docutils literal"><span class="pre">IOLoop.add_timeout</span></tt> now accepts <tt class="xref py py-obj docutils literal"><span class="pre">datetime.timedelta</span></tt> objects in addition
+to absolute timestamps.</li>
+<li><a indepth="true" class="reference internal" href="ioloop.html#tornado.ioloop.PeriodicCallback" title="tornado.ioloop.PeriodicCallback"><tt class="xref py py-obj docutils literal"><span class="pre">PeriodicCallback</span></tt></a> now sticks to the specified period
+instead of creeping later due to accumulated errors.</li>
+<li><a indepth="true" class="reference internal" href="ioloop.html#tornado.ioloop.IOLoop" title="tornado.ioloop.IOLoop"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.ioloop.IOLoop</span></tt></a> and <a indepth="true" class="reference internal" href="httpclient.html#tornado.httpclient.HTTPClient" title="tornado.httpclient.HTTPClient"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.httpclient.HTTPClient</span></tt></a> now have
+<tt class="docutils literal"><span class="pre">close()</span></tt> methods that should be used in applications that create
+and destroy many of these objects.</li>
+<li><tt class="xref py py-obj docutils literal"><span class="pre">IOLoop.install</span></tt> can now be used to use a custom subclass of IOLoop
+as the singleton without monkey-patching.</li>
+<li><a indepth="true" class="reference internal" href="iostream.html#tornado.iostream.IOStream" title="tornado.iostream.IOStream"><tt class="xref py py-obj docutils literal"><span class="pre">IOStream</span></tt></a> should now always call the close callback
+instead of the connect callback on a connection error.</li>
+<li>The <tt class="xref py py-obj docutils literal"><span class="pre">IOStream</span></tt> close callback will no longer be called while there
+are pending read callbacks that can be satisfied with buffered data.</li>
+</ul>
+</div>
+<div class="section" id="tornado-simple-httpclient">
+<h3><tt class="docutils literal"><span class="pre">tornado.simple_httpclient</span></tt><a class="headerlink" href="#tornado-simple-httpclient" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Now supports client SSL certificates with the <tt class="docutils literal"><span class="pre">client_key</span></tt> and
+<tt class="docutils literal"><span class="pre">client_cert</span></tt> parameters to <a indepth="true" class="reference internal" href="httpclient.html#tornado.httpclient.HTTPRequest" title="tornado.httpclient.HTTPRequest"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.httpclient.HTTPRequest</span></tt></a></li>
+<li>Now takes a maximum buffer size, to allow reading files larger than 100MB</li>
+<li>Now works with HTTP 1.0 servers that don’t send a Content-Length header</li>
+<li>The <tt class="docutils literal"><span class="pre">allow_nonstandard_methods</span></tt> flag on HTTP client requests now
+permits methods other than <tt class="docutils literal"><span class="pre">POST</span></tt> and <tt class="docutils literal"><span class="pre">PUT</span></tt> to contain bodies.</li>
+<li>Fixed file descriptor leaks and multiple callback invocations in
+<tt class="xref py py-obj docutils literal"><span class="pre">SimpleAsyncHTTPClient</span></tt></li>
+<li>No longer consumes extra connection resources when following redirects.</li>
+<li>Now works with buggy web servers that separate headers with <tt class="docutils literal"><span class="pre">\n</span></tt> instead
+of <tt class="docutils literal"><span class="pre">\r\n\r\n</span></tt>.</li>
+<li>Now sets <tt class="docutils literal"><span class="pre">response.request_time</span></tt> correctly.</li>
+<li>Connect timeouts now work correctly.</li>
+</ul>
+</div>
+<div class="section" id="other-modules">
+<h3>Other modules<a class="headerlink" href="#other-modules" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><tt class="xref py py-obj docutils literal"><span class="pre">tornado.auth.OpenIDMixin</span></tt> now uses the correct realm when the
+callback URI is on a different domain.</li>
+<li><a indepth="true" class="reference internal" href="autoreload.html#module-tornado.autoreload" title="tornado.autoreload"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.autoreload</span></tt></a> has a new command-line interface which can be used
+to wrap any script.  This replaces the <tt class="docutils literal"><span class="pre">--autoreload</span></tt> argument to
+<a indepth="true" class="reference internal" href="testing.html#tornado.testing.main" title="tornado.testing.main"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.testing.main</span></tt></a> and is more robust against syntax errors.</li>
+<li><a indepth="true" class="reference internal" href="autoreload.html#tornado.autoreload.watch" title="tornado.autoreload.watch"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.autoreload.watch</span></tt></a> can be used to watch files other than
+the sources of imported modules.</li>
+<li><a indepth="true" class="reference internal" href="database.html#tornado.database.Connection" title="tornado.database.Connection"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.database.Connection</span></tt></a> has new variants of <tt class="docutils literal"><span class="pre">execute</span></tt> and
+<tt class="docutils literal"><span class="pre">executemany</span></tt> that return the number of rows affected instead of
+the last inserted row id.</li>
+<li><a indepth="true" class="reference internal" href="locale.html#tornado.locale.load_translations" title="tornado.locale.load_translations"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.locale.load_translations</span></tt></a> now accepts any properly-formatted
+locale name, not just those in the predefined <tt class="docutils literal"><span class="pre">LOCALE_NAMES</span></tt> list.</li>
+<li><a indepth="true" class="reference internal" href="options.html#tornado.options.define" title="tornado.options.define"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.options.define</span></tt></a> now takes a <tt class="docutils literal"><span class="pre">group</span></tt> parameter to group options
+in <tt class="docutils literal"><span class="pre">--help</span></tt> output.</li>
+<li>Template loaders now take a <tt class="docutils literal"><span class="pre">namespace</span></tt> constructor argument to add
+entries to the template namespace.</li>
+<li><a indepth="true" class="reference internal" href="websocket.html#module-tornado.websocket" title="tornado.websocket"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.websocket</span></tt></a> now supports the latest (“hybi-10”) version of the
+protocol (the old version, “hixie-76” is still supported; the correct
+version is detected automatically).</li>
+<li><a indepth="true" class="reference internal" href="websocket.html#module-tornado.websocket" title="tornado.websocket"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.websocket</span></tt></a> now works on Python 3</li>
+</ul>
+</div>
+<div class="section" id="bug-fixes">
+<h3>Bug fixes<a class="headerlink" href="#bug-fixes" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Windows support has been improved.  Windows is still not an officially
+supported platform, but the test suite now passes and
+<a indepth="true" class="reference internal" href="autoreload.html#module-tornado.autoreload" title="tornado.autoreload"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.autoreload</span></tt></a> works.</li>
+<li>Uploading files whose names contain special characters will now work.</li>
+<li>Cookie values containing special characters are now properly quoted
+and unquoted.</li>
+<li>Multi-line headers are now supported.</li>
+<li>Repeated Content-Length headers (which may be added by certain proxies)
+are now supported in <tt class="xref py py-obj docutils literal"><span class="pre">HTTPServer</span></tt>.</li>
+<li>Unicode string literals now work in template expressions.</li>
+<li>The template <tt class="docutils literal"><span class="pre">{%</span> <span class="pre">module</span> <span class="pre">%}</span></tt> directive now works even if applications
+use a template variable named <tt class="docutils literal"><span class="pre">modules</span></tt>.</li>
+<li>Requests with “Expect: 100-continue” now work on python 3</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a indepth="true" href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">What’s new in Tornado 2.1</a><ul>
+<li><a class="reference internal" href="#sep-20-2011">Sep 20, 2011</a><ul>
+<li><a class="reference internal" href="#backwards-incompatible-changes">Backwards-incompatible changes</a></li>
+<li><a class="reference internal" href="#security-fixes">Security fixes</a></li>
+<li><a class="reference internal" href="#new-modules">New modules</a></li>
+<li><a class="reference internal" href="#tornado-web"><tt class="docutils literal"><span class="pre">tornado.web</span></tt></a></li>
+<li><a class="reference internal" href="#tornado-httpserver"><tt class="docutils literal"><span class="pre">tornado.httpserver</span></tt></a></li>
+<li><a class="reference internal" href="#ioloop-and-iostream"><tt class="docutils literal"><span class="pre">IOLoop</span></tt> and <tt class="docutils literal"><span class="pre">IOStream</span></tt></a></li>
+<li><a class="reference internal" href="#tornado-simple-httpclient"><tt class="docutils literal"><span class="pre">tornado.simple_httpclient</span></tt></a></li>
+<li><a class="reference internal" href="#other-modules">Other modules</a></li>
+<li><a class="reference internal" href="#bug-fixes">Bug fixes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a indepth="true" href="v2.1.1.html" title="previous chapter">What’s new in Tornado 2.1.1</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a indepth="true" href="v2.0.0.html" title="next chapter">What’s new in Tornado 2.0</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="http://en.tornadoweb.cn/documentation/_sources/releases/v2.1.0.txt" rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none;">
+  <h3>Quick search</h3>
+    <form class="search" action="http://en.tornadoweb.cn/documentation/search.html" method="get">
+      <input value="" name="q" size="18" type="text">
+      <input value="Go" type="submit">
+      <input name="check_keywords" value="yes" type="hidden">
+      <input name="area" value="default" type="hidden">
+    </form>
+    <p class="searchtip" style="font-size: 90%;">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="v2.0.0.html" title="What’s new in Tornado 2.0">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="v2.1.1.html" title="What’s new in Tornado 2.1.1">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="releases.html">Release notes</a> »</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        © Copyright 2011, Facebook.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  
+
+
+</body></html>

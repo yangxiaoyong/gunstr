@@ -1,0 +1,303 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+<meta name="robots" content="index,nofollow">
+
+<title>KernelHacking - Linux Kernel Newbies</title>
+
+
+
+
+
+
+
+
+
+<link rel="alternate" title="Linux Kernel Newbies Recent Changes" href="http://kernelnewbies.org/RecentChanges?action=rss_rc&amp;ddiffs=1&amp;unique=1" type="application/rss+xml">
+
+<link rel="Start" href="http://kernelnewbies.org/Linux_Kernel_Newbies">
+<link rel="Alternate" title="Wiki Markup" href="http://kernelnewbies.org/KernelHacking?action=raw">
+<link rel="Alternate" media="print" title="Print View" href="http://kernelnewbies.org/KernelHacking?action=print">
+<link rel="Search" href="http://kernelnewbies.org/FindPage">
+<link rel="Index" href="http://kernelnewbies.org/TitleIndex">
+<link rel="Glossary" href="http://kernelnewbies.org/WordIndex">
+<link rel="Help" href="http://kernelnewbies.org/HelpOnFormatting">
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body dir="ltr" lang="en"><div id="_atssh" style="visibility: hidden; height: 1px; width: 1px; position: absolute; z-index: 100000;"><iframe src="index_1.html" style="height: 1px; width: 1px; position: absolute; z-index: 100000; border: 0pt none; left: 0pt; top: 0pt;" title="AddThis utility frame" id="_atssh790"></iframe></div>
+<div id="header">
+
+  <div class="midHeader">
+<p>
+</p><div id="logo"><a href="http://kernelnewbies.org/Linux_Kernel_Newbies"><img src="kn-icon.png" alt="KernelNewbies"></a></div>
+<ul id="username">
+<li><a href="http://kernelnewbies.org/UserPreferences">Login</a></li>
+</ul>
+
+<h1 class="title">KernelHacking</h1>
+
+
+  </div>
+
+</div>
+
+<table class="columnizer"><tbody><tr class="columnizer"><td class="nav">
+<!-- ##### Side Bar ##### -->
+<div id="sidebar">
+<div class="sidepanel">
+  <p class="sideBarTitle">Kernel Hacking</p>
+  <ul>
+    <li><a href="http://kernelnewbies.org/">Kernel&nbsp;Newbies&nbsp;Frontpage</a></li>
+    <li><a href="http://kernelnewbies.org/KernelHacking">Kernel&nbsp;Hacking</a></li>
+    <li><a href="http://kernelnewbies.org/Documents">Kernel&nbsp;Documentation</a></li>
+    <li><a href="http://kernelnewbies.org/KernelGlossary">Kernel&nbsp;Glossary</a></li>
+    <li><a href="http://kernelnewbies.org/FAQ">FAQ</a></li>
+    <li><a href="http://kernelnewbies.org/FoundBug">Found&nbsp;a&nbsp;Bug?</a></li>
+    <li><a href="http://kernelnewbies.org/LinuxChanges">Kernel&nbsp;Changelog</a></li>
+    <li><a href="http://kernelnewbies.org/UpstreamMerge">Upstream&nbsp;Merge&nbsp;Guide</a></li>
+  </ul>
+</div>
+<div class="sidepanel">
+  <p class="sideBarTitle">Projects</p>
+  <ul>
+    <li><a href="http://kernelnewbies.org/KernelJanitors">Kernel&nbsp;Janitors</a></li>
+    <li><a href="http://kernelnewbies.org/KernelMentors">Kernel&nbsp;Mentors</a></li>
+    <li><a href="http://kernelnewbies.org/KernelProjects">Kernel&nbsp;Projects</a></li>
+  </ul>
+</div>
+<div class="sidepanel">
+  <p class="sideBarTitle">Community</p>
+  <ul>
+    <li><a href="http://kernelnewbies.org/Community">Why&nbsp;a&nbsp;community?</a></li>
+    <li><a href="http://forum.kernelnewbies.org/">Web&nbsp;Forum</a></li>
+    <li><a href="http://kernelnewbies.org/RegionalNewbies">Regional&nbsp;Kernelnewbies</a></li>
+    <li><a href="http://kernelnewbies.org/PersonalPages">Personal&nbsp;Pages</a></li>
+    <li><a href="http://kernelnewbies.org/UpcomingEvents">Upcoming&nbsp;Events</a></li>
+  </ul>
+</div>
+<div class="sidepanel">
+  <p class="sideBarTitle">References</p>
+  <ul>
+    <li><a href="http://kernelnewbies.org/ML">Mailing&nbsp;Lists</a></li>
+    <li><a href="http://kernelnewbies.org/RelatedSites">Related&nbsp;Sites</a></li>
+    <li><a href="http://kernelnewbies.org/ProgrammingLinks">Programming&nbsp;Links</a></li>
+  </ul>
+</div>
+<div class="sidepanel">
+  <p class="sideBarTitle">Wiki</p>
+  <ul>
+    <li><a href="http://kernelnewbies.org/RecentChanges">Recent&nbsp;Changes</a></li>
+    <li><a href="http://kernelnewbies.org/EditorsGroup">Site&nbsp;Editors</a></li>
+    <li><a href="http://kernelnewbies.org/navigation_menu">Navigation&nbsp;Menu</a></li>
+    <li><a href="http://kernelnewbies.org/stats/">Site&nbsp;Statistics</a></li>
+    <li><a href="http://kernelnewbies.org/WebTips">Tips&nbsp;for&nbsp;Editors</a></li>
+    <li><a href="http://kernelnewbies.org/FindPage">Find&nbsp;Page</a></li>
+    <li><a href="http://kernelnewbies.org/HelpContents">Help&nbsp;Contents</a></li>
+    <li><a href="http://wikiwall.org/">Hosted&nbsp;by&nbsp;WikiWall</a></li>
+  </ul>
+</div>
+<div class="sidepanel">
+<!-- SiteSearch Google -->
+<form method="get" action="http://www.google.com/custom" target="google_window">
+<table bgcolor="#ffffff" border="0">
+<tbody><tr><td nowrap="nowrap" valign="top" height="32" align="left">
+
+<br>
+<input name="domains" value="
+kernelnewbies.org
+" type="hidden">
+<input name="q" size="20" maxlength="255" value="" type="text">
+</td></tr>
+<tr>
+<td nowrap="nowrap">
+<table>
+<tbody><tr>
+<td>
+<input name="sitesearch" value="
+kernelnewbies.org
+" checked="checked" type="radio">
+<font size="-1" color="#000000">This site</font>
+</td>
+<td>
+<input name="sitesearch" value="" type="radio">
+<font size="-1" color="#000000">Web</font>
+</td>
+</tr>
+</tbody></table>
+<input name="sa" value="Google Search" type="submit">
+<input name="client" value="pub-2148115774442744" type="hidden">
+<input name="forid" value="1" type="hidden">
+<input name="ie" value="ISO-8859-1" type="hidden">
+<input name="oe" value="ISO-8859-1" type="hidden">
+<input name="cof" value="GALT:#008000;GL:1;DIV:#336699;VLC:663399;AH:center;BGC:FFFFFF;LBGC:336699;ALC:0000FF;LC:0000FF;T:000000;GFNT:0000FF;GIMP:0000FF;FORID:1" type="hidden">
+<input name="hl" value="en" type="hidden">
+</td></tr></tbody></table>
+</form>
+<!-- SiteSearch Google -->
+</div>
+</div>
+</td><td class="content">
+<ul class="editbar">
+<li><span class="disabled">Immutable Page</span></li>
+<li><a href="http://kernelnewbies.org/KernelHacking?action=info">Info</a></li>
+<li><a href="http://kernelnewbies.org/KernelHacking?action=AttachFile">Attachments</a></li>
+<li>
+<form class="actionsmenu" method="get" action="http://kernelnewbies.org/KernelHacking">
+<div>
+    
+    <select name="action" onchange="if ((this.selectedIndex != 0) &amp;&amp;
+                      (this.options[this.selectedIndex].disabled == false)) {
+                this.form.submit();
+            }
+            this.selectedIndex = 0;">
+        <option value="show">More Actions:</option><option value="raw">Raw Text</option>
+<option value="print">Print View</option>
+<option value="refresh">Delete Cache</option>
+<option value="show" disabled="disabled" class="disabled">------------</option>
+<option value="SpellCheck">Check Spelling</option>
+<option value="LikePages">Like Pages</option>
+<option value="LocalSiteMap">Local Site Map</option>
+<option value="show" disabled="disabled" class="disabled">------------</option>
+<option value="RenamePage" disabled="disabled" class="disabled">Rename Page</option>
+<option value="DeletePage" disabled="disabled" class="disabled">Delete Page</option>
+<option value="show" disabled="disabled" class="disabled">------------</option>
+<option value="AttachFile">Attach File</option>
+<option value="Despam">Despam</option>
+<option value="MyPages">My Pages</option>
+<option value="PackagePages">Package Pages</option>
+<option value="RenderAsDocbook">Render As Docbook</option>
+<option value="SubscribeUser">Subscribe User</option>
+    </select>
+    
+</div>
+
+</form>
+</li>
+</ul>
+
+<div id="page" dir="ltr" lang="en">
+
+
+<h1 class="title">KernelHacking</h1>
+<div id="content" dir="ltr" lang="en">
+<a id="top"></a><a id="line-1"></a>
+<h2 id="head-b143a141e11c339f70bc9af41d3c26f732bede70">More information about the kernel</h2>
+
+<a id="line-2"></a><ul>
+<li><p>Device <a href="http://kernelnewbies.org/Drivers">Drivers</a> <a id="line-3"></a></p>
+</li>
+<li><p><a href="http://kernelnewbies.org/KernelPorts">KernelPorts</a> porting the kernel to other architectures <a id="line-4"></a></p>
+</li>
+<li><p><a href="http://kernelnewbies.org/PowerManagement">PowerManagement</a> <a id="line-5"></a></p>
+</li>
+<li><p><a href="http://kernelnewbies.org/SMPSynchronisation">SMPSynchronisation</a> an intro on SMP locking <a id="line-6"></a></p>
+</li>
+<li><p>There are several good <a href="http://kernelnewbies.org/KernelBooks">KernelBooks</a> <a id="line-7"></a></p>
+</li>
+<li><p>more <a href="http://kernelnewbies.org/Documents">Documents</a>, which should probably be indexed from this page or subsystem pages <a id="line-8"></a></p>
+</li>
+<li><p><a href="http://kernelnewbies.org/LinuxChanges">LinuxChanges</a> and <a class="www" href="http://lwn.net/Kernel">http://LWN.net/Kernel</a> - read about recent developments <a id="line-9"></a></p>
+<a id="line-10"></a></li>
+</ul>
+
+<h2 id="head-60da63e9e0a96786cb20f1c504360b4c92804120">How To ...</h2>
+
+<a id="line-11"></a><ul>
+<li><p><a href="http://kernelnewbies.org/KernelBuild">KernelBuild</a> - build a custom kernel <a id="line-12"></a></p>
+</li>
+<li><p><a href="http://kernelnewbies.org/KernelSafari">KernelSafari</a> - taking apart the kernel to see how it works <a id="line-13"></a></p>
+</li>
+<li><p><a href="http://kernelnewbies.org/UpstreamMerge">UpstreamMerge</a> How to submit your patch to the upstream kernel. <a id="line-14"></a></p>
+</li>
+<li><p>join the <a class="external" href="http://janitor.kernelnewbies.org/">Kernel Janitors</a> and/or <a class="external" href="http://linuxdriverproject.org/">Linux Driver</a> projects <a id="line-15"></a></p>
+</li>
+<li><p><a href="http://kernelnewbies.org/CareerAdvice">CareerAdvice</a> for people who want to get a job hacking the kernel <a id="line-16"></a></p>
+</li>
+<li><p><a href="http://kernelnewbies.org/KernelHackingTools">KernelHackingTools</a> to edit/navigate/hack the kernel source <a id="line-17"></a></p>
+</li>
+<li><p>write a simple kernel loadable <a href="http://kernelnewbies.org/Module">Module</a> <a id="line-18"></a></p>
+</li>
+<li><p><a class="external" href="http://mail.nl.linux.org/kernelnewbies/2003-08/msg00347.html">Paper on Debugging Kernel OOPs and Hangs</a> <a id="line-19"></a></p>
+<a id="line-20"></a></li>
+</ul>
+<p><a href="http://kernelnewbies.org/CompleteNewbiesClickHere">CompleteNewbiesClickHere</a> for some ideas on how to get started. <a id="line-21"></a></p>
+<a id="line-22"></a><p>Discuss your questions on <a href="http://kernelnewbies.org/IRC">IRC</a>, the <a href="http://kernelnewbies.org/MailingList">MailingList</a> or the <a class="external" href="http://forum.kernelnewbies.org/">web forum</a>, if you cannot find your answers in these documents: <a id="line-23"></a></p>
+<a id="line-24"></a>
+<h2 id="head-175510653edaf21e7352007b330bd49d8aa0429c">Under development</h2>
+
+<a id="line-25"></a><ul>
+<li><p><a href="http://kernelnewbies.org/New_Kernel_Hacking_HOWTO">New Kernel Hacking HOWTO</a> (right now under-development on kernelnewbies) <a id="line-26"></a></p>
+</li>
+<li><p><a href="http://kernelnewbies.org/Linux_Kernel_Tester%27s_Guide">Linux Kernel Tester's Guide</a> <a id="line-27"></a></p>
+</li>
+<li><p><a href="http://kernelnewbies.org/Networking">Networking</a> everything network related <a id="line-28"></a></p>
+<a id="line-29"></a></li>
+</ul>
+
+<h2 id="head-3e54326866626e4987c92448b8fe0f4fa9bf7830">External links</h2>
+
+<a id="line-30"></a><ul>
+<li><p><a class="external" href="http://en.wikipedia.org/wiki/Linux_kernel">Wikipedia article about the Linux kernel</a> - some history and background <a id="line-31"></a></p>
+</li>
+<li><p><a class="external" href="http://www.ibm.com/developerworks/linux/library/l-linux-kernel/">Anatomy of the Linux kernel</a> - short and valuable introduction to internals of the kernel <a id="line-32"></a></p>
+</li>
+<li><p><a class="external" href="http://www.makelinux.net/kernel_map">Interactive Linux Kernel Map</a> and <a class="external" href="http://www.makelinux.net/kernel_map_poster">poster</a> - Have a look at Linux kernel source from a bird's eye view. <a id="line-33"></a></p>
+</li>
+<li><p><a class="external" href="http://tldp.org/HOWTO/KernelAnalysis-HOWTO.html">KernelAnalysis-HOWTO</a> <a id="line-34"></a></p>
+</li>
+<li><p><a class="external" href="http://lxr.linux.no/linux">Linux Cross Reference</a> - browse the source online <a id="line-35"></a></p>
+</li>
+<li><p><a class="external" href="http://www.lingrok.org/source/">LinGrok</a> - another cross reference of development git trees <a id="line-36"></a></p>
+</li>
+<li><p>explore more documentation at <a class="external" href="http://www.makelinux.net/reference">Linux Technology Reference</a> <a id="line-37"></a></p>
+</li>
+<li><p><a class="external" href="http://tldp.org/HOWTO/Kernel-HOWTO/">Compiling the Linux kernel</a> or <a class="external" href="http://www.osnews.com/story.php?news_id=443">OS News Article</a><br>
+ <a id="line-38"></a></p>
+</li>
+<li><p><a class="www" href="http://lkml.org/">http://lkml.org/</a> - the linux-kernel mailing list archives <a id="line-39"></a></p>
+</li>
+<li><p>From basic to advanced Linux Kernel articles (outdated) <a class="www" href="http://whatisthekernel.blogspot.com/">http://whatisthekernel.blogspot.com/</a> <a id="line-40"></a></p>
+<a id="line-41"></a></li>
+</ul>
+<p><a href="http://kernelnewbies.org/CategoryKernelHacking">CategoryKernelHacking</a> <a id="line-42"></a></p>
+<a id="bottom"></a>
+</div>
+
+Tell others about this page:
+<!-- AddThis Button BEGIN -->
+
+<a href="http://www.addthis.com/bookmark.php" onclick="return addthis_sendto()"><img src="button1-share.gif" alt="" width="125" height="16" border="0"></a>
+<!-- AddThis Button END -->
+<br>
+<div align="center">
+
+<ins style="display: inline-table; border: medium none; height: 90px; margin: 0pt; padding: 0pt; position: relative; visibility: visible; width: 728px;"><ins id="aswift_0_anchor" style="display: block; border: medium none; height: 90px; margin: 0pt; padding: 0pt; position: relative; visibility: visible; width: 728px;"><iframe src="index_2.html" allowtransparency="true" hspace="0" marginwidth="0" marginheight="0" vspace="0" id="aswift_0" name="aswift_0" style="left: 0pt; position: absolute; top: 0pt;" scrolling="no" width="728" frameborder="0" height="90"></iframe></ins></ins>
+</div>
+<p id="pageinfo" class="info" dir="ltr" lang="en">last edited 2011-03-15 15:42:39 by <span title="NicolasKaiser @ 85-127-41-184.dynamic.xdsl-line.inode.at[85.127.41.184]"><a title="NicolasKaiser @ 85-127-41-184.dynamic.xdsl-line.inode.at[85.127.41.184]" href="http://kernelnewbies.org/NicolasKaiser">NicolasKaiser</a></span></p>
+
+</div>
+</td></tr></tbody></table>
+<div id="pagebottom"></div>
+
+<div id="footer" align="center">
+<ul id="credits">
+<li><a href="http://creativecommons.org/licenses/by/2.5/"><img src="somerights20.png" alt="Licensed under a Creative Commons Attribution 2.5 License"></a></li>
+<li><a href="http://wikiwall.org/">Free Wiki at WikiWall</a></li>
+<li><a href="http://moinmoin.wikiwikiweb.de/">MoinMoin Powered</a></li>
+<li><a href="http://www.python.org/">Python Powered</a></li>
+<li><a href="http://validator.w3.org/check?uri=referer"><img src="valid-html401" alt="Valid HTML 4.01!" width="52" height="20"></a></li>
+<li>
+</li>
+</ul>
+
+
+</div>
+
+
+
+</body>
+</html>

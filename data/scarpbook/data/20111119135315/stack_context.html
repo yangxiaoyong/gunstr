@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    
+    
+    <title>tornado.stack_context — Exception handling across asynchronous callbacks — Tornado v2.1.1 documentation</title>
+    
+    
+    
+    
+    
+    
+    <link rel="top" title="Tornado v2.1.1 documentation" href="http://en.tornadoweb.cn/documentation/index.html">
+    <link rel="up" title="Utilities" href="http://en.tornadoweb.cn/documentation/utilities.html">
+    <link rel="next" title="tornado.testing — Unit testing support for asynchronous code" href="http://en.tornadoweb.cn/documentation/testing.html">
+    <link rel="prev" title="tornado.process — Utilities for multiple processes" href="http://en.tornadoweb.cn/documentation/process.html"> 
+  
+<link rel="stylesheet" type="text/css" href="stack_context.css" media="all">
+</head>
+<body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index" accesskey="I">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="testing.html" title="tornado.testing — Unit testing support for asynchronous code" accesskey="N">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="process.html" title="tornado.process — Utilities for multiple processes" accesskey="P">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="utilities.html" accesskey="U">Utilities</a> »</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-tornado.stack_context">
+<span id="tornado-stack-context-exception-handling-across-asynchronous-callbacks"></span><h1><tt class="docutils literal"><span class="pre">tornado.stack_context</span></tt> — Exception handling across asynchronous callbacks<a class="headerlink" href="#module-tornado.stack_context" title="Permalink to this headline">¶</a></h1>
+<p>StackContext allows applications to maintain threadlocal-like state
+that follows execution as it moves to other execution contexts.</p>
+<p>The motivating examples are to eliminate the need for explicit
+async_callback wrappers (as in tornado.web.RequestHandler), and to
+allow some additional context to be kept for logging.</p>
+<p>This is slightly magic, but it’s an extension of the idea that an exception
+handler is a kind of stack-local state and when that stack is suspended
+and resumed in a new context that state needs to be preserved.  StackContext
+shifts the burden of restoring that state from each call site (e.g.
+wrapping each AsyncHTTPClient callback in async_callback) to the mechanisms
+that transfer control from one context to another (e.g. AsyncHTTPClient
+itself, IOLoop, thread pools, etc).</p>
+<p>Example usage:</p>
+<div class="highlight-none"><div class="highlight"><pre>@contextlib.contextmanager
+def die_on_error():
+    try:
+        yield
+    except Exception:
+        logging.error("exception in asynchronous operation",exc_info=True)
+        sys.exit(1)
+
+with StackContext(die_on_error):
+    # Any exception thrown here *or in callback and its desendents*
+    # will cause the process to exit instead of spinning endlessly
+    # in the ioloop.
+    http_client.fetch(url, callback)
+ioloop.start()
+</pre></div>
+</div>
+<dl class="class">
+<dt id="tornado.stack_context.StackContext">
+<em class="property">class </em><tt class="descclassname">tornado.stack_context.</tt><tt class="descname">StackContext</tt><big>(</big><em>context_factory</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/stack_context.html#StackContext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.stack_context.StackContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Establishes the given context as a StackContext that will be transferred.</p>
+<p>Note that the parameter is a callable that returns a context
+manager, not the context itself.  That is, where for a
+non-transferable context manager you would say:</p>
+<div class="highlight-none"><div class="highlight"><pre>with my_context():
+</pre></div>
+</div>
+<p>StackContext takes the function itself rather than its result:</p>
+<div class="highlight-none"><div class="highlight"><pre>with StackContext(my_context):
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="tornado.stack_context.ExceptionStackContext">
+<em class="property">class </em><tt class="descclassname">tornado.stack_context.</tt><tt class="descname">ExceptionStackContext</tt><big>(</big><em>exception_handler</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/stack_context.html#ExceptionStackContext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.stack_context.ExceptionStackContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specialization of StackContext for exception handling.</p>
+<p>The supplied exception_handler function will be called in the
+event of an uncaught exception in this context.  The semantics are
+similar to a try/finally clause, and intended use cases are to log
+an error, close a socket, or similar cleanup actions.  The
+exc_info triple (type, value, traceback) will be passed to the
+exception_handler function.</p>
+<p>If the exception handler returns true, the exception will be
+consumed and will not be propagated to other exception handlers.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="tornado.stack_context.NullContext">
+<em class="property">class </em><tt class="descclassname">tornado.stack_context.</tt><tt class="descname">NullContext</tt><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/stack_context.html#NullContext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.stack_context.NullContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resets the StackContext.</p>
+<p>Useful when creating a shared resource on demand (e.g. an AsyncHTTPClient)
+where the stack that caused the creating is not relevant to future
+operations.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tornado.stack_context.wrap">
+<tt class="descclassname">tornado.stack_context.</tt><tt class="descname">wrap</tt><big>(</big><em>fn</em><big>)</big><a class="reference internal" href="http://en.tornadoweb.cn/documentation/_modules/tornado/stack_context.html#wrap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.stack_context.wrap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a callable object that will restore the current StackContext
+when executed.</p>
+<p>Use this whenever saving a callback to be executed later in a
+different execution context (either in a different thread or
+asynchronously in the same thread).</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a indepth="true" href="process.html" title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">tornado.process</span></tt> — Utilities for multiple processes</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a indepth="true" href="testing.html" title="next chapter"><tt class="docutils literal docutils literal"><span class="pre">tornado.testing</span></tt> — Unit testing support for asynchronous code</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="http://en.tornadoweb.cn/documentation/_sources/stack_context.txt" rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none;">
+  <h3>Quick search</h3>
+    <form class="search" action="http://en.tornadoweb.cn/documentation/search.html" method="get">
+      <input value="" name="q" size="18" type="text">
+      <input value="Go" type="submit">
+      <input name="check_keywords" value="yes" type="hidden">
+      <input name="area" value="default" type="hidden">
+    </form>
+    <p class="searchtip" style="font-size: 90%;">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="testing.html" title="tornado.testing — Unit testing support for asynchronous code">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="process.html" title="tornado.process — Utilities for multiple processes">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="utilities.html">Utilities</a> »</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        © Copyright 2011, Facebook.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  
+
+
+</body></html>

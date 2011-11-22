@@ -1,0 +1,300 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" class="client-nojs" dir="ltr">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>线程安全 - 维基百科，自由的百科全书</title>
+
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="generator" content="MediaWiki 1.18wmf1">
+<link rel="alternate" type="application/x-wiki" title="编辑本页" href="http://zh.wikipedia.org/w/index.php?title=%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8&amp;action=edit">
+<link rel="edit" title="编辑本页" href="http://zh.wikipedia.org/w/index.php?title=%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8&amp;action=edit">
+<link rel="apple-touch-icon" href="http://zh.wikipedia.org/apple-touch-icon.png">
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="http://zh.wikipedia.org/w/opensearch_desc.php" title="Wikipedia (zh)">
+<link rel="EditURI" type="application/rsd+xml" href="http://zh.wikipedia.org/w/api.php?action=rsd">
+<link rel="canonical" href="http://zh.wikipedia.org/wiki/%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8">
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/">
+<link rel="alternate" type="application/atom+xml" title="Wikipedia的Atom" href="http://zh.wikipedia.org/w/index.php?title=Special:%E6%9C%80%E8%BF%91%E6%9B%B4%E6%94%B9&amp;feed=atom">
+
+<meta name="ResourceLoaderDynamicStyles" content="">
+
+
+
+
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/w/skins-1.18/vector/csshover.min.htc")}</style><![endif]-->
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-线程安全 action-view skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display: none;" dir="ltr" lang="zh-cn"></div>
+						<!-- sitenotice -->
+			<div id="siteNotice"><!-- centralNotice loads here --><div id="localNotice" dir="ltr" lang="zh"></div>
+</div>
+			<!-- /sitenotice -->
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">线程安全</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+								<!-- tagline -->
+				<div id="siteSub">维基百科，自由的百科全书</div>
+				<!-- /tagline -->
+								<!-- subtitle -->
+				<div id="contentSub" dir="ltr" lang="zh-cn"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					跳转到： <a href="#mw-head">导航</a>,
+					<a href="#p-search">搜索</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodycontent -->
+				<div dir="ltr" class="mw-content-ltr" lang="zh"><p><b>线程安全</b>是<a href="http://zh.wikipedia.org/wiki/%E7%BC%96%E7%A8%8B" title="编程" class="mw-redirect">编程</a>中的术语，指某个<a href="http://zh.wikipedia.org/wiki/%E5%87%BD%E6%95%B0_%28%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%29" title="函数 (计算机科学)" class="mw-redirect">函数 (计算机科学)</a>、<a href="http://zh.wikipedia.org/wiki/%E5%87%BD%E6%95%B0%E5%BA%93" title="函数库" class="mw-redirect">函数库</a>在<a href="http://zh.wikipedia.org/wiki/%E5%A4%9A%E7%BA%BF%E7%A8%8B" title="多线程">多线程</a>环境中被调用时，能够正确地处理各个<a href="http://zh.wikipedia.org/wiki/%E7%BA%BF%E7%A8%8B" title="线程">线程</a>的<a href="http://zh.wikipedia.org/wiki/%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F" title="局部变量">局部变量</a>，使程序功能正确完成。</p>
+<p>一般来说，线程安全的函数应该为每个调用它的线程分配专门的空间，来储存需要单独保存的状态（如果需要的话），不依赖于“<a href="http://zh.wikipedia.org/wiki/%E7%BA%BF%E7%A8%8B%E6%83%AF%E6%80%A7" title="线程惯性">线程惯性</a>”，把多个线程共享的变量正确对待（如，通知编译器该<a href="http://zh.wikipedia.org/wiki/%E5%8F%98%E9%87%8F_%28%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%29" title="变量 (程序设计)">变量</a>为“易失（volatile）”型，阻止其进行一些不恰当的优化），而且，线程安全的<a href="http://zh.wikipedia.org/wiki/%E5%87%BD%E6%95%B0" title="函数">函数</a>一般不应该修改全局对象。</p>
+<p>很多C库代码（比如某些strtok的实现，它将“多次调用中需要保持不变的状态”储存在静态变量中，导致不恰当的共享）不是线程安全的，在<a href="http://zh.wikipedia.org/wiki/%E5%A4%9A%E7%BA%BF%E7%A8%8B" title="多线程">多线程</a>环境中调用这些函数时，要进行特别的预防措施，或者寻找别的替代方案。</p>
+<h2><span class="editsection">[<a href="http://zh.wikipedia.org/w/index.php?title=%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8&amp;action=edit&amp;section=1" title="编辑段落：外部链接">编辑</a>]</span> <span class="mw-headline" id=".E5.A4.96.E9.83.A8.E9.80.A3.E7.B5.90">外部链接</span></h2>
+<ul>
+<li><a rel="nofollow" class="external text" href="http://wiki.tcl.tk/3839">Thread-safe Tcl Extensions</a> (wiki page)</li>
+<li><a rel="nofollow" class="external text" href="http://www.javaworld.com/javaworld/javaqa/1999-04/01-threadsafe.html">Thread-safe design</a></li>
+<li>Article "<a rel="nofollow" class="external text" href="http://www.javaworld.com/javaworld/jw-08-1998/jw-08-techniques.html">Design for thread safety</a>" by Bill Venners</li>
+<li>Article "<a rel="nofollow" class="external text" href="http://www.javaworld.com/javaworld/jw-07-2004/jw-0712-threadsafe.html">Write thread-safe servlets</a>" by Phillip Bridgham</li>
+</ul>
+
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 3/1000000
+Post-expand include size: 0/2048000 bytes
+Template argument size: 0/2048000 bytes
+Expensive parser function count: 0/500
+-->
+
+<!-- Saved in parser cache with key zhwiki:pcache:idhash:1100095-0!*!0!*!*!*!zh-cn!* and timestamp 20111006023318 -->
+</div>				<!-- /bodycontent -->
+								<!-- printfooter -->
+				<div class="printfooter">
+				来自“<a href="http://zh.wikipedia.org/w/index.php?title=%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8&amp;oldid=17700370">http://zh.wikipedia.org/w/index.php?title=%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8&amp;oldid=17700370</a>”				</div>
+				<!-- /printfooter -->
+												<!-- catlinks -->
+				<div id="catlinks" class="catlinks"><div id="mw-normal-catlinks"><a href="http://zh.wikipedia.org/wiki/Special:%E9%A1%B5%E9%9D%A2%E5%88%86%E7%B1%BB" title="Special:页面分类">1个分类</a>: <ul><li><a href="http://zh.wikipedia.org/wiki/Category:%E5%9F%B7%E8%A1%8C%E7%B7%92" title="Category:執行緒">执行绪</a></li></ul></div></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+				<!-- debughtml -->
+								<!-- /debughtml -->
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>个人工具</h5>
+	<ul dir="ltr" lang="zh-cn">
+		<li id="pt-login"><a href="http://zh.wikipedia.org/w/index.php?title=Special:%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95&amp;returnto=%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8&amp;returntoquery=variant%3Dzh-cn" title="建议你登录，尽管并非必须。 [o]" accesskey="o">登录/创建账户</a></li>
+	</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>名字空间</h5>
+	<ul dir="ltr" lang="zh-cn">
+					<li id="ca-nstab-main" class="selected"><span><a href="http://zh.wikipedia.org/wiki/%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8" title="查看页面内容 [c]" accesskey="c">条目</a></span></li>
+					<li id="ca-talk" class="new"><span><a href="http://zh.wikipedia.org/w/index.php?title=Talk:%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8&amp;action=edit&amp;redlink=1" title="关于此页面的讨论 [t]" accesskey="t">讨论</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu">
+			<h4>
+																								大陆简体																						</h4>
+		<h5><span>变换</span><a href="#"></a></h5>
+	<div class="menu">
+		<ul dir="ltr" lang="zh-cn">
+							<li id="ca-varlang-0"><a href="http://zh.wikipedia.org/zh/%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8">不转换</a></li>
+							<li id="ca-varlang-1"><a href="http://zh.wikipedia.org/zh-hans/%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8">简体</a></li>
+							<li id="ca-varlang-2"><a href="http://zh.wikipedia.org/zh-hant/%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8">繁體</a></li>
+							<li id="ca-varlang-3" class="selected"><a href="http://zh.wikipedia.org/zh-cn/%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8">大陆简体</a></li>
+							<li id="ca-varlang-4"><a href="http://zh.wikipedia.org/zh-hk/%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8">港澳繁體</a></li>
+							<li id="ca-varlang-5"><a href="http://zh.wikipedia.org/zh-sg/%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8">马新简体</a></li>
+							<li id="ca-varlang-6"><a href="http://zh.wikipedia.org/zh-tw/%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8">台灣正體</a></li>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>查看</h5>
+	<ul dir="ltr" lang="zh-cn">
+					<li id="ca-view" class="selected"><span><a href="http://zh.wikipedia.org/wiki/%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8">阅读</a></span></li>
+					<li id="ca-edit"><span><a href="http://zh.wikipedia.org/w/index.php?title=%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8&amp;action=edit" title="你可以编辑本页。请在保存前预览一下。 [e]" accesskey="e">编辑</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="http://zh.wikipedia.org/w/index.php?title=%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8&amp;action=history" title="本页面的早前版本。 [h]" accesskey="h">查看历史</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>操作</span><a href="#"></a></h5>
+	<div class="menu">
+		<ul dir="ltr" lang="zh-cn">
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5 dir="ltr" lang="zh-cn"><label for="searchInput">搜索</label></h5>
+	<form action="http://zh.wikipedia.org/w/index.php" id="searchform">
+		<input name="title" value="Special:搜索" type="hidden">
+				<div id="simpleSearch">
+						<input name="search" value="" title="搜索维基百科 [f]" accesskey="f" id="searchInput" type="text">						<button type="submit" name="button" title="搜索含这些文字的页面" id="searchButton"><img src="search-ltr.png" alt="搜索"></button>					</div>
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url('wikipedia-logo-v2-zh.png');" href="http://zh.wikipedia.org/wiki/Wikipedia:%E9%A6%96%E9%A1%B5" title="首页"></a></div>
+				<!-- /logo -->
+				
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- navigation -->
+<div class="portal" id="p-navigation">
+	<h5 dir="ltr" lang="zh-cn">导航</h5>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage-description"><a href="http://zh.wikipedia.org/wiki/Wikipedia:%E9%A6%96%E9%A1%B5" title="访问首页 [z]" accesskey="z">首页</a></li>
+			<li id="n-indexpage"><a href="http://zh.wikipedia.org/wiki/Wikipedia:%E5%88%86%E9%A1%9E%E7%B4%A2%E5%BC%95" title="以分类索引搜寻中文维基百科">分类索引</a></li>
+			<li id="n-Featured_content"><a href="http://zh.wikipedia.org/wiki/Portal:%E7%89%B9%E8%89%B2%E5%85%A7%E5%AE%B9" title="查看中文维基百科的特色内容">特色内容</a></li>
+			<li id="n-currentevents"><a href="http://zh.wikipedia.org/wiki/Portal:%E6%96%B0%E8%81%9E%E5%8B%95%E6%85%8B" title="提供当前新闻事件的背景资料">新闻动态</a></li>
+			<li id="n-recentchanges"><a href="http://zh.wikipedia.org/wiki/Special:%E6%9C%80%E8%BF%91%E6%9B%B4%E6%94%B9" title="列出维基百科中的最近修改 [r]" accesskey="r">最近更改</a></li>
+			<li id="n-randompage"><a href="http://zh.wikipedia.org/wiki/Special:%E9%9A%8F%E6%9C%BA%E9%A1%B5%E9%9D%A2" title="随机载入一个页面 [x]" accesskey="x">随机条目</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- help -->
+<div class="portal" id="p-help">
+	<h5 dir="ltr" lang="zh-cn">帮助</h5>
+	<div class="body">
+		<ul>
+			<li id="n-help"><a href="http://zh.wikipedia.org/wiki/Help:%E7%9B%AE%E5%BD%95" title="寻求帮助">帮助</a></li>
+			<li id="n-portal"><a href="http://zh.wikipedia.org/wiki/Wikipedia:%E7%A4%BE%E5%8C%BA%E4%B8%BB%E9%A1%B5" title="关于本计划、你可以做什么、应该如何做">社区入口</a></li>
+			<li id="n-policy"><a href="http://zh.wikipedia.org/wiki/Wikipedia:%E6%96%B9%E9%87%9D%E8%88%87%E6%8C%87%E5%BC%95" title="查看维基百科的方针和指引">方针与指引</a></li>
+			<li id="n-villagepump"><a href="http://zh.wikipedia.org/wiki/Wikipedia:%E4%BA%92%E5%8A%A9%E5%AE%A2%E6%A0%88" title="参与维基百科社群的讨论">互助客栈</a></li>
+			<li id="n-Information_desk"><a href="http://zh.wikipedia.org/wiki/Wikipedia:%E8%A9%A2%E5%95%8F%E8%99%95" title="解答任何与维基百科无关的问题的地方">询问处</a></li>
+			<li id="n-conversion"><a href="http://zh.wikipedia.org/wiki/Wikipedia:%E5%AD%97%E8%AF%8D%E8%BD%AC%E6%8D%A2%E8%AF%B7%E6%B1%82%E6%88%96%E5%80%99%E9%80%89" title="提出字词转换请求">字词转换</a></li>
+			<li id="n-IRC"><a href="http://zh.wikipedia.org/wiki/Wikipedia:IRC%E8%81%8A%E5%A4%A9%E9%A2%91%E9%81%93">IRC即时聊天</a></li>
+			<li id="n-contact"><a href="http://zh.wikipedia.org/wiki/Wikipedia:%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC" title="如何联络维基百科">联系我们</a></li>
+			<li id="n-about"><a href="http://zh.wikipedia.org/wiki/Wikipedia:%E5%85%B3%E4%BA%8E" title="查看维基百科的简介">关于维基百科</a></li>
+			<li id="n-sitesupport"><a href="http://wikimediafoundation.org/wiki/Special:Landingcheck?landing_page=WMFJA085&amp;language=zh&amp;utm_source=donate&amp;utm_medium=sidebar&amp;utm_campaign=20101204SB002" title="如果您在维基百科受益良多，您可以考虑资助我们">资助维基百科</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /help -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5 dir="ltr" lang="zh-cn">工具箱</h5>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="http://zh.wikipedia.org/wiki/Special:%E9%93%BE%E5%85%A5%E9%A1%B5%E9%9D%A2/%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8" title="列出所有与本页相链的页面 [j]" accesskey="j">链入页面</a></li>
+			<li id="t-recentchangeslinked"><a href="http://zh.wikipedia.org/wiki/Special:%E9%93%BE%E5%87%BA%E6%9B%B4%E6%94%B9/%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8" title="页面链出所有页面的更改 [k]" accesskey="k">链出更改</a></li>
+			<li id="t-upload"><a href="http://zh.wikipedia.org/wiki/Project:%E4%B8%8A%E4%BC%A0" title="上传图像或多媒体文件 [u]" accesskey="u">上传文件</a></li>
+			<li id="t-specialpages"><a href="http://zh.wikipedia.org/wiki/Special:%E7%89%B9%E6%AE%8A%E9%A1%B5%E9%9D%A2" title="全部特殊页面的列表 [q]" accesskey="q">特殊页面</a></li>
+			<li><a href="http://zh.wikipedia.org/w/index.php?title=%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8&amp;variant=zh-cn&amp;printable=yes" rel="alternate">可打印版</a></li>
+			<li id="t-permalink"><a href="http://zh.wikipedia.org/w/index.php?title=%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8&amp;oldid=17700370" title="本页面该修订版本的永久链接">永久链接</a></li>
+<li id="t-cite"><a href="http://zh.wikipedia.org/w/index.php?title=Special:%E5%BC%95%E7%94%A8&amp;page=%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8&amp;id=17700370" title="关于如何引用此页的资讯">引用此文</a></li>		</ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+<div class="portal" id="p-lang">
+	<h5 dir="ltr" lang="zh-cn">其他语言</h5>
+	<div class="body">
+		<ul>
+			<li class="interwiki-de"><a href="http://de.wikipedia.org/wiki/Threadsicherheit">Deutsch</a></li>
+			<li class="interwiki-en"><a href="http://en.wikipedia.org/wiki/Thread_safety">English</a></li>
+			<li class="interwiki-es"><a href="http://es.wikipedia.org/wiki/Seguridad_en_hilos">Español</a></li>
+			<li class="interwiki-fr"><a href="http://fr.wikipedia.org/wiki/Programme_%C3%A0_fil_s%C3%A9curis%C3%A9">Français</a></li>
+			<li class="interwiki-it"><a href="http://it.wikipedia.org/wiki/Thread_safety">Italiano</a></li>
+			<li class="interwiki-ja"><a href="http://ja.wikipedia.org/wiki/%E3%82%B9%E3%83%AC%E3%83%83%E3%83%89%E3%82%BB%E3%83%BC%E3%83%95">日本語</a></li>
+			<li class="interwiki-ko"><a href="http://ko.wikipedia.org/wiki/%EC%8A%A4%EB%A0%88%EB%93%9C_%EC%95%88%EC%A0%84">한국어</a></li>
+			<li class="interwiki-pl"><a href="http://pl.wikipedia.org/wiki/Bezpiecze%C5%84stwo_w%C4%85tk%C3%B3w">Polski</a></li>
+			<li class="interwiki-pt"><a href="http://pt.wikipedia.org/wiki/Thread_safety">Português</a></li>
+			<li class="interwiki-ru"><a href="http://ru.wikipedia.org/wiki/Thread-safety">Русский</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer" dir="ltr" lang="zh-cn">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> 本页面最后修订于2011年9月9日 (星期五) 11:11。</li>
+											<li id="footer-info-copyright">本网站全部文字内容采用<a href="http://creativecommons.org/licenses/by-sa/3.0/deed.zh">知识共享“署名-相同方式共享”许可协议</a>授权，附加条款可能应用。详情请见<a href="http://wikimediafoundation.org/wiki/Terms_of_Use">使用条款</a>。</li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="http://wikimediafoundation.org/wiki/%E9%9A%90%E7%A7%81%E6%94%BF%E7%AD%96" title="wikimedia:隐私政策">隐私政策</a></li>
+											<li id="footer-places-about"><a href="http://zh.wikipedia.org/wiki/Wikipedia:%E5%85%B3%E4%BA%8E" title="Wikipedia:关于">关于维基百科</a></li>
+											<li id="footer-places-disclaimer"><a href="http://zh.wikipedia.org/wiki/Wikipedia:%E5%85%8D%E8%B4%A3%E5%A3%B0%E6%98%8E" title="Wikipedia:免责声明">免责声明</a></li>
+											<li id="footer-places-mobileview"><a href="http://zh.wikipedia.org/w/index.php?title=%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8&amp;variant=zh-cn&amp;useformat=mobile">移动浏览</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://wikimediafoundation.org/"><img src="wikimedia-button.png" alt="Wikimedia Foundation" width="88" height="31"></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" width="88" height="31"></a>
+					</li>
+				</ul>
+						<div style="clear: both;"></div>
+		</div>
+		<!-- /footer -->
+		<!-- fixalpha -->
+		
+		<!-- /fixalpha -->
+		
+
+
+
+
+
+
+<!-- Served by srv231 in 0.218 secs. -->
+	
+
+</body>
+</html>

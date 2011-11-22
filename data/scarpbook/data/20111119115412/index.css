@@ -1,0 +1,221 @@
+/* ::::: http://baike.bdimg.com/static/common/css/common/bk.dialog.css ::::: */
+
+/* ::::: http://baike.bdimg.com/static/common/css/view.css?@=1e1s9ln ::::: */
+
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td { margin: 0pt; padding: 0pt; }
+body, button, input, select, textarea { font: 12px/1.5 arial,宋体,sans-serif; }
+h1, h2, h3, h4, h5, h6 { font-size: 100%; }
+ul, ol { list-style: none outside none; }
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
+fieldset, img { border: 0pt none; }
+button, input, select, textarea { font-size: 100%; }
+table { border-collapse: collapse; border-spacing: 0pt; }
+img {  }
+#page, #header, #content, #footer { margin-left: auto; margin-right: auto; }
+.w1000 { width: 1000px; }
+.col-main { float: left; width: 100%; min-height: 1px; }
+.col-sub, .col-extra { float: left; }
+.layout:after, .main-wrap:after, .col-sub:after, .col-extra:after { content: " "; display: block; height: 0pt; clear: both; }
+.layout, .main-wrap, .col-sub, .col-extra {  }
+.grid-m0s245 .main-wrap { margin-right: 255px; }
+.grid-m0s245 .col-sub { width: 245px; margin-left: -245px; }
+.w1000 { width: 1000px; }
+.clearfix:after { content: " "; display: block; height: 0pt; clear: both; }
+.clearfix {  }
+.clear { clear: both; font-size: 0pt; line-height: 0; height: 0pt; visibility: visible; }
+.slide { width: 0pt; height: 0pt; overflow: hidden; font-size: 0pt; line-height: 0; border-width: 8px; }
+.s-right { border-color: transparent transparent transparent rgb(204, 204, 204); border-style: dashed dashed dashed solid; }
+ul, li { padding: 0pt; margin: 0pt; list-style-type: none; }
+.userbar { position: absolute; z-index: 10000; top: 8px; right: 10px; white-space: nowrap; font-size: 12px; }
+.userbar:after { content: "clear"; clear: both; display: block; overflow: hidden; width: 0pt; }
+.userbar a:link, .userbar a:visited { text-decoration: underline; color: rgb(0, 0, 204); }
+.userbar li { float: left; margin-right: 4px; line-height: 1.5em; }
+.userbar .split { color: rgb(51, 51, 51); }
+.usertitle { width: 60px; height: 16px; background: url('titles.gif') no-repeat scroll 0% 0% transparent; border: 0pt none; }
+.level2 { background-position: 0pt -23px; }
+a { color: rgb(19, 110, 194); text-decoration: underline; }
+a:hover { text-decoration: underline; }
+a:visited { color: rgb(19, 110, 194); }
+#header { margin-top: 26px; }
+#search { width: 780px; margin-bottom: 16px; }
+#search a { color: rgb(0, 0, 204); text-decoration: underline; }
+#logo { width: 146px; padding: 3px 0pt 0pt; position: relative; }
+#logo img { display: block; }
+#logo, #search-content, #help { float: left; }
+#word { width: 358px; padding: 3px 1px; font: 16px arial; margin: 0pt 7px 0pt 0pt; }
+.search-btn { width: 78px; height: 28px; line-height: 24px; margin: 0pt 7px 0pt 0pt; font-size: 14px; }
+.nv { margin: 0pt 0pt 3px; }
+.nv a { font-size: 14px; margin-right: 13px; }
+.nv strong { font-size: 14px; margin-right: 10px; }
+#help { margin-top: 27px; }
+#help a { margin-right: 7px; }
+.tangram_sug_wpr { border: 1px solid rgb(129, 127, 130); position: absolute; top: 28px; left: 0pt; z-index: 9999; }
+.clear { clear: both; }
+#header { margin-top: 26px; }
+#footer, #footer a:link, #footer a:visited { clear: both; margin-top: 10px; text-align: center; color: rgb(119, 119, 204); font: 12px/1 Arial; white-space: nowrap; margin-bottom: 15px; }
+/* ::::: http://baike.bdimg.com/static/lemma/css/view.css?@=19o3rii ::::: */
+
+body {  }
+.fix {  }
+.fix:after { content: "clear"; clear: both; height: 0pt; overflow: hidden; display: block; }
+#view #wrap { width: 1000px; margin: 0pt auto; }
+#view #page { background: url('nav-bg.gif') repeat-x scroll 0pt -34px rgb(250, 250, 250); }
+#view #content { margin-top: 14px; }
+#view #side { margin-top: 34px; background-color: rgb(250, 250, 250); }
+.col-sub a { text-decoration: none; }
+a:focus { outline: medium none; }
+#path { width: 100%; background: url('nav-bg.gif') repeat-x scroll 0% 0% transparent; white-space: nowrap; }
+#path ul { margin: 0pt; padding: 0pt; list-style: none outside none; }
+#path ul li { float: left; padding: 0pt 18px 0pt 12px; font-weight: bold; font-size: 14px; line-height: 34px; height: 34px; }
+#path ul li a { color: rgb(255, 255, 255); text-decoration: none; white-space: nowrap; }
+#path ul li a:hover { text-decoration: underline; }
+#content .main-shadow { background: url('c-bg.png') repeat scroll 0% 0% transparent; padding-bottom: 3px; }
+#content .content-hd { height: 9px; background: url('hd-bg.gif') no-repeat scroll right top rgb(255, 255, 255); border-left: 1px solid rgb(221, 221, 221); }
+#content .content-hd-wrap { border-top: 1px solid rgb(221, 221, 221); margin-right: 6px; }
+#content .content-bd, #content .content-ft { background: none repeat scroll 0% 0% rgb(255, 255, 255); margin: 4px 3px 0pt 0pt; padding: 16px 30px 10px 20px; border: 1px solid rgb(221, 221, 221); clear: both; }
+#content .main-body { border-top: medium none; margin-top: 0pt; }
+#content .content-ft { font-size: 12px; }
+#view #footer { margin: 0pt; background: none repeat scroll 0% 0% rgb(250, 250, 250); padding: 10px 0pt 20px; }
+.bk-feedback { background: url('feedback.gif') no-repeat scroll 10px 9px transparent; border: 1px dashed rgb(221, 221, 221); height: 30px; line-height: 30px; padding-left: 40px; margin-bottom: 10px; color: rgb(51, 51, 51); }
+.bk-feedback a { text-decoration: none; }
+.article { font-size: 14px; word-wrap: break-word; }
+h1.title { font-family: "微软雅黑","黑体","Verdana"; font-size: 30px; line-height: 40px; margin-bottom: 25px; margin-top: 0pt; font-weight: 500; overflow: hidden; }
+.editable-lemma { display: inline-block; background: url('edit_btn.gif') no-repeat scroll 0% 0% transparent; width: 107px; height: 34px; cursor: pointer; vertical-align: middle; }
+.bk-editable-lemma-btns { height: 34px; line-height: 34px; float: right; }
+.dividable-lemma { vertical-align: middle; background: url('sprite.gif') no-repeat scroll -78px -202px transparent; font-weight: bold; padding-left: 25px; text-decoration: none; width: 74px; color: rgb(1, 99, 175); }
+.text_edit { font-size: 12px; float: right; display: block; margin: 10px 0pt 0pt; color: rgb(51, 102, 204); font-weight: normal; }
+.text_edit a { height: 15px; line-height: 16px; background: url('edit.gif') no-repeat scroll left center transparent; display: block; width: 52px; padding-left: 18px; }
+#sidecatalog { position: absolute; }
+.lemma-main-content { letter-spacing: 0.5px; width: 690px; overflow: hidden; float: left; }
+.lemma-main-content sup { margin-left: 2px; color: rgb(51, 102, 204); cursor: pointer; }
+.lemma-main-content .headline-2 { font-size: 16px; font-family: Arial; line-height: 22px; margin: 15px 0pt 5px; clear: both; }
+.lemma-main-content .text_pic { text-align: center; }
+.lemma-main-content .text_pic img { display: block; }
+.lemma-main-content .text_pic p { color: rgb(102, 102, 102); font-size: 12px; font-family: "宋体"; font-weight: normal; margin: 3px 0pt 0pt; display: inline; padding-right: 10px; word-wrap: break-word; font-style: normal; line-height: 18px; min-height: 18px; }
+.text_pic {  }
+.reinforce { font-size: 12px; }
+.lemma-ext-bottom a, .reinforce a { text-decoration: underline; }
+.lemma-ext-bottom a:hover, .reinforce a:hover { text-decoration: underline; }
+#more-coeditor { text-decoration: none; }
+.reinforce dl { margin-bottom: 30px; }
+.lemma-ext-bottom dt, .reinforce dt { border-bottom: 1px dashed rgb(204, 204, 204); font-weight: bold; line-height: 1; padding: 2px 0pt 5px; margin-bottom: 10px; font-size: 14px; }
+.lemma-ext-bottom dt { border: medium none; }
+.reinforce dd { color: rgb(51, 51, 51); word-wrap: break-word; }
+.ref_more { line-height: 16px; padding: 3px 10px 0pt 0pt; margin: 0pt; text-decoration: none; background: url('arr.gif') no-repeat scroll 28px -17px transparent; float: right; white-space: nowrap; }
+.reference ul { padding: 0pt; margin: 0pt; }
+.reference ul li { width: 100%; margin-top: 12px; font-size: 12px; }
+.reference ul li a.ref-top { width: 12px; height: 12px; overflow: hidden; padding: 0pt 10px; margin-left: 4px; background: url('up_down.gif') no-repeat scroll -1px -78px transparent; text-decoration: none; }
+.reference ul li a.ref-top:hover { background-position: -43px -79px; text-decoration: none; }
+.ref-bd { margin-left: 26px; }
+.ref-index { float: left; }
+.refUrl {  }
+.ref-index .r-index { float: left; font-size: 10px; font-weight: bold; height: 16px; line-height: 16px; text-align: right; padding-left: 4px; background: none repeat scroll 0% 0% rgb(238, 238, 238); color: rgb(153, 153, 153); }
+.ref-index .slide { float: left; }
+.ref-index .s-right { border-color: transparent transparent transparent rgb(238, 238, 238); }
+.box2 { margin-bottom: 15px; margin-right: 10px; }
+.box2 h2, .box2 h5 { font-size: 14px; line-height: 25px; border-bottom: 1px solid rgb(221, 221, 221); margin-bottom: 10px; }
+.box2 h5 span, .box2 h2 span { font-size: 12px; font-weight: normal; line-height: 18px; float: right; margin: 5px 8px 0pt 0pt; }
+#mabox .box2-inner { padding: 6px 6px 12px 12px; border: 1px solid rgb(204, 224, 238); background: none repeat scroll 0% 0% rgb(255, 255, 255); }
+.f12, .f12 td, .f12 th, .f12 div { font-size: 12px; }
+.share { border: 1px solid rgb(221, 221, 221); height: 42px; line-height: 42px; font-size: 12px; color: rgb(153, 153, 153); background: none repeat scroll 0% 0% rgb(250, 250, 250); margin-bottom: 30px; }
+.share-item-title { border-right: 1px solid rgb(221, 221, 221); float: left; height: 38px; margin: 2px 0pt; text-align: center; width: 120px; }
+.share-item { margin-left: 10px; float: left; }
+.share-item span { float: left; }
+.share-item a { text-decoration: none; float: left; width: 16px; height: 16px; margin: 14px 8px; }
+.cang { background: url('bgs3.gif') no-repeat scroll 0pt 0pt transparent; padding-left: 16px; display: block; height: 16px; line-height: 16px; margin: 12px 0pt 0pt 20px; text-align: left; text-decoration: none; }
+.itieBa { background: url('bgs4.gif') no-repeat scroll 0pt -61px transparent; }
+.tsina { background: url('bgs4.gif') no-repeat scroll 0pt -126px transparent; }
+.tdouban { background: url('bgs4.gif') no-repeat scroll 0pt -148px transparent; }
+.tsohu { background: url('152.png') no-repeat scroll 0% 0% transparent; }
+.try { color: rgb(51, 51, 51); padding: 0pt 0pt 5px; margin-bottom: 10px; clear: both; }
+.text { line-height: 24px; }
+.text .headline-1 { font-size: 18px; font-weight: bold; line-height: 24px; border-bottom: 1px solid rgb(222, 223, 225); padding-bottom: 6px; margin: 0pt 0pt 10px; clear: both; }
+.text h2.first { clear: none; }
+.text_pic { border: 1px solid rgb(232, 232, 232); background: none repeat scroll 0% 0% rgb(246, 246, 246); padding: 5px; margin: 5px; }
+.text_vote1, .text_vote2 { width: 146px; height: 46px; padding-top: 7px; font-size: 12px; color: rgb(153, 153, 153); text-align: center; background: url('vote.gif') no-repeat scroll 0% 0% transparent; cursor: pointer; }
+.text_vote1 b, .text_vote2 b { display: block; height: 20px; color: rgb(68, 167, 1); font-size: 14px; font-family: "Tahoma"; text-align: left; padding: 2px 0pt 0pt 65px; }
+.spctrl { height: 14px; line-height: 14px; font-size: 12px; overflow: hidden; }
+.bpctrl { height: 30px; line-height: 30px; overflow: hidden; }
+.end { position: relative; z-index: 0; margin: 10px 0pt 30px; clear: both; }
+.declare { font-size: 12px; color: rgb(51, 51, 51); float: right; width: 518px; margin: 5px 0pt; line-height: 1.6em; }
+#relatedLemmaDown .relative { z-index: 1; }
+#co-editors { color: rgb(0, 0, 0); }
+div.onelineonly { height: 20px; overflow: hidden; float: left; width: 600px; position: relative; }
+div.onelineonly a { white-space: nowrap; font-size: 14px; }
+.info { line-height: 22px; color: rgb(102, 102, 102); }
+.topuser { line-height: 24px; color: rgb(102, 102, 102); }
+.topuser td { padding-top: 2px; }
+.topuser .usertitle { margin-top: -1px; }
+.topuser th { text-align: left; }
+.topuser strong { color: black; }
+.topuser td a { color: rgb(0, 0, 0); }
+.topuser th a:link, .topuser th a:visited, .topuser th a:hover, .topuser th a:active { text-decoration: none; }
+.topuser tr {  }
+.topuser .contri-type { line-height: 25px; }
+#pro-contributors .usercard-info { color: rgb(242, 114, 0); line-height: 20px; }
+.task { color: rgb(51, 51, 51); margin-bottom: 15px; }
+.task dd { padding: 10px 0pt; }
+.task dd img { border: 1px solid rgb(204, 204, 204); }
+.notice { color: rgb(51, 51, 51); }
+.notice dd { font-size: 12px; background: url('bgs3.gif') no-repeat scroll 2px -99px transparent; padding-left: 12px; line-height: 22px; }
+.relative { position: relative; }
+.myedit { margin: 0pt; padding-left: 15px; background: url('bgs3.gif') no-repeat scroll 0pt -80px transparent; }
+.text_dir { background: none repeat scroll 0% 0% rgb(255, 255, 255); border: 1px solid rgb(222, 223, 225); margin: 0pt 0pt 30px; padding: 0pt; position: relative; z-index: 1; float: left; clear: both; }
+.text_dir p { font-weight: bold; line-height: 30px; border-bottom: 1px dashed rgb(221, 221, 221); padding-left: 10px; margin: 0pt 4px 10px; }
+.text_dir dl { background: none repeat scroll 0% 0% rgb(255, 255, 255); padding: 0pt 20px 0pt 15px; }
+.text_dir dd { background: url('list-dot.gif') no-repeat scroll 0pt 8px transparent; padding-left: 16px; line-height: 22px; position: relative; }
+.text_dir ol { width: 100%; padding: 0pt; margin: 0pt; text-indent: 14px; list-style: none outside none; display: none; }
+.catalog-holder { overflow: hidden; font-size: 12px; cursor: pointer; float: right; width: 50px; height: 20px; line-height: 20px; color: rgb(19, 110, 194); background: url('dir_arr.gif') no-repeat scroll 35px -44px rgb(250, 250, 250); text-indent: 10px; position: absolute; right: 0pt; clear: both; }
+.text_dir .holder1 { padding-bottom: 10px; }
+.text_dir .holder2 { position: absolute; left: -1px; top: 41px; border-right: 1px solid rgb(222, 223, 225); border-width: medium 1px 1px; border-style: none solid solid; border-color: -moz-use-text-color rgb(222, 223, 225) rgb(222, 223, 225); -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; -moz-border-image: none; display: none; padding-bottom: 20px; }
+.text_dir ol li, .text_dir .data li li { background: url('bgs3.gif') no-repeat scroll 2px -327px transparent; padding: 0pt; }
+.text_dir a { white-space: nowrap; }
+#userInfoDiv { display: none; }
+.userinfo-side { position: relative; margin: -11px 0pt 10px -13px; line-height: 22px; color: rgb(51, 51, 51); background-color: rgb(233, 243, 246); }
+#sidecatalog { height: 120px; z-index: 1; }
+#sidecatalog a.gotop { width: 28px; height: 22px; display: block; background: url('sidebar2.gif') no-repeat scroll 1px -104px transparent; }
+#sidecatalog .sidebar { height: 104px; width: 28px; background: url('sidebar2.gif') no-repeat scroll 1px 0pt transparent; cursor: pointer; }
+#side-catalog-content { width: 250px; border: 1px solid rgb(163, 208, 228); background: none repeat scroll 0% 0% rgb(255, 255, 255); }
+#side-lemma-title { font-weight: bold; font-size: 14px; line-height: 30px; height: 30px; margin-left: 10px; }
+#side-catalog-content h2 { background: url('list-dot.gif') no-repeat scroll 10px 8px transparent; line-height: 22px; height: 22px; overflow: hidden; padding-left: 26px; font-size: 14px; margin-left: 20px; font-weight: normal; }
+#side-catalog-content h3 { background: url('bgs3.gif') no-repeat scroll 16px -323px transparent; line-height: 22px; height: 22px; padding-left: 26px; margin-left: 30px; font-size: 14px; font-weight: normal; overflow: hidden; }
+#side-catalog-content a { text-decoration: none; outline: medium none; }
+#side-catalog-content a:hover { text-decoration: none; }
+#side-title-panel { overflow: hidden; position: relative; padding: 0pt 10px; }
+#side-title-list { position: absolute; left: 0pt; width: 250px; }
+#side-title-panel a { padding: 4px; font-weight: normal; font-size: 14px; }
+#side-catalog-up div, #side-catalog-down div { height: 16px; background: url('arr.gif') no-repeat scroll center -133px rgb(244, 249, 251); overflow: hidden; cursor: pointer; margin-bottom: 4px; }
+#side-catalog-down div { background-position: center -89px; margin: 4px 0pt 0pt; }
+a.try-edit { background: url('edit.gif') no-repeat scroll 0pt 50% transparent; font-weight: bold; margin-left: 8px; padding-left: 16px; }
+.contri-a { color: rgb(102, 102, 102) ! important; text-decoration: underline ! important; }
+/* ::::: http://baike.bdimg.com/static/usercenter/css/release/bk.uc_lemma.css ::::: */
+
+.throwbtl-link-view { padding-left: 10px; background: url('btl-info-icon.png') no-repeat scroll left -20px transparent; margin-left: 5px; float: right; font-weight: normal; font-size: 12px; }
+.lemma-top-link { float: none; vertical-align: middle; font-weight: normal; font-size: 12px; height: 16px; line-height: 11px; width: auto; margin-top: 11px; margin-right: 8px; text-decoration: underline; }
+.dividable-lemma { padding-left: 17px; background: url('dividable-lemma.png') no-repeat scroll 0% 0% transparent; }
+.throwbtl-link-head { padding-left: 10px; background: url('btl-info-icon.png') no-repeat scroll left -20px transparent; margin-right: 18px; }
+.lemma-top-link-divider { float: none; width: 0pt; border-left: 1px dotted gray; overflow: hidden; height: 13px; display: none; }
+/* ::::: http://baike.baidu.com/guanxi/static/css/lemma_insert.css ::::: */
+
+/* ::::: http://baike.bdimg.com/static/usercenter/css/release/bk.usercard.css ::::: */
+
+.pillar { display: inline-block; width: 0pt; height: 100%; vertical-align: middle; }
+.fix {  }
+.fix:after { content: "clear"; clear: both; height: 0pt; overflow: hidden; display: block; }
+.user-card { font: 12px/1.5 arial,宋体,sans-serif; }
+.user-card a, .user-card a:hover { text-decoration: none; color: rgb(17, 110, 194); }
+.user-card { width: 350px; border: 1px solid rgb(179, 218, 255); background: url('usercard-bg.png') no-repeat scroll 5px 7px rgb(247, 252, 255); }
+.user-card .top-bg { height: 2px; margin-top: 1px; background-color: rgb(230, 248, 255); overflow: hidden; }
+.user-card .uc-l { float: left; width: 100px; padding: 8px 3px; text-align: center; line-height: 30px; color: rgb(17, 110, 194); }
+.user-card .uc-r { float: left; width: 244px; height: 148px; overflow: hidden; font-family: 宋体; }
+.uc-l .uc-id { font-weight: bold; }
+.uc-l .uc-name { width: 100%; white-space: nowrap; }
+.uc-l .uc-pic { width: 84px; height: 84px; margin: 0pt auto; border: 1px solid rgb(221, 221, 221); box-shadow: 1px 1px 3px rgb(222, 238, 255); }
+.uc-r .uc-items { display: inline-block; vertical-align: middle; width: 238px; }
+.uc-items div { font-size: 12px; }
+.uc-badge { margin-top: 4px; }
+.uc-default { margin-bottom: 4px; }
+#usercard-wrap { width: 352px; height: 153px; position: absolute; z-index: 99999; top: -500px; left: -500px; background: url('loading.gif') no-repeat scroll 50% 50% rgb(255, 255, 255); box-shadow: 0pt 1px 6px rgb(187, 187, 187); border-radius: 2px 2px 2px 2px; }
+#path ul.nav li, ul.nav li { position: relative; }
+.nav { overflow: visible; position: relative; }
