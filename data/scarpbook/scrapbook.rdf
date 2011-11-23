@@ -100,7 +100,6 @@
                    NS1:source="http://www.cs.tut.fi/~jkorpela/forms/file.html"
                    NS1:icon="resource://scrapbook/data/20111119005505/favicon.ico" />
   <RDF:Seq RDF:about="urn:scrapbook:root">
-    <RDF:li RDF:resource="urn:scrapbook:item20111123235126"/>
     <RDF:li RDF:resource="urn:scrapbook:item20111123232330"/>
     <RDF:li RDF:resource="urn:scrapbook:item20111123003805"/>
     <RDF:li RDF:resource="urn:scrapbook:item20111120024225"/>
@@ -228,17 +227,6 @@
                    NS1:comment=""
                    NS1:source="http://www.symantec.com/connect/articles/securing-mysql-step-step"
                    NS1:icon="resource://scrapbook/data/20111123003812/favicon.ico" />
-  <RDF:Seq RDF:about="urn:scrapbook:item20111123235126">
-    <RDF:li RDF:resource="urn:scrapbook:item20111123235134"/>
-  </RDF:Seq>
-  <RDF:Description RDF:about="urn:scrapbook:item20111123235126"
-                   NS1:id="20111123235126"
-                   NS1:type="folder"
-                   NS1:title="Python"
-                   NS1:chars=""
-                   NS1:icon=""
-                   NS1:source=""
-                   NS1:comment="" />
   <RDF:Description RDF:about="urn:scrapbook:item20111118233807"
                    NS1:id="20111118233807"
                    NS1:type=""
@@ -288,14 +276,6 @@
                    NS1:comment=""
                    NS1:icon=""
                    NS1:source="" />
-  <RDF:Description RDF:about="urn:scrapbook:item20111123235134"
-                   NS1:id="20111123235134"
-                   NS1:type=""
-                   NS1:title="urllib2 - The Missing Manual"
-                   NS1:chars="UTF-8"
-                   NS1:comment=""
-                   NS1:source="http://www.voidspace.org.uk/python/articles/urllib2.shtml"
-                   NS1:icon="resource://scrapbook/data/20111123235134/favicon.ico" />
   <RDF:Description RDF:about="urn:scrapbook:item20111118001922"
                    NS1:id="20111118001922"
                    NS1:type=""
