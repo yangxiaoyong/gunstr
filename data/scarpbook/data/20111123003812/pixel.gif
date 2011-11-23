@@ -1,0 +1,344 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Error: Page Not Found - Symantec Corp.</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Language" content="en-US"/>
+<meta name="description" content="Page Not Found Error Page"/><meta name="keywords" content="error"/><meta name="om.environment" content="dev"/>
+<meta name="om.site_language" content="en"/>
+<meta name="om.site_country" content="us"/>
+<meta name="om.visitor_segment" content="Global"/>
+<meta name="om.content_title" content="Error: Page Not Found - Symantec Corp."/>
+<meta name="om.content_format" content="html"/>
+<meta name="om.content_type" content="page"/>
+<meta name="om.page_name" content="en/us: errors: notfound"/>
+<style>
+.skiplink {display:none}
+</style>
+
+<link href="/styles/symantec.css?20110726" media="screen, projection" rel="stylesheet" type="text/css"/>
+<link href="/styles/global.css?20101110" media="screen, projection" rel="stylesheet" type="text/css"/>
+<link href="/styles/print.css?20101005" media="print" rel="stylesheet" type="text/css"/> 
+<link href="/styles/surf.css?20101213" media="screen, projection" rel="stylesheet" type="text/css"/>
+<link href="http://www-uat.ges.symantec.com/errors/notfound.jsp?uri=/xxx" rel="canonical"/>
+<script language="javascript" type="text/javascript">
+var PageElements = new Array();
+PageElements['domain'] = "";	
+PageElements['language'] = "en";
+PageElements['country'] = "us";
+PageElements['segment'] = "global";
+PageElements['ghpUrl'] = "/index.jsp";
+PageElements['pageUrl'] = "/errors/notfound.jsp".toLowerCase();
+PageElements['close'] = "Close".toLowerCase();
+</script>
+<script language="javascript" src="/scripts/search/google.js?20101005" type="text/javascript"></script>	
+<script language="javascript" src="/scripts/swfobject.js?20101005" type="text/javascript"></script>	
+<script language="javascript" src="/script/omniture/20110609/om_code.js" type="text/javascript"></script>	
+<script language="javascript" src="/lib/jsp/headerutilsjs.jsp?lg=en&ct=us&sg=global&domain=&secure=" type="text/javascript"></script>	
+<script language="javascript" src="/scripts/library/jquery-1.4.2.js?20101005" type="text/javascript"></script>
+
+<script language="javascript" src="/scripts/symantec.js?20110726" type="text/javascript"></script>	
+<script language="javascript" src="/scripts/surf.js?20101213" type="text/javascript"></script>
+</head>
+<body>
+<a class="skiplink" href="#startcontent">Skip over navigation</a>
+<div id="headerPane">
+	<div class="symLogo"><a href='/index.jsp'><img src="/content/en/us/global/images/version3/logos/symantec.gif" alt="Symantec | United States" title="Symantec | United States"/></a></div>
+		<div class="symUtil">
+			<div class="symUtilRgt">
+			<script language="javascript" type="text/javascript">document.write(countriesjs);</script>
+
+			<script language="javascript" type="text/javascript">document.write(shoppingjs);</script>
+			<div class="searchPane">
+					<form onSubmit="return searchFormAction('Search','q')" action="http://searchg.symantec.com/search?" name="searchSym" id="search" method="get"><input type="text" class="inputBdr" name="q" value="Search" size="20" maxlength="100" onFocus="clearInputValue(this)" onBlur="writeInputValue(this, 'Search')" autocomplete="off" onKeyUp="ss_handleKey(event)"><input type="hidden" name="charset" value="utf-8"/><input type="hidden" name="proxystylesheet" value="symc_en_US"><input type="hidden" name="client" value="symc_en_US"/><input type="hidden" name="hitsceil" value="100"/><input type="hidden" name="site" value="symc_en_US"/><input value="xml_no_dtd" name="output" type="hidden"/><input type="hidden" name="context" value="gbh"/> <input type="image" src="/images/masthead/sym-search-arrow.gif" alt="OK"/>
+        	</form>
+          <table cellpadding="0" cellspacing="0" class="ss-gac-m" style="width:200px; visibility: hidden;" id="search_suggest"></table></div>
+			</div>
+		</div>
+	<div class="globalNav">
+
+			<div class="globalNavLftCnr"><img src="/images/masthead/globalnavlftCnr.gif" alt=""/></div>
+			<div class="globalNavCntr">
+      <div id="globalNavMain1" class="globalNavMain"><div id="globalNavMainInner1">
+        <a href='/norton/index.jsp'>Norton</a>
+          </div></div><span>|</span><div id="globalNavMain2" class="globalNavMain"><div id="globalNavMainInner2">
+        <a href='http://www.symantec.com/business/solutions/smallbusiness/index.jsp'>Small Business</a>
+          </div></div><span>|</span><div id="globalNavMain3" class="globalNavMain"><div id="globalNavMainInner3">
+
+        <a href='/business/index.jsp'>Enterprise</a>
+          </div></div><span>|</span><div id="globalNavMain4" class="globalNavMain"><div id="globalNavMainInner4">
+        <a href='/partners/index.jsp'>Partners</a>
+          </div></div><span>|</span><div id="globalNavMain5" class="globalNavMain"><div id="globalNavMainInner5">
+        <a href='http://buy.norton.com?trf_id=symcom&amp;inid=us_ghp_topnav_link1_to_store'>Store</a>
+          </div></div><span>|</span><div id="globalNavMain6" class="globalNavMain"><div id="globalNavMainInner6">
+
+        <a href='/about/index.jsp'>About Symantec</a>
+          </div></div></div>
+      <div class="globalNavRgtCnr"><img src="/images/masthead/globalnavrgtCnr.gif" alt=""/></div>
+  	</div>
+		<script language="javascript" type="text/javascript">highlightNav(PageElements['pageUrl'], globalNavMainTabs,"globalNavMain globalSegNavOnRight","globalNav");</script>
+	</div>
+<div style="clear:both"></div>
+<a name="startcontent"></a>
+<div id="contentPane1">
+
+  <div class="oneCol">
+    <br clear="all"/>
+  </div>
+  <style type="text/css">
+		hr {height:1px; color:#ddd; background-color:#ddd; border:none}
+	</style>
+  <div class="oneCol">
+    <div class="imgMrgnBtmMD">
+      <h1>
+        Page Not Found</h1>
+
+    </div>
+    <div style="padding-bottom:25px;" class="cbType1">
+          The page you requested cannot be found. Search by entering one or more keywords in the search field above. Or, try one of the links below: 
+			</div>
+      <div style="float:left; width:160px; " class="gblErrorSiteMapList">
+    <h3><a href="/norton/index.jsp">Norton</a></h3>
+
+    <div class="imgMrgnTopMD">
+	
+	<ul class="listNone">
+
+    <li><a href="/norton/index.jsp">Welcome</a></li>
+      <li><a href="/norton/products/index.jsp">Products & Services</a></li>
+      <li><a href="/norton/security_response/index.jsp">Viruses & Risks</a></li>
+      <li><a href="/norton/support/index.jsp">Support</a></li>
+      <li><a href="/norton/downloads/index.jsp">Downloads</a></li>
+
+      <li><a href="/norton/community/index.jsp">Community</a></li>
+      <li><a href="http://buy.norton.com?trf_id=symcom&amp;inid=us_hho_homepage_topnav1_to_store">Store</a></li>
+      </ul>
+</div></div><div style="float:left; width:160px; margin-left:20px;" class="gblErrorSiteMapList">
+    <h3><a href="/business/index.jsp">Enterprise</a></h3>
+
+    <div class="imgMrgnTopMD">
+	
+	<ul class="listNone">
+
+    <li><a href="/business/index.jsp">Overview</a></li>
+      <li><a href="/business/solutions/index.jsp">Solutions</a></li>
+      <li><a href="/business/products/index.jsp">Products</a></li>
+      <li><a href="/business/services/index.jsp">Services</a></li>
+      <li><a href="/business/training/index.jsp">Training</a></li>
+      <li><a href="http://www.symantec.com/business/support/index?page=home&amp;locale=en_us">Support</a></li>
+
+      <li><a href="/business/security_response/index.jsp">Security Response</a></li>
+      <li><a href="/business/resources/index.jsp">Resources</a></li>
+      <li><a href="http://www.symantec.com/connect/">Community</a></li>
+      <li><a href="http://store.symantec.com">Store</a></li>
+      </ul>
+</div></div><div style="float:left; width:160px; margin-left:20px;" class="gblErrorSiteMapList">
+    <h3><a href="/partners/index.jsp">Partners</a></h3>
+
+    <div class="imgMrgnTopMD">
+	
+	<ul class="listNone">
+    <li><a href="/partners/index.jsp">Overview</a></li>
+      <li><a href="/partners/programs/index.jsp">Programs</a></li>
+      <li><a href="/partners/learning/index.jsp">University</a></li>
+      <li><a href="/partners/sales-and-marketing/index.jsp">Sales & Marketing</a></li>
+
+      <li><a href="/partners/licensing/index.jsp">Licensing</a></li>
+      <li><a href="/partners/support/index.jsp">Support</a></li>
+      </ul>
+</div></div><div style="float:left; width:160px; margin-left:20px;" class="gblErrorSiteMapList">
+    <h3><a href="/about/index.jsp">About Symantec</a></h3>
+
+    <div class="imgMrgnTopMD">
+	
+	<ul class="listNone">
+
+    <li><a href="/about/index.jsp">Welcome</a></li>
+      <li><a href="/about/profile/index.jsp">Corporate Profile</a></li>
+      <li><a href="/about/news/index.jsp">News Room</a></li>
+      <li><a href="/about/investor/index.jsp">Investor Relations</a></li>
+      <li><a href="/about/industryanalysts/index.jsp">Analyst Relations</a></li>
+      <li><a href="/about/government/index.jsp">Government Affairs</a></li>
+
+      <li><a href="/about/careers/index.jsp">Careers</a></li>
+      </ul>
+</div></div><div style="float:left; width:160px; margin-left:20px;" class="gblErrorSiteMapList">
+    <h3><a href="http://buy.norton.com?trf_id=symcom&amp;inid=us_ghp_topnav_link1_to_store">Store</a></h3>
+
+    <div class="imgMrgnTopMD">
+	
+	<b><a href="http://buy.norton.com/?trf_id=symcom&amp;inid=us_hho_errorpage_to_store">Norton</a></b>  
+	  <ul class="listNone">
+    <li><a href="http://buy.norton.com/?trf_id=symcom&amp;inid=us_hho_errorpage_to_store">Welcome</a></li>
+
+      <li><a href="http://buy.norton.com/?trf_id=symcom&amp;inid=us_hho_errorpage_to_store">Shop Products</a></li>
+      <li><a href="http://buy.norton.com/upgrades-renewals?ctry=US&amp;lang=EN&amp;trf_id=symcom&amp;inid=us_hho_errorpage_to_store">Renew</a></li>
+      <li><a href="http://buy.norton.com/?trf_id=symcom&amp;inid=us_hho_errorpage_to_store">Shopping Resources</a></li>
+      <li><a href="http://buy.norton.com/?trf_id=symcom&amp;inid=us_hho_errorpage_to_store">Store Services</a></li>
+      </ul>
+</div><div class="imgMrgnTopMD">
+
+	<b><a href="http://store.symantec.com/?inid=us_pagenotfound_smb_store">Enterprise</a></b>
+
+	
+  <ul class="listNone">
+    <li><a href="http://store.symantec.com/?inid=us_pagenotfound_smb_store">Home</a></li>
+      <li><a href="/store/products/index.jsp?inid=us_pagenotfound_smb_store">Shop Products</a></li>
+      <li><a href="https://renewals.symantec.com/renewals/application?source_code=WEB&amp;entry_point=sym_lrc&amp;inid=us_pagenotfound_smb_store">Renew</a></li>
+      <li><a href="/store/resources/index.jsp?inid=us_pagenotfound_smb_store">Shopping Resources</a></li>
+      <li><a href="/store/services/index.jsp?inid=us_pagenotfound_smb_store">Store Services</a></li>
+
+     
+      </ul>
+</div>
+
+</div><div style="clear:both"></div>
+    <div class="imgMrgnTopMD imgMrgnBtmMD">
+      <hr/>
+    </div>
+    <a href="/index.jsp">Symantec Home Page</a>
+
+      <span style="color:#999; padding:0 0.5em">|</span>
+      <a href="/sitemap/index.jsp">Site Map</a>
+      <span style="color:#999; padding:0 0.5em">|</span>
+      <a href="/support/index.jsp">Support</a>
+      <span style="color:#999; padding:0 0.5em">|</span>
+      <a href="https://www-secure.symantec.com/feedback/webmaster.jsp?theURL=">Report Broken Link</a>
+
+    <div style="clear:both"></div>
+  </div>
+</div>
+<div id="footerPane1">
+  <div class="footer">
+  <hr/>
+  <div class="cpyrht">©1995 - 2011 Symantec Corporation<span id="edit">[<a href="/errors/notfound.jsp?uri=/xxx&amp;cx_edit" class="edit" title="Edit">Edit</a>]</span></div>
+<div>
+
+<span><a href="/about/index.jsp" title="About">About</a></span><span>|</span></div>
+<div>
+<span><a href="/sitemap/index.jsp" title="Site Map">Site Map</a></span><span>|</span></div>
+<div>
+<div class="fbox" id="mainitem2" onMouseOut="hidediv(2)" onMouseOver="showdiv(2)">
+<b class="trtop"><b class="tr1"></b><b class="tr2"></b><b class="tr3"></b><b class="tr4"></b></b>
+<ul>
+<li><a href="/about/profile/policies/legal.jsp" title="Legal Notices">Legal Notices</a></li><li><a href="/about/profile/policies/eulas/index.jsp" title="License Agreements">License Agreements</a></li><li><a href="/about/profile/policies/repository.jsp" title="Repository">Repository</a></li></ul>
+<b class="trbottom"><b id="mr4_2" class="mr4"></b><b id="mr3_2" class="mr3"></b><b id="mr2_2" class="mr2"></b><b id="mr1_2" class="mr1"></b></b>
+</div>
+
+<div style="float:none">
+<span id="item2" class="footerItemBorder"><a href="/about/profile/policies/legal.jsp" onMouseOver="showdiv(2)" onMouseOut="hidediv(2)" title="Legal">Legal</a></span><span>|</span></div>
+<div class="fbox" style="padding:0; margin:0; background:none" id="bottomborder2"><b class="trbottom"><b class="br4"></b><b class="br3"></b> <b class="br2"></b><b class="br1"></b></b></div>
+</div>
+<div>
+<span><a href="/about/profile/privacypolicy/index.jsp" title="Privacy">Privacy</a></span><span>|</span></div>
+<div>
+<div class="fbox" id="mainitem4" onMouseOut="hidediv(4)" onMouseOver="showdiv(4)">
+<b class="trtop"><b class="tr1"></b><b class="tr2"></b><b class="tr3"></b><b class="tr4"></b></b>
+<ul>
+<li><a href="/norton/support/index.jsp" title="Norton Support">Norton Support</a></li><li><a href="/enterprise/support/index.jsp" title="Business Support">Business Support</a></li><li><a href="/enterprise/contact_sales.jsp" title="Business Sales">Business Sales</a></li><li><a href="/feedback/contactus.jsp" title="Corporate Information">Corporate Information</a></li></ul>
+
+<b class="trbottom"><b id="mr4_4" class="mr4"></b><b id="mr3_4" class="mr3"></b><b id="mr2_4" class="mr2"></b><b id="mr1_4" class="mr1"></b></b>
+</div>
+<div style="float:none">
+<span id="item4" class="footerItemBorder"><a href="/feedback/contactus.jsp" onMouseOver="showdiv(4)" onMouseOut="hidediv(4)" title="Contact">Contact</a></span><span>|</span></div>
+<div class="fbox" style="padding:0; margin:0; background:none" id="bottomborder4"><b class="trbottom"><b class="br4"></b><b class="br3"></b> <b class="br2"></b><b class="br1"></b></b></div>
+</div>
+<div>
+<span><a href="/rss/index.jsp" title="RSS">RSS</a></span></div><ul class="footerLinks"><li class="seoTitle">Symantec [<span>+</span>]<ul><li>
+<a href="/business/endpoint-protection" title="AntiVirus">AntiVirus</a><span>|</span></li><li>
+
+<a href="/business/products/family.jsp?familyid=netbackup" title="Backup Software">Backup Software</a><span>|</span></li><li>
+<a href="/business/endpoint-encryption" title="Encryption">Encryption</a><span>|</span></li><li>
+<a href="/business/theme.jsp?themeid=virtualization" title="Virtualization">Virtualization</a><span>|</span></li><li>
+<a href="/business/solutions/topics/detail.jsp?top_id=cloud&amp;chtr_id=cloud-security" title="Cloud Security">Cloud Security</a><span>|</span></li><li>
+<a href="/business/products/family.jsp?familyid=altiris" title="Configuration Management">Configuration Management</a><span>|</span></li><li>
+<a href="/business/solutions/solutiondetail.jsp?solid=sol_business_cont&amp;solfid=sol_disaster_recovery" title="Disaster Recovery">Disaster Recovery</a><span>|</span></li><li>
+
+<a href="/business/products/newfeatures.jsp?pcid=pcat_business_cont&amp;pvid=2_1" title="File Recovery">File Recovery</a><span>|</span></li><li>
+<a href="/business/pcanywhere" title="Remote Access Software">Remote Access Software</a><span>|</span></li><li>
+<a href="/business/solutions/projects/projectdetail.jsp?solid=sol_business_cont&amp;solfid=sol_disaster_recovery&amp;projectid=business_continuity_planning" title="Business Continuity">Business Continuity</a></li></ul></li><li class="seoTitle">Norton [<span>+</span>]<ul><li>
+<a href="http://us.norton.com/antivirus/" title="AntiVirus">AntiVirus</a><span>|</span></li><li>
+<a href="http://us.norton.com/ghost/" title="Backup Software">Backup Software</a><span>|</span></li><li>
+
+<a href="http://us.norton.com/internet-security/" title="Internet Security">Internet Security</a><span>|</span></li><li>
+<a href="http://us.norton.com/security_response/malware.jsp" title="Malware">Malware</a><span>|</span></li><li>
+<a href="http://www.backup.com/" title="Online Backup">Online Backup</a><span>|</span></li><li>
+<a href="http://us.norton.com/security_response/phishing.jsp" title="Phishing">Phishing</a><span>|</span></li><li>
+<a href="http://us.norton.com/security_response/spyware.jsp" title="Spyware">Spyware</a><span>|</span></li><li>
+<a href="http://us.norton.com/" title="Virus Protection">Virus Protection</a><span>|</span></li><li>
+
+<a href="http://us.norton.com/nortonlive/spyware-virus-removal.jsp" title="Virus Removal">Virus Removal</a><span>|</span></li><li>
+<a href="http://us.norton.com/nortonlive/free-pc-checkup.jsp" title="Virus Scan">Virus Scan</a></li></ul></li><li class="seoTitle">VeriSign [<span>+</span>]<ul><li>
+<a href="http://www.verisign.com/ssl/ssl-information-center/index.html" title="SSL">SSL</a><span>|</span></li><li>
+<a href="http://www.verisign.com/ssl/index.html" title="SSL Certificates">SSL Certificates</a><span>|</span></li><li>
+<a href="http://www.verisign.com/ssl/ssl-information-center/extended-validation-ssl-certificates/index.html" title="Extended Validation">Extended Validation</a><span>|</span></li><li>
+
+<a href="http://www.verisign.com/trust-seal/index.html" title="VeriSign Trust Seal">VeriSign Trust Seal</a><span>|</span></li><li>
+<a href="http://www.verisign.com/authentication/two-factor-authentication/index.html" title="Two-Factor Authentication">Two-Factor Authentication</a><span>|</span></li><li>
+<a href="http://www.verisign.com/authentication/two-factor-authentication/vip-authentication/index.html" title="Identity Protection">Identity Protection</a><span>|</span></li><li>
+<a href="http://www.verisign.com/trust-seal/resources/malware-faq/index.html" title="Malware Scan">Malware Scan</a><span>|</span></li><li>
+<a href="http://www.verisign.com/code-signing/index.html" title="Code Signing">Code Signing</a><span>|</span></li><li>
+<a href="http://www.verisign.com/authentication/pki-infrastructure-solutions/index.html" title="Public Key Infrastructure">Public Key Infrastructure</a><span>|</span></li><li>
+
+<a href="http://www.verisign.com/authentication/pki-infrastructure-solutions/managed-pki/index.html" title="PKI">PKI</a></li></ul></li><li class="seoTitle">PC Tools [<span>+</span>]<ul><li>
+<a href="" title="Internet Security">Internet Security</a><span>|</span></li><li>
+<a href="http://www.pctools.com/spyware-doctor-antivirus/" title="Spyware Doctor with Antivirus">Spyware Doctor with Antivirus</a><span>|</span></li><li>
+<a href="http://www.pctools.com/performance-toolkit/" title="Performance Toolkit">Performance Toolkit</a><span>|</span></li><li>
+<a href="http://www.pctools.com/simple-backup/" title="Simple Backup">Simple Backup</a><span>|</span></li><li>
+
+<a href="http://www.pctools.com/file-recover/" title="File Recovery">File Recovery</a><span>|</span></li><li>
+<a href="http://www.pctools.com/spyware-doctor/" title="Spyware Doctor">Spyware Doctor</a><span>|</span></li><li>
+<a href="http://www.pctools.com/privacy-guardian/" title="Privacy Guardian">Privacy Guardian</a><span>|</span></li><li>
+<a href="http://free.pctools.com/free-antivirus/" title="Free Antivirus">Free Antivirus</a><span>|</span></li><li>
+<a href="http://www.pctools.com/password-manager/" title="Password Manager">Password Manager</a><span>|</span></li><li>
+<a href="http://www.pctools.com/registry-mechanic/" title="Registry Mechanic">Registry Mechanic</a></li></ul></li></ul><div class="footerAddendum">&nbsp;</div><div style="clear:both"/>
+
+</div>
+<script src="/scripts/icrossing/i2a.js?20110505" language="javascript" type="text/javascript"></script><script src="/script/omniture/20110609/s_code.js" language="javascript" type="text/javascript"></script>	
+
+	<!-- SiteCatalyst code. Copyright 1997-2008 Omniture, Inc. More info available at http://www.omniture.com -->
+	<script language="JavaScript" type="text/javascript"><!--
+	/* You may give each page an identifying name, server, and channel on the next lines. */
+	s.pageName=metaData['page_name'];
+	s.server="symantec"
+	s.channel=metaData['visitor_segment'] + ': ' + metaData['site_section']
+	s.pageType=metaData['page_type']
+	s.prop2=metaData['site_country']
+	s.prop3=metaData['site_language']
+	s.prop25=metaData['error_url']
+	s.prop27=metaData['visitor_segment']
+	s.prop29=(typeof testBoxVal == "undefined") ? "" : testBoxVal
+	s.prop33=metaData['page_url']
+	s.prop41=metaData['site_section']
+	s.prop42=metaData['product_name']
+	s.prop43=metaData['product_category_name']
+	s.prop44=metaData['product_sub_category_name']
+	s.prop45=metaData['product_version_name']
+	s.prop46=metaData['content_format']
+	s.prop47=metaData['content_type']
+	s.prop48=metaData['content_title']
+	s.prop49=metaData['site_sub_section']
+        s.prop54=metaData['site_section_us']
+	/* Conversion Variables */
+	s.products=metaData['products']
+	s.eVar17=(typeof testBoxVal == "undefined") ? "" : testBoxVal
+	s.eVar27=metaData['site_country']
+	s.eVar28=metaData['site_language']
+	s.eVar29=metaData['visitor_segment'] + ': ' + metaData['site_section']
+	s.eVar41=metaData['site_section']
+	s.eVar42=metaData['product_name']
+	s.eVar43=metaData['product_category_name']
+	s.eVar48=metaData['site_sub_section']
+	s.eVar49=metaData['content_title']
+	s.eVar50=metaData['visitor_segment']
+        s.eVar54=metaData['site_section_us']
+	/************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+	var s_code=s.t();if(s_code)document.write(s_code)//--></script>
+	<script language="JavaScript" type="text/javascript"><!--
+	if(navigator.appVersion.indexOf('MSIE')>=0)document.write(unescape('%3C')+'\!-'+'-')
+	//--></script>
+	<!--/DO NOT REMOVE/-->
+	<!-- End SiteCatalyst code. -->
+    </div>
+
+</body></html>

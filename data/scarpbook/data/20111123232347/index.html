@@ -1,0 +1,757 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+	<meta name="WT.qs_dlk" content="Y0w6iArIZzsAAC@wQ44AAAAL">
+
+	<meta name="WT.qs_shmv" content="lv20100812-vanzandt.sf.quinstreet.net">
+	<meta http-equiv="Set-Cookie" content="WMUUID=Y0w6iArIZzsAAC@wQ44AAAAL; path=/;   domain=serverwatch.com;">
+
+	<meta name="inject_params" content="WT.qs_dlk=Y0w6iArIZzsAAC@wQ44AAAAL&amp;">
+
+	<meta http-equiv="Set-Cookie" content="inject_params=WT.qs_dlk=Y0w6iArIZzsAAC@wQ44AAAAL&amp;; path=/;   domain=serverwatch.com;">
+
+	 
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
+	<title>I/O Optimization</title> 
+	<meta name="description" content="Scheduler algorithms are one way to get the most out of your I/O subsystem. Noop, deadline, anticipatory, and completely fair queuing are among the most popular with Linux users.">
+	<meta name="keywords" content="I/O">
+	
+		<meta name="robots" content="INDEX,FOLLOW">
+				<meta name="authors" content="Paul Rubens">
+			<meta name="date" content="20090501">
+				
+	<link rel="canonical" href="http://www.serverwatch.com/tutorials/article.php/3818366/IO-Optimization.htm">
+		<meta name="channel" content="IT">
+	<meta name="google-site-verification" content="DizUPkkKhfhdSm4PreZaAXaPvvSEFctB2c9t5IDWrOs">
+		
+	
+	
+	
+	
+		
+	
+	
+	
+	
+		
+	
+	
+	<!-- "send" Quad Ad begin" -->
+	<!--
+AD position = Y
+OAS eqv. = send
+QUAD pos = sendad FLEX(SEND)
+QUAD path = www.serverwatch.com
+Page type = index
+-->
+
+
+	<!-- "send" Quad Ad end" -->
+	<link rel="alternate" type="application/rss+xml" title="RSS Feed for serverwatch.com" href="http://www.serverwatch.com/rss.php/icom_includes/feeds/sw/icom-root.rss">
+	
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body><div id="itxtexclude"></div><img style="display: none;" src="c.gif"><iframe src="index_1.html" style="width: 1px; height: 1px; position: absolute; top: -7px;"></iframe><div style="width: 1px; height: 1px; position: absolute; top: -7px;"><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" id="catcher" width="1" height="1"><param name="wmode" value="window"><param name="FlashVars" value="cid=3020"><param name="allowScriptAccess" value="always"><param name="movie" value="http://puma.vizu.com/v5/swf/andes_catcher.swf"><embed src="andes_catcher.swf" allowscriptaccess="always" wmode="window" name="catcher" flashvars="cid=3020" width="1" height="1"></object></div><img style="display: none;" src="a.gif">
+  <div id="EntNetPlanet" class="wrapBody">
+
+
+
+<!-- START TOP TOOLBAR --><!-- <div id="heightcontainer"></div> --><div id="ewgtcontainer" style="height: 24px;"><!-- start ad "house-ribbon" --><!-- START TOP TOOLBAR --><!-- <div id="heightcontainer"></div> -->
+
+<!-- Botond -->
+<div id="topnavholder">
+	<div style="margin: 0px; padding: 0px;">
+		<div id="navitile">
+			<div style="float: left;"><img alt="Internet.com - The Network for Technology Professionals" src="icom_logo_networknav.gif" width="139px" height="22px" border="0"></div>
+			<ul class="menulist" id="listMenuRoot" style="height: 22px;">
+				<ul id="listMenu-id-1">
+				</ul>
+				<ul id="listMenu-id-2">
+				</ul>
+			</ul>
+			<ul style="height: 22px;" id="listMenuv2Root" class="menulistv2">
+				<ul id="listMenuv2-id-2">
+				</ul>
+			</ul>
+			<ul class="menulistv3" id="listMenuv3Root" style="color: rgb(255, 255, 255); font-size: 10px; font-family: arial,verdana,helvetica; height: 22px; float: right;">
+				<li style="margin-top: 0px;"><a class="red" style="width: 100px;" ;="" href="http://www.serverwatch.com/accountManagement?formType=loginForm"><span class="subind">&gt;</span> Login </a>
+            		<ul id="listMenuv3-id-1">
+            			<li><a style="color: rgb(255, 255, 255); font-size: 10px; font-family: arial,verdana,helvetica; text-decoration: none;" href="http://www.serverwatch.com/accountManagement">Manage My Profile</a></li>
+            		</ul>
+
+            	</li>
+            	<li style="margin-top: 0px;"><a class="red" style="width: 100px;" ;="" href="http://www.serverwatch.com/accountManagement?formType=registrationForm">Register </a>
+              		<!--ul id="listMenuv3-id-2">
+              			<li><a style="color: #fff; font-size: 10px; font-family: arial,verdana,helvetica; text-decoration: none;" href="http://www.internet.com/WhyJoin">Why Join?</a></li>
+              		</ul-->
+              	</li>
+              </ul>
+			</div>
+
+		</div>
+	</div>
+<!-- END TOP TOOLBAR -->
+</div>
+<div class="dimMain" id="header">
+	<div class="logo">
+		<a href="http://www.serverwatch.com/">
+		<img alt="ServerWatch" src="serverwatch_logo.gif" width="200" height="27" border="0">
+		</a>
+	</div>
+	<!--  quad ad start -->
+	<!--
+AD position = B
+OAS eqv. = 468x60-1
+QUAD pos = Leo-FLEX(LEO)POS(TOP)
+QUAD path = www.serverwatch.com
+Page type = index
+-->
+<meta http-equiv="expires" content="0"><meta http-equiv="Pragma" content="no-cache"><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="HTTP://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab" id="idSWFCOM1171624358524" width="728" height="90"><param name="movie" value="HTTP://spe.atdmt.com/ds/NMMRTSMGUCOM/COM_1117/PVT_BuiltFuture_Cost40K_728x90_V1R1_Internet.swf?ver=1&amp;clickTag1=http://o1.qnsr.com//cgi/c%3Fa=20182769%3Bx=3585%3Bg=0,0%3Bc=203678695,203678695%3Bi=0%3Bn=203%3Bs=9475%3B%3Bq=1%3BWT.qs_dlk%3DY0w6iArIZzsAAC@wQ44AAAAL%3B%3B%3By%3Dhttp%3A//www.serverwatch.com/tutorials/article.php/3818366/IO-Optimization.htm%3B%3Be%3Di%3Bs%3D9475%3Bg%3D34%3Bw%3D0%3Bm%3D0%3BWT.qs_dlk%3DY0w6iArIZzsAAC@wQ44AAAAL%3B%3Bz%3D86605027%3B%3Bk=http://clk.atdmt.com/go/362835209/direct;vt.1;wi.728;hi.90;ai.247050344;ct.1/01&amp;clickTag=http://o1.qnsr.com//cgi/c%3Fa=20182769%3Bx=3585%3Bg=0,0%3Bc=203678695,203678695%3Bi=0%3Bn=203%3Bs=9475%3B%3Bq=1%3BWT.qs_dlk%3DY0w6iArIZzsAAC@wQ44AAAAL%3B%3B%3By%3Dhttp%3A//www.serverwatch.com/tutorials/article.php/3818366/IO-Optimization.htm%3B%3Be%3Di%3Bs%3D9475%3Bg%3D34%3Bw%3D0%3Bm%3D0%3BWT.qs_dlk%3DY0w6iArIZzsAAC@wQ44AAAAL%3B%3Bz%3D86605027%3B%3Bk=http://clk.atdmt.com/go/362835209/direct;vt.1;wi.728;hi.90;ai.247050344;ct.1/01"><param name="base" value="HTTP://spe.atdmt.com/ds/NMMRTSMGUCOM/COM_1117/"><param name="FlashVars" value="ArmClickType=&amp;unique_id=_COM1171624358524&amp;ArmApi=armapi_a1_a1&amp;ArmClickUrl=http://clk.atdmt.com/go/362835209/direct;vt.1;wi.728;hi.90;ai.247050344;ct.$num$/01/&amp;ArmClickToken=$num$"><param name="quality" value="high"><param name="salign" value="lt"><param name="loop" value="true"><param name="wmode" value="opaque"><param name="allowScriptAccess" value="always"><embed allowscriptaccess="always" quality="high" salign="LT" loop="true" type="application/x-shockwave-flash" pluginspace="HTTP://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" base="HTTP://spe.atdmt.com/ds/NMMRTSMGUCOM/COM_1117/" wmode="opaque" src="pvt_builtfuture_cost40k_728x90_v1r1_internet.swf" flashvars="unique_id=_COM1171624358524&amp;ArmApi=armapi_a1_a1&amp;ArmClickUrl=http://clk.atdmt.com/go/362835209/direct;vt.1;wi.728;hi.90;ai.247050344;ct.$num$/01/&amp;ArmClickToken=$num$" width="728" height="90"></object>
+
+	<!--  quad ad end -->
+</div>
+
+
+<ul id="serverwatch-menu" style="margin: 0px ! important;">
+<li><a href="http://www.serverwatch.com/hottopics/index.php/25101/Server-Virtualization-Spotlight.htm" class="virtualization">Virtualization</a></li>
+<li><a href="http://www.serverwatch.com/hottopics/index.php/28771/Server-Hardware-Spotlight.htm" class="serverhardware">Server Hardware</a></li>
+<li><a href="http://www.serverwatch.com/hottopics/index.php/28751/Server-Software-Spotlight.htm" class="serversoftware">Server Software</a></li>
+<li><a href="http://www.serverwatch.com/hottopics/index.php/28761/Open-Source-Software-Spotlight.htm" class="opensource">Open Source</a></li>
+<li><a href="http://www.serverwatch.com/hottopics/index.php/28731/Data-Center-Management-Spotlight.htm" class="datacentermanagement">Data Center Management</a></li>
+<li><a href="http://www.serverwatch.com/hottopics/index.php/28741/Server-OS-Spotlight.htm" class="serveroperatingsystems">Server <br>Operating Systems</a></li>
+<li><a href="http://www.serverwatch.com/about" class="opensource">About Us</a></li>
+<li><a href="http://www.serverwatch.com/rss.php/icom_includes/feeds/sw/icom-root.rss" class="emptyclass"><img src="rss-feed.gif" style="display: block; margin-left: auto; margin-right: auto; margin-top: 8px; cursor: pointer;"></a></li>
+</ul>
+
+
+
+<form name="searchForm" action="http://www.serverwatch.com/tutorials/article.php/3818366/IO-Optimization.htm" method="POST" onsubmit="return checkSearchRequest();">
+<ul id="serverwatch-sub-menu" style="margin: 0px ! important; width: 977px;">
+<li><a href="http://www.serverwatch.com/server-news/" class="servernews">Server News</a></li>
+<li><a href="http://www.serverwatch.com/server-tutorials/" class="tutorials">Tutorials</a></li>
+<li><a href="http://www.serverwatch.com/server-trends/" class="servertrends">Server Trends</a></li>
+<li><a href="http://www.serverwatch.com/server-reviews/" class="reviews">Reviews</a></li>
+<li><a href="http://www.serverwatch.com/server-topics/" class="hottopics">Hot Topics</a></li>
+<li><a href="http://www.serverwatch.com/stypes/" class="servercomparisontool">Server Comparison Tool</a></li>
+<li><a class="newsletter" onmouseover="setVisibility('navnewslettermailboxID', 'inline');" onmouseout="setVisibility('navnewslettermailboxID','none');">Newsletter Sign-Up</a></li>
+<li><a href="#" class="serversearch_new">
+<input id="search_keyword" style="background-color: transparent; border: 0pt none; color: rgb(68, 68, 68); height: 13px; margin-left: 13px; margin-top: 10px; width: 126px; font-size: 12px;" name="IC_QueryText" onclick="if(this.value=='Search ServerWatch')this.value='';" value="Search ServerWatch" type="text">
+<input name="IC_QueryDatabase" type="hidden">
+</a>
+<a href="#" style="width: 31px; background-position: -944px 0px;" name="btnSearch" value="" onclick="return checkSearchRequest();"></a>
+</li>
+</ul>
+</form>
+	
+	<div id="hottopicsSub" style="z-index: 99999; opacity: 0.9; position: absolute; margin-left: 365px; margin-top: -10px; padding: 10px; background-color: rgb(138, 0, 13); border: 1px solid rgb(0, 0, 0); display: none;">
+		<a href="http://www.serverwatch.com/hottopics/index.php/25101/Server-Virtualization-Spotlight.htm" class="sec" style="color: rgb(255, 255, 255); font-size: 11px; font-weight: bold;">Virtualization</a><br>
+		<a href="http://www.serverwatch.com/hottopics/index.php/28771/Server-Hardware-Spotlight.htm" class="sec" style="color: rgb(255, 255, 255); font-size: 11px; font-weight: bold;">Server Hardware</a><br>
+		<a href="http://www.serverwatch.com/hottopics/index.php/28751/Server-Software-Spotlight.htm" class="sec" style="color: rgb(255, 255, 255); font-size: 11px; font-weight: bold;">Server Software</a><br>
+		<a href="http://www.serverwatch.com/hottopics/index.php/28761/Open-Source-Software-Spotlight.htm" class="sec" style="color: rgb(255, 255, 255); font-size: 11px; font-weight: bold;">Open Source</a><br>
+		<a href="http://www.serverwatch.com/hottopics/index.php/28731/Data-Center-Management-Spotlight.htm" class="sec" style="color: rgb(255, 255, 255); font-size: 11px; font-weight: bold;">Data Center Management</a><br>
+		<a href="http://www.serverwatch.com/hottopics/index.php/28741/Server-OS-Spotlight.htm" class="sec" style="color: rgb(255, 255, 255); font-size: 11px; font-weight: bold;">Server Operating Systems</a><br>
+		<a href="http://www.serverwatch.com/hottopics/index.php/25831/Power-and-Cooling.htm" class="sec" style="color: rgb(255, 255, 255); font-size: 11px; font-weight: bold;">Power and Cooling</a><br>
+		<a href="http://www.serverwatch.com/hottopics/" class="sec" style="color: rgb(255, 255, 255); font-size: 11px; font-weight: bold;">More</a>
+	</div>
+	<div id="navnewslettermailboxID">
+  <form action="http://www.serverwatch.com/tutorials/article.php/3818366/IO-Optimization.htm" id="navnewsletterform" method="post">
+	<input name="NewsletterSignup" id="navNewsletterSignup" value="Server Tech Daily" type="hidden">
+	<input name="RegistrationWebsite" id="navRegistrationWebsite" value="http://www.serverwatch.com" type="hidden">					
+		<div id="navnewstextid"><img src="newlettertext.gif" width="268px"></div>
+		<div id="navIDnewsletterbox_error"></div>
+		<div id="navnewemailbox_content">
+			<input value="Enter Your Email Address" maxlength="255" name="EM" id="navnewsletteremailID" onclick="navnews_mailclick();" onblur="navshowtext();" type="text">
+			<div style="margin: 6px 0px 20px;" align="center">
+				<input src="submitbutton.gif" style="width: 130px; white-space: normal;" value="" name="submit" onclick="navnews_textclick();return false;" id="navnewsletter_signInButton" type="image">
+			</div>
+		</div>
+  </form>
+</div> 
+			
+<div id="navnewslettermailboxsuccessID"><p id="navnlsuccessid"></p></div>	 	
+
+
+	<input name="newsletteruserip" id="newsletteruserip" value="216.129.122.182" type="hidden">
+		
+
+
+
+
+  <div id="content">
+	<div class="col clearfix">
+	<div id="ajax_load"> </div>
+	<div id="content_wrapper"> 
+
+<div class="colLeft dimMainLeft">
+	<div class="vspace"></div>
+					<div id="breadcumb" class="clearfix">
+					<div class="colLeft">
+														<div class="bread_left"><a href="http://www.serverwatch.com/">ServerWatch</a></div>
+													<div class="bread_mid"><a href="http://www.serverwatch.com/tutorials/">Server Tutorials</a></div>
+												<div class="bread_right"></div>
+					</div>
+					<div class="colRight">
+												<a href="http://www.serverwatch.com/tutorials/" class="more">Read More in Server Tutorials »</a>
+											</div>
+				</div>
+		<!--ciu_start-->
+<div id="ciuadposition">
+	<!-- "ciu" begin" -->
+	<div class="ciu_ads">
+			<!--
+AD position = P
+OAS eqv. = ciu
+QUAD pos = ciu-FLEX(CIU)
+QUAD path = www.serverwatch.com
+Page type = index
+-->
+<div style="background-color: rgb(225, 225, 225);"><a href="http://o1.qnsr.com//cgi/c?a=20182896;x=15105;c=203678696,203678696;i=0;n=203;s=9475;q=1;WT.qs_dlk=Y0w6iArIZzsAAC@wQ44AAAAL;;;y=http://www.serverwatch.com/tutorials/article.php/3818366/IO-Optimization.htm;;e=i;s=9475;g=34;w=0;m=0;WT.qs_dlk=Y0w6iArIZzsAAC@wQ44AAAAL;;z=170988862;;k=http://bs.serving-sys.com/BurstingPipe/adServer.bs?cn=tf&amp;c=20&amp;mc=click&amp;pli=3485952&amp;PluID=0&amp;ord=12345" target="_top"> Visit this resource center to learn how to maximize the value of hosted Microsoft SharePoint business-critical content and leverage your cloud initiatives to optimize costs and improve IT performance.</a><div ;="" padding:0;="" align="right">Sponsored</div></div>
+
+	</div>
+	<div class="ciu_ads">
+			<!--
+AD position = F1
+OAS eqv. = CIU-FLEX(CIU-2)
+QUAD pos = CIU-FLEX(CIU-2)
+QUAD path = www.serverwatch.com
+Page type = index
+-->
+<div style="background-color: rgb(225, 225, 225);"><a href="http://o1.qnsr.com//cgi/c?a=20181469;x=15105;c=203842141,203842141;i=0;n=203;s=9475;q=1;WT.qs_dlk=Y0w6iArIZzsAAC@wQ44AAAAL;;;y=http://www.serverwatch.com/tutorials/article.php/3818366/IO-Optimization.htm;;e=i;s=9475;g=34;w=0;m=0;WT.qs_dlk=Y0w6iArIZzsAAC@wQ44AAAAL;;z=505678;;k=http://www.internet.com/Cloud-Ready_Data_Center/Link/46126/The-Standards-Youll-Need-in-the-Next-Generation-Data-Center">  <b>Is your data center reaching its limit? </b>Learn how "next generation" data centers offer increased automation and more - read "The Standards You'll Need in the Next Generation Data Center" now.</a><div ;="" padding:0;="" align="right">Sponsored</div></div>
+
+	</div>
+</div>
+<!--ciu_stop-->		<div class="article">
+	
+		<div style="width: 238px; float: right; padding: 0px 0px 10px 10px;">
+			<!-- Most Popular Stories start -->
+			<div id="mostPopularStories">
+				<div>
+					<div class="tabs">
+						<div class="tabsMenu clearfix">
+							<ul>
+																<li><a class="selected" style="width: 105px;" href="#mostPopularThisWeek">RECOMMENDED</a></li>
+																<li><a style="width: 125px;" href="#mostPopularToday">MOST
+										POPULAR</a></li>
+							</ul>
+						</div>
+						<div class="tabsContents">
+														<div id="mostPopularThisWeek" class="tabsContent selected" style="display: block;">
+								<ul>
+																	<li><a href="http://www.serverwatch.com/news/article.php/3818181/Virtualization-and-the-Dynamic-Enterprise.htm"><span class="graytext">1										</span> Virtualization and the Dynamic Enterprise </a></li>
+																			<li><a href="http://www.serverwatch.com/tutorials/article.php/3817406/lsof-sockets-and-trojans.htm"><span class="graytext">2										</span> lsof, sockets and trojans </a></li>
+																			<li><a href="http://www.serverwatch.com/tutorials/article.php/3792201/The-Ins-and-Outs-of-Virtualized-IO.htm"><span class="graytext">3										</span> The Ins and Outs of Virtualized I/O </a></li>
+																		</ul>
+							</div>
+														<div id="mostPopularToday" class="tabsContent">
+								<ul>
+																	<li><a href="http://www.serverwatch.com/server-trends/10-secure-linux-distributions-you-need-know-about.html"><span class="graytext">1 </span> 10 Secure Linux Distributions You Need Know About									</a></li>
+
+									
+																		<li><a href="http://www.serverwatch.com/server-news/nginx-goes-open-core.html"><span class="graytext">2 </span> NGINX Goes Open Core									</a></li>
+
+									
+																		<li><a href="http://www.serverwatch.com/server-news/oracle-takes-on-vmware-with-oracle-vm-3.0-.html"><span class="graytext">3 </span> Oracle Takes on VMware with Oracle VM 3.0 									</a></li>
+
+									
+																		<li><a href="http://www.serverwatch.com/server-news/ubuntu-11.10-ocelot-heads-to-the-cloud.html"><span class="graytext">4 </span> Ubuntu 11.10 Ocelot Heads to the Cloud									</a></li>
+
+									
+																		<li><a href="http://www.serverwatch.com/server-trends/5-backup-products-for-virtual-machines.html"><span class="graytext">5 </span> 5 Backup Products for Virtual Machines									</a></li>
+
+									
+																									
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Most Popular Stories end -->
+		</div>
+		<h1>
+		I/O Optimization		</h1>
+		<div style="float: left; height: 76px;" class="author colLeft">
+					By
+						<a href="http://www.serverwatch.com/author/Paul-Rubens-3700.htm">Paul Rubens			</a> (<a href="http://www.serverwatch.com/feedback.php/tutorials/article.php/3818366/IO-Optimization.htm">Send
+				Email</a>) <br>
+								May 1, 2009			<br>
+			<!--  added facebook like button -->
+			<iframe src="index_2.html" style="border: medium none; overflow: hidden; height: 45px;" allowtransparency="false" scrolling="no" frameborder="0"> 
+</iframe>			<!--  added facebook like button end -->
+		</div>
+	
+				<div style="height: 76px;" class="shareboxtop">
+			<ul>
+				<li><a href="http://www.serverwatch.com/print.php/3818366" rel="nofollow" title="Print Article"><img id="article_print_button" src="article_print.gif"> </a></li>
+				<!--  added share this -->	
+				<li id="toolBoxShareMenu1"><a href="#" title="Share Article with: Digg, DZone, etc..." rel="nofollow"><img id="article_share_button" src="article_share.gif"> </a>
+					<div class="shareSubMenu">
+						<span class="top"><span></span> </span>
+						<ul>
+							<li><a href="http://digg.com/submit?phase=2&amp;url="><img class="icon" alt="" src="icon_diggthis.gif" width="16" height="16" border="0"> Digg</a>
+							</li>
+							<li><a href="http://www.dzone.com/links/add.html?url="><img class="icon" alt="" src="icon_dzone.gif" width="16" height="16" border="0"> DZone</a>
+							</li>
+							<li><a href="http://reddit.com/submit?url="><img class="icon" alt="" src="icon_reddit.gif" width="16" height="16" border="0">
+
+									Reddit</a></li>
+							<li><a href="http://slashdot.org/slashdot-it.pl?op=basic&amp;url="><img class="icon" alt="" src="icon_slashdot.gif" width="16" height="16" border="0">
+									Slashdot</a></li>
+							<li><a href="http://www.stumbleupon.com/submit?url="><img class="icon" alt="" src="icon_stumbleit.gif" width="16" height="16" border="0">
+
+									StumbleUpon</a></li>
+							<li><a href="http://del.icio.us/post?v=4&amp;noui&amp;jump=close&amp;url="><img class="icon" alt="" src="icon_delicious.gif" width="16" height="16" border="0">
+									del.icio.us</a></li>
+							<li><a href="http://www.facebook.com/sharer.php?u="><img class="icon" alt="" src="icon_facebook.gif" width="16" height="16" border="0">
+									Facebook</a></li>
+							<li><a href="http://friendfeed.com/?url="><img class="icon" alt="" src="icon_friendfeed.png" width="16" height="16" border="0">
+
+									FriendFeed</a></li>
+							<li><a href="http://www.furl.net/storeIt.jsp?t="><img class="icon" alt="" src="icon_furl.gif" width="16" height="16" border="0"> Furl</a>
+							</li>
+						</ul>
+						<span class="bottom"><span></span> </span>
+					</div></li>				<!-- end share this -->
+				<li><a href="http://www.serverwatch.com/email.php/3818366" rel="nofollow" title="Email Article"><img id="article_email_button" src="article_email.gif"> </a></li>
+				<li><a href="#comment_form" rel="nofollow" title="Post a Comment"><img id="article_comment_button" src="article_comment.gif"> </a>
+				</li>
+
+
+			</ul>
+
+
+			
+		</div>
+		<br>
+		<p>
+		</p><div class="litcontent" style="padding-top: 10px;">
+			<p>
+				</p><p>Imagine a trailer hooked on to the back of an Indy car  — the effect on performance would be similar to what happens when you hook up hard drives to a server.  That's because a hard drive is a slow, delicate, mechanical component  attached to a computer system that is otherwise made up of solid-state electronics built for speed. </p>
+
+<div style="display: block;" id="newslettermailboxID">
+  <form action="http://www.serverwatch.com/tutorials/article.php/3818366/IO-Optimization.htm" method="post" name="newsletterform" id="newsletterform">
+	<input value="Server Tech Daily" id="NewsletterSignup" name="NewsletterSignup" type="hidden">
+	<input value="http://www.serverwatch.com" id="RegistrationWebsite" name="RegistrationWebsite" type="hidden">				
+		<div style="background-image: url('newsletterbox_header_bg.gif'); background-repeat: repeat-x; width: 100%;" id="newstextid"><img src="newlettertext.gif" width="268px" align="middle"></div>
+		<div id="IDnewsletterbox_error"></div>
+		<div id="newemailbox_content">
+			<div style="float: left;">
+			<input onblur="showtext();" onclick="news_mailclick();" id="newsletteremailID" name="newsletteremailID" maxlength="255" value="Enter Your Email Address" type="text"></div>
+			<div style="float: left; margin-left: 60px; margin-top: 10px;">
+				<input id="newsletter_signInButton" onclick="news_textclick();return false;" name="submit" value="" style="width: 130px; white-space: normal;" src="submitbutton.gif" type="image">
+			</div>
+		</div>
+  </form>
+</div>
+<div id="newslettermailboxsuccessID" style="display: none;"><p id="nlsuccessid"></p></div><p>To get data on or off a disk, a drive head has to swing into the correct position and wait for the right part of the disk to come around. This can take hundredths of a second — many times longer than it takes to access data stored in RAM, for example. As a result,  a disk <a href="http://serverwatch.webopedia.com/TERM/I/I_O.htm">I/O</a> subsystem can be a huge data bottleneck,  and significant improvements in the overall performance of the server can be achieved if the effects of this bottleneck can be minimized.</p>
+
+<p>To understand how this might be done, let's take a look at how data is moved to and from a disk.</p>
+
+<p>Put simply, the I/O subsystem accepts a stream of requests to read or write data to and from a disk which it holds in a queue. To help speed things up, it usually merges read or write requests together if they are close to each other in the queue, and if they involve the same area of the disk. </p>
+
+<p>Read requests are generally given higher priority than write requests because a given process will have to wait for the read data it has requested before it can continue, while it won't have to wait for the result of a write. </p>
+
+<p>The subsystem will also usually detect when data is being read sequentially from the disk and use a technique called "read-ahead"  to read and cache the disk block following the one it has been asked to read. This can reduce seek time during sequential reads, although it does nothing to speed up reads to other random parts of the disk, and it is switched off when the subsystem detects random (i.e., non-sequential) reads.</p>
+
+<p>After this simple merging has been carried out, the I/O subsystem could process requests in the queue in the order they are arrive at the head of the queue, but usually it doesn't. Instead it tries to speed things up by using a scheduler algorithm to decide the order in which requests should be processed. At the most basic level a scheduler will reorder requests to minimize the traveling the disk heads have to carry out, as this mechanical process is relatively time consuming. So reads in one area of the disk will be grouped, then reads in the next area, and so on.</p>
+
+<p>To illustrate what scheduler algorithms do, it's helpful to think of elevators as an analogy. When an elevator arrives at the ground floor of a busy office block, many people get in and press the buttons for the floors to which they want to go, in a random order. Clearly it would make no sense to travel to the fifth floor, then the 40th, then the second, and then the 39th, just because that was the order in which the buttons were pressed. A far more efficient strategy  is to stop at the floors in ascending order: the second, fifth, 39th and finally the 40th. By traveling in a single direction instead of backing up on itself, the elevator can drop everyone off at their floors in the minimum time.</p>
+
+<p>But it turns out that this type of scheduling is not always optimal for an I/O subsystem (or for an elevator); it actually has a number of flaws. Going back to the elevator analogy, people working on the very highest floors would have to waste a lot of time, stopping at tens or potentially hundreds of intermediate floors, every time they traveled from the lobby to their office. For that reason many large buildings have some elevators that don't serve the lower floors at all, instead they go straight to the upper levels before stopping. The upper-floor workers benefit, but at the cost of the lower-floor workers,  who now have fewer elevators that go to their floors.</p>
+
+<p>So what is the best scheduler algorithm? In fact there is no such thing as a "best" one.  Instead, there are a number of different schedulers, each one suited to different types of servers. The four principal schedulers common to most Linux systems are:</p>
+
+<ul><li> noop </li>
+<li> deadline</li>
+<li> anticipatory</li>
+<li> completely fair queuing</li></ul>
+
+<h4>noop</h4>
+
+<p>This is the simplest scheduler, and it does nothing beyond merging requests and placing them in a queue to be processed in the order they arrive at the head of the queue.
+
+</p><p>The noop scheduler is useful in a system which uses a modern <a href="http://serverwatch.webopedia.com/TERM/R/RAID.html">RAID</a>  controller which can schedule I/O better than the operating system. 
+It is also useful on systems with <a href="http://serverwatch.webopedia.com/TERM/S/solid_state_disk.html">solid state drives</a> (including RAM
+disks,) which have a fixed seek time for all data, regardless of where it is stored on the device.
+</p>
+
+<h4>deadline</h4> 
+
+<p>The deadline scheduler is designed to overcome the problem of a read request for a remote part of a disk getting serviced too slowly because it is constantly shunted to the back of the queue by requests arriving for closer parts of the disk. This is analogous to trying to get to the top floor of a building in an elevator that keeps stopping to let people on and off at intermediate floors. To overcome this, each request is given a waiting time or "deadline." If the request is not serviced before the deadline expires, it is then put to the front of the queue, merged with any requests for nearby disk locations and serviced immediately.</p>
+
+<p>The deadline scheduler is useful for real-time applications because in most cases it keeps latency low since all requests are serviced within a relatively short time frame dictated by the deadline.</p>
+
+<h4>anticipatory scheduler</h4>
+
+<p>The anticipatory scheduler works by anticipating that the next request will be for the disk block that follows the one that has just been serviced. After carrying out a read or write, the scheduler enforces a slight delay to give an application time to submit a request for the next disk block. If such a request arrives (as anticipated), the disk head will be in the right place to service the request, instead of having moved away to service another request. </p>
+
+<p>Using the elevator analogy, imagine a situation where an office block is host to a number of companies, each of which occupies, say, two floors. If an office worker gets on at a given floor, it's a good bet  she will want to get off at the next floor, which also belongs to her company. So it is sensible for the elevator to wait until the office worker has pressed the button for the floor she wants before it shoots past the next floor.</p>
+
+<p>These slight delays add up to a small amount of latency added to the system, but in some circumstances this can easily be outweighed by the efficiency gained from having the head anticipate where it next has to go. </p>
+
+<p>The anticipatory scheduler is suited to tasks that don't get regularly interrupted by external requests. It tends to be useful for web servers and workstations that often access data in a linear fashion, but not for database servers that access data in a more random fashion.</p>
+
+<h4>cfq</h4>
+
+<p>cfq stands for "completely fair queuing." In this system the scheduler maintains  a number of internal request queues, and each process running on the system is assigned to one of these queues. The schedule then takes the requests from the front of each queue and places them into a dispatch queue, where they are ordered to minimize seek time and serviced. The scheduler then goes back to the internal request queues and brings more requests from the front of these queues to refill the dispatch queue. </p> 
+
+<p>This is analogous to a building with a single elevator, with separate queues for each company that has offices in the building. Each time the lift arrives in the lobby it takes staff from the front of the queue for each company, so no individual company can hog the elevator excessively.  Cfq works well for medium and large multi-processor systems, and is the default scheduler for Linux distros such as Red Hat Enterprise Linux. </p>
+
+<p>In the concluding part of this article I'll be looking at how to change I/O schedulers and how to change some of their parameters to tune a system. </p>
+
+<p><em>Paul Rubens is an IT consultant and journalist based in Marlow on 
+Thames, England. He has been programming, tinkering and generally 
+sitting in front of computer screens since his first encounter with a 
+DEC PDP-11 in 1979.</em></p>			<p></p>
+		</div>
+		<p></p>
+
+		
+		<input value="216.129.122.182" id="newsletteruserip" name="newsletteruserip" type="hidden">
+	</div>
+	
+	
+
+	<div class="vspace"></div>
+	<div class="pageing2">
+		Page
+		1		of
+		1
+		<div class="vspace"></div>
+		 <span class="pageing_arrow_left2"> 		</span>
+	</div>
+	<div class="clear"></div>
+	<br>
+		<div class="vspace"></div>
+	<div class="section_index_list">
+			Tags:
+				  <a href="http://www.serverwatch.com/tag/I-O-8110.htm">I/O</a> 
+	</div>
+	<div class="vspace"></div>
+	
+	<!-- Start comment section -->
+	 
+<div style="clear: both;"></div>
+<div class="comment_wrapper">
+	<div style="font-weight: bold;">
+		 <span id="commentCount">0</span> Comments&nbsp;<a style="text-decoration: underline;" href="#comment_form">(click to add your comment)</a>
+	</div>
+	<br>
+
+	<div id="comment_pagination_top"></div>
+	<div id="comment_page_container"></div>
+	<div id="comment_pagination_bottom"></div>
+	<a id="comment_form"></a>
+	<div style="background-color: rgb(239, 239, 239); width: 590px;">
+		<form name="commentform" action="http://www.serverwatch.com/tutorials/article.php/3818366/IO-Optimization.htm" method="post">
+			
+			<div style="font-weight: bold; font-size: 14pt; font-family: arial,helvetica,sans-serif; color: black; background-color: rgb(255, 255, 255); width: 100%;">
+				<div style="border-bottom: 2px solid rgb(102, 102, 102); width: 100%; height: 20px; margin-bottom: 5px; clear: left;"></div>
+				<img src="icon_comment.png" border="0">Comment
+				and Contribute
+				<p></p>
+			</div>
+			<div style="width: 80%; margin-left: 10px;">
+				<div>
+					<input size="30" id="author" name="author" value="" type="text"> Your name/nickname
+				</div>
+				<p></p>
+				<div>
+					<input size="30" id="email" name="email" value="" type="text"> Your email
+				</div>
+				<p></p>
+				<div>
+					<textarea cols="80" rows="10" style="font: 9pt arial,helvetica,sans-serif; overflow: auto;" onkeyup="limitText(this.form.commentdetails,this.form.countdown,1200);" onkeydown="limitText(this.form.commentdetails,this.form.countdown,1200);" name="commentdetails" id="commentdetails"></textarea>
+				</div>
+				<div style="font-size: 8pt;">
+					(Maximum characters: 1200). You have <input name="countdown" value="1200" size="4" type="text"> characters left.
+				</div>
+				<p></p>
+				<div id="imgTagElem" style="text-align: center;">
+					<div class=" recaptcha_nothad_incorrect_sol recaptcha_isnot_showing_audio" id="recaptcha_widget_div" style=""><div id="recaptcha_area"><table id="recaptcha_table" class="recaptchatable recaptcha_theme_red"> <tbody><tr> <td colspan="6" class="recaptcha_r1_c1"></td> </tr> <tr> <td class="recaptcha_r2_c1"></td> <td colspan="4" class="recaptcha_image_cell"><div style="width: 300px; height: 57px;" id="recaptcha_image"><img style="display: block;" src="image" width="300" height="57"></div></td> <td class="recaptcha_r2_c2"></td> </tr> <tr> <td rowspan="6" class="recaptcha_r3_c1"></td> <td colspan="4" class="recaptcha_r3_c2"></td> <td rowspan="6" class="recaptcha_r3_c3"></td> </tr> <tr> <td rowspan="3" class="recaptcha_r4_c1" height="49"> <div class="recaptcha_input_area"> <label for="recaptcha_response_field" class="recaptcha_input_area_text"><span id="recaptcha_instructions_image" class="recaptcha_only_if_image recaptcha_only_if_no_incorrect_sol">Type the two words:</span><span id="recaptcha_instructions_audio" class="recaptcha_only_if_no_incorrect_sol recaptcha_only_if_audio">Type what you hear:</span><span id="recaptcha_instructions_error" class="recaptcha_only_if_incorrect_sol">Incorrect. Try again.</span></label><br> <span style="display: none;" id="recaptcha_challenge_field_holder"><input name="recaptcha_challenge_field" id="recaptcha_challenge_field" value="03AHJ_VuvSGPwS7fclmiW7We176cdLictt1PlDs77oorGrLKzTYjIAdSH0zy4wdGBeWNG7IyMD1TwyPWdI7BNNl_20ZzdroXWlV1iRAHuKgixJZENXA6Y7oRLE7SkKhq-Ko41Bc5M0ETvxCTwt7lShKfKDyUsBYJ8GYg" type="hidden"></span><input value="" autocomplete="off" name="recaptcha_response_field" id="recaptcha_response_field" autocorrect="off" autocapitalize="off" type="text"> </div> </td> <td rowspan="4" class="recaptcha_r4_c2"></td> <td><a title="Get a new challenge" href="javascript:Recaptcha.reload%20();" id="recaptcha_reload_btn"><img alt="Get a new challenge" src="refresh.gif" id="recaptcha_reload" width="25" height="17"></a></td> <td rowspan="4" class="recaptcha_r4_c4"></td> </tr> <tr> <td><a title="Get an audio challenge" href="javascript:Recaptcha.switch_type('audio');" id="recaptcha_switch_audio_btn" class="recaptcha_only_if_image"><img src="audio.gif" id="recaptcha_switch_audio" alt="Get an audio challenge" width="25" height="16"></a><a title="Get a visual challenge" href="javascript:Recaptcha.switch_type('image');" id="recaptcha_switch_img_btn" class="recaptcha_only_if_audio"><img src="text.gif" id="recaptcha_switch_img" alt="Get a visual challenge" width="25" height="16"></a></td> </tr> <tr> <td><a title="Help" target="_top" href="http://www.google.com/recaptcha/help?c=03AHJ_VuvSGPwS7fclmiW7We176cdLictt1PlDs77oorGrLKzTYjIAdSH0zy4wdGBeWNG7IyMD1TwyPWdI7BNNl_20ZzdroXWlV1iRAHuKgixJZENXA6Y7oRLE7SkKhq-Ko41Bc5M0ETvxCTwt7lShKfKDyUsBYJ8GYg" id="recaptcha_whatsthis_btn"><img alt="Help" src="help.gif" id="recaptcha_whatsthis" width="25" height="16"></a></td> </tr> <tr> <td class="recaptcha_r7_c1"></td> <td class="recaptcha_r8_c1"></td> </tr> </tbody></table> </div></div>
+
+					</div>													
+				<br>
+				<div style="text-align: center;">
+					<input value="Submit Your Comment" tabindex="6" id="submit" name="submit" onclick="return validate();" type="submit">&nbsp;
+					<img src="ajax-loader.gif" id="ajax_loading_img" style="vertical-align: middle; visibility: hidden;" width="43" height="11" border="0" align="middle">
+				</div>
+				<br>
+			</div>
+			<input id="key" value="8151600" name="key" type="hidden">
+			<input value="0" id="comment_parent" name="comment_parent" type="hidden">
+			<input value="0" id="totalComments" name="totalComments" type="hidden">		
+		</form>
+	</div>
+	<p>
+		<a name="nav">&nbsp;</a><input name="comment_curpage" id="comment_curpage" value="1" type="hidden">
+	</p>
+</div>
+<br>
+	<!-- End comment section -->
+	<div class="vspace"></div>
+	
+
+
+<div id="gemhover">
+<a title="" href="http://www.internet.com/quorumlabs/Link/46714">
+	<strong class="gemtitle">Back-up and Recovery Best Practices Guide for Small and Medium Businesses</strong><br>
+	<strong>Sponsored by QuoromLabs</strong><br>
+<p>
+<img alt="icon" valign="top" src="whitepaper_3.jpg" border="0" align="left">
+Download this paper to learn about virtual recovery solutions that small and medium businesses need to bring an application back online in a matter of minutes by leveraging on-site appliances and virtualization.
+<br clear="all"></p>
+</a>
+</div>	<p></p>
+	<div class="adsBox ads4">
+		<div class="ads_itoffer">
+			<span class="title">Networking Solutions</span>
+			<ul class="noBullets">
+				<!-- "featured_links" begin" -->
+<!--
+AD position = R
+OAS eqv. = featured_links
+QUAD pos = fl_link-FLEX(FL)
+QUAD path = www.serverwatch.com
+Page type = index
+-->
+<ul id="quad_fl_links" style="list-style: none outside none;"><li><a class="ss" id="20182900" href="http://o1.qnsr.com/cgi/r?;n=203;c=908187;s=10675;x=7936;f=201111150615300;u=j;z=TIMESTAMP;q=1;">This resource center will help you maximize the value of hosted Microsoft SharePoint business-critical content.</a></li><li><a class="ss" id="20180906" href="http://o1.qnsr.com/cgi/r?;n=203;c=897489;s=10675;x=7936;f=201111021058390;u=j;z=TIMESTAMP;q=1;">Cisco Executive Viewpoint: Device Proliferation.  Watch now</a></li><li><a class="ss" id="20180608" href="http://o1.qnsr.com/cgi/r?;n=203;c=895254;s=10675;x=7936;f=201111010908340;u=j;z=TIMESTAMP;q=1;">World's Fastest Object Database</a></li></ul>
+
+<!-- "featured_links" end" -->			</ul>
+		</div>
+	</div>
+<input name="tag_name" id="tag_name" value="" type="hidden">
+<!-- start Vibrant Media IntelliTXT script section -->
+
+<!-- end Vibrant Media IntelliTXT script section -->
+</div>
+<!--  column right -->
+<div class="col colRight dimMainRight">
+<div class="vspace" style="height: 15px;"></div>
+
+<div class="adsBox">
+	<!-- "336x280" begin -->
+<!--
+AD position = D
+OAS eqv. = 336x280
+QUAD pos = Bob-FLEX(BOB)POS(TOP)
+QUAD path = www.serverwatch.com
+Page type = index
+-->
+<a href="http://o1.qnsr.com//cgi/c?a=20181430;x=2304;c=203678699,203678699;i=0;n=203;s=9475;p=24262644;q=1;WT.qs_dlk=Y0w6iArIZzsAAC@wQ44AAAAL;;;y=http://www.serverwatch.com/tutorials/article.php/3818366/IO-Optimization.htm;;e=i;s=9475;g=34;w=0;m=0;WT.qs_dlk=Y0w6iArIZzsAAC@wQ44AAAAL;;z=121287750;;k=http://www.internet.com/Cloud-Ready_Data_Center/Link/46117/Developing-a-Strategy-for-a-Smooth-Migration-to-IPv6" target="_top"><img src="brocade-cloud-300x250_1.jpg" alt="Click Here!" border="0"></a>
+
+<!-- "336x280" end --></div>
+<div class="vspace"></div>
+		
+<div class="adsBox">
+	<!-- "accessunit" begin -->
+	<!--
+AD position = L
+OAS eqv. = accessunit
+QUAD pos = Accessunit-FLEX(ACCESSUNIT)
+QUAD path = www.serverwatch.com
+Page type = index
+-->
+<div style="width: 300px; padding: 0px; background-color: rgb(255, 255, 255); text-align: left;"><a href="http://o1.qnsr.com//cgi/c?a=20181318;x=2305;c=203678701,203678701;i=0;n=203;s=9475;q=1;WT.qs_dlk=Y0w6iArIZzsAAC@wQ44AAAAL;;;y=http://www.serverwatch.com/tutorials/article.php/3818366/IO-Optimization.htm;;e=i;s=9475;g=34;w=0;m=0;WT.qs_dlk=Y0w6iArIZzsAAC@wQ44AAAAL;;z=723402867;;k=http://www.internet.com/Cloud-Ready_Data_Center" target="_top"><img src="top-graphic-au.gif" border="0"></a><div style="border-left: 1px solid rgb(0, 0, 0); border-right: 1px solid rgb(0, 0, 0); padding: 5px 10px; text-align: left; font-family: Arial,Helvetica,sans-serif; font-size: 11px; line-height: 13px;"><a href="http://o1.qnsr.com//cgi/c?a=20181318;x=2305;c=203678701,203678701;i=0;n=203;s=9475;q=1;WT.qs_dlk=Y0w6iArIZzsAAC@wQ44AAAAL;;;y=http://www.serverwatch.com/tutorials/article.php/3818366/IO-Optimization.htm;;e=i;s=9475;g=34;w=0;m=0;WT.qs_dlk=Y0w6iArIZzsAAC@wQ44AAAAL;;z=723402867;;k=http://www.internet.com/Cloud-Ready_Data_Center/Article/46106" style="color: rgb(153, 0, 0); text-decoration: none; font-size: 12px; font-weight: bold;">Do Cloud Standards Matter?</a><br>Interop panel discusses the key features that enterprises need to consider before they leap to the cloud. <a href="http://o1.qnsr.com//cgi/c?a=20181318;x=2305;c=203678701,203678701;i=0;n=203;s=9475;q=1;WT.qs_dlk=Y0w6iArIZzsAAC@wQ44AAAAL;;;y=http://www.serverwatch.com/tutorials/article.php/3818366/IO-Optimization.htm;;e=i;s=9475;g=34;w=0;m=0;WT.qs_dlk=Y0w6iArIZzsAAC@wQ44AAAAL;;z=723402867;;k=http://www.internet.com/Cloud-Ready_Data_Center/Article/46106" style="color: rgb(153, 0, 0); text-decoration: none; font-size: 11px; font-weight: bold;">&gt;&gt;</a><br><br><a href="http://o1.qnsr.com//cgi/c?a=20181318;x=2305;c=203678701,203678701;i=0;n=203;s=9475;q=1;WT.qs_dlk=Y0w6iArIZzsAAC@wQ44AAAAL;;;y=http://www.serverwatch.com/tutorials/article.php/3818366/IO-Optimization.htm;;e=i;s=9475;g=34;w=0;m=0;WT.qs_dlk=Y0w6iArIZzsAAC@wQ44AAAAL;;z=723402867;;k=http://www.internet.com/Cloud-Ready_Data_Center/Article/46019" style="color: rgb(153, 0, 0); text-decoration: none; font-size: 12px; font-weight: bold;">Power and Cooling Savings From the Ground Up</a><br>Every watt saved at the server component level increases three-fold as it works its way back through the power and cooling infrastructure. This step-by-step guide runs the numbers and shows you how to shave nearly 30 percent off your power and cooling costs without impacting processes. <a href="http://o1.qnsr.com//cgi/c?a=20181318;x=2305;c=203678701,203678701;i=0;n=203;s=9475;q=1;WT.qs_dlk=Y0w6iArIZzsAAC@wQ44AAAAL;;;y=http://www.serverwatch.com/tutorials/article.php/3818366/IO-Optimization.htm;;e=i;s=9475;g=34;w=0;m=0;WT.qs_dlk=Y0w6iArIZzsAAC@wQ44AAAAL;;z=723402867;;k=http://www.internet.com/Cloud-Ready_Data_Center/Article/46019" style="color: rgb(153, 0, 0); text-decoration: none; font-size: 11px; font-weight: bold;">&gt;&gt;</a><br><br><a href="http://o1.qnsr.com//cgi/c?a=20181318;x=2305;c=203678701,203678701;i=0;n=203;s=9475;q=1;WT.qs_dlk=Y0w6iArIZzsAAC@wQ44AAAAL;;;y=http://www.serverwatch.com/tutorials/article.php/3818366/IO-Optimization.htm;;e=i;s=9475;g=34;w=0;m=0;WT.qs_dlk=Y0w6iArIZzsAAC@wQ44AAAAL;;z=723402867;;k=http://www.internet.com/Cloud-Ready_Data_Center/Article/46024" style="color: rgb(153, 0, 0); text-decoration: none; font-size: 12px; font-weight: bold;">Private Cloud Computing Deployment at a National Lab</a><br>The Los Alamos National Laboratory deployed a private cloud computing infrastructure for greater security and more rapid scale-up. <a href="http://o1.qnsr.com//cgi/c?a=20181318;x=2305;c=203678701,203678701;i=0;n=203;s=9475;q=1;WT.qs_dlk=Y0w6iArIZzsAAC@wQ44AAAAL;;;y=http://www.serverwatch.com/tutorials/article.php/3818366/IO-Optimization.htm;;e=i;s=9475;g=34;w=0;m=0;WT.qs_dlk=Y0w6iArIZzsAAC@wQ44AAAAL;;z=723402867;;k=http://www.internet.com/Cloud-Ready_Data_Center/Article/46024" style="color: rgb(153, 0, 0); text-decoration: none; font-size: 11px; font-weight: bold;">&gt;&gt;</a><br></div><a href="http://o1.qnsr.com//cgi/c?a=20181318;x=2305;c=203678701,203678701;i=0;n=203;s=9475;q=1;WT.qs_dlk=Y0w6iArIZzsAAC@wQ44AAAAL;;;y=http://www.serverwatch.com/tutorials/article.php/3818366/IO-Optimization.htm;;e=i;s=9475;g=34;w=0;m=0;WT.qs_dlk=Y0w6iArIZzsAAC@wQ44AAAAL;;z=723402867;;k=http://www.internet.com/Cloud-Ready_Data_Center" target="_top"><img src="bot-graphic-au.gif" border="0"></a></div>
+
+	<!-- "accessunit" end --></div>
+<div class="vspace"></div>
+	<!-- "flex" begin -->
+<!--
+AD position = E
+OAS eqv. = flex
+QUAD pos = Bob-FLEX(BOB)POS(MIDDLE)
+QUAD path = www.serverwatch.com
+Page type = index
+-->
+<a href="http://bs.serving-sys.com/BurstingPipe/BannerRedirect.bs?cn=brd&amp;FlightID=3405932&amp;Page=&amp;PluID=0&amp;EyeblasterID=6987438&amp;Pos=40870180725024&amp;ord=[timestamp]" target="_top"><img src="a24fb9f8-cb3f-4f69-9969-42d3922bf289.jpg" title="" width="300" height="250" border="0"></a>
+
+<!-- "flex" end -->
+<div class="vspace"></div>
+
+<!---Key IT Solutions Starts--->
+
+<div class="clearfix ebooksmore">
+  <div id="partners" class="section">
+    <div class="sectionHeader">
+		<h3>Key IT Solutions</h3>
+    </div>
+    <div class="sectionContent">
+      <ul class="noBullets">
+					<li><a href="http://www.internet.com/Dell_SC/Door/45286">Dell Storage Solutions for a Growing Business</a></li>
+					<li><a href="http://www.internet.com/HP_Storage/Door/43352">HP: Building a Converged Infrastructure with Storage Virtualization</a></li>
+					<li><a href="http://www.devx.com/MS_TechNet/Door/41641">Microsoft TechNet Spotlight</a></li>
+		      </ul>
+    </div>
+  </div>
+</div><!---Key IT Solutions Starts--->
+
+<div class="clearfix partners_ITs">
+  <div class="colLeft">
+    <div id="partners" class="section">
+	  <div class="sectionHeader"><h3>More on ServerWatch</h3></div>
+      <div class="sectionContent">
+        <ul class="noBullets">
+	  <li><a href="http://www.serverwatch.com/sitemap/" style="padding: 4px;">Site Map</a></li>
+	  <li><a href="http://www.serverwatch.com/feedback.php" style="padding: 4px;">Contact Us</a></li>
+	  <li><a href="http://products.serverwatch.com/" style="padding: 4px;">Product Watch</a></li>
+	  <li><a href="http://serverwatch.webopedia.com/" style="padding: 4px;">ServerWatch Definitions</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+	
+<div class="vspace"></div>
+
+<div class="articlecategorysummary">
+    <iframe src="index_3.html" style="width: 345px; height: 600px;" scrolling="no" frameborder="0" align="middle"></iframe>
+</div>
+	
+ 
+	
+<table style="width: 334px; height: 278px; border: 1px solid rgb(229, 229, 229); border-collapse: collapse; margin-bottom: 0px;" xmlns:ibn="urn:industrybrains.com:linkserver" cellspacing="0"><tbody><tr><td style="font: bold 13px Arial,Helvetica,sans-serif; color: rgb(255, 255, 255); text-align: left; padding: 2px 2px 2px 8px; background-color: rgb(0, 102, 164);" colspan="3">       MARKETPLACE</td></tr><tr><td style="padding-left: 3px; padding-right: 3px;"><a target="_top" href="http://links.industrybrains.com/click?sid=829&amp;scid=12263&amp;rqctid=5752&amp;pos=1&amp;lid=681628&amp;cid=151480&amp;pr=2&amp;tstamp=20111123101641&amp;iip=113.109.193.45&amp;ltype=JSCR&amp;lname=2&amp;url=http://iq.govwin.com/corp/response/Input-Government-M.cfm%3fcmp%3dOTC-ibft092110"><img src="36.jpg" alt="Image Ad" width="70" height="70" border="0"></a></td><td style="text-align: left ! important; padding: 3px; border: 0px solid rgb(24, 77, 49);"><a target="_top" style="font: bold 11px Verdana,Arial,Helvetica,sans-serif; color: rgb(0, 102, 164); text-decoration: underline;" href="http://links.industrybrains.com/click?sid=829&amp;scid=12263&amp;rqctid=5752&amp;pos=1&amp;lid=681628&amp;cid=151480&amp;pr=2&amp;tstamp=20111123101641&amp;iip=113.109.193.45&amp;ltype=JSCR&amp;lname=2&amp;url=http://iq.govwin.com/corp/response/Input-Government-M.cfm%3fcmp%3dOTC-ibft092110">2011 Government Contract Opportunities</a><div></div><a target="_top" style="text-decoration: none; font: 10px Verdana; color: rgb(0, 0, 0);" href="http://links.industrybrains.com/click?sid=829&amp;scid=12263&amp;rqctid=5752&amp;pos=1&amp;lid=681628&amp;cid=151480&amp;pr=2&amp;tstamp=20111123101641&amp;iip=113.109.193.45&amp;ltype=JSCR&amp;lname=2&amp;url=http://iq.govwin.com/corp/response/Input-Government-M.cfm%3fcmp%3dOTC-ibft092110">We Predict Federal/ S&amp;L Contracts With 95% Accuracy. Get a Free Trial Now!</a><div></div><a target="_top" style="text-decoration: underline; font: 10px Verdana; color: rgb(90, 170, 38);" href="http://links.industrybrains.com/click?sid=829&amp;scid=12263&amp;rqctid=5752&amp;pos=1&amp;lid=681628&amp;cid=151480&amp;pr=2&amp;tstamp=20111123101641&amp;iip=113.109.193.45&amp;ltype=JSCR&amp;lname=2&amp;url=http://iq.govwin.com/corp/response/Input-Government-M.cfm%3fcmp%3dOTC-ibft092110">www.GovWin.com</a></td></tr></tbody></table><a href="http://shlinks.industrybrains.com/sh?sid=829&amp;a=87b4e7d65ccb11a932db0ad3dee4994d0d9ee748075521c1d9575a56359dee84"></a>
+<a href="http://shlinks.industrybrains.com/sh?sid=829&amp;a=fa520667dd03301ac7c95f1984926dbd98687ed284bdc1543754c978f64b2592"></a>
+
+
+</div>
+<!--  end of column right -->	</div>
+	<div class="vspace clear"></div>
+	<div class="vspace clear"></div>
+<div class="footer">
+	<div class="vspace"></div>
+	
+<!-- Default Insight Tag -->
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- End Google Analytics -->
+
+
+
+
+
+
+<!-- Begin JOM Footer -->
+
+
+<div id="jomfooter" align="center">
+<p><a href="http://www.internet.com/"><img src="icom_logo_qsfooter.png" alt="Internet.com" width="240" height="40" hspace="0" border="0"></a><br>
+    The Network for Technology Professionals</p>
+<form method="POST" action="http://search.internet.com/www.jupiterweb.com" target="_top">        
+      <input name="IC_Summary" value="1" type="HIDDEN">
+        <input name="IC_StartNumber" value="0" type="HIDDEN">
+        <input name="IC_BatchSize" value="10" type="HIDDEN">
+        <input name="IC_RelevanceThreshold" value="50" type="HIDDEN">
+        <input name="IC_QueryDatabase" value="all" type="hidden">
+        <strong>Search:</strong> 
+        <input value="" name="IC_QueryText" size="45" type="text">
+
+        <input value="Find" name="SUBMIT" src="but_find.gif" type="image" width="41" height="20" border="0" align="absmiddle">
+  </form>
+    <p>
+        <a target="_top" rel="nofollow" href="http://www.internet.com/Internetcom/Door/41188"> About Internet.com</a> 
+        <br>
+       Copyright 2011 QuinStreet Inc. All Rights Reserved.
+  
+
+  </p>
+       <p> <a target="_top" rel="nofollow" href="http://www.internet.com/Internetcom/Door/41187">Legal Notices</a>, <a target="_top" rel="nofollow" href="http://www.internet.com/Internetcom/Door/41189#Licensing1">Licensing</a>, <a target="_top" rel="nofollow" href="http://www.internet.com/Internetcom/Door/41189#Permissions">Permissions</a>, <a target="_top" rel="nofollow" href="http://www.internet.com/Internetcom/Door/41186">Privacy  Policy</a>.
+        <br>
+
+        <a target="_top" rel="nofollow" href="http://www.internet.com/mediakit/">Advertise</a> | <a target="_top" rel="nofollow" href="http://e-newsletters.internet.com/">Newsletters</a> |  <a target="_top" rel="nofollow" href="http://e-newsletters.internet.com/announcement_list.html">E-mail Offers</a>
+  </p>
+
+
+<!-- start solutions links section -->
+    <div id="solsect">
+        <div class="top" align="left"><a href="#">Solutions</a></div>
+        <div class="solsectpad">
+                        <div class="main" align="left">
+                                <h2>Whitepapers and eBooks</h2>
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tbody><tr>
+                        <td valign="top" width="50%" align="left">
+                                                        <a target="_top" href="http://www.htmlgoodies.com/html5/client/unleash-the-power-of-hardware-accelerated-html5-canvas.html">Article: Unleash the Power of Hardware-Accelerated HTML5 Canvas</a><br>
+                                                                                                                                 <a target="_top" href="http://www.htmlgoodies.com/html5/client/transform-your-website-into-a-web-application.html">Article: Transform Your Website into a Web Application</a><br>
+                                                                               </td>
+                        <td width="10"> </td>
+                        <td valign="top" width="50%" align="left">
+                                                                                                                              <a target="_top" href="http://www.devx.com/solutions">MORE WHITEPAPERS, EBOOKS, AND ARTICLES</a><br>
+                                                                                                                             </td>
+                    </tr>
+                </tbody></table>
+            </div>
+                        <div class="main" align="left">
+                                <h2>Webcasts</h2>
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tbody><tr>
+                        <td valign="top" width="50%" align="left">
+                                                        <a target="_top" href="http://www.devx.com/solutions">MORE WEBCASTS, PODCASTS, AND VIDEOS</a><br>
+                                                                               </td>
+                        <td width="10"> </td>
+                        <td valign="top" width="50%" align="left">
+                                                                                                                          </td>
+                    </tr>
+                </tbody></table>
+            </div>
+                        <div class="main" align="left">
+                                <h2>Downloads and eKits</h2>
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tbody><tr>
+                        <td valign="top" width="50%" align="left">
+                                                        <a target="_top" href="http://www.htmlgoodies.com/html5/tutorials/Web-Developer-Basics-Multimedia-In-HTML5-3919711.htm">Web Developer Basics: Multimedia In HTML5</a><br>
+                                                                                                                                 <a target="_top" href="http://www.htmlgoodies.com/html5/Web-Developer-Basics-Learning-About-HTML5-3915046.htm">Web Developer Basics: Learning About HTML5</a><br>
+                                                                               </td>
+                        <td width="10"> </td>
+                        <td valign="top" width="50%" align="left">
+                                                                                                                              <a target="_top" href="http://www.devx.com/solutions">MORE DOWNLOADS, EKITS, AND FREE TRIALS</a><br>
+                                                                                                                             </td>
+                    </tr>
+                </tbody></table>
+            </div>
+                        <div class="main" align="left">
+                                <h2>Tutorials and Demos</h2>
+                <table border="0" cellpadding="0" cellspacing="0">
+                    <tbody><tr>
+                        <td valign="top" width="50%" align="left">
+                                                        <a target="_top" href="http://www.htmlgoodies.com/primers/html/article.php/3884796/HTML-5-Tutorial-for-Web-Developers-The-Video-Element.htm">HTML 5 Tutorial for Web Developers: The Video Element</a><br>
+                                                                                                                                 <a target="_top" href="http://www.htmlgoodies.com/html5/Web-Developer-Tutorial-HTML5-Microdata-3920016.htm">Web Developer Tutorial: HTML5 Microdata</a><br>
+                                                                               </td>
+                        <td width="10"> </td>
+                        <td valign="top" width="50%" align="left">
+                                                                                                                              <a target="_top" href="http://www.devx.com/HotList/Link/40644">Internet.com Hot List: Get the Inside Scoop on IT and Developer Products</a><br>
+                                                                                                                                 <a target="_top" href="http://www.devx.com/solutions">MORE TUTORIALS, DEMOS AND STEP-BY-STEP GUIDES</a><br>
+                                                                                                                             </td>
+                    </tr>
+                </tbody></table>
+            </div>
+                    </div>
+    </div>
+<!-- end solutions links section -->
+
+</div>
+<!-- End JOM Footer --></div>		
+	</div>
+  </div> <!--  end of content -->
+ </div><!-- end of EntNetPlanet -->
+ 
+ <!-- Default Insight Tag -->
+
+
+
+    
+
+    
+
+    
+	
+<div class="itxtrst itxtrstdiv" id="itxtttholder" style="z-index: 9900000; position: absolute; top: 0pt; left: 0pt;"><div style="z-index: 9910000; display: none; visibility: hidden;" id="itxttt" class="itxtrst itxtrstdiv"><div id="itxtshadow" class="itxtrst itxtrstdiv"><div class="itxtrst itxtrstdiv itxtshdw itxttl"><div class="itxtrst itxtrstdiv" style="width: 765px; height: 641px;"><img class="itxtrst itxtrstimg" src="lg_shadow_sprite.png" width="765" height="641"></div></div><div class="itxtrst itxtrstdiv itxtshdw itxtbl"><div class="itxtrst itxtrstdiv" style="width: 765px; height: 641px;"><img class="itxtrst itxtrstimg" src="lg_shadow_sprite.png" width="765" height="641"></div></div><div class="itxtrst itxtrstdiv itxtshdw itxttr"><div class="itxtrst itxtrstdiv" style="width: 765px; height: 641px;"><img class="itxtrst itxtrstimg" src="lg_shadow_sprite.png" width="765" height="641"></div></div><div class="itxtrst itxtrstdiv itxtshdw itxtbr"><div class="itxtrst itxtrstdiv" style="width: 765px; height: 641px;"><img class="itxtrst itxtrstimg" src="lg_shadow_sprite.png" width="765" height="641"></div></div><div class="itxtrst itxtrstdiv itxtshdw itxttm"><div class="itxtrst itxtrstdiv" style="width: 765px; height: 641px;"><img class="itxtrst itxtrstimg" src="lg_shadow_sprite.png" width="765" height="641"></div></div><div class="itxtrst itxtrstdiv itxtshdw itxtbm"><div class="itxtrst itxtrstdiv" style="width: 765px; height: 641px;"><img class="itxtrst itxtrstimg" src="lg_shadow_sprite.png" width="765" height="641"></div></div><div class="itxtrst itxtrstdiv itxtshdw itxtfill"><div class="itxtrst itxtrstdiv" style="width: 765px; height: 641px;"><img class="itxtrst itxtrstimg" src="lg_shadow_sprite.png" width="765" height="641"></div></div><div class="itxtrst itxtrstdiv itxtshdw itxttail"><div class="itxtrst itxtrstdiv" style="width: 765px; height: 641px;"><img class="itxtrst itxtrstimg" src="lg_shadow_sprite.png" width="765" height="641"></div></div></div><div id="itxtchrome" class="itxtrst itxtrstdiv"><div style="background-color: rgb(251, 251, 251);" class="itxtrst itxtrstdiv" backgroundcolor="#fbfbfb" id="itxtcontentbg"></div><div style="position: absolute;" id="itxtslideout" class="itxtrst itxtrstdiv"><div style="width: 100%; height: 100%; background-color: rgb(84, 84, 84); opacity: 0.85; border-radius: 7px 7px 7px 7px;" class="itxtrst itxtrstdiv"></div><div class="itxtrst itxtrstdiv" style="position: absolute; left: 0pt; top: 0pt; width: 100%; height: 21px; line-height: 21px; color: white; font-size: 11px; font-weight: bold;"><img class="itxtrst itxtrstimg" src="close_off.gif" style="vertical-align: middle; float: right; margin-right: 4px; margin-top: 4px;"><span class="itxtrst itxtrstspan" style="margin-left: 20px; line-height: 21px;">${sspl}</span></div><div class="itxtrst itxtrstdiv" style="overflow: hidden; position: absolute; left: 20px; top: 21px; width: 100%;"></div></div><div id="itxtheader" class="itxtrst itxtrstdiv"><div class="itxtrst itxtrstdiv itxttrc"><a class="itxtrst itxtrsta" target="_blank"><img class="itxtrst itxtrstimg itxtvmlogo" src="logo_internetdotcom.png"></a><a class="itxtrst itxtrsta" target="_blank"><img class="itxtrst itxtrstimg itxtwhat" src="what_off.gif" alt="${swti}" title="${swti}"></a><img class="itxtrst itxtrstimg itxtclose" src="close_off_001.gif" alt="${scls}" title="${scls}"></div><div class="itxtrst itxtrstdiv itxttlc"><div class="itxtrst itxtrstdiv itxtadv">${SSPL}</div></div><div class="itxtrst itxtrstdiv itxtcrnhldr"><div class="itxtrst itxtrstdiv itxtcrn" style="background-color: rgb(253, 254, 255); margin-left: 6px; margin-right: 6px;"></div><div class="itxtrst itxtrstdiv itxtcrn" style="background-color: rgb(246, 246, 246); margin-left: 4px; margin-right: 4px;"></div><div class="itxtrst itxtrstdiv itxtcrn" style="background-color: rgb(244, 244, 244); margin-left: 2px; margin-right: 2px;"></div><div class="itxtrst itxtrstdiv itxtcrn" style="background-color: rgb(241, 240, 240); margin-left: 2px; margin-right: 2px;"></div><div class="itxtrst itxtrstdiv itxtcrn" style="background-color: rgb(238, 237, 238); margin-left: 1px; margin-right: 1px;"></div><div class="itxtrst itxtrstdiv itxtcrn" style="background-color: rgb(236, 236, 236); margin-left: 1px; margin-right: 1px;"></div><div class="itxtrst itxtrstdiv itxtcrn" style="background-color: rgb(235, 235, 234); margin-left: 0px; margin-right: 0px;"></div><div class="itxtrst itxtrstdiv itxtcrn" style="background-color: rgb(235, 235, 235); margin-left: 0px; margin-right: 0px;"></div><div class="itxtrst itxtrstdiv itxtcrn" style="background-color: rgb(235, 235, 235); margin-left: 0px; margin-right: 0px;"></div><div class="itxtrst itxtrstdiv itxtcrn" style="background-color: rgb(231, 231, 230); margin-left: 0px; margin-right: 0px;"></div><div class="itxtrst itxtrstdiv itxtcrn" style="background-color: rgb(207, 207, 207); margin-left: 0px; margin-right: 0px;"></div><div class="itxtrst itxtrstdiv itxtcrn" style="background-color: rgb(209, 209, 210); margin-left: 0px; margin-right: 0px;"></div><div class="itxtrst itxtrstdiv itxtcrn" style="background-color: rgb(211, 211, 211); margin-left: 0px; margin-right: 0px;"></div><div class="itxtrst itxtrstdiv itxtcrn" style="background-color: rgb(216, 215, 213); margin-left: 0px; margin-right: 0px;"></div><div class="itxtrst itxtrstdiv itxtcrn" style="background-color: rgb(221, 221, 217); margin-left: 0px; margin-right: 0px;"></div><div class="itxtrst itxtrstdiv itxtcrn" style="background-color: rgb(225, 224, 217); margin-left: 0px; margin-right: 0px;"></div><div class="itxtrst itxtrstdiv itxtcrn" style="background-color: rgb(229, 228, 219); margin-left: 0px; margin-right: 0px;"></div><div class="itxtrst itxtrstdiv itxtcrn" style="background-color: rgb(233, 233, 220); margin-left: 0px; margin-right: 0px;"></div><div class="itxtrst itxtrstdiv itxtcrn" style="background-color: rgb(235, 235, 220); margin-left: 0px; margin-right: 0px;"></div><div class="itxtrst itxtrstdiv itxtcrn" style="background-color: rgb(237, 236, 221); margin-left: 0px; margin-right: 0px;"></div><div class="itxtrst itxtrstdiv itxtcrn" style="background-color: rgb(228, 228, 228); margin-left: 0px; margin-right: 0px;"></div></div></div><div id="itxtfooter" class="itxtrst itxtrstdiv"><div class="itxtrst itxtrstdiv itxtftr" style="margin-left: 1px; margin-right: 1px;"></div><div class="itxtrst itxtrstdiv itxtftr" style="margin-left: 1px; margin-right: 1px;"></div><div class="itxtrst itxtrstdiv itxtftr" style="margin-left: 2px; margin-right: 2px;"></div><div class="itxtrst itxtrstdiv itxtftr" style="margin-left: 2px; margin-right: 2px;"></div><div class="itxtrst itxtrstdiv itxtftr" style="margin-left: 4px; margin-right: 4px;"></div><div class="itxtrst itxtrstdiv itxtftr" style="margin-left: 6px; margin-right: 6px;"></div></div><div style="width: 46px; height: 22px;" id="itxttail" class="itxtrst itxtrstdiv"><div class="itxtrst itxtrstdiv" style="margin-left: 10px; margin-right: 2px;"></div><div class="itxtrst itxtrstdiv" style="margin-left: 10px; margin-right: 4px;"></div><div class="itxtrst itxtrstdiv" style="margin-left: 9px; margin-right: 6px;"></div><div class="itxtrst itxtrstdiv" style="margin-left: 9px; margin-right: 8px;"></div><div class="itxtrst itxtrstdiv" style="margin-left: 8px; margin-right: 10px;"></div><div class="itxtrst itxtrstdiv" style="margin-left: 8px; margin-right: 12px;"></div><div class="itxtrst itxtrstdiv" style="margin-left: 7px; margin-right: 14px;"></div><div class="itxtrst itxtrstdiv" style="background-color: rgb(255, 255, 255); margin-left: 7px; margin-right: 16px;"></div><div class="itxtrst itxtrstdiv" style="background-color: rgb(255, 255, 255); margin-left: 6px; margin-right: 18px;"></div><div class="itxtrst itxtrstdiv" style="background-color: rgb(255, 255, 255); margin-left: 6px; margin-right: 20px;"></div><div class="itxtrst itxtrstdiv" style="background-color: rgb(255, 255, 255); margin-left: 5px; margin-right: 22px;"></div><div class="itxtrst itxtrstdiv" style="background-color: rgb(255, 255, 255); margin-left: 5px; margin-right: 24px;"></div><div class="itxtrst itxtrstdiv" style="background-color: rgb(255, 255, 255); margin-left: 4px; margin-right: 26px;"></div><div class="itxtrst itxtrstdiv" style="background-color: rgb(255, 255, 255); margin-left: 4px; margin-right: 28px;"></div><div class="itxtrst itxtrstdiv" style="background-color: rgb(255, 255, 255); margin-left: 3px; margin-right: 30px;"></div><div class="itxtrst itxtrstdiv" style="background-color: rgb(255, 255, 255); margin-left: 3px; margin-right: 32px;"></div><div class="itxtrst itxtrstdiv" style="background-color: rgb(255, 255, 255); margin-left: 2px; margin-right: 34px;"></div><div class="itxtrst itxtrstdiv" style="background-color: rgb(255, 255, 255); margin-left: 2px; margin-right: 36px;"></div><div class="itxtrst itxtrstdiv" style="background-color: rgb(255, 255, 255); margin-left: 1px; margin-right: 38px;"></div><div class="itxtrst itxtrstdiv" style="background-color: rgb(255, 255, 255); margin-left: 1px; margin-right: 40px;"></div><div class="itxtrst itxtrstdiv" style="background-color: rgb(255, 255, 255); margin-left: 0px; margin-right: 42px;"></div><div class="itxtrst itxtrstdiv" style="background-color: rgb(255, 255, 255); margin-left: 0px; margin-right: 44px;"></div></div><div style="overflow: hidden; width: 300px; height: 100px;" id="itxtcontent" class="itxtrst itxtrstdiv"><div class="itxtrst itxtrstdiv" id="itxtcontentLdg" style="position: absolute; display: none; width: 300px; height: 100px;"><img class="itxtrst itxtrstimg" src="loading.gif" id="itxtcontentLdgImg" style="position: absolute; left: 50%; top: 50%; margin-left: 0px; margin-top: 0px;"></div></div></div></div></div></body>
+</html>

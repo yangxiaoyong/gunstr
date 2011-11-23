@@ -1,0 +1,36 @@
+/* ::::: http://www.w3.org/StyleSheets/TR/W3C-REC ::::: */
+
+body { padding: 2em 1em 2em 70px; margin: 0pt; font-family: sans-serif; color: black; background: none no-repeat fixed left top white; }
+:link { color: rgb(0, 0, 204); background: none repeat scroll 0% 0% transparent; }
+:visited { color: rgb(102, 0, 153); background: none repeat scroll 0% 0% transparent; }
+a:active { color: rgb(204, 0, 0); background: none repeat scroll 0% 0% transparent; }
+@media all {
+}
+h1, h2, h3, h4, h5, h6 { text-align: left; }
+h1, h2, h3 { color: rgb(0, 90, 156); background: none repeat scroll 0% 0% white; }
+h1 { font: 170% sans-serif; }
+h2 { font: 140% sans-serif; }
+h3 { font: 120% sans-serif; }
+h4 { font: bold 100% sans-serif; }
+@media screen {
+	a[href]:hover { background: none repeat scroll 0% 0% rgb(255, 255, 170); }
+}
+pre { margin-left: 2em; }
+dt, dd { margin-top: 0pt; margin-bottom: 0pt; }
+dt { font-weight: bold; }
+pre, code { font-family: monospace; }
+body { background-image: url('logo-rec'); }
+/* ::::: http://www.w3.org/TR/html4/style/default.css ::::: */
+
+div.example { width: 100%; color: black; }
+pre { color: maroon; margin-left: 1em; }
+div.dtd-fragment { width: 100%; border: medium none; background-color: rgb(238, 238, 238); }
+pre.dtd-fragment { margin-left: 0pt; }
+div.illegal-example { width: 100%; color: red; border: medium solid red; }
+div.illegal-example p { color: black; }
+div.deprecated-example { width: 100%; color: red; border: medium solid rgb(255, 165, 0); }
+div.deprecated-example p { color: black; }
+div.note { color: green; margin-left: 1em; }
+a.normref { color: red; }
+a.informref { color: green; }
+DIV.subtoc { padding: 1em; border: thin solid; margin: 1em 0pt; background: none repeat scroll 0% 0% rgb(221, 221, 221); }

@@ -1,0 +1,71 @@
+/* ::::: http://www.fishpool.org/themes/blueSilence/style.css ::::: */
+
+* { margin: 0pt; padding: 0pt; border: 0pt none; }
+body { background: none repeat scroll 0% 0% rgb(205, 205, 205); font: 0.7em Arial,sans-serif; }
+ul, ul li { list-style: none outside none; }
+a:link, a:visited { color: rgb(0, 0, 0); text-decoration: underline; }
+a:hover { color: rgb(0, 0, 0); text-decoration: none; }
+#page { position: relative; width: 820px; margin: 0pt auto; background: url('background.png') repeat-y scroll center top transparent; }
+#top { width: 732px; margin: 0pt auto; padding: 54px 34px 46px; background: url('top.jpg') no-repeat scroll left bottom transparent; }
+#top h1 { font-size: 3em; }
+#top a:link, #top a:visited, #top a:hover { color: rgb(255, 255, 255); text-decoration: none; }
+#prelude { position: absolute; top: 0pt; right: 18px; width: 366px; padding: 6px 0pt 0pt; color: rgb(202, 228, 252); text-align: center; }
+#prelude a:link, #prelude a:visited { font-size: 1em; font-weight: bold; color: rgb(202, 228, 252); text-decoration: none; }
+#prelude a:hover { text-decoration: underline; }
+#prelude a:focus, #prelude a:active { padding: 5px 8px; background: none repeat scroll 0% 0% yellow; color: red; }
+#wrapper { width: 770px; margin: 0pt auto 10px; }
+#main { width: 474px; float: left; }
+#sidebar { width: 272px; float: right; }
+#sidebar h2 { margin: 0pt 0pt 10px; padding: 5px 8px; background: none repeat scroll 0% 0% rgb(245, 245, 245); border-style: solid; border-color: rgb(205, 205, 205); -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; -moz-border-image: none; border-width: 1px 0pt; color: rgb(0, 93, 153); font-size: 1em; font-weight: bold; }
+#sidebar a:link, #sidebar a:visited { text-decoration: none; }
+#sidebar a:hover { text-decoration: underline; }
+#sidebar ul { padding: 0pt 0pt 4px; }
+#sidebar li { padding: 3px 4px 3px 20px; background: url('sidebar_li.png') no-repeat scroll 10px 7px transparent; }
+#sidebar p { padding: 0pt 0pt 4px 10px; }
+#search fieldset p { padding-left: 8px; }
+#search #q { width: 180px; padding: 1px 2px; border: 1px solid rgb(205, 205, 205); color: rgb(0, 93, 153); font-size: 1em; }
+#search .submit { color: rgb(0, 93, 153); background: none repeat scroll 0% 0% rgb(255, 255, 255); font-size: 1em; font-weight: bold; text-transform: uppercase; border: 1px solid rgb(255, 255, 255); }
+#search .submit:hover { background: none repeat scroll 0% 0% rgb(0, 93, 153); border: 1px solid rgb(0, 93, 153); color: rgb(255, 255, 255); }
+#search, #sidebar .selected, #sidebar .categories, #sidebar .syndicate, #sidebar .langs, #sidebar .tags, #sidebar .links, #sidebar .text { padding: 0pt 0pt 10px; }
+#sidebar .syndicate li { margin: 0pt 4px 0pt 11px; padding: 5px 4px 5px 22px; background: url('rss.png') no-repeat scroll 0% 50% transparent; }
+#sidebar .tags ul { margin: 5px 5px 10px 10px; padding: 0pt; font-size: 110%; }
+#sidebar .tags ul li { display: inline; margin: 0pt; padding: 0pt; background: none repeat scroll 0% 0% transparent; font-size: 0.9em; }
+#sidebar .tags ul li a:link, #sidebar .tags ul li a:visited { color: rgb(51, 51, 51); }
+#sidebar .tags p strong a:link, #sidebar .tags p strong a:visited { padding: 0pt 0pt 0pt 18px; background: url('tags.png') no-repeat scroll 0pt -2px transparent; }
+.tag10 { font-size: 80%; }
+.tag20 { font-size: 90%; }
+.tag30 { font-size: 100%; }
+.tag40 { font-size: 110%; }
+.tag50 { font-size: 120%; }
+.tag60 { font-size: 130%; }
+.tag100 { font-size: 170%; }
+.post-content, .post-excerpt { padding: 4px 0pt 0pt; line-height: 1.5em; font-size: 1.2em; }
+.post-content p, .post-excerpt p { padding: 4px 0pt; }
+.post-content strong, .post-excerpt strong { font-size: 0.9em; }
+a.feed {  }
+.post { color: rgb(0, 0, 0); }
+.post-title { padding: 10px 0pt 4px; color: rgb(102, 102, 102); font-size: 1.7em; }
+.post-info { font-style: italic; }
+.post-tags { position: relative; overflow: hidden; height: 1%; margin: 8px 0pt 0pt; padding: 5px; border: 0pt none; background: none repeat scroll 0% 0% rgb(251, 251, 251); }
+.post-tags:after { content: "[DO NOT LEAVE IT IS NOT REAL]"; display: block; height: 0pt; clear: both; visibility: hidden; }
+.post-tags li { display: inline; }
+.post-tags li a:link, .post-tags li a:visited { display: block; float: left; padding: 2px 8px 2px 18px; background: url('tag.png') no-repeat scroll 0pt 0pt transparent; white-space: nowrap; color: rgb(0, 93, 153); text-decoration: none; }
+.post-tags li a:hover { text-decoration: underline; }
+#comments, #pings { padding-top: 10px; }
+#comments h3, #pings h3, #comments-feed, #pr h3 { clear: left; margin: 20px 0pt 8px; padding: 5px; background: none repeat scroll 0% 0% rgb(251, 251, 251); border-style: solid; border-color: rgb(232, 232, 232); -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; -moz-border-image: none; border-width: 1px 0pt; font-size: 1.2em; }
+#comments dl {  }
+#comments dt, #pings dt { position: relative; top: 1px; display: block; padding: 10px 0pt 30px; background: url('commentaire_bulle.png') no-repeat scroll 50% 100% transparent; }
+#comments dt a:link, #comments dt a:visited { color: rgb(60, 143, 209); text-decoration: none; }
+#comments dt a:hover { text-decoration: underline; }
+#comments dd, #pings dd, dd.comment-preview { margin: 0pt 0pt 8px; padding: 10px; border-style: solid; border-color: rgb(232, 232, 232); -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; -moz-border-image: none; border-width: 1px 0pt; background: none repeat scroll 0% 0% rgb(245, 245, 245); font-size: 1.1em; line-height: 1.4; }
+#comments dd *, #pings dd *, dd.comment-preview * { padding: 5px 0pt; font-size: 1em; }
+.comment-number, .ping-number { color: rgb(60, 143, 209); font-weight: bold; font-size: 1.4em; }
+#navlinks { margin: 0pt 0pt 20px; padding: 5px; background: none repeat scroll 0% 0% rgb(245, 245, 245); border-style: solid; border-color: rgb(205, 205, 205); -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; -moz-border-image: none; border-width: 1px 0pt; text-align: center; color: rgb(94, 158, 20); font-weight: bold; }
+#navlinks a:link, #navlinks a:visited { color: rgb(94, 158, 20); text-decoration: none; }
+#navlinks a:hover { text-decoration: underline; }
+#footer { clear: both; width: 820px; padding: 0pt 0pt 14px; background: url('footer.png') no-repeat scroll center bottom transparent; }
+#footer p { width: 784px; margin: 0pt auto; padding: 6px 16px 6px 0pt; background: none repeat scroll 0% 0% rgb(96, 102, 102); color: rgb(255, 255, 255); text-align: right; font-weight: bold; }
+#footer p a:link, #footer p a:visited { color: rgb(255, 255, 255); text-decoration: underline; }
+#footer p a:hover { text-decoration: none; }
+/* ::::: http://www.fishpool.org/?pf=lightbox/css/jquery.lightbox-0.5.css ::::: */
+

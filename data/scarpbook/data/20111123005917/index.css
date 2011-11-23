@@ -1,0 +1,41 @@
+/* ::::: http://www.cs.tut.fi/~jkorpela/basic.css ::::: */
+
+/* ::::: http://www.cs.tut.fi/~jkorpela/imported.css ::::: */
+
+h1, h2, h3, h4, h5, h6 { margin: 0.8em 0pt 0.2em; }
+h1, h2, h3, h4 { color: rgb(0, 0, 0); background: url('bg3.png') repeat scroll 0% 0% rgb(224, 255, 221); }
+UL LI { margin-bottom: 0.3em; margin-top: 0.3em; }
+UL, OL { margin-top: 0.15em; margin-bottom: 1em; }
+.summary { font-size: 105%; margin-left: 2em; border: 2px solid rgb(134, 194, 171); border-radius: 0.4em 0.4em 0.4em 0.4em; padding: 0.2em 0.2em 0.2em 0.4em; }
+strong.warning, em.warning { color: rgb(153, 0, 0); background: none repeat scroll 0% 0% rgb(255, 255, 255); }
+HR { color: rgb(153, 204, 204); background-color: rgb(153, 204, 203); height: 4px; }
+H1 { text-align: center; }
+h1, h2, h3, h4, h5, h6, .h7 { font-weight: normal; font-family: Calibri,Helvetica,Arial,sans-serif; }
+p { margin: 0.3em 0pt 1.1em; }
+h1 { font-size: 170%; }
+h2 { font-size: 150%; }
+h3 { font-size: 130%; }
+@media screen {
+	body { max-width: 40em; }
+}
+@media screen {
+}
+BODY { background: none repeat scroll 0% 0% rgb(251, 255, 254); color: rgb(0, 0, 0); font-size: 100%; margin: 0pt 0pt 0pt 19px; padding: 0.4em 0.4em 0.4em 0.6em; }
+a:link, a:link * { color: rgb(0, 0, 175); background: none repeat scroll 0% 0% transparent; text-decoration: underline; }
+a:visited, a:visited * { color: rgb(102, 0, 153); background: none repeat scroll 0% 0% transparent; text-decoration: underline; }
+a:link:hover, a:link:hover *, a:visited:hover, a:link:hover * { color: rgb(204, 51, 51); background: none repeat scroll 0% 0% rgb(255, 255, 238); text-decoration: none; }
+a:link:focus, a:link:focus * { background: none repeat scroll 0% 0% yellow; color: red; text-decoration: none; }
+a:visited:focus, a:visited:focus * { background: none repeat scroll 0% 0% rgb(255, 255, 204); color: red; text-decoration: none; }
+strong, EM { color: rgb(64, 0, 0); background: none repeat scroll 0% 0% transparent; }
+cite { font-weight: 500; color: rgb(0, 51, 0); background: none repeat scroll 0% 0% transparent; }
+DFN, DT { font-weight: bold; color: rgb(0, 68, 51); background: none repeat scroll 0% 0% rgb(246, 255, 246); }
+ul { margin-top: 0.4em; padding-top: 0pt; }
+ul, ol { margin-left: 1.5em; padding-left: 0pt; }
+li { margin-left: 0pt; padding-left: 0pt; }
+code, samp, kbd { font-family: Cambria,Garamond,Palatino Linotype,serif; color: rgb(110, 56, 10); background: none repeat scroll 0% 0% white; font-style: normal; }
+code, samp, kbd, tt { font-size: 100%; }
+small, .small, .deem, .footer, footer { font-size: 85%; }
+abbr { border-color: rgb(0, 0, 255); }
+abbr { text-decoration: none; }
+p { widows: 3; orphans: 3; }
+h1, h2, h3, h4, h5, h6, .h7 { page-break-after: avoid; }

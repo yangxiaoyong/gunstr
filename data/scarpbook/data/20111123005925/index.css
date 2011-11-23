@@ -1,0 +1,63 @@
+/* ::::: http://www.cs.tut.fi/~jkorpela/basic.css ::::: */
+
+/* ::::: http://www.cs.tut.fi/~jkorpela/imported.css ::::: */
+
+p.lh { margin-bottom: 0pt; }
+DT { margin-top: 0.4em; }
+DD { margin-bottom: 0.4em; }
+h1, h2, h3, h4, h5, h6 { margin: 0.8em 0pt 0.2em; }
+h1, h2, h3, h4 { color: rgb(0, 0, 0); background: url('bg3.png') repeat scroll 0% 0% rgb(224, 255, 221); }
+UL LI { margin-bottom: 0.3em; margin-top: 0.3em; }
+ul ul, ol ol { margin-top: 0pt; padding-top: 0pt; margin-bottom: 0.25em; }
+UL, OL { margin-top: 0.15em; margin-bottom: 1em; }
+.summary { font-size: 105%; margin-left: 2em; border: 2px solid rgb(134, 194, 171); border-radius: 0.4em 0.4em 0.4em 0.4em; padding: 0.2em 0.2em 0.2em 0.4em; }
+.important { font-size: 104%; border: 2px solid rgb(153, 102, 0); padding: 0.4ex; margin-left: 1em; }
+div.warning, P.warning { font-size: 105%; background: none repeat scroll 0% 0% white; color: rgb(102, 0, 0); margin-left: 2em; margin-right: 2em; border: 0.04em solid red; padding: 0.4ex; }
+strong.warning, em.warning { color: rgb(153, 0, 0); background: none repeat scroll 0% 0% rgb(255, 255, 255); }
+HR { color: rgb(153, 204, 204); background-color: rgb(153, 204, 203); height: 4px; }
+FORM { border: 2px solid gray; padding: 3px; }
+form, input.radio { background: url('bg.gif') repeat scroll 0% 0% rgb(238, 255, 238); color: rgb(0, 0, 0); }
+input:focus, textarea:focus, select:focus, input:hover { background: none repeat scroll 0% 0% rgb(255, 255, 221); color: black; }
+input[type="submit"]:hover { background: none repeat scroll 0% 0% rgb(255, 255, 221); color: rgb(102, 0, 0); }
+input[type="submit"]:active { outline-color: red; color: red; background: none repeat scroll 0% 0% rgb(255, 255, 204); }
+input, textarea, option, button { font-size: 100%; }
+H1 { text-align: center; }
+h1, h2, h3, h4, h5, h6, .h7 { font-weight: normal; font-family: Calibri,Helvetica,Arial,sans-serif; }
+p { margin: 0.3em 0pt 1.1em; }
+h1 { font-size: 170%; }
+h2 { font-size: 150%; }
+h3 { font-size: 130%; }
+@media screen {
+	body { max-width: 40em; }
+}
+blockquote { border: 1px solid rgb(102, 153, 102); padding: 0.06em 0.2em 0.06em 0.4em; margin: 0pt 0.5em 0.2em 1em; background: none repeat scroll 0% 0% rgb(249, 249, 249); color: rgb(0, 0, 0); }
+@media screen {
+	blockquote { border-radius: 0.3em 0.3em 0.3em 0.3em; }
+}
+BODY { background: none repeat scroll 0% 0% rgb(251, 255, 254); color: rgb(0, 0, 0); font-size: 100%; margin: 0pt 0pt 0pt 19px; padding: 0.4em 0.4em 0.4em 0.6em; }
+a:link, a:link * { color: rgb(0, 0, 175); background: none repeat scroll 0% 0% transparent; text-decoration: underline; }
+a:visited, a:visited * { color: rgb(102, 0, 153); background: none repeat scroll 0% 0% transparent; text-decoration: underline; }
+a:link:hover, a:link:hover *, a:visited:hover, a:link:hover * { color: rgb(204, 51, 51); background: none repeat scroll 0% 0% rgb(255, 255, 238); text-decoration: none; }
+a:link:focus, a:link:focus * { background: none repeat scroll 0% 0% yellow; color: red; text-decoration: none; }
+a:visited:focus, a:visited:focus * { background: none repeat scroll 0% 0% rgb(255, 255, 204); color: red; text-decoration: none; }
+strong, EM { color: rgb(64, 0, 0); background: none repeat scroll 0% 0% transparent; }
+cite { font-weight: 500; color: rgb(0, 51, 0); background: none repeat scroll 0% 0% transparent; }
+DFN, DT { font-weight: bold; color: rgb(0, 68, 51); background: none repeat scroll 0% 0% rgb(246, 255, 246); }
+var { background: none repeat scroll 0% 0% transparent; color: rgb(0, 102, 0); }
+ul { margin-top: 0.4em; padding-top: 0pt; }
+ul, ol { margin-left: 1.5em; padding-left: 0pt; }
+li { margin-left: 0pt; padding-left: 0pt; }
+PRE { background: none repeat scroll 0% 0% rgb(240, 255, 240); color: black; }
+pre, tt { font-family: Consolas,Lucida Console,"Courier New",monospace; }
+code, samp, kbd { font-family: Cambria,Garamond,Palatino Linotype,serif; color: rgb(110, 56, 10); background: none repeat scroll 0% 0% white; font-style: normal; }
+code, samp, kbd, tt { font-size: 100%; }
+h1 code, h2 code, h3 code, h4 code { font-weight: bold; }
+pre { white-space: pre; }
+small, .small, .deem, .footer, footer { font-size: 85%; }
+.number, .date, .nobr { white-space: nowrap; }
+p { widows: 3; orphans: 3; }
+h1, h2, h3, h4, h5, h6, .h7 { page-break-after: avoid; }
+body { font-family: Cambria; }
+h1, h2, h3, h4 { font-family: Candara,sans-serif; }
+* { line-height: 1.2; }
+.important { width: 12em; float: right; margin: 0pt 0pt 0.3em 1em; }

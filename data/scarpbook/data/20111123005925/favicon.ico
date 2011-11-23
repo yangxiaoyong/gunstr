@@ -1,0 +1,41 @@
+/*  GIMP icon image format -- S. Kimball, P. Mattis  */
+/*  Image name: cstut  */
+
+
+#define cstut_width 32
+#define cstut_height 32
+static char *cstut_bits [] = 
+{
+  "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",
+  "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",
+  "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",
+  "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",
+  "hhhhhhhhhhhffhhhhgffhhhhhhhhhhhh",
+  "hhhhhhhhhfaccbghfacbdhhhhhhhhhhh",
+  "hhhhhhhhhbghhddhcfhgchhhhhhhhhhh",
+  "hhhhhhhhfchhhhhhfcfhhhhhhhhhhhhh",
+  "hhhhhhhhfchhhhhhhfcbdhhhhhhhhhhh",
+  "hhhhhhhhfchhhgdhchhhcfhhhhhhhhhh",
+  "hhhhhhhhhcehgcdhcdhgbfhhhhhhhhhh",
+  "hhhhhhhhhgcaadhhgcaadhhhhhhhhhhh",
+  "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",
+  "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",
+  "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",
+  "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",
+  "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",
+  "hhhhhhffffffhfhhhhfhffffffhhhhhh",
+  "hhhhhheccbcchahhhhahccbccehhhhhh",
+  "hhhhhhhhfchhhahhhhahhhcfhhhhhhhh",
+  "hhhhhhhhfchhhahhhhahhhcfhhhhhhhh",
+  "hhhhhhhhfchhhahhhhahhhcfhhhhhhhh",
+  "hhhhhhhhfchhhahhhhahhhcfhhhhhhhh",
+  "hhhhhhhhfchhhcdhhdchhhcfhhhhhhhh",
+  "hhhhhhhhfchhhgcaacghhhcfhhhhhhhh",
+  "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",
+  "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",
+  "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",
+  "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",
+  "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",
+  "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh",
+  "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh"
+};

@@ -1,0 +1,392 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en-US">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+ 
+ <title>How to write HTML forms</title>
+ 
+<meta name="description" content="Links to tutorials and references about HTML forms
+and to documents on special topics related to them.">
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body>
+
+<h1>How to write HTML forms</h1>
+
+<p class="summary">
+This document provides annotated links to
+<a href="#tut">tutorials</a>, <a href="#ref">references</a>,
+<a href="#faqs" title="frequently asked questions">FAQs</a>,
+and <a href="#spec">my specialized documents</a>
+about HTML forms.
+</p>
+
+<p>To use HTML forms, you need to know how to write a
+<code>FORM</code> element, containing suitable fields. That's covered
+well in the tutorials mentioned below. But additionally, you need
+a <dfn>form handler</dfn>, which is some software which processes
+the form data in some way, e.g. by sending it by E-mail to you or
+by storing it to a file which you can access. There are several
+possibilities:
+</p><ul class="emb">
+<li>Using an existing <em>local</em> service provided e.g. by your
+webmaster or
+<abbr title="Internet service provider"><a href="http://foldoc.org/foldoc/foldoc.cgi?Internet+Service+Provider" title="Internet service provider (a short explanation)">ISP</a></abbr>.
+Typically, such services exist at least for simple handling like
+     getting data by E-mail.
+    You would just need to know how to use such a service;
+     but you need to contact local information for that.
+</li><li>Using a <em>remote</em> service. For example,
+<a href="http://cgi.resourceindex.com/">The CGI Resource Index</a>
+contains
+<a title="Programs and Scripts: Remotely Hosted: Form Processing" href="http://cgi.resourceindex.com/Remotely_Hosted/Form_Processing/">a large list of such services</a>. I have written 
+<a href="http://www.cs.tut.fi/%7Ejkorpela/HTML3.2/forminfo.html">a document with some examples of using them</a>.     
+</li><li>Setting up a service of your own. You might
+<em>install</em> some software for the purpose
+(the <a href="http://www.cgi-resources.com/"><cite>CGI Resource Index</cite></a> contains a lot
+     of such programs)
+     or even
+write software of your own.
+Note that on many Web servers, it is impossible to do that,
+     due to local policy (which may regard such activities
+     as a security risk), and note that your server might use
+     other technique than CGI, e.g.
+     <a href="http://www.php.net/">PHP</a> or
+     <a href="http://webopedia.internet.com/TERM/A/Active_Server_Pages.html" title="Active Server Pages">ASP</a>, so
+     <em>check local server-specific documentation</em> first!
+</li></ul>
+
+<p><a name="mailto"><strong class="warning">Warning:</strong></a> The use of
+<strong><code>action="mailto:..."</code></strong> is often suggested.
+However, it has 
+<a href="http://www.w3.org/TR/html4/interact/forms.html#h-17.13.3.4" title="Rules for form submission in HTML 4 spec - defined only when ACTION value is an http: URL">undefined effect</a>. 
+Although some browsers in some configurations support it,
+the above-mentioned approach is much better&nbsp;- more reliable and
+more flexible (allowing e.g. nice formatting of the data and redirecting
+the user to a "thank you" page, etc).
+Thus,
+<!-- DYSFUNCT, SERVER ERROR 500?
+<a href=
+"http://194.80.193.185/scotty/htmltut/TenComm/6.html"
+title="Thou shalt not use MAILTO on forms! The 6th Commandment of HTML"
+-->
+you should never use <code>action="mailto:..."</code>
+ on Web pages!
+See also: <cite><a href="http://www.isolani.co.uk/articles/mailto.html">The mythical Mailto:</a></cite>.</p>
+
+<h2><a name="tut">General tutorials</a></h2>
+
+<p>Note: Some of the tutorials are relatively old and describe constructs
+in older HTML versions only. Generally, browser support
+ is excellent for HTML 2.0 forms (used correctly) but somewhat narrower
+       for
+<a href="http://www.cs.tut.fi/%7Ejkorpela/HTML3.2/1.2.html" title="What is HTML 3.2? A short characterization.">HTML 3.2</a>,
+       forms and
+especially for
+<a href="http://www.cs.tut.fi/%7Ejkorpela/HTML3.2/1.4.html#4.0" title="What is HTML 4.0? A short characterization.">HTML 4</a>
+forms.</p>
+
+<ul>
+  <li> The
+<a href="http://www.cwru.edu/help/interHTML/"><cite>Intermediate HTML</cite> tutorial</a> 
+by
+<a href="http://www.cwru.edu/help/introHTML/contact.html">Eric A.&nbsp;Meyer</a>
+       contains an excellent
+<a href="http://www.cwru.edu/help/interHTML/ch4.html">presentation of forms</a>.
+Limited to forms as defined in
+<a href="http://www.cs.tut.fi/%7Ejkorpela/HTML3.2/1.4.html#2.0" title="What is HTML 2.0? A short characterization.">HTML 2.0</a>,
+       it keeps things simple.
+    It also describes the big picture of using forms, not just the HTML part
+       of the matter.
+For more background, see
+<a href="http://www.garshol.priv.no/download/text/http-tut.html">
+<cite>How the web works: HTTP and CGI explained</cite></a>
+by
+<a href="http://www.garshol.priv.no/">Lars Marius Garshol</a>.
+  </li><li> <a href="http://www.uwa.edu.au/web/office/authors/howto/writing_html_forms"><cite>How
+       to write HTML Forms</cite></a> by
+James K.&nbsp;Tauber.
+A nice, compact illustration of forms and form fields as in HTML 2.0.
+
+<!-- DYSFUNCT, dead?
+  <li> <a href=
+"http://www.ncsa.uiuc.edu/SDG/Software/Mosaic/Docs/fill-out-forms/overview.html"
+><cite>Mosaic for X version 2.0 Fill-Out Form Support</cite></a>.
+A "historical" document which is partly very outdated but contains
+several <em>examples</em>.
+-->
+  </li><li> Many people have found
+Joe Barta's
+<a href="http://www.pagetutor.com/form_tutor/"><cite>Form
+Tutor</cite></a> very readable.
+And it explains and illustrates things nicely, divided into lessons.
+Unfortunately, it teaches to use
+<a href="#mailto"><code>mailto:</code> URLs for forms processing</a>
+(though with some warnings).
+<!--  <li> <a href="http://robot0.ge.uiuc.edu/%7ecarlosp/cs317/ft.1.html"><cite>Carlos'
+FORMS Tutorial</cite></a> has some nice interactive features.
+       After having learned the basics, you might use it for
+       practicing and learning more.-->
+</li><li><cite><a href="http://www.velvetant.org/guide/forms.html">Guide to Standards-Compliant XHTML: Forms</a></cite>
+by Lawrence Edwards. A compact presentation of the constructs
+using modern (XHTML) syntax.
+  </li><li> <a href="http://www.cs.tut.fi/%7Ejkorpela/HTML3.2/5.25.html">The
+       section on the <code>FORM</code> element</a>
+       in my
+       <a href="http://www.cs.tut.fi/%7Ejkorpela/HTML3.2/index.html"><cite>Learning
+       HTML 3.2 by Examples</cite></a> was written to be a reference
+       illustrated with examples rather than a tutorial. However,
+parts of it and the other sections (on form fields) linked to it can
+       perhaps be used also as a tutorial to forms as defined in HTML 3.2.
+  </li><li> <a href="http://www.htmlcodetutorial.com/forms/">Part <cite>Forms</cite></a> of the
+<cite><a href="http://www.htmlcodetutorial.com/">HTML Code Tutorial</a></cite>
+(originally <cite>Mikodocs
+Guide to HTML</cite> by Miko O'Sullivan).
+An illustrative explanation, divided into digestible pieces;
+starts from the basics but explains many new (HTML&nbsp;4) features too.
+Also discusses
+and exemplifies
+       the use of client-side scripting in conjunction with
+forms.
+  </li><li> <span lang="el">Stephanos Piperoglou</span>'s
+<a href="http://www.webreference.com/html/tutorial13/"><cite>Giving Form to Forms</cite></a> (part of
+       <a href="http://www.webreference.com/html/"><cite>HTML
+       with Style</cite></a>), which also covers a wide range
+       from basics to advanced (HTML&nbsp;4) issues.
+</li></ul>
+
+<h2><a name="ref">Reference material</a></h2>
+
+<p>The ultimate reference on HTML is currently the
+<strong><a href="http://www.w3.org/TR/html4/"><cite>HTML 4.01 Specification</cite></a></strong>, which contains a separate
+<a href="http://www.w3.org/TR/html4/interact/forms.html">section on forms</a>.
+Please note that many of the features
+<em>have not been implemented yet</em> even in newest versions
+of browsers. For some browser vendors' own words about the implementations,
+see <a href="http://developer.netscape.com/docs/manuals/htmlguid/tags10.htm">section <cite>Forms</cite></a> in
+<a href="http://developer.netscape.com/docs/manuals/htmlguid/contents.htm">
+Netscape's <cite>HTML Tag Reference</cite></a> and
+the descriptions in
+<a href="http://msdn.microsoft.com/workshop/author/html/reference/elements.asp">Microsoft's <cite>HTML Elements</cite></a> (which describes the HTML
+support in Internet Explorer).
+</p><p>The
+<strong><a href="http://www.htmlhelp.com/reference/html40/"><cite>HTML 4.0 Reference</cite></a></strong> by
+<a href="http://www.htmlhelp.com/" title="Web Design Group">WDG</a>
+contains detailed descriptions of all constructs in
+HTML 4.0 and examples of their usage.
+(The elements directly related to forms are:
+<a href="http://www.htmlhelp.com/reference/html40/forms/button.html" title="Button"><code>BUTTON</code></a>, 
+<a href="http://www.htmlhelp.com/reference/html40/forms/fieldset.html" title="Form control group"><code>FIELDSET</code></a>, 
+<a href="http://www.htmlhelp.com/reference/html40/forms/form.html" title="Interactive form"><code>FORM</code></a>,
+<a href="http://www.htmlhelp.com/reference/html40/forms/input.html" title="Form input"><code>INPUT</code></a>, 
+<a href="http://www.htmlhelp.com/reference/html40/forms/label.html" title="Form field label"><code>LABEL</code></a>, 
+<a href="http://www.htmlhelp.com/reference/html40/forms/legend.html" title="Fieldset caption"><code>LEGEND</code></a>, 
+<a href="http://www.htmlhelp.com/reference/html40/forms/optgroup.html" title="Option group"><code>OPTGROUP</code></a>, 
+<a href="http://www.htmlhelp.com/reference/html40/forms/option.html" title="Menu option"><code>OPTION</code></a>, 
+<a href="http://www.htmlhelp.com/reference/html40/forms/select.html" title="Option selector"><code>SELECT</code></a>, 
+<a href="http://www.htmlhelp.com/reference/html40/forms/textarea.html" title="Multi-line text input"><code>TEXTAREA</code></a>.)
+It also provides, in the
+<a href="http://www.htmlhelp.com/reference/html40/alist.html" title="Alphabetic list of HTML elements">element descriptions</a>, links to the ultimate specifications:
+applicable sections in HTML 2.0, HTML 3.2, and HTML&nbsp;4
+specifications.
+<!--(The WDG site has
+<a href="http://www.stack.nl/htmlhelp/">a&nbsp;mirror in
+the Netherlands</a> and
+<a href="http://htmlhelp.inet.tele.dk/">a&nbsp;mirror in Denmark</a>.)-->
+That reference also contains warnings about HTML&nbsp;4
+form features not implemented yet in most browsers. See
+<a href="http://www.webreference.com/dev/html4nsie/forms.html">
+section <cite>Forms</cite></a>
+in
+<a href="http://www.webreference.com/dev/html4nsie/forms.html">
+<cite>HTML 4.0 in Netscape and Explorer</cite></a> for a good summary
+of the status of browser support
+(and
+<a href="http://www.cs.tut.fi/%7Ejkorpela/www/4.html#forms">my margin
+notes</a> to it for some details).
+
+</p><h2><a name="faqs">Frequently asked questions</a></h2>
+
+<p>There are
+<a href="http://www.htmlhelp.com/faq/html/7.html" title="Web Authoring FAQ: HTML Forms">several questions
+related to forms</a> in
+<a href="http://www.htmlhelp.com/" title="Web Design Group">WDG</a>'s
+<a href="http://www.htmlhelp.com/faq/html/" title="Web Authoring FAQ (index page)"><cite>Web Authoring FAQ</cite></a>, including
+</p><ul class="emb">
+       <li><a href="http://www.htmlhelp.com/faq/html/7.html#mailto-form">Why won't my form email the user's data to me?</a>
+(See also <a href="#mailto" title="Why you shouldn't use action=&quot;mailto:...&quot;">warnings</a>
+	    above and
+<a href="http://www.cs.tut.fi/%7Ejkorpela/forms/testing.html" title="How to test HTML forms using simple remotely-accessible scripts">my document about testing forms</a>.)
+	    </li>
+	    <li><a href="http://www.htmlhelp.com/faq/html/7.html#enter-submit">How do I make a form so it can be submitted by hitting ENTER?</a>
+<small>(See also my related notes:
+<cite><a href="http://www.cs.tut.fi/%7Ejkorpela/forms/enter.html">Using JavaScript to prevent or trigger form submission when ENTER is hit</a></cite>.)</small>
+	 </li>
+		 <li><a href="http://www.htmlhelp.com/faq/html/7.html#custom-button">How can I make a form with custom buttons?</a>
+(See  <a href="http://www.cs.tut.fi/%7Ejkorpela/forms/imagebutton.html">my notes on image buttons</a> for more
+information, including important warnings, and see
+<a href="http://www.cs.tut.fi/%7Ejkorpela/forms/imagereset.html"><cite>A custom image for a reset button?</cite></a>.)
+		      </li>
+		      <li><a href="http://www.htmlhelp.com/faq/html/7.html#two-submit">Can I have two or more Submit buttons in the same form?</a>
+(There is a longer answer, with nice examples, in
+<a href="http://www.alanflavell.org.uk//www/trysub.html"><cite>Multiple Submit Buttons in HTML (and related issues)</cite></a>
+by
+<a href="http://www.alanflavell.org.uk//">Alan Flavell</a>.)
+			   </li>
+			   <li><a href="http://www.htmlhelp.com/faq/html/7.html#file-upload">How can I allow file uploads to my web site?</a>
+(For more info, see my document
+<a href="http://www.cs.tut.fi/%7Ejkorpela/forms/file.html"><cite>File input (or "upload") in HTML forms</cite></a>.)
+				</li>
+				</ul>
+
+<p>See also:
+</p><ul class="emb">
+<li> <cite><a href="http://www.alanflavell.org.uk//www/formsubfaqs.html">Misc. FORM Submission FAQs</a></cite> by
+<a href="http://www.alanflavell.org.uk//">Alan Flavell</a>.
+</li><li> <cite><a href="http://www.alanflavell.org.uk//charset/form-i18n.html"><code>FORM</code> submission and i18n</a></cite>,
+"ad-hoc tutorial-ish notes" on problems with entering other
+than US-Ascii data, also by Alan.
+</li><li> <a href="http://www.webthing.com/tutorials/cgifaq.html"><cite>CGI
+Programming FAQ</cite></a>; it
+can be useful even if you use another server-side technology; see e.g.
+the general principles in the answer to
+<a href="http://www.webthing.com/tutorials/cgifaq.3.html#19"><cite>How can I avoid users hitting "submit" twice?</cite></a>
+</li><li>
+<a href="http://www.irt.org/script/form.htm"><cite>JavaScript
+Form FAQ</cite></a>, which
+contains some purely HTML issues related to forms, too. It is part
+of the <a href="http://www.irt.org/script/script.htm">JavaScript FAQ collection by irt.org</a>
+which is the very large and growing
+but not that organized or critically reviewed. Jim Ley
+has written a much more disciplined (though not that large)
+<cite><a href="http://jibbering.com/faq/">comp.lang.javascript FAQ</a></cite>.
+</li><li><cite><a href="http://tom.me.uk/scripting/submit.html">Submitting Forms with Links</a></cite>. If you really want to
+make a link submit, this document tells how to do that relatively safely.
+(But cf. to my <a href="http://www.cs.tut.fi/%7Ejkorpela/forms/imagebutton.html#whynot">rant against
+image buttons</a>.) 
+</li><li> Links to documents on form issues, in
+     the
+<a href="http://css.nu/pointers/#Misc"><cite>Miscellany</cite></a>
+section of the     
+<a href="http://css.nu/pointers/"><cite>CSS Pointers Menu</cite></a>.
+<!-- DYSFUNCT
+Note especially Martin Webb's
+     <a href="http://www.developer.com/journal/techworkshop/webb2/111798_form.html"
+     ><cite>Disabling form elements</cite></a>-->
+</li></ul>
+
+<p>Note that some of the documents of mine listed below answer
+other frequently asked questions like
+<a href="http://www.cs.tut.fi/%7Ejkorpela/forms/navmenu.html">"how do I create pulldown menu for navigation"</a>,
+<a href="http://www.cs.tut.fi/%7Ejkorpela/forms/imagebutton.html">"how do I get rid of the ugly grey button"</a>,
+and
+<a href="http://www.cs.tut.fi/%7Ejkorpela/forms/present.html">"how do I control how form fields are displayed"</a>.
+
+
+</p><h2><a name="spec">Specialized material</a></h2>
+
+<p>I have written some documents on special topics about forms
+or related to them:</p>
+
+<h3>Accessibility-oriented</h3>
+
+<ul>
+ <li> <a href="http://www.cs.tut.fi/%7Ejkorpela/forms/accesskey.html">
+<cite>Using <strong><code>accesskey</code></strong> attribute
+      in HTML forms and links</cite></a>
+</li><li><a href="http://www.cs.tut.fi/%7Ejkorpela/forms/kbd.html"><cite>Accessibility issues of checkboxes and radio buttons</cite></a></li>
+<li><a href="http://www.cs.tut.fi/%7Ejkorpela/forms/tabbing.html"><cite><strong>Tabbing</strong> thru fields -
+<small>tabbing order in HTML forms, and related issues</small></cite></a>.
+</li><li><cite><a href="http://www.cs.tut.fi/%7Ejkorpela/forms/qdfa.html"><strong>Query systems</strong>: Design for All approach</a></cite>.
+</li></ul>
+
+<p>As regards to accessibility of forms in general,
+I'd recommend Jim Thatcher's
+<cite><a href="http://jimthatcher.com/webcourse8.htm">Accessible Forms</a></cite>
+in his
+<cite><a href="http://jimthatcher.com/webcourse1.htm" lang="en">
+Web Accessibility for Section 508</a></cite> and the material
+<cite><a href="http://www.webaim.org/techniques/forms">How to Create Accessible Forms</a></cite> at
+<a href="http://www.webaim.org/">WebAIM</a>.</p> 
+
+<h3>Other</h3>
+
+<ul class="emb">
+ <li> <a href="http://www.cs.tut.fi/%7Ejkorpela/forms/choices.html"><cite><strong>Choices</strong>
+in HTML forms</cite></a>.
+ Discusses
+different methods of presenting choices,
+using <code>SELECT</code> and <code>OPTION</code>,
+<code>INPUT TYPE="RADIO"</code> and <code>INPUT TYPE="CHECKBOX"</code>
+elements. Describes techniques for specifying
+      <em>default</em> choices and why
+they are important.
+ </li><li> <a href="http://www.cs.tut.fi/%7Ejkorpela/forms/navmenu.html"><cite><strong>Navigational</strong>
+      pulldown menus in HTML</cite></a>. How to implement them
+properly, and why you normally shouldn't use them at all.
+ </li><li> <a href="http://www.cs.tut.fi/%7Ejkorpela/forms/countries.html"><cite><strong>Country</strong> selection in HTML
+      forms</cite></a>. Need a list of all countries for a
+      <code>SELECT</code> menu?
+ </li><li> <a href="http://www.cs.tut.fi/%7Ejkorpela/forms/tables.html"><cite>How to use <strong>tables</strong> to structurize forms
+      in HTML</cite></a>
+      (and alternatives, like <code>FIELDSET</code>).
+  </li><li> <a href="http://www.cs.tut.fi/%7Ejkorpela/forms/testing.html"><cite>How to <strong>test</strong>
+       HTML forms using simple remotely-accessible
+scripts</cite></a>. Useful
+e.g.&nbsp;when you have problems with your form and you wish to find
+     out whether the problem is in the script or somewhere else.
+ </li><li> <a href="http://www.cs.tut.fi/%7Ejkorpela/forms/imagebutton.html"><cite>About <strong>image buttons</strong></cite></a> <small>and multi-line texts in normal submit buttons</small>.
+ </li><li> <a href="http://www.cs.tut.fi/%7Ejkorpela/forms/imagereset.html" title="Methods of using an image or otherwise modified
+presentation for a reset (clear) button in HTML forms.
+Also discusses the reset button in general -
+is it really needed, and where to put it.">
+<cite>A custom image for a <strong>reset</strong> button?</cite></a> (and other notes on reset buttons)
+ </li><li> <a href="http://www.cs.tut.fi/%7Ejkorpela/forms/present.html"><cite>Affecting the <strong>presentation</strong> of form fields
+      on Web pages</cite></a>
+(e.g. setting the width of a text input field or the color of a
+submit button).
+ </li><li> <a href="http://www.cs.tut.fi/%7Ejkorpela/forms/methods.html"><cite><strong>Methods</strong> <code>GET</code> and <code>POST</code> in HTML forms - what's the difference?</cite></a>
+ </li><li> <a href="http://www.cs.tut.fi/%7Ejkorpela/forms/javascript.html"><cite><strong>JavaScript</strong> and HTML: possibilities and caveats</cite></a>
+ </li><li> <a href="http://www.cs.tut.fi/%7Ejkorpela/forms/cgic.html"><cite>Getting Started with <strong>CGI</strong> Programming in <strong>C</strong></cite></a>
+ </li><li> <cite><a href="http://www.cs.tut.fi/%7Ejkorpela/perl/cgi.html">
+The Fool's Guide to CGI.pm,
+the <strong>Perl</strong> module for CGI scripting</a></cite>
+ </li><li><a href="http://www.cs.tut.fi/%7Ejkorpela/forms/file.html"><cite><strong>File</strong> input (or "upload") in HTML forms</cite></a>
+ </li><li> <a href="http://www.cs.tut.fi/%7Ejkorpela/forms/readonly.html"><cite>How can I make a field <strong>readonly</strong>?</cite></a>
+ </li><li> <cite><a href="http://www.cs.tut.fi/%7Ejkorpela/forms/combo.html" title="A combination of a select menu and a text input
+field - the simple HTML solution, with server-side
+considerations, and various JavaScript enhancements"><strong>Combo boxes</strong> in forms on Web pages</a></cite>
+ </li><li> <cite><a href="http://www.cs.tut.fi/%7Ejkorpela/forms/textarea.html">How to limit the number of characters entered in a <strong>textarea</strong></a></cite>
+</li><li><cite><a href="http://www.cs.tut.fi/%7Ejkorpela/forms/feedback.html">
+“Feedback forms” considered harmful</a></cite>
+</li></ul>
+
+<!--
+<p>There is a <a href="forms.zip">zipped package of my material listed above</a>
+which you can download onto your own computer for offline reading.
+(You need e.g. <a href="http://www.winzip.com/">WinZip</a> or
+<a href="ftp://ftp.freesoftware.com/pub/infozip/UnZip.html"
+>Info-ZIP's UnZip</a> to open the package.)</p>
+-->
+
+<hr title="Information about this document">
+<div class="footer">
+<div><a title="ISO 8601, the date and time representation standard" href="http://www.cs.tut.fi/%7Ejkorpela/iso8601.html" hreflang="en-US">
+Date</a> of last update of this page:
+2006-11-23.
+</div>
+<div>This page belongs to section
+<cite><a href="http://www.cs.tut.fi/%7Ejkorpela/www.html">Web authoring and surfing</a></cite>
+of
+the free information site
+<cite><a href="http://www.cs.tut.fi/%7Ejkorpela/index.html">IT and communication</a></cite>
+by
+<a href="http://www.cs.tut.fi/%7Ejkorpela/personal.html" title="Jukka K. Korpela, an IT generalist and specialist (personal home page)">Jukka "Yucca" Korpela</a>.
+</div>
+</div>
+
+
+</body>
+</html>

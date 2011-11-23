@@ -1,0 +1,245 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  
+  <meta name="MSSmartTagsPreventParsing" content="TRUE">
+  <meta name="ROBOTS" content="INDEX, FOLLOW">
+  
+  <title>Optimizing Linux for random I/O on hardware RAID - Fishpool</title>
+  <meta name="description" content="There's a relatively little known feature about Linux IO scheduling that has a pretty significant effect in large scale database deployments at least with MySQL that a recent" lang="en">
+  <meta name="copyright" content="Creative Commons Attribution Sharealike">
+  <meta name="author" content="Osma">
+  <meta name="date" scheme="ISO8601" content="2008-03-31T23:13:00+03:00">
+  
+  <link rel="schema.dc" href="http://purl.org/dc/elements/1.1/">
+  <meta name="dc.title" content="Optimizing Linux for random I/O on hardware RAID">
+  <meta name="dc.description" content="There's a relatively little known feature about Linux IO scheduling that has a pretty significant effect in large scale database deployments at least with MySQL that a recent" lang="en">
+  <meta name="dc.creator" content="Osma">
+  <meta name="dc.language" content="en">
+  <meta name="dc.publisher" content="Osma">
+  <meta name="dc.rights" content="Creative Commons Attribution Sharealike">
+  <meta name="dc.date" scheme="ISO8601" content="2008-03-31T23:13:00+03:00">
+  <meta name="dc.type" content="text">
+  <meta name="dc.format" content="text/html">
+  
+  <link rel="top" href="http://www.fishpool.org/" title="Home">
+  <link rel="contents" href="http://www.fishpool.org/archive" title="Archives">
+  
+  <link rel="next" href="http://www.fishpool.org/post/2008/04/03/Nokia-loses-share-among-global-youth-music-on-mobiles-doubles-popularity" title="Nokia loses share among global youth, music on mobiles doubles popularity">
+  
+  <link rel="previous" href="http://www.fishpool.org/post/2008/03/29/Falcon-database-engine-in-MySQL-60-alpha" title="Falcon database engine in MySQL 6.0 alpha">
+  
+  <link rel="alternate" type="application/atom+xml" title="Atom 1.0" href="http://www.fishpool.org/feed/atom">
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="dc-post">
+<div id="page">
+
+
+<div id="top">
+  <h1><span><a href="http://www.fishpool.org/">Fishpool</a></span></h1>
+
+  </div>
+
+<p id="prelude"><a href="#main">To content</a> |
+<a href="#blognav">To menu</a> |
+<a href="#search">To search</a></p>
+<div id="wrapper">
+
+<div id="main">
+  <div id="content">
+  
+  <p id="navlinks">
+  <a href="http://www.fishpool.org/post/2008/03/29/Falcon-database-engine-in-MySQL-60-alpha" title="Falcon database engine in MySQL 6.0 alpha" class="prev">« Falcon database engine in MySQL 6.0 alpha</a>
+   <span>-</span> <a href="http://www.fishpool.org/post/2008/04/03/Nokia-loses-share-among-global-youth-music-on-mobiles-doubles-popularity" title="Nokia loses share among global youth, music on mobiles doubles popularity" class="next">Nokia loses share among global youth, music on »</a>
+  </p>
+  
+  <div class="post">
+    <h2 id="p225870" class="post-title">Optimizing Linux for random I/O on hardware RAID</h2>
+    
+    <p class="post-info">By <a href="http://www.habbo.com/home/oa">Osma</a>    on Monday 31 March 2008, 23:13        - <a href="http://www.fishpool.org/post/2008/03/31/Optimizing-Linux-I/O-on-hardware-RAID">Permalink</a>
+    </p>
+    
+        <ul class="post-tags">    <li><a href="http://www.fishpool.org/tag/Linux">Linux</a></li>
+                <li><a href="http://www.fishpool.org/tag/MySQL">MySQL</a></li>
+                <li><a href="http://www.fishpool.org/tag/Performance">Performance</a></li>
+    </ul>    
+    
+        
+    <div class="post-content"><p>There's a relatively little known feature about Linux IO scheduling that has
+a pretty significant effect in large scale database deployments at least with
+MySQL that a recent article on <a hreflang="en" href="http://www.mysqlperformanceblog.com/2008/03/05/evaluating-io-subsystem-performance-for-mysql-needs/#comments">
+MySQL Performance Blog</a> prompted me to write about. This may have an effect
+on other databases and random I/O systems as well, but we've definitely seen it
+with MySQL 5.0 on RHEL 4 platform. I have not studied this on RHEL 5, and since
+the IO subsystem and the Completely Fair Queue scheduler that is <a hreflang="en" href="http://www.redhat.com/magazine/008jun05/features/schedulers/">default on
+RHEL</a> kernels has received further tuning since, I can not say if it still
+exists.</p>
+<p>Though I've heard YouTube <a hreflang="en" href="http://itc.conversationsnetwork.org/shows/detail3299.html">discovered these
+same things</a>, I have not yet seen a simple explanation of why this is so -
+so I'll take a shot at explaining it.</p>
+<p>In short, a deployment with a RAID controller or external storage system
+visible to the operating system as a single block device will not reach its
+maximum performance under RHEL default settings, and can be easily coaxed about
+20% higher on average random I/O (and significantly higher in spot benchmarks)
+with a single kernel parameter (<strong>elevator=noop</strong>) or equivalent
+runtime tuning via /sys/block/*/queue/scheduler in RHEL5, where you can also
+set this on a per-device basis.</p>
+<p><a hreflang="en" href="http://www.sulake.com/">We</a> first saw this in 2005
+on a quad-CPU server with a RAID controller connected to 10 SCSI disks. At that
+time, we found that configuring the RAID to expose five RAID-1 pairs which we
+then striped to a single volume using LVM increased performance despite making
+the OS and CPU do more work on I/O. The difference in performance was about
+20%.</p>
+<p>Our most recent proof of the same effect was a quad-CPU server connected to
+a NetApp storage system over FC. Since it was not convenient to expose multiple
+volumes from the NetApp to stripe them together, we searched for other
+solutions, and prompted by a presentation by the YouTube engineers looked at
+the I/O scheduling options and found a simple way to improve performance was to
+turn off I/O reordering by the kernel. Again, the overall impact between the
+settings was about 20%, though at times much greater.</p>
+<p>The lesson is simple: reordering I/O requests multiple times provides no
+benefits, and reordering them too early will in fact be detrimental. Explaining
+why that is so is a bit involving, and is based on a few assumptions we have
+not bothered to verify, since the empirical results have supported our
+conclusions and got us where we wanted.</p>
+<p>In order to keep the explanation simple, I will describe it conceptually on
+a very small scale. When reading this, please take this into account and
+understand that to measure the effect we have seen in practice, the size of the
+solution should be increased from what I am describing.</p>
+<p><img style="margin: 0pt 0pt 1em 1em; float: right;" alt="" src="cfq-spindles.png">First, consider the case of
+direct-attached storage exposed to the Linux kernel as independent devices. In
+this configuration, the kernel maintains a per-device I/O queue, and the CFQ
+scheduler will reorder I/O requests to each device separately in order to
+maintain fair per-process balancing, low latency and high throughput. This is
+the configuration in which CFQ does a great job of maximizing performance, and
+works fairly well with any amount of spindles. As the application (a database
+in this case) fires random I/O, each of the spindles is executing them
+independently and serves requests as soon as they are issued. In other words,
+the system is good at keeping each of the I/O queues "hot". The sustained top
+I/O rate is roughly linear to the number of spindles, or with 15k rpm drives,
+about 1000 ops for four drives.</p>
+<p>Now, lets introduce a hardware RAID of some sort, in particular one which is
+enabled to further reorder operations thanks to a "big" battery-backed up
+cache. Thanks to that cache, the RAID can commit thousands of write operations
+per second for fairly long periods (seconds), flushing them to disk after
+merging. On the other hand, the kernel now sees just one device, and has one
+I/O queue to it. The CFQ scheduler sits in front of this queue, reordering
+pending I/O requests. All is fine until the I/O pressure rises up to about what
+a single spindle can process on a sustained basis, or about 250 requests per
+second on those 15k drives. However, as soon as the queue starts building up,
+the CFQ scheduler kicks into action, and reorders the queue from random to
+sorted per block number (an oversimplification, but close enough).</p>
+<p><img style="margin: 0pt 0pt 1em 1em; float: right;" alt="" src="sectors.png">All is good? No, it's not. The sequential
+blocks on that RAID volume are not truly sequential, but reside on different
+spindles and could thus be processed simultaneously. To demonstrate, lets
+assume your four-spindle array has one billion sectors or five hundred gigs per
+device, and further, that it is striped at 64k extents or 7.8 million stripes
+across each device.</p>
+<p>On both configurations, the striping is essentially the same. Every 128
+sectors or 64k is one one device, then the next one, and so on. The difference
+is that with LVM in place, the kernel knows this, while with the RAID, it has
+no idea of the layout of the array, essentially treating it as a single
+spindle.</p>
+<p><img style="margin: 0pt 0pt 1em 1em; float: right;" alt="" src="cfq-raid.png">Now, those couple of thousand request
+that were just issued, contain sequences such as writes to sectors 10, 200, 50,
+300, 1020, 600, 1500 and 700. Due to the striping, four of these can be
+executed simultaneously, so the optimal order to issue these, of course
+depending on what else might be going on, is something like 10, 200, 300, 1500,
+50, 700, 1020, and 600, executed through four queues: [10, 50, 600], [200,
+700], [300] and [1020, 1500]. In the LVM configuration this might be what
+really happens. However, the single I/O queue to the RAID device will have
+these sorted into ascending block order, and with enough such operations in the
+queue, the RAID processor no longer has enough view to the queue to efficiently
+re-re-order them to utilize all the spindles, so only some of them are hot at
+any given time. <a hreflang="en" href="http://en.wikipedia.org/wiki/Tagged_Command_Queuing">TCQ</a> should help, but
+in practice it won't issue enough outstanding requests to fix the problem. In
+our experience the top sustained rate is not more than 1.5 times one spindle,
+or 300-400 requests per second, while the array should really run at over the
+1000 ops per second thanks to the additional persistent cache on the RAID
+controller.</p>
+<p>Bottom line: CFQ is great, but only if the kernel actually knows everything
+about the physical layout of the media. It also looks like some of the recently
+introduced tuning parameters (which I know nothing about, just noted their
+appearance) might help avoid the worst hit. However, ultimately it doesn't
+matter - if your hardware allows efficient "outsourcing" of the I/O scheduling
+to a large secure cache, use it, and don't bother making the kernel do the job
+without all the information.</p>
+<p>I hope this explanation makes sense, and that I haven't botched any
+important details or made wrong assumptions. Please comment if any of this is
+inaccurate.</p>
+<p>PS. <a hreflang="en" href="http://www.puschitz.com/TuningLinuxForOracle.shtml">A tuning guide for Oracle
+recommends the deadline scheduler</a> due to latency guarantees. We have not
+benchmarked that against noop.</p></div>
+
+      </div>
+
+  
+
+                <div id="comments">
+        <h3>Comments</h3>
+      <dl>
+          <dt id="c7837489" class=" odd first"><a href="#c7837489" class="comment-number">1.</a>
+      On Wednesday 30 April 2008, 16:58      by krteQ</dt>
+      
+      <dd class=" odd first">
+
+            
+      <p>I think it's the same problem like with the newest SSD devices, where the
+noop scheduler performs the best.</p>
+            </dd>
+                  <dt id="c8043090" class="  "><a href="#c8043090" class="comment-number">2.</a>
+      On Sunday  4 May 2008, 22:36      by <a href="http://www.fishpool.org/" rel="nofollow">Osma</a></dt>
+      
+      <dd class="  ">
+
+            
+      <p>Probably, although I have no experience with SSD devices other than USB
+memory sticks. Would make sense though; a battery-backed RAM cache on a RAID
+device is essentially a type of SSD.</p>
+            </dd>
+          </dl>
+      </div>
+            
+  
+    
+    
+    </div>
+</div> <!-- End #main -->
+
+<div id="sidebar">
+  <div id="blognav">
+    <div class="text"></div><div id="search"><h2><label for="q">Search</label></h2><form action="http://www.fishpool.org/" method="get"><fieldset><p><input size="10" maxlength="255" id="q" name="q" value="" type="text"> <input class="submit" value="ok" type="submit"></p></fieldset></form></div><div class="tags"><ul><li><a href="http://www.fishpool.org/tag/Tech" class="tag100">Tech</a> </li><li><a href="http://www.fishpool.org/tag/Diary" class="tag60">Diary</a> </li><li><a href="http://www.fishpool.org/tag/Linux" class="tag60">Linux</a> </li><li><a href="http://www.fishpool.org/tag/MySQL" class="tag50">MySQL</a> </li><li><a href="http://www.fishpool.org/tag/Habbo" class="tag50">Habbo</a> </li><li><a href="http://www.fishpool.org/tag/English" class="tag40">English</a> </li><li><a href="http://www.fishpool.org/tag/Fedora" class="tag30">Fedora</a> </li><li><a href="http://www.fishpool.org/tag/business" class="tag30">business</a> </li><li><a href="http://www.fishpool.org/tag/HTPC" class="tag30">HTPC</a> </li><li><a href="http://www.fishpool.org/tag/HTPC%20project" class="tag20">HTPC project</a> </li><li><a href="http://www.fishpool.org/tag/GNOME" class="tag20">GNOME</a> </li><li><a href="http://www.fishpool.org/tag/hardware" class="tag20">hardware</a> </li><li><a href="http://www.fishpool.org/tag/conference" class="tag20">conference</a> </li><li><a href="http://www.fishpool.org/tag/Maemo" class="tag20">Maemo</a> </li><li><a href="http://www.fishpool.org/tag/Suomeksi" class="tag20">Suomeksi</a> </li><li><a href="http://www.fishpool.org/tag/Performance" class="tag20">Performance</a> </li><li><a href="http://www.fishpool.org/tag/Sulake" class="tag20">Sulake</a> </li><li><a href="http://www.fishpool.org/tag/Flash" class="tag10">Flash</a> </li><li><a href="http://www.fishpool.org/tag/open%20source" class="tag10">open source</a> </li><li><a href="http://www.fishpool.org/tag/Web20" class="tag10">Web20</a> </li></ul><p><strong><a href="http://www.fishpool.org/tags">All tags</a></strong></p></div>  </div> <!-- End #blognav -->
+  
+  <div id="blogextra">
+    <div class="syndicate"><h2>Subscribe to this blog</h2><ul><li><a type="application/rss+xml" href="http://www.fishpool.org/feed/rss2" title="This blog's entries RSS feed" class="feed">Entries feed</a></li><li><a type="application/rss+xml" href="http://www.fishpool.org/feed/rss2/comments" title="This blog's comments RSS feed" class="feed">Comments feed</a></li></ul></div><div class="lastposts"><h2>Last entries</h2><ul><li><a href="http://www.fishpool.org/post/2011/11/14/Flash-is-dead-What-changed">Flash is dead? What changed?</a></li><li><a href="http://www.fishpool.org/post/2011/10/13/Where-the-chips-fall">Where the chips fall - platform dominator for 2012</a></li><li><a href="http://www.fishpool.org/post/2011/09/28/MVP-is-about-minimum-viable-proof-of-potential">MVP is about proof of potential</a></li><li><a href="http://www.fishpool.org/post/2011/07/06/Zynga-s-ARPU-doubling-Not-quite">Zynga's ARPU doubling? Not quite</a></li><li><a href="http://www.fishpool.org/post/2011/06/21/On-software-and-design%2C-vocabularies-and-processes">On software and design, vocabularies and processes</a></li><li><a href="http://www.fishpool.org/post/2011/05/23/Nordic-Game-followup">Nordic Game followup</a></li><li><a href="http://www.fishpool.org/post/2011/03/16/This-is-a-top-blog-Really-Thanks%2C-I-guess">This is a top blog? Really? Thanks, I guess</a></li><li><a href="http://www.fishpool.org/post/2011/02/08/Passwords-are-a-broken-system">Passwords are a broken system</a></li><li><a href="http://www.fishpool.org/post/2011/01/31/Did-common-identities-die-with-OpenID-No">Did common identities die with OpenID? No</a></li><li><a href="http://www.fishpool.org/post/2011/01/13/A-last-look-at-2010...-and-what-s-in-sight">A last look at 2010... and what's in sight?</a></li></ul></div><div class="text">
+<ins style="display: inline-table; border: medium none; height: 250px; margin: 0pt; padding: 0pt; position: relative; visibility: visible; width: 250px;"><ins id="aswift_0_anchor" style="display: block; border: medium none; height: 250px; margin: 0pt; padding: 0pt; position: relative; visibility: visible; width: 250px;"><iframe src="index_1.html" allowtransparency="true" hspace="0" marginwidth="0" marginheight="0" vspace="0" id="aswift_0" name="aswift_0" style="left: 0pt; position: absolute; top: 0pt;" scrolling="no" width="250" frameborder="0" height="250"></iframe></ins></ins></div>  </div> <!-- End #blogextra -->
+</div>
+
+</div> <!-- End #wrapper -->
+
+<div id="footer">
+  <p>Creative Commons Attribution Sharealike - poweredby  - <a rel="nofollow" href="http://www.fishpool.org/legalnotice">Informations légales</a></p>
+</div>
+</div> <!-- End #page -->
+
+
+</body>
+</html>

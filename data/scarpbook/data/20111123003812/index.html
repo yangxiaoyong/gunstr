@@ -1,0 +1,753 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" dir="ltr" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" class="js">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+  <title>Securing MySQL: step-by-step | Symantec Connect Community</title>
+  
+<link rel="canonical" href="http://www.symantec.com/connect/articles/securing-mysql-step-step">
+<meta name="keywords" content="Symantec, Endpoint Protection (AntiVirus), SecurityFocus">
+<meta name="copyright" content="Copyright 2011 Symantec Corporation">
+<meta name="description" content="by Artur Maj  	 		 			 				1. Introduction 				MySQL is one of the most popular databases on the Internet and it is often used in conjunction with PHP. Besides its undoubted advantages such as easy of use and relatively high performance, MySQL offers simple but very effective security mechanisms.">
+<meta name="abstract" content="Symantec Connect -- the peer-to-peer community site for Symantec business customers and partners.">
+<meta name="revisit-after" content="1 day">
+<meta name="connect_context_js" content="871851_14123_0_0_0_0_0_0_0_0">
+<meta name="nid" content="1234351">
+<meta name="lang" content="English">
+<meta name="generator" content="Lithium">
+<meta name="doctype" content="forum">
+<meta name="PRODUCT_ENTITY" content="56176, 54626, 54619">
+<meta name="om.environment" content="prod">
+<meta name="om.site_country" content="us">
+<meta name="om.site_language" content="en">
+<meta name="om.visitor_segment" content="Business">
+<meta name="om.site_section_us" content="Connect">
+<meta name="om.site_section" content="Connect">
+<meta name="om.site_sub_section_us" content="Security">
+<meta name="om.site_sub_section" content="Security">
+<meta name="om.content_format" content="html">
+<meta name="om.content_title" content="Securing MySQL: step-by-step">
+<meta name="om.content_type" content="page">
+<meta name="om.product_name" content="Endpoint Protection (AntiVirus)">
+<meta name="om.product_id" content="workflow_sol">
+<meta name="om.page_name" content="en/us: biz: connect: security: articles: securing mysql: step-by-step">
+<meta name="om.connect_community" content="Security">
+<meta name="om.connect_utility" content="connect_utility: articles">
+<meta name="om.connect_product" content="Endpoint Protection (AntiVirus)">
+<meta name="om.connect_topics" content="SecurityFocus">
+<meta name="om.author_id" content="0">
+<meta name="om.user_id" content="0">
+<meta name="om.content_language" content="en">
+
+
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  
+
+
+
+
+
+
+  <!--[if lt IE 7]><link type="text/css" rel="stylesheet" media="all" href="/connect/sites/default/themes/connect2/css/style-ie6.css" /><![endif]--><!--[if IE 7]><link type="text/css" rel="stylesheet" media="all" href="/connect/sites/default/themes/connect2/css/style-ie7.css"><![endif]--><!--[if gte IE 8]><link type="text/css" rel="stylesheet" media="all" href="/connect/sites/default/themes/connect2/css/style-ie8.css"><![endif]-->  
+
+
+
+
+
+  
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body id="symantec" class="not-front not-logged-in page-node node-type-article no-sidebars i18n-en language-dir-ltr layout-main-last sidebar-promo browser-chrome clearfix" dir="ltr">
+  <div id="preload-1"><div id="preload-2"><div id="preload-3"><div id="preload-4"><div id="preload-5"><div id="preload-6"></div></div></div></div></div></div>
+
+  <div id="header-flex">
+    <div id="search-border"></div>
+    <div id="header" class="fixed-width">
+      <a href="http://www.symantec.com/connect/" title="Home" id="logo"><span>Symantec Connect</span></a>      <div id="search-box">
+  <ul id="menu-search" class="clearfix">
+          
+      <li class="search-tab first"><a class="active" href="#1">Security &gt; Articles</a></li>
+            
+    <li class="search-tab last"><a class="" href="#2">Entire Site</a></li>
+  </ul><!-- /#menu-search -->
+  
+  <form action="http://www.symantec.com/connect/search?filters=type%3Aarticle%20tid%3A691" method="post" id="custom-search">
+    <div id="search-input">
+      <div id="search-input-corner">
+        <input id="search-header-terms" name="keys" class="form-text" value="Enter keywords to search...">
+      </div>
+    </div>
+    
+    <div id="search-button">
+      <input id="search-submit" name="op" value="Search" type="submit">
+    </div>
+  
+  </form>
+</div>    </div>
+  </div><!-- /#header-flex -->  
+  
+  <div id="nav-flex">
+    <div id="nav-container" class="fixed-width">
+        <ul id="menu-global" class="clearfix">
+    <li class="top-leaf menu-top-home"><a href="http://www.symantec.com/connect/"><span>Home</span></a></li>
+    
+    <li class="top-expanded menu-top-community">
+      <a href="http://www.symantec.com/connect/security"><span class="menu-top-community-label">Community:</span>Security</a>      <div class="item-list"><ul class="drop-menu menu-community"><li class="drop-leaf first"><div class="menu-global-drop-item">
+  <div class="menu-drop-item-extra"></div>
+    <div class="menu-community-type">
+      <div class="menu-community-type-corner">Product Community</div>
+    </div>
+    <div class="menu-community-name">Backup and Archiving</div>
+  <div class="item-list"><ul class="sub-menu menu-utility clearfix"><li class="sub-leaf first"><a href="http://www.symantec.com/connect/backup-and-archiving">Overview</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/backup-and-archiving/forums">Forums</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/backup-and-archiving/articles">Articles</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/backup-and-archiving/blogs">Blogs</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/backup-and-archiving/downloads">Downloads</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/backup-and-archiving/events">Events</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/backup-and-archiving/groups">Groups</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/backup-and-archiving/ideas">Ideas</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/backup-and-archiving/issues">Known Issues</a></li>
+<li class="sub-leaf last"><a href="http://www.symantec.com/connect/backup-and-archiving/videos">Videos</a></li>
+</ul></div></div></li>
+<li class="drop-leaf"><div class="menu-global-drop-item">
+  <div class="menu-drop-item-extra"></div>
+    <div class="menu-community-type">
+      <div class="menu-community-type-corner">Product Community</div>
+    </div>
+    <div class="menu-community-name">Endpoint Management</div>
+  <div class="item-list"><ul class="sub-menu menu-utility clearfix"><li class="sub-leaf first"><a href="http://www.symantec.com/connect/endpoint-management">Overview</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/endpoint-management/forums">Forums</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/endpoint-management/articles">Articles</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/endpoint-management/blogs">Blogs</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/endpoint-management/downloads">Downloads</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/endpoint-management/events">Events</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/endpoint-management/groups">Groups</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/endpoint-management/ideas">Ideas</a></li>
+<li class="sub-leaf last"><a href="http://www.symantec.com/connect/endpoint-management/videos">Videos</a></li>
+</ul></div></div></li>
+<li class="drop-leaf"><div class="menu-global-drop-item">
+  <div class="menu-drop-item-extra"></div>
+    <div class="menu-community-type">
+      <div class="menu-community-type-corner">Product Community</div>
+    </div>
+    <div class="menu-community-name">Endpoint Virtualization</div>
+  <div class="item-list"><ul class="sub-menu menu-utility clearfix"><li class="sub-leaf first"><a href="http://www.symantec.com/connect/endpoint-virtualization">Overview</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/endpoint-virtualization/forums">Forums</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/endpoint-virtualization/articles">Articles</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/endpoint-virtualization/blogs">Blogs</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/endpoint-virtualization/downloads">Downloads</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/endpoint-virtualization/events">Events</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/endpoint-virtualization/groups">Groups</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/endpoint-virtualization/ideas">Ideas</a></li>
+<li class="sub-leaf last"><a href="http://www.symantec.com/connect/endpoint-virtualization/videos">Videos</a></li>
+</ul></div></div></li>
+<li class="drop-leaf"><div class="menu-global-drop-item">
+  <div class="menu-drop-item-extra"></div>
+    <div class="menu-community-type">
+      <div class="menu-community-type-corner">Product Community</div>
+    </div>
+    <div class="menu-community-name">Storage and Clustering</div>
+  <div class="item-list"><ul class="sub-menu menu-utility clearfix"><li class="sub-leaf first"><a href="http://www.symantec.com/connect/storage-management">Overview</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/storage-management/forums">Forums</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/storage-management/articles">Articles</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/storage-management/blogs">Blogs</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/storage-management/downloads">Downloads</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/storage-management/events">Events</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/storage-management/groups">Groups</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/storage-management/ideas">Ideas</a></li>
+<li class="sub-leaf last"><a href="http://www.symantec.com/connect/storage-management/videos">Videos</a></li>
+</ul></div></div></li>
+<li class="drop-leaf"><div class="menu-global-drop-item">
+  <div class="menu-drop-item-extra"></div>
+    <div class="menu-community-type">
+      <div class="menu-community-type-corner">Product Community</div>
+    </div>
+    <div class="menu-community-name">Security</div>
+  <div class="item-list"><ul class="sub-menu menu-utility clearfix"><li class="sub-leaf first"><a href="http://www.symantec.com/connect/security">Overview</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/security/forums">Forums</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/security/articles">Articles</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/security/blogs">Blogs</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/security/downloads">Downloads</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/security/events">Events</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/security/groups">Groups</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/security/ideas">Ideas</a></li>
+<li class="sub-leaf last"><a href="http://www.symantec.com/connect/security/videos">Videos</a></li>
+</ul></div></div></li>
+<li class="drop-leaf"><div class="menu-global-drop-item">
+  <div class="menu-drop-item-extra"></div>
+    <div class="menu-community-name">Inside Symantec</div>
+  <div class="item-list"><ul class="sub-menu menu-utility clearfix"><li class="sub-leaf first"><a href="http://www.symantec.com/connect/inside-symantec">Overview</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/inside-symantec/forums">Forums</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/inside-symantec/articles">Articles</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/inside-symantec/blogs">Blogs</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/inside-symantec/events">Events</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/inside-symantec/groups">Groups</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/inside-symantec/ideas">Ideas</a></li>
+<li class="sub-leaf last"><a href="http://www.symantec.com/connect/inside-symantec/videos">Videos</a></li>
+</ul></div></div></li>
+<li class="drop-leaf"><div class="menu-global-drop-item">
+  <div class="menu-drop-item-extra"></div>
+    <div class="menu-community-name">Vision User Conference</div>
+  <div class="item-list"><ul class="sub-menu menu-utility clearfix"><li class="sub-leaf first"><a href="http://www.symantec.com/connect/vision">Overview</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/vision/forums">Forums</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/vision/articles">Articles</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/vision/blogs">Blogs</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/vision/events">Events</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/vision/groups">Groups</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/vision/ideas">Ideas</a></li>
+<li class="sub-leaf last"><a href="http://www.symantec.com/connect/vision/videos">Videos</a></li>
+</ul></div></div></li>
+<li class="drop-leaf"><div class="menu-global-drop-item">
+  <div class="menu-drop-item-extra"></div>
+    <div class="menu-community-name">Partners</div>
+  <div class="item-list"><ul class="sub-menu menu-utility clearfix"><li class="sub-leaf first"><a href="http://www.symantec.com/connect/partners">Overview</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/partners/forums">Forums</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/partners/articles">Articles</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/partners/blogs">Blogs</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/partners/events">Events</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/partners/groups">Groups</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/partners/ideas">Ideas</a></li>
+<li class="sub-leaf last"><a href="http://www.symantec.com/connect/partners/videos">Videos</a></li>
+</ul></div></div></li>
+<li class="drop-leaf last"><div class="menu-global-drop-item">
+  <div class="menu-drop-item-extra"></div>
+    <div class="menu-community-name">Developers</div>
+  <div class="item-list"><ul class="sub-menu menu-utility clearfix"><li class="sub-leaf first"><a href="http://www.symantec.com/connect/developers">Overview</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/developers/forums">Forums</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/developers/articles">Articles</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/developers/blogs">Blogs</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/developers/downloads">Downloads</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/developers/groups">Groups</a></li>
+<li class="sub-leaf"><a href="http://www.symantec.com/connect/developers/ideas">Ideas</a></li>
+<li class="sub-leaf last"><a href="http://www.symantec.com/connect/developers/videos">Videos</a></li>
+</ul></div></div></li>
+</ul></div>    </li>
+    
+        <li class="top-expanded menu-top-utility">
+      <a href="http://www.symantec.com/connect/security/articles">Articles</a>      <div class="item-list"><ul class="drop-menu menu-utility"><li class="drop-leaf first"><a href="http://www.symantec.com/connect/security">Overview</a></li>
+<li class="drop-leaf"><a href="http://www.symantec.com/connect/security/forums">Forums</a></li>
+<li class="drop-leaf"><a href="http://www.symantec.com/connect/security/articles">Articles</a></li>
+<li class="drop-leaf"><a href="http://www.symantec.com/connect/security/blogs">Blogs</a></li>
+<li class="drop-leaf"><a href="http://www.symantec.com/connect/security/downloads">Downloads</a></li>
+<li class="drop-leaf"><a href="http://www.symantec.com/connect/security/events">Events</a></li>
+<li class="drop-leaf"><a href="http://www.symantec.com/connect/security/groups">Groups</a></li>
+<li class="drop-leaf"><a href="http://www.symantec.com/connect/security/ideas">Ideas</a></li>
+<li class="drop-leaf last"><a href="http://www.symantec.com/connect/security/videos">Videos</a></li>
+</ul></div>      
+    </li>
+    
+        
+          <li class="top-leaf menu-top-rss"><a href="http://www.symantec.com/connect/item-feeds/article/691/feed/all/all" class="menu-global-rss"><span>RSS</span></a></li>
+    
+      </ul><!-- /#global-menu -->
+    </div>
+  </div><!-- /#nav-flex --> 
+      
+  <div id="menu-user-flex" class="clearfix">
+    <div id="menu-user-container" class="fixed-width">
+      
+  
+<ul id="menu-user">
+  
+    <li class="menu-top-anonymous">
+    <div class="anonymous-wrapper">
+            <a href="http://www.symantec.com/connect/user/login?destination=articles%2Fsecuring-mysql-step-step">Login</a> or <a href="http://www.symantec.com/connect/user/register?destination=articles%2Fsecuring-mysql-step-step">Register</a> to participate
+    </div>
+  </li>
+  
+  
+    
+      <li class="expanded menu-top-language menu-narrow">
+      <a href="http://www.symantec.com/connect/articles/securing-mysql-step-step" class="active">English</a><div class="item-list"><ul class="drop-menu menu-language"><li class="first">  <a href="http://www.symantec.com/connect/articles/securing-mysql-step-step" class="link-type test dir-ltr language-en">
+    <span class="menu-drop-item-extra"></span>
+    <span class="link-name">English</span>
+      </a>
+</li>
+<li>  <a href="http://www.symantec.com/connect/fr/articles/securing-mysql-step-step" class="link-type test dir-ltr language-fr">
+    <span class="menu-drop-item-extra"></span>
+    <span class="link-name">Français</span>
+      </a>
+</li>
+<li>  <a href="http://www.symantec.com/connect/de/articles/securing-mysql-step-step" class="link-type test dir-ltr language-de">
+    <span class="menu-drop-item-extra"></span>
+    <span class="link-name">Deutsch</span>
+      </a>
+</li>
+<li class="last">  <a href="http://www.symantec.com/connect/es/articles/securing-mysql-step-step" class="link-type test dir-ltr language-es">
+    <span class="menu-drop-item-extra"></span>
+    <span class="link-name">Español</span>
+      </a>
+</li>
+</ul></div>    </li>
+    
+  
+  <li class="expanded top-menu-share">
+    <a href="http://www.symantec.com/connect/">Share</a>    <div class="item-list"><ul class="drop-menu menu-share"><li class="first">  <a href="http://www.symantec.com/connect/forward?path=node%2F1939601" class="link-type test email">
+    <span class="menu-drop-item-extra"></span>
+    <span class="link-name">Email</span>
+      </a>
+</li>
+<li>  <a href="http://twitter.com/home?status=Securing%20MySQL:%20step-by-step%20%7C%20Symantec%20Connect%20Community+http://www.symantec.com/connect/articles/securing-mysql-step-step" class="link-type test twitter">
+    <span class="menu-drop-item-extra"></span>
+    <span class="link-name">Twitter</span>
+      </a>
+</li>
+<li>  <a href="http://www.facebook.com/share.php?t=Securing%20MySQL:%20step-by-step%20%7C%20Symantec%20Connect%20Community&amp;u=http://www.symantec.com/connect/articles/securing-mysql-step-step" class="link-type test facebook">
+    <span class="menu-drop-item-extra"></span>
+    <span class="link-name">Facebook</span>
+      </a>
+</li>
+<li>  <a href="http://www.google.com/reader/link?url=http://www.symantec.com/connect/articles/securing-mysql-step-step&amp;title=Securing%20MySQL:%20step-by-step%20%7C%20Symantec%20Connect%20Community" class="link-type test google-buzz">
+    <span class="menu-drop-item-extra"></span>
+    <span class="link-name">Google Buzz</span>
+      </a>
+</li>
+<li>  <a href="http://digg.com/submit?url=http://www.symantec.com/connect/articles/securing-mysql-step-step&amp;title=Securing%20MySQL:%20step-by-step%20%7C%20Symantec%20Connect%20Community" class="link-type test digg">
+    <span class="menu-drop-item-extra"></span>
+    <span class="link-name">Digg</span>
+      </a>
+</li>
+<li>  <a href="http://del.icio.us/post?url=http://www.symantec.com/connect/articles/securing-mysql-step-step&amp;title=Securing%20MySQL:%20step-by-step%20%7C%20Symantec%20Connect%20Community" class="link-type test delicious">
+    <span class="menu-drop-item-extra"></span>
+    <span class="link-name">Delicious</span>
+      </a>
+</li>
+<li>  <a href="http://reddit.com/submit?url=http://www.symantec.com/connect/articles/securing-mysql-step-step&amp;title=Securing%20MySQL:%20step-by-step%20%7C%20Symantec%20Connect%20Community" class="link-type test reddit">
+    <span class="menu-drop-item-extra"></span>
+    <span class="link-name">Reddit</span>
+      </a>
+</li>
+<li>  <a href="http://www.stumbleupon.com/submit?url=http://www.symantec.com/connect/articles/securing-mysql-step-step&amp;title=Securing%20MySQL:%20step-by-step%20%7C%20Symantec%20Connect%20Community" class="link-type test stumbleupon">
+    <span class="menu-drop-item-extra"></span>
+    <span class="link-name">StumbleUpon</span>
+      </a>
+</li>
+<li class="last">  <a href="http://www.live.com/?add=http://www.symantec.com/connect/articles/securing-mysql-step-step" class="link-type test windows-live">
+    <span class="menu-drop-item-extra"></span>
+    <span class="link-name">Windows Live</span>
+      </a>
+</li>
+</ul></div>    
+  </li>
+  <li class="leaf last top-menu-help">
+    <a href="http://www.symantec.com/connect/" class="js-help-link">Screencast Help</a>  </li>
+</ul>
+    </div>  
+  </div><!-- /#menu-user-flex -->
+  
+  <div id="help-region" class="fixed-width js-help-region">
+    <div id="help-region-inner">
+      <div id="help-player-toolbar" class="clearfix">
+        <div class="help-title">Video Screencast Help</div>
+								<a href="http://www.symantec.com/connect/search?filters=tid%3A12491%20type%3Avideo" class="bt-search-help bt-help">Search Video Help</a>								<a href="http://www.symantec.com/connect/" class="js-video-help-close bt-close-help bt-help"><span>Close</span></a>								<a href="http://www.symantec.com/connect/" class="js-video-help-player-close bt-back-help bt-help"><span class="bt-help-large">Back</span><br><span class="bt-help-small">to help</span></a>						</div>
+      <div id="help-player">
+      </div>
+      <div id="help-content">
+        <div class="view view-videos view-id-videos view-display-id-block_4 view-dom-id-1">
+    
+  
+  
+      <div class="view-content">
+      <table class="views-view-grid">
+  <tbody>
+                <tr class="row-1 row-first">
+                  <td class="col-1">
+            <div class="help-video-item">
+  <div class="help-video-thumb">
+    <a href="http://www.symantec.com/connect/es/help/item/1446811" class="js-help-video-launch play-icon"><span>play</span></a>    <a href="http://www.symantec.com/connect/es/help/item/1446811" class="js-help-video-launch"><img src="screen@20shot@202010-08-31@20at@204.31.40@20pm.png" alt="" title="" class="imagecache imagecache-help-video-thumb imagecache-default imagecache-help-video-thumb_default" width="230" height="160"></a>  </div>
+  <div class="help-video-title">
+    <a href="http://www.symantec.com/connect/es/help/item/1446811" class="js-help-video-launch">Introduction to Connect</a>  </div>
+</div>
+          </td>
+                  <td class="col-2">
+            <div class="help-video-item">
+  <div class="help-video-thumb">
+    <a href="http://www.symantec.com/connect/es/help/item/1578251" class="js-help-video-launch play-icon"><span>play</span></a>    <a href="http://www.symantec.com/connect/es/help/item/1578251" class="js-help-video-launch"><img src="vlcsnap-2010-12-03-12h45m47s87_0.png" alt="" title="" class="imagecache imagecache-help-video-thumb imagecache-default imagecache-help-video-thumb_default" width="230" height="160"></a>  </div>
+  <div class="help-video-title">
+    <a href="http://www.symantec.com/connect/es/help/item/1578251" class="js-help-video-launch">Create A Poll</a>  </div>
+</div>
+          </td>
+                  <td class="col-3">
+            <div class="help-video-item">
+  <div class="help-video-thumb">
+    <a href="http://www.symantec.com/connect/es/help/item/1602431" class="js-help-video-launch play-icon"><span>play</span></a>    <a href="http://www.symantec.com/connect/es/help/item/1602431" class="js-help-video-launch"><img src="vlcsnap-2010-12-27-10h36m34s32.png" alt="" title="" class="imagecache imagecache-help-video-thumb imagecache-default imagecache-help-video-thumb_default" width="230" height="160"></a>  </div>
+  <div class="help-video-title">
+    <a href="http://www.symantec.com/connect/es/help/item/1602431" class="js-help-video-launch">The Connect Rewards Program</a>  </div>
+</div>
+          </td>
+                  <td class="col-4">
+            <div class="help-video-item">
+  <div class="help-video-thumb">
+    <a href="http://www.symantec.com/connect/es/help/item/1612801" class="js-help-video-launch play-icon"><span>play</span></a>    <a href="http://www.symantec.com/connect/es/help/item/1612801" class="js-help-video-launch"><img src="vlcsnap-2011-01-07-13h57m00s119.png" alt="" title="" class="imagecache imagecache-help-video-thumb imagecache-default imagecache-help-video-thumb_default" width="230" height="160"></a>  </div>
+  <div class="help-video-title">
+    <a href="http://www.symantec.com/connect/es/help/item/1612801" class="js-help-video-launch">Ways to Participate</a>  </div>
+</div>
+          </td>
+              </tr>
+                <tr class="row-2 row-last">
+                  <td class="col-1">
+            <div class="help-video-item">
+  <div class="help-video-thumb">
+    <a href="http://www.symantec.com/connect/es/help/item/1611301" class="js-help-video-launch play-icon"><span>play</span></a>    <a href="http://www.symantec.com/connect/es/help/item/1611301" class="js-help-video-launch"><img src="vlcsnap-2011-01-06-08h20m37s236.png" alt="" title="" class="imagecache imagecache-help-video-thumb imagecache-default imagecache-help-video-thumb_default" width="230" height="160"></a>  </div>
+  <div class="help-video-title">
+    <a href="http://www.symantec.com/connect/es/help/item/1611301" class="js-help-video-launch">Register for Symantec Connect</a>  </div>
+</div>
+          </td>
+                  <td class="col-2">
+            <div class="help-video-item">
+  <div class="help-video-thumb">
+    <a href="http://www.symantec.com/connect/es/help/item/1601751" class="js-help-video-launch play-icon"><span>play</span></a>    <a href="http://www.symantec.com/connect/es/help/item/1601751" class="js-help-video-launch"><img src="vlcsnap-2010-12-24-10h53m21s133.png" alt="" title="" class="imagecache imagecache-help-video-thumb imagecache-default imagecache-help-video-thumb_default" width="230" height="160"></a>  </div>
+  <div class="help-video-title">
+    <a href="http://www.symantec.com/connect/es/help/item/1601751" class="js-help-video-launch">Create Content Pages</a>  </div>
+</div>
+          </td>
+                  <td class="col-3">
+                      </td>
+                  <td class="col-4">
+                      </td>
+              </tr>
+      </tbody>
+</table>
+    </div>
+  
+  
+  
+  
+  
+  
+</div>       </div>
+    </div>
+  </div>
+						
+      <div class="fixed-width">
+      <div id="user-message-container">        
+								<div id="page-announcement"><span id="announcement">Complete your profile, earn some points; <a href="http://www.symantec.com/connect/node/1999571">learn more here</a>.
+</span></div>						
+										
+				
+      </div><!-- /#user-message-container --> 
+    </div> 
+  		
+		 
+      
+	<div class="page fixed-width clearfix">
+		<div id="main" class="clearfix">
+
+			<div id="fluid-content">
+				<div id="content-wrapper" class="clearfix">
+					<div id="content-inner" class="clearfix">
+
+						
+												
+												
+																								
+						<div id="content-content"><!-- node-generic.tpl.php -->
+
+
+<div id="node-1234351" class="clearfix node node-container node-type-article">
+  <h1 class="node-title">Securing MySQL: step-by-step</h1>
+  
+  <div class="node-posted">
+     <span class="highlight">Updated: 02 Nov 2010</span>    </div>
+
+  <div class="node-meta clearfix">
+    <div class="picture">
+  <img src="default_user_new.png" alt="Anonymous's picture" title="Anonymous's picture" class="imagecache imagecache-32x32" width="32" height="32"></div>
+    <div class="submitted">
+      <a href="http://www.symantec.com/connect/user/0" class="user-level user-level-1"></a>          </div>
+    <div class="voting-box">
+      
+<span id="votes-node-1234351" class="total-votes-thumbs-large">
+  <span class="positive total">+1</span>
+  <span class="total-votes-count">1 Vote  </span>
+</span>
+      
+<div class="vud-widget vud-widget-thumbs-large" id="widget-node-1234351">
+  <div class="vud-widget-disabled clearfix">
+    <div class="vote-tooltip hide-me">
+      <span>Login to vote</span>
+      <div class="vote-tooltip-arrow"></div>
+    </div>
+    <span class="up-inactive"></span>
+    <span class="down-inactive"></span>      
+  </div>
+</div>
+    </div>      
+  </div>
+  
+      
+  <div class="node-content-pad"> 
+    <div class="content clearfix">
+      <p>by Artur Maj</p>
+<table width="100%" border="0" cellspacing="0">
+<tbody>
+<tr>
+<td class="text">
+<!-- OAS --><!-- OAS --><h2>1. Introduction</h2>
+<p>				MySQL is one of the most popular databases on the Internet and it is often used in conjunction with PHP. Besides its undoubted advantages such as easy of use and relatively high performance, MySQL offers simple but very effective security mechanisms. Unfortunately, the default installation of MySQL, and in particular the empty root password and the potential vulnerability to buffer overflow attacks, makes the database an easy target for attacks.</p>
+<p class="text">This article describes the basic steps which should be performed in order to secure a MySQL database against both local and remote attacks. This is the third and last of the <a href="http://www.securityfocus.com/search?category=13&amp;query=Artur+Maj">series</a> of articles devoted to securing Apache, PHP and MySQL.</p>
+<h3>1.1 Functionality</h3>
+<p>				The article assumes that the Apache web server with the PHP module is installed in accordance with the previous articles, and is placed in the <i>/chroot/httpd</i> directory.</p>
+<p class="text">Apart from the above we assume the following:</p>
+<ul>
+<li>The MySQL database will be used only by PHP applications, installed on the same host;</li>
+<li>The default administrative tools, such as <i>mysqladmin, mysql, mysqldump</i> etc. will be used to manage the database;</li>
+<li>Remote data backup will be performed by utilizing the SSH protocol.</li>
+</ul>
+<h3>1.2 Security requirements</h3>
+<p>				In order to achieve the highest possible level of security, the installation and configuration of MySQL should be performed in accordance with the following security requirements:</p>
+<ul>
+<li>MySQL database must be executed in a chrooted environment;</li>
+<li>MySQL processes must run under a unique UID/GID that is not used by any other system process;</li>
+<li>Only local access to MySQL will be allowed;</li>
+<li>MySQL root's account must be protected by a hard to guess password;</li>
+<li>The administrator's account will be renamed;</li>
+<li>Anonymous access to the database (by using the <i>nobod</i>y account) must be disabled;</li>
+<li>All sample databases and tables must be removed.</li>
+</ul>
+<h2>2. Installing MySQL</h2>
+<p>				Before we start securing MySQL, we must install the software on the server. As in the previous articles, we will start installation by creating a unique, regular group and user account on the operating system, which will be dedicated to the MySQL database:</p>
+<p class="text"><code>pw groupadd mysql<br>
+					pw useradd mysql -c "MySQL Server" -d /dev/null -g mysql -s /sbin/nologin<br>
+					</code></p>
+<h3>2.1 Compiling MySQL</h3>
+<p>				We will compile and install MySQL software in the <i>/usr/local/mysql</i> directory:</p>
+<p class="text"><code>./configure --prefix=/usr/local/mysql --with-mysqld-user=mysql --with-unix-socket-path=/tmp/mysql.sock --with-mysqld-ldflags=-all-static<br>
+					make<br>
+					su<br>
+					make install<br>
+					strip /usr/local/mysql/libexec/mysqld<br>
+					scripts/mysql_install_db<br>
+					chown -R root /usr/local/mysql<br>
+					chown -R mysql /usr/local/mysql/var<br>
+					chgrp -R mysql /usr/local/mysql<br>
+					</code></p>
+<p class="text">In general, the process of installing the server is almost identical to the one described in the MySQL manual. The only change is the use of a few additional parameters, specified in the <i>./configure</i> line. The most important difference is the use of <i>--with-mysqld-ldflags=-all-static</i> parameter, which causes the MySQL server to be linked statically. This will significantly simplify the process of chrooting the server, as described in Section 3. With regard to the other parameters, they instruct the <i>make</i> program to install the software in the <i>/usr/local/mysql</i> directory, run the MySQL daemon with the privileges of the <i>mysql</i> account, and create the <i>mysql.sock</i> socket in the <i>/tmp</i> directory.</p>
+<h3>2.2 Copy configuration file</h3>
+<p>				After executing the above commands, we must copy the default configuration file in accordance with the expected size of the database (small, medium, large, huge). For example:</p>
+<p class="text"><code>cp support-files/my-medium.cnf /etc/my.cnf<br>
+					chown root:sys /etc/my.cnf<br>
+					chmod 644 /etc/my.cnf<br>
+					</code></p>
+<h3>2.3 Start the server</h3>
+<p>				At this point MySQL is fully installed and ready to run. We can start the MySQL server by executing the following command:</p>
+<p class="text"><code>/usr/local/mysql/bin/mysqld_safe &amp;<br>
+					</code></p>
+<h3>2.4 Test the connection</h3>
+<p>				Try to establish a connection with the database as follows:</p>
+<p class="text">&nbsp;</p>
+<pre> /usr/local/mysql/bin/mysql -u root mysql Welcome to the MySQL monitor.  Commands end with ; or \g. Your MySQL connection id is 2 to server version: 4.0.13-log Type 'help;' or '\h' for help. Type '\c' to clear the buffer. mysql&gt; show databases; +----------+ | Database | +----------+ | mysql    | | test     | +----------+ 2 rows in set (0.00 sec) mysql&gt; quit; </pre><p class="text">Once the connection is successfully established, we can shutdown the database:</p>
+<p class="text"><code>/usr/local/mysql/bin/mysqladmin -u root shutdown<br>
+					</code></p>
+<p class="text">and start securing the software. Otherwise, we should analyze the information stored in the <i>/usr/local/mysql/var/`hostname`.err</i> log file, and eliminate the cause of any problems.</p>
+<h2>3. Chrooting the server</h2>
+<p>				The first step of securing MySQL is to prepare the chrooted environment, in which the MySQL server will run. The chrooting technique was described in detail in the first article of this series ("<a href="http://www.securityfocus.com/infocus/1694">Securing Apache: Step-by-Step</a>"), so if you are not familiar with the technique or why chrooting is recommended, please refer to that article.</p>
+<h3>3.1 Operating system</h3>
+<p>				Like in the previous articles, the target operating system is FreeBSD 4.7. However, the methods presented should also apply on most modern UNIX and UNIX-like systems.</p>
+<h3>3.2 Prepare chroot environment</h3>
+<p>				In order to prepare the chrooted environment, we must create the following directory structure:</p>
+<p class="text"><code>mkdir -p /chroot/mysql/dev<br>
+					mkdir -p /chroot/mysql/etc<br>
+					mkdir -p /chroot/mysql/tmp<br>
+					mkdir -p /chroot/mysql/var/tmp<br>
+					mkdir -p /chroot/mysql/usr/local/mysql/libexec<br>
+					mkdir -p /chroot/mysql/usr/local/mysql/share/mysql/english<br>
+					</code></p>
+<h3>3.3 Set access rights</h3>
+<p>				The access rights to the above directories should be set as follows:</p>
+<p class="text"><code>chown -R root:sys /chroot/mysql<br>
+					chmod -R 755 /chroot/mysql<br>
+					chmod 1777 /chroot/mysql/tmp<br>
+					</code></p>
+<h3>3.4 Create directory structure</h3>
+<p>				Next, the following files have to be copied into the new directory structure:</p>
+<p class="text"><code>cp /usr/local/mysql/libexec/mysqld /chroot/mysql/usr/local/mysql/libexec/<br>
+					cp /usr/local/mysql/share/mysql/english/errmsg.sys /chroot/mysql/usr/local/mysql/share/mysql/english/<br>
+					cp /etc/hosts /chroot/mysql/etc/<br>
+					cp /etc/host.conf /chroot/mysql/etc/<br>
+					cp /etc/resolv.conf /chroot/mysql/etc/<br>
+					cp /etc/group /chroot/mysql/etc/<br>
+					cp /etc/master.passwd /chroot/mysql/etc/passwords<br>
+					cp /etc/my.cnf /chroot/mysql/etc/<br>
+					</code></p>
+<h3>3.5 Tighten passwords and groups</h3>
+<p>				From the files: <i>/chroot/mysql/etc/passwords</i> and <i>/chroot/mysql/etc/group</i> we must remove all the lines except the mysql account and group. Next, we have to build the password database as follows (this applies only to FreeBSD):</p>
+<p class="text"><code>cd /chroot/mysql/etc<br>
+					pwd_mkdb -d /chroot/mysql/etc passwords<br>
+					rm -rf /chroot/mysql/etc/master.passwd<br>
+					</code></p>
+<h3>3.6 Special considerations</h3>
+<p>				As in case of the Apache web server, we have to create a special device file <i>/dev/null</i>:</p>
+<p class="text">&nbsp;</p>
+<pre> ls -al /dev/null  crw-rw-rw-  1 root  sys    2,   2 Jun 21 18:31 /dev/null mknod /chroot/mysql/dev/null c 2 2 chown root:sys /chroot/mysql/dev/null chmod 666 /chroot/mysql/dev/null </pre><p class="text">We must also copy the <i>mysql</i> database, which contains grant tables created during MySQL installation:</p>
+<p class="text"><code>cp -R /usr/local/mysql/var/ /chroot/mysql/usr/local/mysql/var<br>
+					chown -R mysql:mysql /chroot/mysql/usr/local/mysql/var<br>
+					</code></p>
+<h3>3.7 Localization</h3>
+<p>				If any language other than English will be used, we should copy the proper charsets from the <i>/usr/local/mysql/share/mysql/charsets</i> directory as well.</p>
+<h3>3.8 Test the configuration</h3>
+<p>				At this point MySQL is ready to run in the chrooted environment. We can test if it runs correctly by executing the following command:</p>
+<p class="text"><code>chrootuid /chroot/mysql mysql /usr/local/mysql/libexec/mysqld &amp;<br>
+					</code></p>
+<p class="text">If any error occurs, we should use the <i>truss</i> command or an alternative, such as <i>ktrace/kdump</i>, <i>strace</i>, etc. This will help us to determine and eliminate the cause of the problems.</p>
+<p class="text">Notice, that in order to run the <i>mysqld</i> process, the <i>chrootuid</i> program was used instead of <i>chroo</i>t, as in case of Apache or PHP. The main difference is that <i>chrootuid</i> changes the owner of the executing process. In our example, <i>mysqld</i> is being executed in a chrooted environment, but the owner of the process is not <i>root</i>, but <i>mysql</i> user. The <i>chrootuid</i> is not installed by default in many operating systems and it may be necessary to download and install this program manually. The <i>chrootuid</i> software can be downloaded <a href="ftp://ftp.porcupine.org/pub/security/chrootuid1.3.tar.gz" target="_top">here</a>.</p>
+<p class="text">&nbsp;</p>
+<h2>4. Configuring the server</h2>
+<p>				The next step is to configure the database server in compliance with our security requirements.</p>
+<p class="text">In case of default installation of MySQL, the main configuration file is <i>/etc/my.cnf</i>. In our case, however, because of running the server in a chrooted environment, we will use two configuration files: <i>/chroot/mysql/etc/my.cn</i>f and <i>/etc/my.cnf</i>. The first one will be used by MySQL server, and the latter will be used by MySQL tools (e.g. <i>mysqladmin, mysql, mysqldump</i> etc.). In both cases, some configuration changes will be required.</p>
+<h3>4.1 Disable remote access</h3>
+<p>				The first change applies to the 3306/tcp port, on which MySQL listens by default. Because, according to the initial assumptions, the database will be used only by locally installed PHP applications, we can freely disable listening on that port. This will limit possibilities of attacking the MySQL database by direct TCP/IP connections from other hosts. Local communication will be still possible throw the <i>mysql.soc</i>k socket. In order to disable listening on the mentioned port, the following parameter should be added to the <i>[mysqld]</i> section of <i>/chroot/mysql/etc/my.cn</i>f:</p>
+<p class="text"><code>skip-networking</code></p>
+<p class="text">If, for some reason, remote access to the database is still required (e.g. to perform remote data backup), the SSH protocol can be used as follows:</p>
+<p class="text"><code>backuphost$ ssh mysqlserver /usr/local/mysql/bin/mysqldump -A &gt; backup<br>
+					</code></p>
+<h3>4.2 Improve local security</h3>
+<p>				The next change is to disable the use of <i>LOAD DATA LOCAL INFILE</i> command, which will help to prevent against unauthorized reading from local files. This matters especially when new SQL Injection vulnerabilities in PHP applications are found.</p>
+<p class="text">For that purpose, the following parameter should be added in the <i>[mysqld]</i> section in <i>/chroot/mysql/etc/my.cnf</i>:</p>
+<p class="text"><code>set-variable=local-infile=0</code></p>
+<p class="text">In addition, to make the use of the database administrative tools convenient, the following parameter should be changed in the <i>[client]</i> section of <i>/etc/my.cnf</i>:</p>
+<p class="text"><code>socket = /chroot/mysql/tmp/mysql.sock</code></p>
+<p class="text">Thanks to that, there will be no need to supply the <i>mysql, mysqladmin, mysqldump</i> etc. commands with the <i>--socket=/chroot/mysql/tmp/mysql.sock</i> parameter every time we run these tools.</p>
+<h3>4.3 Change admin password</h3>
+<p>				One of the most important steps in securing MySQL is changing the database administrator's password, which is empty by default. In order to perform that, we should run MySQL (if it is not already running):</p>
+<p class="text"><code>chrootuid /chroot/mysql mysql /usr/local/mysql/libexec/mysqld &amp;</code></p>
+<p class="text">and change the administrator's password as follows:</p>
+<p class="text"><code>/usr/local/mysql/bin/mysql -u root<br>
+					mysql&gt; SET PASSWORD FOR root@localhost=PASSWORD('new_password');<br>
+					</code></p>
+<p class="text">It is good practice not to change passwords from the command line, for example, by using the "<i>mysqladmin password</i>" command. This is especially important when other users work on the server. In that case the password could be easily revealed, e.g. by using the "<i>ps aux</i>" command or reviewing history files (<i>~/.history, ~/.bash_history</i> etc), when improper access rights are set to them.</p>
+<h3>4.4 Remove default users/db</h3>
+<p>				Next, we must remove the sample database (test) and all accounts except the local root account:</p>
+<p class="text">&nbsp;</p>
+<pre>  mysql&gt; drop database test;  mysql&gt; use mysql;  mysql&gt; delete from db;  mysql&gt; delete from user where not (host="localhost" and user="root");  mysql&gt; flush privileges; </pre><p class="text">This will prevent the database from establishing anonymous connections and -- irrespective of the <i>skip-networking</i> parameter in <i>/chroot/mysql/etc/my.cnf</i> -- remote connections as well.</p>
+<h3>4.5 Change admin name</h3>
+<p>				It is also recommended to change the default name of administrator's account (<i>root</i>), to a different, harder to guess one. Such a change will make it difficult to perform brute-force and dictionary attacks on the administrator's password. In this case the intruder will have to guess not only the password, but first and foremost, the name of the administrator's account.</p>
+<p class="text"><code>mysql&gt; update user set user="mydbadmin" where user="root";<br>
+					mysql&gt; flush privileges;<br>
+					</code></p>
+<h3>4.6 Remove history</h3>
+<p>				Finally, we should also remove the content of the MySQL history file (<i>~/.mysql_history</i>), in which all executed SQL commands are being stored (especially passwords, which are stored as plain text):</p>
+<p class="text"><code>cat /dev/null &gt; ~/.mysql_history</code></p>
+<h2>5. Communication between PHP and MySQL</h2>
+<p>				In the previous article ("<a href="http://www.securityfocus.com/infocus/1706">Securing PHP: Step-by-Step</a>"), I mentioned about the communication problem between PHP and MySQL when one of these programs is being executed in a chrooted environment. Because locally PHP communicates with MySQL by using the <i>/tmp/mysql.sock</i> socket, placing PHP in the chrooted environment means that they cannot communicate with each other. To solve that problem, each time we run MySQL we must create hard link to the PHP chrooted environment:</p>
+<p class="text"><code>ln /chroot/mysql/tmp/mysql.sock /chroot/httpd/tmp/</code></p>
+<p class="text">Note that the /<i>chroot/mysql/tmp/mysql.sock</i> socket and the <i>/chroot/httpd/tmp</i> directory must be physically placed on the same filesystem. Otherwise the programs will not be able to communicate with each other -- hard links do not work between filesystems.</p>
+<h2>6. Final steps</h2>
+<p>				At this point we can create all databases and accounts which will be used by specific PHP applications. It should be emphasized that these accounts should have access rights only to the databases which are used by the PHP applications. In particular, they should not have any access rights to the <i>mysql</i> database, nor any system or administrative privileges (FILE, GRANT, ALTER, SHOW DATABASE, RELOAD, SHUTDOWN, PROCESS, SUPER etc.).</p>
+<p class="text">At last, we should also create a shell script that will be used to run MySQL during operating system start up. Sample script is shown below and also available for <a href="http://www.symantec.com/unix/images/mysql.sh">download</a>:</p>
+<p class="text">&nbsp;</p>
+<pre> #!/bin/sh CHROOT_MYSQL=/chroot/mysql CHROOT_PHP=/chroot/httpd SOCKET=/tmp/mysql.sock MYSQLD=/usr/local/mysql/libexec/mysqld PIDFILE=/usr/local/mysql/var/`hostname`.pid CHROOTUID=/usr/local/sbin/chrootuid echo -n " mysql" case "$1" in start)         rm -rf ${CHROOT_PHP}/${SOCKET}         nohup ${CHROOTUID} ${CHROOT_MYSQL} mysql ${MYSQLD} &gt;/dev/null 2&gt;&amp;1 &amp;         sleep 5 &amp;&amp; ln ${CHROOT_MYSQL}/${SOCKET} ${CHROOT_PHP}/${SOCKET}         ;; stop)         kill `cat ${CHROOT_MYSQL}/${PIDFILE}`         rm -rf ${CHROOT_MYSQL}/${SOCKET}         ;; *)         echo ""         echo "Usage: `basename $0` {start|stop}" &gt;&amp;2         exit 64         ;; esac exit 0 </pre><p class="text">In case of our FreeBSD system, the above script should be placed in the <i>/usr/local/etc/rc.d</i> directory, under the name of <i>mysql.sh</i>.</p>
+<h3>6.1 Summary</h3>
+<p>				Applying the methods described in the article allows us to significantly increase the security of MySQL. By running the database in a chrooted environment, disabling listening on 3306/tcp port and applying strong passwords to users' accounts we can make the database immune to a many of the attacks that would be possible with the default installation.</p>
+<p class="text">Although no method will let us achieve 100% security, applying the outlined methods will at least limit attack possibilities from users who visit our web servers with unfair intentions.<br>
+					&nbsp;</p>
+</td>
+</tr>
+<!-- If you have relevant links, remove the comment tag below it --><!-- If you have relevant links, remove the comment tag below it --><tr>
+<td class="rightcolumn" valign="TOP"><img alt="" src="pixel.gif" width="110" height="1"><p></p>
+<div class="rightcolumn"><span class="text"><b>Relevant Links</b></span><br>
+					<span class="text"> </span><p></p>
+<p class="text"><span class="text"><a href="http://www.securityfocus.com/infocus/1694">Securing Apache: Step-by-Step</a><br>
+						<a href="http://www.securityfocus.com/infocus/1706">Securing PHP: Step-by-Step</a></span></p>
+<p>						<a href="http://www.mysql.com/" target="_top">MySQL Website</a><br>
+						<a href="ftp://ftp.porcupine.org/pub/security/chrootuid1.3.tar.gz">chrootuid package</a> <img alt="" src="pixel.gif" width="110" height="1"> </p>
+<div class="rightcolumn"><span class="text"><span class="text"><b>About the author</b></span><br>
+						<span class="text"> </span></span><p></p>
+<p><span class="text"><span class="text"><a href="mailto:artur.maj@seccure.net">Artur Maj</a> works as a Principal Software Engineer for Oracle Corporation, in the EMEA Mobile, Wireless &amp; Voice Center of Expertise. He is experienced in designing computer systems, performing security audits as well as providing security training. He is also author of many articles and publications devoted to securing computer systems and software against intruders.</span></span></p>
+<p class="text"><span class="text"><span class="text">View <a href="http://www.securityfocus.com/search?category=13&amp;query=Artur+Maj">more articles</a> by Artur Maj on SecurityFocus. </span></span></p>
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td>
+				<i>Comments or reprint requests can be sent to the <a href="mailto:content-editor@securityfocus.com">editor</a>.</i></td>
+</tr>
+<!-- If you have relevant links, remove the comment tag above it --><!-- If you have relevant links, remove the comment tag above it --></tbody>
+</table>
+<p>This article originally appeared on SecurityFocus.com -- reproduction in whole or in part is not allowed without expressed written consent.</p>
+    </div>
+  </div><!-- /node-content-pad -->
+
+  <div class="terms clearfix">
+        <div class="terms-column-1">
+      <div class="filed-under item-article">
+        <div class="terms-label">article Filed Under:</div>
+        <div class="terms-comma"><a href="http://www.symantec.com/connect/communities/security" rel="tag" title="">Security</a>, <a href="http://www.symantec.com/connect/products/endpoint-protection-antivirus" rel="tag" title="">Endpoint Protection (AntiVirus)</a>, <a href="http://www.symantec.com/connect/topics/securityfocus" rel="tag" title="">SecurityFocus</a></div>
+      </div>
+    </div>
+          </div>
+      
+      
+  <div class="links-bar clearfix">
+    <ul class="links"><li class="comment_forbidden first"><span><a href="https://www-secure.symantec.com/connect/user/login?destination=node%2F1234351%23comment-form">Login</a> or <a href="https://www-secure.symantec.com/connect/user/register?destination=node%2F1234351%23comment-form">register</a> to post comments</span></li>
+<li class="0 last"><a href="http://www.symantec.com/connect/comments-rss/1234351" class="links-rss-icon"><span>Comments RSS Feed</span></a></li>
+</ul>  </div>
+</div><!-- /node-container -->
+
+</div>						
+					</div><!-- /content-inner -->
+
+				</div><!-- /content-wrapper -->
+			</div><!-- fluid-content -->
+
+			<div id="sidebar">			 
+								
+				 
+									<div id="sidebar-promo" class="sidebar clearfix">
+							<!-- start block.tpl.php -->
+
+  <div id="block-symantec_navigation-connect_promos_sidebar" class="block block-wrapper block-symantec_navigation block-order-1 odd clearfix">
+    <div class="block-inner">
+            <div class="content clearfix">
+        <!-- node-promotion_text.tpl.php -->
+
+<div class="promo-text promo-text-sidebar-blue">
+  <div class="promo-flag"></div>
+
+  <div class="promo-title">
+  	Do You Have A Current Support Contract With Symantec?  </div>
+  <div class="promo-body ">
+  	Please Let Us Know If You Have A Current Support Contract With Symantec?  </div>
+  <a href="http://www.symantec.com/connect/node/1740111" class="promo-more">Learn More</a></div>
+      </div>
+    </div><!-- /block-inner -->
+  </div>
+
+<!-- /end block.tpl.php -->					</div><!-- /#sidebar-promo -->
+							 
+			</div><!-- /sidebar -->
+		</div><!-- /main -->
+
+	</div><!-- /page -->
+
+  <div class="fixed-width">
+    <div id="footer-menu" class="clearfix">
+                    <div id="footer-menu-container"><ul class="menu"><li class="leaf first"><a href="http://www.symantec.com/connect/legal" title="">Symantec Corporation</a></li>
+<li class="leaf"><a href="http://www.symantec.com/connect/contact" title="">Contact Us</a></li>
+<li class="leaf"><a href="http://www.symantec.com/connect/faq" title="">FAQ</a></li>
+<li class="leaf"><a href="http://www.symantec.com/connect/pages/get-4-1-1-rss" title="">Get RSS</a></li>
+<li class="leaf"><a href="http://www.symantec.com/about/profile/policies/privacy.jsp" title="">Privacy Policy</a></li>
+<li class="leaf last"><a href="http://www.symantec.com/" title="">Symantec.com</a></li>
+</ul></div>
+          </div>
+            <div id="footer" class="clearfix">
+        <div id="footer-wrapper" class="clearfix">
+          <div id="closure">
+
+</div>        </div><!-- /footer-wrapper -->
+      </div><!-- /footer -->
+        </div><!-- /.fixed-width footer -->
+
+	<!-- SiteCatalyst code. Copyright 1997-2008 Omniture, Inc. More info available at http://www.omniture.com -->
+    
+      
+    <!--/DO NOT REMOVE/-->
+    <!-- End SiteCatalyst code. -->
+  
+
+
+</body>
+</html>

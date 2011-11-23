@@ -1,0 +1,99 @@
+<!DOCTYPE html><html>
+    <head>
+        <style type="text/css">
+        body{font-family:arial,sans-serif;font-size:12px;color:#444;margin:0;}ul{list-style:none;margin:0px;padding:0px;}#widget-title{margin:10px;padding:5px 10px;color:#FFF;background-color:#5E5E5E;font-weight:bold;font-size:14px;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;}.asset{padding:10px 20px;overflow:auto;position:relative;margin:10px 0;}.asset-title{ padding:0 0 10px;}.asset-title a{color:#1E10A1;text-decoration:none;font-weight:bold;}.asset .asset-download .asset-download-button{background-image:url(../images/download.png);display:block;height:21px;width:90px;}.asset .asset-thumb img{border:1px solid #ADADAD;}.col-left {float:left;margin-right:10px;width:90px;}.col-right {margin-left:100px;}.asset .asset-logo{display:none;}.asset {float:left;clear:left;}.asset .asset-thumb, .asset .asset-download{margin-bottom:5px;}.asset-thumb img{width:90px;}.asset .asset-download .asset-download-button{background-image:url(../images/download-small.png);}        </style>
+                <link type="text/css" rel="stylesheet" href="http://www.serverwatch.com/css/listing.css"/>
+                <script type="text/javascript" language="javascript" src="/hqx/sl/?g=js-2.0"></script>
+    </head>
+    <body>
+        <div id="widget-title">Whitepapers and More</div>
+        <script type="text/html" id="assetsListings_listing_template">
+            <li class="asset">
+                                <div class='col-left'>
+                    <div class="asset-thumb">
+                        <img src="${asset.getImageUrl()}">
+                    </div>
+                    <div class="asset-logo">
+                        <img src="${getLogoPath()}">
+                    </div>
+                                        <div class="asset-download">
+                        <a class="asset-download-button qsct bluid_${getBluid()}" href="http://www.serverwatch.com/ebooks${getAssetFormUrl()}" target="_blank"></a>
+                    </div>
+                                    </div>
+                <div class='col-right'>
+                                        <div class="asset-title">
+                        <a class="qsct bluid_${getBluid()}" href="http://www.serverwatch.com/ebooks${getAssetFormUrl()}" target="_blank">${asset.getTitle()}</a>
+                    </div>
+                                        <div class="asset-blurb">
+                        ${asset.getDescriptionTruncated(150)}
+                    </div>
+                                </li>
+        </script>
+        <div id="assetsListings" class="cachedWidget">
+            <span id="assetsListings_filterCriteria" style="display:none" class="%3Ca%20class%3D%22array%22%3E%0A%20%20%3Ce%20key%3D%22sp_260910%22%3E%3C%21%5BCDATA%5BWidget%5D%5D%3E%3C%2Fe%3E%0A%20%20%3Ce%20key%3D%22sp_261220%22%3E%3C%21%5BCDATA%5Btrue%5D%5D%3E%3C%2Fe%3E%0A%20%20%3Ce%20key%3D%22sp_260890%22%3E%3C%21%5BCDATA%5B%2Ftutorials%2Farticle.php%2F3818366%2FIO-Optimization.htm%5D%5D%3E%3C%2Fe%3E%0A%20%20%3Ce%20key%3D%22sp_260880%22%3E%3C%21%5BCDATA%5Bwww.serverwatch.com%5D%5D%3E%3C%2Fe%3E%0A%20%20%3Ce%20key%3D%22sp_260920%22%3E%3C%21%5BCDATA%5B3974610%5D%5D%3E%3C%2Fe%3E%0A%3C%2Fa%3E" ></span>
+            <span id="assetsListings_dataValues" style="display:none" class="%3Ca%20class%3D%22array%22%3E%0A%20%20%3Ce%20key%3D%22IO%22%3E%3C%21%5BCDATA%5BMULTI-MATCH%5D%5D%3E%3C%2Fe%3E%0A%20%20%3Ce%20key%3D%22LoadProductContentMap%22%3E%3C%21%5BCDATA%5Btrue%5D%5D%3E%3C%2Fe%3E%0A%20%20%3Ce%20key%3D%22AllClientsRequireAssets%22%3E%3C%21%5BCDATA%5Btrue%5D%5D%3E%3C%2Fe%3E%0A%3C%2Fa%3E"></span>
+            <span id="assetsListings_tracking" style="display:none" class="%7B%22common%22%3A%5B%7B%22name%22%3A%22WidgetInstanceKey%22%2C%22value%22%3A%223974610%22%7D%2C%7B%22name%22%3A%22Timestamp%22%2C%22value%22%3A%2220111123071658422%22%7D%2C%7B%22name%22%3A%22CCID%22%2C%22value%22%3A%22%22%7D%2C%7B%22name%22%3A%22AffiliateKey%22%2C%22value%22%3A%22-1%22%7D%2C%7B%22name%22%3A%22MediaChannelKey%22%2C%22value%22%3A%22-1%22%7D%2C%7B%22name%22%3A%22CustomParam01Code%22%2C%22value%22%3A%22B2B_AUDIENCE%2CB2B_INDUSTRY%2CB2B_PRODUCT_SERVERS%22%7D%2C%7B%22name%22%3A%22CustomParam02Code%22%2C%22value%22%3A%22%22%7D%2C%7B%22name%22%3A%22CustomParam03Code%22%2C%22value%22%3A%22%22%7D%2C%7B%22name%22%3A%22CustomParam04Code%22%2C%22value%22%3A%22%22%7D%2C%7B%22name%22%3A%22CustomParam05Code%22%2C%22value%22%3A%22%22%7D%2C%7B%22name%22%3A%22NumOfResults%22%2C%22value%22%3A%223%22%7D%2C%7B%22name%22%3A%22SortingStrategy%22%2C%22value%22%3A%22B2B_SL_COMMON_SEQ%22%7D%2C%7B%22name%22%3A%22Weight%22%2C%22value%22%3A%22100%22%7D%2C%7B%22name%22%3A%22pagesize%22%2C%22value%22%3A%223%22%7D%2C%7B%22name%22%3A%22offset%22%2C%22value%22%3A%221%22%7D%2C%7B%22name%22%3A%22QuestionSetKey%22%2C%22value%22%3A%229343290%22%7D%5D%2C%22listing%22%3A%5B%7B%22namedValues%22%3A%5B%7B%22name%22%3A%22VendorKey%22%2C%22value%22%3A%221613850%22%7D%2C%7B%22name%22%3A%22Position%22%2C%22value%22%3A%221%22%7D%2C%7B%22name%22%3A%22BLUID%22%2C%22value%22%3A%2220111123071658422238051%22%7D%2C%7B%22name%22%3A%22CampaignKey%22%2C%22value%22%3A%224761010%22%7D%5D%7D%2C%7B%22namedValues%22%3A%5B%7B%22name%22%3A%22VendorKey%22%2C%22value%22%3A%221613210%22%7D%2C%7B%22name%22%3A%22Position%22%2C%22value%22%3A%222%22%7D%2C%7B%22name%22%3A%22BLUID%22%2C%22value%22%3A%2220111123071658422298602%22%7D%2C%7B%22name%22%3A%22CampaignKey%22%2C%22value%22%3A%225721010%22%7D%5D%7D%2C%7B%22namedValues%22%3A%5B%7B%22name%22%3A%22VendorKey%22%2C%22value%22%3A%221614220%22%7D%2C%7B%22name%22%3A%22Position%22%2C%22value%22%3A%223%22%7D%2C%7B%22name%22%3A%22BLUID%22%2C%22value%22%3A%2220111123071658422190113%22%7D%2C%7B%22name%22%3A%22CampaignKey%22%2C%22value%22%3A%226649010%22%7D%5D%7D%5D%7D"></span>
+            <span id="assetsListings_ajaxLoadEffect" style="display:none;" class="progressBar"></span>
+            <span id="assetsListings_useOnPageWrapper" style="display:none;" class="true"></span>
+            <ul id="assetsListings_listing" class="listing">
+                        <li class="asset">
+                    <div class='col-left'>
+                                                <div class="asset-thumb">
+                            <img src="http://www.b2btechleadform.com/imageserver/content/one/b2b/thumbnails/7946_6907_ConsolidatingYourITNeedswithaServer_new.jpg">
+                        </div>
+                                                <div class="asset-logo">
+                            <img src="http://files.internet.com/vendshow/dell_logo_REG.gif">
+                        </div>
+                                                                        <div class="asset-download">
+                            <a class="asset-download-button qsctCached bluid_20111123071658422238051" href="http://www.serverwatch.com/ebooks/3449790/95990/1613850/118478" target="_blank"></a>
+                        </div>
+                                            </div>
+                    <div class='col-right'>
+                                                <div class="asset-title">
+                            <a class="qsctCached bluid_20111123071658422238051" href="http://www.serverwatch.com/ebooks/3449790/95990/1613850/118478" target="_blank">Consolidating Your IT Needs with a Server</a>
+                        </div>
+                                                <div class="asset-blurb">
+                            <strong>Tech Brief:</strong> Many small businesses rely on a patchwork IT system made up of outsourced solutions and point products from a number  ...                        </div>
+                                            </div>
+                </li>
+                                <li class="asset">
+                    <div class='col-left'>
+                                                <div class="asset-thumb">
+                            <img src="/imageserver/content/clientassets/3852_sec_doityourself_v3_eset-100.gif">
+                        </div>
+                                                <div class="asset-logo">
+                            <img src="http://i.eindx.com/b2btechleadform/logos/eset_logo.jpg">
+                        </div>
+                                                                        <div class="asset-download">
+                            <a class="asset-download-button qsctCached bluid_20111123071658422298602" href="http://www.serverwatch.com/ebooks/30403310/95980/1613210/118876" target="_blank"></a>
+                        </div>
+                                            </div>
+                    <div class='col-right'>
+                                                <div class="asset-title">
+                            <a class="qsctCached bluid_20111123071658422298602" href="http://www.serverwatch.com/ebooks/30403310/95980/1613210/118876" target="_blank">Step-by-Step: The Do-It-Yourself Security Audit</a>
+                        </div>
+                                                <div class="asset-blurb">
+                            The cost of a serious security breach can be very high indeed, so most organizations devote significant resources to keeping malware and malicious  ...                        </div>
+                                            </div>
+                </li>
+                                <li class="asset">
+                    <div class='col-left'>
+                                                <div class="asset-thumb">
+                            <img src="/imageserver/content/clientassets/Powerofvirtualization100.gif">
+                        </div>
+                                                                        <div class="asset-download">
+                            <a class="asset-download-button qsctCached bluid_20111123071658422190113" href="http://www.serverwatch.com/ebooks/37619110/95990/1614220/118921" target="_blank"></a>
+                        </div>
+                                            </div>
+                    <div class='col-right'>
+                                                <div class="asset-title">
+                            <a class="qsctCached bluid_20111123071658422190113" href="http://www.serverwatch.com/ebooks/37619110/95990/1614220/118921" target="_blank">The Power of Virtualization - Beyond Server Consolidation</a>
+                        </div>
+                                                <div class="asset-blurb">
+                            It's a simple notion: having fewer servers means a lower power footprint. That's one of the top motivations driving enterprises to server virtualization. ...                        </div>
+                                            </div>
+                </li>
+                            </ul>
+        </div>
+    </body>
+</html>
