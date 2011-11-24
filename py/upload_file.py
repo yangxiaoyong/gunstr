@@ -67,17 +67,20 @@ class LoginHandler(BaseHandler):
     '''用户登陆页面'''
 
     def get(self):
-        self.write('<html><body>'
-                '<form action="/login" method="post">'
-                '<p>Login</p>'
-                '<label for="username">Username: </label>'
-                  '<input type="text" id="username" name="username" />'
-                '<label for="password">Password: </label>'
-                  '<input type="password" id="password" name="password" />'
-                '<input type="submit" value="Sign in" />'
-                '</form>'
-                '</body></html>'
-                )
+        if not self.get_secure_cookie("user"):
+            self.write('<html><body>'
+                    '<form action="/login" method="post">'
+                    '<p>Login</p>'
+                    '<label for="username">Username: </label>'
+                      '<input type="text" id="username" name="username" />'
+                    '<label for="password">Password: </label>'
+                      '<input type="password" id="password" name="password" />'
+                    '<input type="submit" value="Sign in" />'
+                    '</form>'
+                    '</body></html>'
+                    )
+        else:
+            self.write('<html><body>Welcome %s</body></html>' % tornado.escape.xhtml_escape(self.current_user))
 
     def post(self):
         '''
