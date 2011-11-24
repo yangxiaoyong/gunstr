@@ -8,6 +8,7 @@ Inter-|   Receive                                                |  Transmit
   ppp0: 314504540  224722    0    0    0     0          0         0  8909365  142320    0    0    0     0       0          0
 
 '''
+import sys
 from time import sleep
 
 class NetDevice(object):
@@ -56,33 +57,39 @@ def output_interface_status(interface):
     print 'tx_bytes  : %s, (%.2f)MB ' % (tx_bytes, float(tx_bytes)/1024/1024)
     print 'tx_packets: %s' % tx_packets
 
-def calc_rate(interface, delay, attr):
+def calc_rate(interface, interval, attr):
     '''calc the current network rate'''
     netdev = NetDevice(interface)
     while 1:
         before = netdev.get(attr)
-        sleep(delay)
+        sleep(interval)
         diff = netdev.get(attr) - before
-        # rate = diff / delay
-        print "Interface: %s, in %s seconds, %s rate is %.2f bytes" % (interface, delay, attr, diff)
+        # rate = diff / interval
+        print "Interface: %s, in %s seconds, %s rate is %.2f bytes" % (interface, interval, attr, diff)
 
-def output_network_throught(interface, delay=1, unit='bytes'):
-    '''only care about incomming and output traffics'''
+def output_network_throught(interface, times=5, interval=1, unit='bytes'):
+    '''only care about incomming and output traffics
 
-    # Incoming     Output       Rate            sum_traffic
-    # 111 bytes    222 bytes    200 bytes/sec   xxxx
-    # 1 MiB        222 MiB
+    Output like this:
+
+      Incoming     Output       Rate            sum_traffic
+      111 bytes    222 bytes    200 bytes/sec   xxxx
+      1 MiB        222 MiB
+
+    '''
+
     unit_dict = {'bytes': 1,
                  'KiB': 1024,
                  'MiB': 1024 * 1024}
     format = lambda x: x + ' %s' % unit
     netdev = NetDevice(interface)
-    print 'Traffic about %s, delay: %s seconds' % (interface, delay)
-    print 'Incom    Outpu    Sum'
-    while 1:
+    print 'Traffic about %s, interval: %s seconds' % (interface, interval)
+    print 'IncomingTraffic    OutTraffic    SumTraffic'
+    while times > 0:
+        times -= 1
         rx_bytes = netdev.get('rx_bytes')
         tx_bytes = netdev.get('tx_bytes')
-        sleep(delay)
+        sleep(interval)
         rx = (netdev.get('rx_bytes') - rx_bytes) / unit_dict.get(unit, 1)
         tx = (netdev.get('tx_bytes') - tx_bytes) / unit_dict.get(unit, 1)
         sum_traffic = rx + tx
@@ -94,5 +101,19 @@ def output_network_throught(interface, delay=1, unit='bytes'):
 if __name__ == "__main__":
     # output_interface_status('eth0')
     # calc_rate('ppp0', 1, 'rx_bytes')
-    output_network_throught('ppp0', 1, 'KiB')
+    # interface times interval [unit]
+    interface = 'eth0'
+    times = 5
+    interval = 1
+    unit = 'bytes'
+    if len(sys.argv) >= 4:
+        interface, times, interval = sys.argv[1], int(sys.argv[2]), float(sys.argv[3])
+        if len(sys.argv) >= 5:
+            unit = sys.argv[4]
+        output_network_throught(interface, times, interval, unit)
+    else:
+        print 'Args not enough!'
+        print 'Usage:',  sys.argv[0],  'interface_name[eth0|eth1] output_times[5|10] interval[1|5] [output_unit[bytes|KiB|MiB]]'
+        sys.exit(1)
+
 
