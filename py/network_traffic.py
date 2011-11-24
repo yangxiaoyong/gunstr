@@ -11,6 +11,9 @@ Inter-|   Receive                                                |  Transmit
 import sys
 from time import sleep
 
+class NoSuchNetworkInterface(Exception):
+    pass
+
 class NetDevice(object):
     def __init__(self, interface):
         self.interface = interface
@@ -29,11 +32,15 @@ class NetDevice(object):
 
     def read_proc(self):
         proc_net = '/proc/net/dev'
+        has_interface = False
         with open(proc_net, 'rb') as fb:
             for line in fb:
-                line = line.strip()
+                line = line.lstrip()
                 if line.startswith(self.interface):
+                    has_interface = True
                     self.status = line.split(self.interface + ':')[-1].split()
+        if not has_interface:
+            raise NoSuchNetworkInterface(self.interface)
 
     def get(self, name):
         self.read_proc()
