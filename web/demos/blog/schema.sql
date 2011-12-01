@@ -19,12 +19,12 @@
 -- To reload the tables:
 --   mysql --user=blog --password=blog --database=blog < schema.sql
 
-SET SESSION storage_engine = "InnoDB";
-SET SESSION time_zone = "+0:00";
-ALTER DATABASE CHARACTER SET "utf8";
+-- SET SESSION storage_engine = "InnoDB";
+-- SET SESSION time_zone = "+0:00";
+-- ALTER DATABASE CHARACTER SET "utf8";
 
-DROP TABLE IF EXISTS entries;
-CREATE TABLE entries (
+-- DROP TABLE IF EXISTS entries;
+CREATE TABLE IF NOT EXISTS entries (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     author_id INT NOT NULL REFERENCES authors(id),
     slug VARCHAR(100) NOT NULL UNIQUE,
@@ -36,8 +36,8 @@ CREATE TABLE entries (
     KEY (published)
 );
 
-DROP TABLE IF EXISTS authors;
-CREATE TABLE authors (
+-- DROP TABLE IF EXISTS authors;
+CREATE TABLE IF NOT EXISTS authors (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(100) NOT NULL UNIQUE,
     name VARCHAR(100) NOT NULL
