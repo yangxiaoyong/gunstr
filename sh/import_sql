@@ -1,0 +1,20 @@
+#!/bin/sh
+
+CWD=dirname $0
+. $CWD/set_env.sh
+
+MY_DB=ftgwebgame
+
+test -z "$1" && echo "arg not enough!!!" exit 1
+test -n "$2" && MY_DB="$2" && echo "use database $2"
+
+case "$1" in
+    *.gz)
+        gunzip -c $1 | $MYSQL -u${MY_USER} -p${MY_PWD} $MY_DB
+    ;;
+    *.sql)
+        $MYSQL -u${MY_USER} -p${MY_PWD} $MY_DB < $1
+    ;;
+    *)
+    echo "$0 *.gz|*.sql"
+esac

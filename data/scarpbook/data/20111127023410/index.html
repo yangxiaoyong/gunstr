@@ -1,0 +1,1084 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" dir="ltr" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" class="js">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+  <title>Monitoring Virtual Memory with vmstat | Linux Journal</title>
+  
+<link rel="canonical" href="http://www.linuxjournal.com/article/8178">
+<meta name="keywords" content="Linux Journal">
+<meta name="description" content="Linux novices often find virtual memory mysterious, but with a grasp of the fundamental concepts, it's easy to understand. With this knowledge, you can monitor your system's memory utilization using vmstat and detect problems that can adversely affect system performance.">
+<link rel="shortcut icon" href="linuxjournal_favicon.png" type="image/x-icon">
+  
+
+<!--[if IE]>
+<link type="text/css" rel="stylesheet" media="all" href="/sites/linuxjournal.com/themes/zen/zen/ie.css?I" />
+<![endif]-->
+  
+
+<!-- PUT THIS TAG IN THE head SECTION -->
+
+
+
+
+<!-- END OF TAG FOR head SECTION -->
+
+ <!-- <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script> -->
+ <!--<script type="text/javascript">_uacct = "UA-1117794-1"; urchinTracker();</script> -->
+
+
+
+<!-- Start Quantcast tag -->
+
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="not-front not-logged-in node-type-xmlnode one-sidebar sidebar-right page-node-8178 section-node"><object>
+
+</object>
+<!-- End Quantcast tag -->
+
+
+
+
+
+  <div id="page"><div id="page-inner">
+<div id="header-top">
+<div id="login">
+<form action="http://www.linuxjournal.com/?q=user&amp;destination=node%2F8178" method="post" id="user-login">
+Username/Email:&nbsp;<input maxlength="60" name="name" id="edit-name" size="15" value="" class="form-text required" type="text">
+Password:&nbsp;<input maxlength="" name="pass" id="edit-pass" size="15" class="form-text required" type="password">
+<input name="op" value="Login" class="form-submit" type="submit">
+
+
+<input name="form_id" id="edit-user-login" value="user_login" type="hidden">
+
+</form>
+</div>
+<div id="login-links">
+<a href="http://www.linuxjournal.com/user/register">Register</a> | <a href="http://www.linuxjournal.com/user/password">Forgot your password?</a>
+
+
+
+</div>
+<div id="connect">
+<a href="http://www.twitter.com/linuxjournal" title="Follow us on Twitter"><img alt="Twitter" src="twittericon.jpg"></a><a href="http://www.facebook.com/linuxjournal" title="Become a Fan on Facebook"><img alt="Facebook" src="fbicon.jpg"></a><a href="http://www.flickr.com/groups/linuxjournal/pool/" title="Contribute to Our Flickr Pool"><img alt="Flickr" src="flickricon.jpg"></a><a href="http://www.linuxjournal.com/rss_feeds" title="Subscribe to Our Feeds"><img alt="RSS" src="rssicon.jpg"></a>
+</div>
+</div> <!-- /#header-top -->
+
+
+
+
+
+    <a name="top" id="navigation-top"></a>
+          <div id="skip-to-nav"><a href="#navigation">Skip to Navigation</a></div>
+    
+    <div id="header"><div id="header-inner" class="clear-block">
+
+              <div id="logo-title">
+
+                      <div id="logo"><a href="http://www.linuxjournal.com/" title="Home" rel="home"><img src="logo-lj.jpg" alt="Linux Journal" id="logo-image"></a></div>
+          
+          
+          
+	<div id="leaderboard-adblock" class="adblock leaderboard-adblock">
+       <div id="block-block-90" class="block block-block region-odd even region-count-1 count-14"><div class="block-inner">
+
+  
+  <div class="content">
+    <!--paging_filter--><!-- PUT THIS TAG IN DESIRED LOCATION OF SLOT Leaderboard728x90
+     -->
+<div id="google_ads_div_Leaderboard728x90_ad_container">
+<ins style="width: 728px; height: 90px; display: inline-table; position: relative; border: 0pt none;"><ins style="width: 728px; height: 90px; display: block; position: relative; border: 0pt none;"><iframe src="index_1.html" style="border: 0pt none; position: absolute; top: 0pt; left: 0pt;" marginheight="0" marginwidth="0" name="google_ads_iframe_Leaderboard728x90" id="google_ads_iframe_Leaderboard728x90" scrolling="no" width="728" frameborder="0" height="90"></iframe></ins></ins></div>
+
+<!-- END OF TAG FOR SLOT Leaderboard728x90
+     -->
+  </div>
+
+  
+</div></div> <!-- /block-inner, /block -->
+	</div>
+
+        </div> <!-- /#logo-title -->
+      
+
+
+      
+    </div></div> <!-- /#header-inner, /#header -->
+
+    <div id="main"><div id="main-inner" class="clear-block with-navbar">
+
+      <div id="content"><div id="content-inner">
+
+        
+        
+                  <div id="content-header">
+            <div class="breadcrumb"><a href="http://www.linuxjournal.com/">Home</a> › </div>                          <h1 class="title">Monitoring Virtual Memory with vmstat</h1>
+                                                          </div> <!-- /#content-header -->
+        
+        <div id="content-area">
+          <div id="node-8178" class="node node-type-xmlnode"><div class="node-inner">
+
+
+
+  
+
+  
+  
+  
+
+
+  
+
+<div id="facebook-like">
+<iframe src="index_2.html" style="border: medium none; overflow: hidden; width: 250px; height: 55px;" allowtransparency="true" scrolling="no" frameborder="0"></iframe>
+</div>
+
+<div class="issue"> 
+	<div class="issue-cover">
+	<a href="http://www.linuxjournal.com/issue/140"><img title="Issue 140" alt="Issue 140" src="cover140.small.jpg"></a>
+	</div>
+	<p><a href="http://www.linuxjournal.com/issue/140">From Issue #140<br>December 2005</a></p>
+</div>
+
+  
+
+  
+
+  
+      <div class="meta">
+              <div class="submitted">
+		Oct 31, 2005		&nbsp;By&nbsp;<a href="http://www.linuxjournal.com/user/1001406" title="View user profile.">Brian K. Tanaka</a>	</div>
+      
+              <div class="terms terms-inline">&nbsp;in<ul class="links inline"><li class="taxonomy_term_29 first last"><a href="http://www.linuxjournal.com/taxonomy/term/29" rel="tag" title="">Linux Journal</a></li>
+</ul></div>
+      
+  	 </div>
+    <!-- how'd this get in here?</div> -->
+  
+  
+    	<div class="abstract">
+	Just using a lot of swap space doesn't necessarily mean that you need more memory. Here's how to tell when Linux is happy with the available memory and when it needs more.	</div>
+    
+
+
+
+  <div class="content">
+
+    <div class="article" lang="en"><div class="simplesect" lang="en"><div class="titlepage"><a name="N0xa50890.0xb44bc8"></a></div><p>
+Linux novices often find virtual memory mysterious, but with a grasp
+of the fundamental concepts, it's easy to understand. With this
+knowledge, you can monitor your system's memory utilization using
+vmstat and detect problems that can adversely affect system
+performance.
+</p></div><div class="simplesect" lang="en"><div class="titlepage"><a name="N0xa50890.0xb44cd0"></a>
+How Virtual Memory Works</div><p>
+Physical memory—the actual RAM installed—is a finite resource on
+any system. The Linux memory handler manages the allocation of
+that limited resource by freeing portions of physical memory when
+possible.
+</p><p>
+All processes use memory, of course, but each process doesn't need
+all its allocated memory all the time.
+Taking advantage of this fact, the kernel frees up
+physical memory by writing some or all of a process' memory to disk
+until it's needed again.
+</p><p>
+The kernel uses paging and swapping to perform this memory
+management. Paging refers to writing portions, termed pages, of
+a process' memory to disk. Swapping, strictly speaking, refers to
+writing the entire process, not just part, to disk. In Linux, true
+swapping is exceedingly rare, but the terms paging and swapping
+often are used interchangeably.
+</p><p>
+When pages are written to disk, the event is called a page-out,
+and when pages are returned to physical memory, the event is called
+a page-in. A page fault occurs when the kernel needs a page,
+finds it doesn't exist in physical memory because it has been paged-out, and re-reads it in from disk.
+</p><p>
+Page-ins are common, normal and are not a cause for concern. For
+example, when an application first starts up, its executable image
+and data are paged-in. This is normal behavior.
+</p><p>
+Page-outs, however, can be a sign of trouble.
+When the kernel detects that memory is running low,
+it attempts to free up memory by paging out.
+Though this may happen briefly from time to time,
+if page-outs are plentiful and constant, the kernel
+can reach a point where it's actually spending
+more time managing paging activity than running
+the applications, and system performance suffers.
+This woeful state is referred to as thrashing.
+</p><p>
+Using swap space is not inherently bad. Rather,
+it's intense paging <span class="emphasis"><em>activity</em></span>
+that's problematic. For instance, if your most-memory-intensive application is idle, it's fine for
+portions of it to be set aside when another large
+job is active. Memory pages belonging to an idle
+application are better set aside so the kernel can
+use physical memory for disk buffering.
+</p></div><div class="simplesect" lang="en"><div class="titlepage"><a name="N0xa50890.0xb45040"></a>
+Using vmstat</div><p>
+vmstat, as its name suggests, reports virtual memory statistics.
+It shows how much virtual memory there is, how much is free and
+paging activity. Most important, you can observe page-ins and
+page-outs as they happen. This is extremely useful.
+</p><p>
+To monitor the virtual memory activity on your system, it's best
+to use vmstat with a delay. A delay is the number of seconds
+between updates. If you don't supply a delay, vmstat reports
+the averages since the last boot and quit. Five seconds is the
+recommended delay interval.
+</p><p>
+To run vmstat with a five-second delay, type:
+
+
+</p><pre class="programlisting">vmstat 5
+</pre>
+<p></p><p>
+You also can specify a count, which indicates how many updates you
+want to see before vmstat quits. If you don't specify a count, the
+count defaults to infinity, but you can stop output with Ctrl-C.
+</p><p>
+To run vmstat with ten updates, five seconds apart, type:
+
+</p><pre class="programlisting">vmstat 5 10
+</pre>
+<p></p><p>
+Here's an example of a system free of paging activity:
+
+</p><pre class="programlisting">  procs                     memory    swap        io     system cpu
+r  b  w   swpd   free  buff  cache  si so   bi  bo   in    cs us sy  id
+0  0  0  29232 116972  4524 244900   0  0    0   0    0     0 0   0   0
+0  0  0  29232 116972  4524 244900   0  0    0   0 2560     6 0   1  99
+0  0  0  29232 116972  4524 244900   0  0    0   0 2574    10 0   2  98
+</pre>
+<p></p><p>
+All fields are explained in the vmstat man page,
+but the most important columns for this article are
+free, si and so. The free column shows the
+amount of free memory, si shows page-ins and so
+shows page-outs. In this example, the so column is
+zero consistently, indicating there are no page-outs.
+</p><p>
+The abbreviations so and si are used instead of the more accurate
+po and pi for historical reasons.
+</p><p>
+Here's an example of a system with paging activity:
+
+</p><pre class="programlisting">  procs                      memory    swap          io     system cpu
+r  b  w   swpd   free  buff cache  si  so   bi   bo   in    cs us  sy  id
+. . .
+1  0  0  13344   1444  1308 19692   0 168  129   42 1505   713 20  11  69
+1  0  0  13856   1640  1308 18524  64 516  379  129 4341   646 24  34  42
+3  0  0  13856   1084  1308 18316  56  64   14    0  320  1022 84   9   8
+</pre>
+<p></p><p>
+Notice the nonzero so values indicating there is not enough
+physical memory and the kernel is paging out. You can use top and
+ps to identify the processes that are using the most memory.
+</p><p>
+You also can use top to show memory and
+swap statistics. Here is an example of the uppermost
+portion of a typical top report:
+
+</p><pre class="programlisting">14:23:19 up 348 days,  3:02,  1 user,  load average: 0.00, 0.00, 0.00
+55 processes: 54 sleeping, 1 running, 0 zombie, 0 stopped
+CPU states:   0.0% user,   2.4% system,   0.0% nice,  97.6% idle
+Mem:    481076K total,   367508K used,   113568K free,     4712K buffers
+Swap:  1004052K total,    29852K used,   974200K free,   244396K cached
+</pre>
+<p></p><p>
+For more information about top, see the top man page.
+</p></div></div><div class="links"><div class="item-list"><ul class="pager"><li class="pager-current first">1</li>
+<li class="pager-item"><a href="http://www.linuxjournal.com/article/8178?page=0,1" title="Go to page 2" class="active">2</a></li>
+<li class="pager-next"><a href="http://www.linuxjournal.com/article/8178?page=0,1" title="Go to next page" class="active">next ›</a></li>
+<li class="pager-last last"><a href="http://www.linuxjournal.com/article/8178?page=0,1" title="Go to last page" class="active">last »</a></li>
+</ul></div></div>
+  </div>
+      <div class="user-signature clear-block">
+______________________
+	<p>
+        <!--paging_filter-->	</p>
+      </div>
+   
+
+
+  <ul class="links inline"><li class="flag-anon first"><a href="http://www.linuxjournal.com/u?destination=node%2F8178">Login to save this as favorite</a></li>
+<li class="service-links-delicious"><a href="http://del.icio.us/post?url=http%3A%2F%2Fwww.linuxjournal.com%2Farticle%2F8178&amp;title=Monitoring+Virtual+Memory+with+vmstat" title="Bookmark this post on del.icio.us." id="service-links-delicious-1" class="service-links-delicious" rel="nofollow"><img src="delicious.png" alt="del.icio.us" title="" width="16" height="16"></a></li>
+<li class="service-links-digg"><a href="http://digg.com/submit?phase=2&amp;url=http%3A%2F%2Fwww.linuxjournal.com%2Farticle%2F8178&amp;title=Monitoring+Virtual+Memory+with+vmstat" title="Digg this post on digg.com" id="service-links-digg-1" class="service-links-digg" rel="nofollow"><img src="digg.png" alt="Digg" title="" width="16" height="16"></a></li>
+<li class="service-links-facebook"><a href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.linuxjournal.com%2Farticle%2F8178&amp;t=Monitoring+Virtual+Memory+with+vmstat" title="Share on Facebook." id="service-links-facebook-1" class="service-links-facebook" rel="nofollow"><img src="facebook.png" alt="Facebook" title="" width="16" height="16"></a></li>
+<li class="service-links-reddit"><a href="http://reddit.com/submit?url=http%3A%2F%2Fwww.linuxjournal.com%2Farticle%2F8178&amp;title=Monitoring+Virtual+Memory+with+vmstat" title="Submit this post on reddit.com." id="service-links-reddit-1" class="service-links-reddit" rel="nofollow"><img src="reddit.png" alt="Reddit" title="" width="16" height="16"></a></li>
+<li class="service-links-slashdot"><a href="http://slashdot.org/bookmark.pl?url=http%3A%2F%2Fwww.linuxjournal.com%2Farticle%2F8178&amp;title=Monitoring+Virtual+Memory+with+vmstat" title="Bookmark this post on SlashDot" id="service-links-slashdot-1" class="service-links-slashdot" rel="nofollow"><img src="slashdot.png" alt="SlashDot" title="" width="16" height="16"></a></li>
+<li class="service-links-stumbleupon"><a href="http://www.stumbleupon.com/submit?url=http%3A%2F%2Fwww.linuxjournal.com%2Farticle%2F8178&amp;title=Monitoring+Virtual+Memory+with+vmstat" title="Thumb this up at StumbleUpon" id="service-links-stumbleupon-1" class="service-links-stumbleupon" rel="nofollow"><img src="stumbleit.png" alt="StumbleUpon" title="" width="16" height="16"></a></li>
+<li class="tweet_Twitter last"><a href="http://twitter.com/home?status=+Monitoring+Virtual+Memory+with+vmstat%3A+http%3A/%2Fwww.linuxjournal.com/article/8178" class="tweet" rel="nofollow" target="_top"><img src="twitter.png" alt="Post to Twitter" title="Post to Twitter" width="16" height="16"></a></li>
+</ul>
+ <!-- <div class="contentad">
+
+  </div>
+  -->
+
+<div id="article_footer"><!-- article_footer -->
+<div id="google_ads_div_article_footer_ad_container">
+<ins style="width: 468px; height: 60px; display: inline-table; position: relative; border: 0pt none;"><ins style="width: 468px; height: 60px; display: block; position: relative; border: 0pt none;"><iframe src="index_3.html" style="border: 0pt none; position: absolute; top: 0pt; left: 0pt;" marginheight="0" marginwidth="0" name="google_ads_iframe_article_footer" id="google_ads_iframe_article_footer" scrolling="no" width="468" frameborder="0" height="60"></iframe></ins></ins></div>
+  
+</div> <!-- /#article_footer -->
+
+
+
+
+</div></div> <!-- /node-inner, /node -->
+
+
+  <div id="comments">
+          <h2 id="comments-title">Comments</h2>
+        <form action="http://www.linuxjournal.com/article/8178" accept-charset="UTF-8" method="post" id="comment-controls">
+<div><div class="box"><div class="box-inner">
+
+      <h2 class="title">Comment viewing options</h2>
+  
+  <div class="content">
+    <div class="container-inline"><input name="form_build_id" id="form-cf38c9987f035d607312870a15cd7fa8" value="form-cf38c9987f035d607312870a15cd7fa8" type="hidden">
+<input name="form_id" id="edit-comment-controls" value="comment_controls" type="hidden">
+<div class="form-item" id="edit-mode-wrapper">
+ <select name="mode" class="form-select" id="edit-mode"><option value="1">Flat list - collapsed</option><option value="2">Flat list - expanded</option><option value="3">Threaded list - collapsed</option><option value="4" selected="selected">Threaded list - expanded</option></select>
+</div>
+<div class="form-item" id="edit-order-wrapper">
+ <select name="order" class="form-select" id="edit-order"><option value="1" selected="selected">Date - newest first</option><option value="2">Date - oldest first</option></select>
+</div>
+<div class="form-item" id="edit-comments-per-page-wrapper">
+ <select name="comments_per_page" class="form-select" id="edit-comments-per-page"><option value="10">10 comments per page</option><option value="30">30 comments per page</option><option value="50" selected="selected">50 comments per page</option><option value="70">70 comments per page</option><option value="90">90 comments per page</option><option value="150">150 comments per page</option><option value="200">200 comments per page</option><option value="250">250 comments per page</option><option value="300">300 comments per page</option></select>
+</div>
+<input name="op" id="edit-submit" value="Save settings" class="form-submit" type="submit">
+</div><div class="description">Select your preferred way to display the comments and click "Save settings" to activate your changes.</div>  </div>
+
+</div></div> <!-- /box-inner, /box -->
+
+</div></form>
+<a id="comment-346321"></a>
+<div class="comment comment-published odd first comment-by-anon"><div class="comment-inner clear-block">
+
+      <h3 class="title">
+      <a href="http://www.linuxjournal.com/article/8178#comment-346321" class="active">"A page fault occurs when</a>          </h3>
+  
+  
+  <div class="picture">
+  <img src="personicon.jpg" alt="Anonymous's picture" title="Anonymous's picture"></div>
+
+  <div class="submitted">
+    Submitted by Anonymous (not verified) on Fri, 12/11/2009 - 06:57.  </div>
+
+  <div class="content">
+    <p>"A page fault occurs when the kernel needs a page, finds it doesn't exist in physical memory because it has been paged-out, and re-reads it in from disk"</p>
+<p>I'm wondering if that's supposed to read</p>
+<p>"A page in occurs when the kernel needs a page, finds it doesn't exist in physical memory because it has been paged-out, and re-reads it in from disk"</p>
+<p>Since there is no other mention of page fault in the article and this one instance of page fault is surrounded by talk about page in.</p>
+      </div>
+
+  
+</div></div> <!-- /comment-inner, /comment -->
+<div class="indented"><a id="comment-346330"></a>
+<div class="comment comment-published even"><div class="comment-inner clear-block">
+
+      <h3 class="title">
+      <a href="http://www.linuxjournal.com/article/8178#comment-346330" class="active">Page Fault/In</a>          </h3>
+  
+  
+  <div class="picture">
+  <a href="http://www.linuxjournal.com/users/mitch-frazier" title="View user profile."><img src="picture-801406.jpg" alt="Mitch Frazier's picture" title="Mitch Frazier's picture"></a></div>
+
+  <div class="submitted">
+    Submitted by <a href="http://www.linuxjournal.com/users/mitch-frazier" title="View user profile.">Mitch Frazier</a> on Fri, 12/11/2009 - 10:41.  </div>
+
+  <div class="content">
+    <p>The reaction to a "page fault" is a "page in".</p>
+<p>The jist of what's written is correct, but there are a couple of minor errors.  Page faults occur when any application (and not just the kernel) needs a page that is not currently in memory.  A page fault is also not a "kernel" thing, it's a hardware thing.  The reaction to the fault, often a "page in" is handled by the kernel.  Also, the setup required to support virtual memory is handled by the kernel, but the fault itself is all hardware.</p>
+<p>There is also a slight inaccuracy in stating that the fault occurs because the page was previously paged out.  The page that causes the fault does not have to have been previously paged out.  If the page referred to program code it doesn't get paged out, it just gets paged in when the fault occurs since the code exists in the executable file and doesn't need to be paged out.  A page fault can also occur when trying to access memory beyond the end of the stack, thus signalling the O/S that more stack space needs to be allocated, but this again is memory that was never paged out.  Here the page is just used as a guard or sentry to tell the O/S when the application needs more stack space.</p>
+<p>So I would reword that sentence thusly:</p>
+<p>A page fault occurs when the CPU needs a page which does not exist in physical memory.  In response to the fault the kernel allocates a free page for the missing memory and if the page was previously paged out, the kernel pages in the previously paged out data.  If the kernel is unable to find an unused page to allocate for the missing memory then an existing page will be freed and if need be paged out.</p>
+        <div class="user-signature clear-block">
+      <p>Mitch Frazier is an Associate Editor for <i>Linux Journal</i>.</p>
+    </div>
+      </div>
+
+  
+</div></div> <!-- /comment-inner, /comment -->
+</div><a id="comment-335411"></a>
+<div class="comment comment-published odd comment-by-anon"><div class="comment-inner clear-block">
+
+      <h3 class="title">
+      <a href="http://www.linuxjournal.com/article/8178#comment-335411" class="active">Hi,
+If you need to draw</a>          </h3>
+  
+  
+  <div class="picture">
+  <img src="personicon.jpg" alt="Anonymous's picture" title="Anonymous's picture"></div>
+
+  <div class="submitted">
+    Submitted by Anonymous (not verified) on Thu, 04/09/2009 - 04:15.  </div>
+
+  <div class="content">
+    <p>Hi,</p>
+<p>If you need to draw charts from your vmstat log files,<br>
+this may help you :<br>
+<a href="http://www.michenux.net/blog/?p=1" title="http://www.michenux.net/blog/?p=1">http://www.michenux.net/blog/?p=1</a></p>
+<p>;)<br>
+Bye</p>
+      </div>
+
+  
+</div></div> <!-- /comment-inner, /comment -->
+<a id="comment-334419"></a>
+<div class="comment comment-published even comment-by-anon"><div class="comment-inner clear-block">
+
+      <h3 class="title">
+      <a href="http://www.linuxjournal.com/article/8178#comment-334419" class="active">This would be great if you</a>          </h3>
+  
+  
+  <div class="picture">
+  <img src="personicon.jpg" alt="Ian's picture" title="Ian's picture"></div>
+
+  <div class="submitted">
+    Submitted by Ian (not verified) on Wed, 03/11/2009 - 12:38.  </div>
+
+  <div class="content">
+    <p>This would be great if you explained each column of these displays.</p>
+      </div>
+
+  
+</div></div> <!-- /comment-inner, /comment -->
+<a id="comment-304177"></a>
+<div class="comment comment-published odd last comment-by-anon"><div class="comment-inner clear-block">
+
+      <h3 class="title">
+      <a href="http://www.linuxjournal.com/article/8178#comment-304177" class="active">Thanks for the great article</a>          </h3>
+  
+  
+  <div class="picture">
+  <img src="personicon.jpg" alt="LC's picture" title="LC's picture"></div>
+
+  <div class="submitted">
+    Submitted by <a href="http://www.leveragedcredit.com/" rel="nofollow">LC</a> (not verified) on Mon, 12/10/2007 - 12:18.  </div>
+
+  <div class="content">
+    <p>Thanks for the great article Brian. This is really helpful. Virtual memory was a mystery to me, but now I understand it a lot better.</p>
+      </div>
+
+  
+</div></div> <!-- /comment-inner, /comment -->
+  </div>
+        </div> <!-- /#content-area -->
+
+        
+        
+      </div></div> <!-- /#content-inner, /#content -->
+
+              <div id="navbar"><div id="navbar-inner" class="clear-block region region-navbar">
+
+          <a name="navigation" id="navigation"></a>
+
+          
+                      <div id="primary">
+              <ul class="links"><li class="menu-1783 first"><a href="http://www.linuxjournal.com/video">Video</a></li>
+<li class="menu-1800"><a href="http://www.linuxjournal.com/news">News</a></li>
+<li class="menu-150"><a href="http://www.linuxjournal.com/blog">Blogs</a></li>
+<li class="menu-1802"><a href="http://www.linuxjournal.com/tag/reviews" title="">Reviews</a></li>
+<li class="menu-187"><a href="http://www.linuxjournal.com/tag/how-tos">HOWTOs</a></li>
+<li class="menu-1803"><a href="http://www.linuxjournal.com/participate" title="">Participate</a></li>
+<li class="menu-71"><a href="http://www.linuxjournal.com/tag/tech-tips" title="">Hep &amp; Tips</a></li>
+<li class="menu-181"><a href="http://www.linuxjournal.com/getlinux">How to Get Linux</a></li>
+<li class="menu-184 last"><a href="http://www.linuxjournal.com/gettinghelp">Getting Help</a></li>
+</ul> <div id="searchbox">
+  <!-- Google CSE Search Box Begins  -->
+<form action="http://www.linuxjournal.com/googlesearch" id="searchbox_014164207538395607518:w82fvojcgcu">
+  <input name="cx" value="014164207538395607518:w82fvojcgcu" type="hidden">
+  <input name="cof" value="FORID:11" type="hidden">
+  <input value="" name="as_q" size="25" type="text">
+  <input name="sa" value="Search" type="submit">
+</form>
+
+<!-- Google CSE Search Box Ends -->
+</div>
+            </div> <!-- /#primary -->
+          
+          
+          
+        </div></div> <!-- /#navbar-inner, /#navbar -->
+      
+      
+              <div id="sidebar-right"><div id="sidebar-right-inner" class="region region-right">
+          <div id="block-block-44" class="block block-block region-odd even region-count-1 count-4"><div class="block-inner">
+
+  
+  <div class="content">
+    <!--paging_filter--><!-- PUT THIS TAG IN DESIRED LOCATION OF SLOT Large_Rectangle336x280
+     -->
+<div id="google_ads_div_Large_Rectangle336x280_ad_container">
+<ins style="width: 336px; height: 280px; display: inline-table; position: relative; border: 0pt none;"><ins style="width: 336px; height: 280px; display: block; position: relative; border: 0pt none;"><iframe src="index_4.html" style="border: 0pt none; position: absolute; top: 0pt; left: 0pt;" marginheight="0" marginwidth="0" name="google_ads_iframe_Large_Rectangle336x280" id="google_ads_iframe_Large_Rectangle336x280" scrolling="no" width="336" frameborder="0" height="280"></iframe></ins></ins></div>
+
+<!-- END OF TAG FOR SLOT Large_Rectangle336x280
+     -->  </div>
+
+  
+</div></div> <!-- /block-inner, /block -->
+<div id="block-block-97" class="block block-block region-even odd region-count-2 count-5"><div class="block-inner">
+
+  
+  <div class="content">
+    <!--paging_filter--><!-- subscriptions -->
+<div id="google_ads_div_subscriptions_ad_container">
+<ins style="width: 336px; height: 280px; display: inline-table; position: relative; border: 0pt none;"><ins style="width: 336px; height: 280px; display: block; position: relative; border: 0pt none;"><iframe src="index_5.html" style="border: 0pt none; position: absolute; top: 0pt; left: 0pt;" marginheight="0" marginwidth="0" name="google_ads_iframe_subscriptions" id="google_ads_iframe_subscriptions" scrolling="no" width="336" frameborder="0" height="280"></iframe></ins></ins></div>
+
+<br>
+<a class="red" href="http://www.linuxjournal.com/subs/customer_service">Already a subscriber? Click here for subscriber services.</a>
+
+  </div>
+
+  
+</div></div> <!-- /block-inner, /block -->
+<div id="block-menu-menu-channels" class="block block-menu region-odd even region-count-3 count-6"><div class="block-inner">
+
+      <h2 class="title">Trending Topics</h2>
+  
+  <div class="content">
+    <ul class="menu"><li class="leaf first"><a href="http://www.linuxjournal.com/tag/cloud" title="">Cloud</a></li>
+<li class="leaf"><a href="http://www.linuxjournal.com/tag/desktop" title="">Desktop</a></li>
+<li class="leaf"><a href="http://www.linuxjournal.com/tag/embedded" title="">Embedded</a></li>
+<li class="leaf"><a href="http://www.linuxjournal.com/tag/hpc" title="">HPC</a></li>
+<li class="leaf"><a href="http://www.linuxjournal.com/tag/security" title="">Security</a></li>
+<li class="leaf"><a href="http://www.linuxjournal.com/tag/sysadmin" title="">SysAdmin</a></li>
+<li class="leaf"><a href="http://www.linuxjournal.com/tag/virtualization" title="">Virtualization</a></li>
+<li class="leaf last"><a href="http://www.linuxjournal.com/tag/web-development" title="">Web Development</a></li>
+</ul>  </div>
+
+  
+</div></div> <!-- /block-inner, /block -->
+<div id="block-quicktabs-1" class="block block-quicktabs region-even odd region-count-4 count-7"><div class="block-inner">
+
+  
+  <div class="content">
+    <div id="quicktabs-1" class="quicktabs_wrapper quicktabs-style-zen quicktabs-processed"><ul class="quicktabs_tabs quicktabs-style-zen"><li class="qtab-0 active first"><a href="http://www.linuxjournal.com/article/8178?quicktabs_1=0#quicktabs-1" id="quicktabs-tab-1-0" class="qt_tab active">The Latest</a></li><li class="qtab-1"><a href="http://www.linuxjournal.com/article/8178?quicktabs_1=1#quicktabs-1" id="quicktabs-tab-1-1" class="qt_tab active">Popular</a></li><li class="qtab-2 last"><a href="http://www.linuxjournal.com/article/8178?quicktabs_1=2#quicktabs-1" id="quicktabs-tab-1-2" class="qt_tab active">Recent Comments</a></li></ul><div id="quicktabs_container_1" class="quicktabs_main quicktabs-style-zen"><div id="quicktabs_tabpage_1_0" class="quicktabs_tabpage"><div id="block-views-latest_stories-block_1" class="block block-views region-odd odd region-count-1 count-1"><div class="block-inner">
+
+  
+  <div class="content">
+    <div class="view view-latest-stories view-id-latest_stories view-display-id-block_1 view-dom-id-1">
+    
+  
+  
+      <div class="view-content">
+      <table class="views-table cols-6">
+    <thead>
+    <tr>
+              <th class="views-field views-field-title">
+                  </th>
+              <th class="views-field views-field-created">
+                  </th>
+          </tr>
+  </thead>
+  <tbody>
+          <tr class="odd views-row-first">
+                  <td class="views-field views-field-title">
+            <a href="http://www.linuxjournal.com/content/sinfo-advanced-network-monitoring">sinfo-Advanced Network Monitoring</a>          </td>
+                  <td class="views-field views-field-created">
+            Nov 23, 2011          </td>
+              </tr>
+          <tr class="even">
+                  <td class="views-field views-field-title">
+            <a href="http://www.linuxjournal.com/content/elmer-pdes">Elmer for PDEs</a>          </td>
+                  <td class="views-field views-field-created">
+            Nov 21, 2011          </td>
+              </tr>
+          <tr class="odd">
+                  <td class="views-field views-field-title">
+            <a href="http://www.linuxjournal.com/content/how-do-you-manage-your-files-do-you">How do you manage your files? Do you:</a>          </td>
+                  <td class="views-field views-field-created">
+            Nov 18, 2011          </td>
+              </tr>
+          <tr class="even">
+                  <td class="views-field views-field-title">
+            <a href="http://www.linuxjournal.com/content/non-linux-foss-juice">Non-Linux FOSS: Juice</a>          </td>
+                  <td class="views-field views-field-created">
+            Nov 17, 2011          </td>
+              </tr>
+          <tr class="odd">
+                  <td class="views-field views-field-title">
+            <a href="http://www.linuxjournal.com/content/new-books">New Books</a>          </td>
+                  <td class="views-field views-field-created">
+            Nov 16, 2011          </td>
+              </tr>
+          <tr class="even views-row-last">
+                  <td class="views-field views-field-title">
+            <a href="http://www.linuxjournal.com/content/pdfmasher-e-book-conversion">PdfMasher--E-Book Conversion</a>          </td>
+                  <td class="views-field views-field-created">
+            Nov 15, 2011          </td>
+              </tr>
+      </tbody>
+</table>
+    </div>
+  
+  
+  
+      
+<div class="more-link">
+  <a href="http://www.linuxjournal.com/latest">
+    more  </a>
+</div>
+  
+  
+  
+</div>   </div>
+
+  
+</div></div> <!-- /block-inner, /block -->
+</div><div id="quicktabs_tabpage_1_1" class="quicktabs_tabpage quicktabs-hide"><div id="block-views-popular-block_1" class="block block-views region-even even region-count-2 count-2"><div class="block-inner">
+
+  
+  <div class="content">
+    <div class="view view-popular view-id-popular view-display-id-block_1 view-dom-id-2">
+    
+  
+  
+      <div class="view-content">
+      <div class="item-list">
+    <ul>
+          <li class="views-row views-row-1 views-row-odd views-row-first">  
+  <span class="views-field-title">
+                <span class="field-content"><a href="http://www.linuxjournal.com/forums/100-disappointed-decision-go-all-digital">100% disappointed with the decision to go all digital.</a></span>
+  </span>
+</li>
+          <li class="views-row views-row-2 views-row-even">  
+  <span class="views-field-title">
+                <span class="field-content"><a href="http://www.linuxjournal.com/content/sinfo-advanced-network-monitoring">sinfo-Advanced Network Monitoring</a></span>
+  </span>
+</li>
+          <li class="views-row views-row-3 views-row-odd">  
+  <span class="views-field-title">
+                <span class="field-content"><a href="http://www.linuxjournal.com/content/packet-sniffing-basics">Packet Sniffing Basics</a></span>
+  </span>
+</li>
+          <li class="views-row views-row-4 views-row-even">  
+  <span class="views-field-title">
+                <span class="field-content"><a href="http://www.linuxjournal.com/article/4622">Boot with GRUB</a></span>
+  </span>
+</li>
+          <li class="views-row views-row-5 views-row-odd">  
+  <span class="views-field-title">
+                <span class="field-content"><a href="http://www.linuxjournal.com/article/9585">Validate an E-Mail Address with PHP, the Right Way</a></span>
+  </span>
+</li>
+          <li class="views-row views-row-6 views-row-even">  
+  <span class="views-field-title">
+                <span class="field-content"><a href="http://www.linuxjournal.com/content/man-make-primer-make-utility">man make: a Primer on the Make Utility</a></span>
+  </span>
+</li>
+          <li class="views-row views-row-7 views-row-odd">  
+  <span class="views-field-title">
+                <span class="field-content"><a href="http://www.linuxjournal.com/article/3882">Why Python?</a></span>
+  </span>
+</li>
+          <li class="views-row views-row-8 views-row-even">  
+  <span class="views-field-title">
+                <span class="field-content"><a href="http://www.linuxjournal.com/article/10940">Python for Android</a></span>
+  </span>
+</li>
+          <li class="views-row views-row-9 views-row-odd">  
+  <span class="views-field-title">
+                <span class="field-content"><a href="http://www.linuxjournal.com/content/judgement-day-studio-dave-tests-ubuntu-studio-904">Judgement Day: Studio Dave Tests Ubuntu Studio 9.04</a></span>
+  </span>
+</li>
+          <li class="views-row views-row-10 views-row-even views-row-last">  
+  <span class="views-field-title">
+                <span class="field-content"><a href="http://www.linuxjournal.com/magazine/monitoring-hard-disks-smart">Monitoring Hard Disks with SMART</a></span>
+  </span>
+</li>
+      </ul>
+</div>    </div>
+  
+  
+  
+      
+<div class="more-link">
+  <a href="http://www.linuxjournal.com/popular/today">
+    more  </a>
+</div>
+  
+  
+  
+</div>   </div>
+
+  
+</div></div> <!-- /block-inner, /block -->
+</div><div id="quicktabs_tabpage_1_2" class="quicktabs_tabpage quicktabs-hide"><div id="block-comment-0" class="block block-comment region-odd odd region-count-3 count-3"><div class="block-inner">
+
+  
+  <div class="content">
+    <div class="item-list"><ul><li class="first"><a href="http://www.linuxjournal.com/content/near-death-blog-search#comment-370234">Just wanted to say thanks</a><br>1 hour 51 min ago</li>
+<li><a href="http://www.linuxjournal.com/content/sinfo-advanced-network-monitoring#comment-370233">http://www.lekker-energie.de/</a><br>1 hour 55 min ago</li>
+<li><a href="http://www.linuxjournal.com/content/sinfo-advanced-network-monitoring#comment-370232">Comment!</a><br>1 hour 56 min ago</li>
+<li><a href="http://www.linuxjournal.com/content/sinfo-advanced-network-monitoring#comment-370231">Thanks</a><br>2 hours 30 min ago</li>
+<li><a href="http://www.linuxjournal.com/content/gandhicon-4x#comment-370230">Many people relocated the</a><br>9 hours 3 min ago</li>
+<li><a href="http://www.linuxjournal.com/content/round-and-round-we-go#comment-370229">Nonetheless,moncler down</a><br>9 hours 5 min ago</li>
+<li><a href="http://www.linuxjournal.com/content/near-death-blog-search#comment-370228">Crimson-Neutral Grey-Wolf</a><br>9 hours 6 min ago</li>
+<li><a href="http://www.linuxjournal.com/content/way-ranch#comment-370227">Tour de France Celebration</a><br>9 hours 9 min ago</li>
+<li><a href="http://www.linuxjournal.com/content/stop-installing-outdated-ubuntu#comment-370226">RE: Samsung alters Galaxy Tab design to avoid German sales ban</a><br>12 hours 24 min ago</li>
+<li class="last"><a href="http://www.linuxjournal.com/content/new-books#comment-370225">dhfjgh</a><br>12 hours 30 min ago</li>
+</ul></div>  </div>
+
+  
+</div></div> <!-- /block-inner, /block -->
+</div></div></div>  </div>
+
+  
+</div></div> <!-- /block-inner, /block -->
+<div id="block-block-67" class="block block-block region-odd even region-count-5 count-8"><div class="block-inner">
+
+  
+  <div class="content">
+    <!--paging_filter--><p><a href="http://www.linuxjournal.com/enewsletters"><img alt=" Linux Newsletter" src="newsletterbanner_t3b.jpg"></a></p>
+<p><a href="http://www.linuxjournal.com/new-issue"><img alt=" Linux Newsletter" src="subscriberbutton-nov2011.png"></a></p>
+  </div>
+
+  
+</div></div> <!-- /block-inner, /block -->
+<div id="block-views-linux_minute-block_2" class="block block-views region-even odd region-count-6 count-9"><div class="block-inner">
+
+  
+  <div class="content">
+    <div class="view view-linux-minute view-id-linux_minute view-display-id-block_2 view-dom-id-3">
+    
+  
+  
+      <div class="view-content">
+        <div class="views-row views-row-1 views-row-odd views-row-first views-row-last">
+      
+  <div class="views-field-field-embed-video-embed">
+                <span class="field-content"><div class="emvideo emvideo-preview emvideo-youtube"><div class="emfield-emvideo emfield-emvideo-youtube">        <div id="emvideo-youtube-flash-wrapper-1"><object type="application/x-shockwave-flash" data="pourjxyajus+rel=0+enablejsapi=1+playerapiid=ytplayer+fs=1" id="emvideo-youtube-flash-1" width="300" height="250">
+          <param name="movie" value="http://www.youtube.com/v/POurJxYaJUs&amp;rel=0&amp;enablejsapi=1&amp;playerapiid=ytplayer&amp;fs=1">
+          <param name="allowScriptAccess" value="sameDomain">
+          <param name="quality" value="best">
+          <param name="allowFullScreen" value="true">
+          <param name="bgcolor" value="#FFFFFF">
+          <param name="scale" value="noScale">
+          <param name="salign" value="TL">
+          <param name="FlashVars" value="playerMode=embedded">
+          <param name="wmode" value="transparent">
+        </object></div></div></div></span>
+  </div>
+  
+  <div class="views-field-title">
+                <span class="field-content"><a href="http://www.linuxjournal.com/video-ssd-editor-note">Return to Solid State</a></span>
+  </div>
+  </div>
+    </div>
+  
+  
+  
+  
+  
+  
+</div>   </div>
+
+  
+</div></div> <!-- /block-inner, /block -->
+<div id="block-views-linux_minute-block_3" class="block block-views region-odd even region-count-7 count-10"><div class="block-inner">
+
+  
+  <div class="content">
+    <div class="view view-linux-minute view-id-linux_minute view-display-id-block_3 view-dom-id-4">
+    
+  
+  
+      <div class="view-content">
+      <table class="views-view-grid">
+  <tbody>
+                <tr class="row-1 row-first row-last">
+                  <td class="col-1">
+              
+  <div class="views-field-field-embed-video-embed">
+                <span class="field-content"><a href="http://www.linuxjournal.com/video/get-firefox-menu-button-linux"><img src="0.jpg" alt="See video" title="See video" width="300" height="225"></a></span>
+  </div>
+  
+  <div class="views-field-title">
+                <span class="field-content"><a href="http://www.linuxjournal.com/video/get-firefox-menu-button-linux">Get Firefox Menu Button in Linux</a></span>
+  </div>
+          </td>
+                  <td class="col-2">
+              
+  <div class="views-field-field-embed-video-embed">
+                <span class="field-content"><a href="http://www.linuxjournal.com/video/quick-and-dirty-ssh-tunneling"><img src="0_001.jpg" alt="See video" title="See video" width="300" height="225"></a></span>
+  </div>
+  
+  <div class="views-field-title">
+                <span class="field-content"><a href="http://www.linuxjournal.com/video/quick-and-dirty-ssh-tunneling">Quick and Dirty SSH Tunneling</a></span>
+  </div>
+          </td>
+                  <td class="col-3">
+                      </td>
+              </tr>
+      </tbody>
+</table>
+    </div>
+  
+  
+  
+  
+      <div class="view-footer">
+      <!--paging_filter--><div id="more-vids"><a href="http://www.linuxjournal.com/video">Click here for more videos</a></div>
+    </div>
+  
+  
+</div>   </div>
+
+  
+</div></div> <!-- /block-inner, /block -->
+<div id="block-block-98" class="block block-block region-even odd region-count-8 count-11"><div class="block-inner">
+
+  
+  <div class="content">
+    <!--paging_filter--><!-- sidebar_bottom_lr -->
+<div id="google_ads_div_sidebar_bottom_lr_ad_container">
+<ins style="width: 336px; height: 280px; display: inline-table; position: relative; border: 0pt none;"><ins style="width: 336px; height: 280px; display: block; position: relative; border: 0pt none;"><iframe src="index_6.html" style="border: 0pt none; position: absolute; top: 0pt; left: 0pt;" marginheight="0" marginwidth="0" name="google_ads_iframe_sidebar_bottom_lr" id="google_ads_iframe_sidebar_bottom_lr" scrolling="no" width="336" frameborder="0" height="280"></iframe></ins></ins></div>
+  </div>
+
+  
+</div></div> <!-- /block-inner, /block -->
+<div id="block-block-99" class="block block-block region-odd even region-count-9 count-12"><div class="block-inner">
+
+  
+  <div class="content">
+    <!--paging_filter-->
+  </div>
+
+  
+</div></div> <!-- /block-inner, /block -->
+<div id="block-poll-0" class="block block-poll region-even odd region-count-10 count-13"><div class="block-inner">
+
+      <h2 class="title">Poll</h2>
+  
+  <div class="content">
+    <form action="http://www.linuxjournal.com/article/8178" accept-charset="UTF-8" method="post" id="poll-view-voting">
+<div><div class="poll">
+  <div class="vote-form">
+    <div class="choices">
+              <div class="title">How do you manage your files? Do you: :</div>
+            <div class="form-radios"><div class="form-item" id="edit-choice-0-wrapper">
+ <label class="option" for="edit-choice-0"><input id="edit-choice-0" name="choice" value="0" class="form-radio" type="radio"> Organize your files into folders, and find them based on your filing structure</label>
+</div>
+<div class="form-item" id="edit-choice-1-wrapper">
+ <label class="option" for="edit-choice-1"><input id="edit-choice-1" name="choice" value="1" class="form-radio" type="radio"> Lump all your files together and rely on search to find a specific file</label>
+</div>
+<div class="form-item" id="edit-choice-2-wrapper">
+ <label class="option" for="edit-choice-2"><input id="edit-choice-2" name="choice" value="2" class="form-radio" type="radio"> Organize your files into folders, but find them using a search</label>
+</div>
+</div>    </div>
+    <input name="op" id="edit-vote" value="Vote" class="form-submit" type="submit">
+  </div>
+    <input name="form_build_id" id="form-8c61cc79ba0a97aa2b0e9785360d6c77" value="form-8c61cc79ba0a97aa2b0e9785360d6c77" type="hidden">
+<input name="form_id" id="edit-poll-view-voting" value="poll_view_voting" type="hidden">
+</div>
+
+</div></form>
+  </div>
+
+  
+</div></div> <!-- /block-inner, /block -->
+        </div></div> <!-- /#sidebar-right-inner, /#sidebar-right -->
+      
+    </div></div> <!-- /#main-inner, /#main -->
+
+          <div id="footer"><div id="footer-inner" class="region region-footer">
+
+        
+        <div id="block-block-62" class="block block-block region-odd odd region-count-1 count-15"><div class="block-inner">
+
+  
+  <div class="content">
+    <!--paging_filter--><div id="subsform">  
+     
+        
+	<form method="post" name="form" action="https://www.pubservice.com/subnew2page.aspx?PC=LJ&amp;PK&amp;FC=" class="subform">
+        
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tbody><tr>
+            <td valign="top">First Name</td>
+
+            <td colspan="2" valign="top">Last Name</td>
+          </tr>
+
+    
+          <tr>
+            <td valign="top"><input value="" name="FN" size="18" maxlength="" class="form1" type="text"></td>
+
+            <td colspan="2" valign="top"><input name="LN" value="" size="18" class="form1" type="text"></td>
+          </tr>
+          <tr>
+            <td valign="top">Address 1</td>
+
+            <td colspan="2" valign="top">Address 2</td>
+
+
+          </tr>
+          <tr>
+            <td valign="top"><input value="" name="A1" size="18" maxlength="" class="form1" type="text"></td>
+
+            <td colspan="2" valign="top"><input value="" name="A2" size="18" class="form1" type="text"></td>
+
+  
+          </tr>
+          <tr>
+            <td valign="top">City</td>
+
+            <td valign="top">State</td>
+
+            <td valign="top">Zip</td>
+          </tr>
+
+    
+          <tr>
+            <td valign="top"><input value="" name="CT" size="18" maxlength="" class="form1" type="text"></td>
+
+            <td valign="top"><input value="" name="ST" size="2" class="form2" type="text"></td>
+
+            <td valign="top"><input value="" name="ZP" size="5" maxlength="5" class="form3" type="text"></td>
+          </tr>
+       <tr>
+            <td colspan="3" valign="top">Email</td>
+       </tr>
+       <tr>
+<td colspan="3" valign="top"><input value="" name="EM" size="40" class="form4" type="text"></td>
+        </tr>
+        </tbody></table>
+        
+        <div align="center">
+         <input src="clickhere.jpg" type="image">
+        </div>
+
+      </form>
+       <div class="subslinks">
+          <a href="https://www.pubservice.com/subnew2page.aspx?PC=LJ&amp;PK=MPUB911&amp;FC=CANADA&amp;SA=P">Canadian Residents</a> | <a href="https://www.pubservice.com/Subnew1.aspx?PC=LJ&amp;PK=MPUB911&amp;FC=UNITED%20STATES&amp;ref=1&amp;SA=P">Foreign Residents</a> | <a href="https://www.pubservice.com/subgift.aspx?PC=LJ">Gift Subscriptions</a> | <a href="http://www.linuxjournal.com/subs/customer_service">Customer Service</a> | <a href="http://www.linuxjournal.com/content/privacystatement">Privacy Policy</a>
+
+          </div>
+ 		</div> 
+  </div>
+
+  
+</div></div> <!-- /block-inner, /block -->
+<div id="block-block-63" class="block block-block region-even even region-count-2 count-16"><div class="block-inner">
+
+  
+  <div class="content">
+    <!--paging_filter--><div id="footer-left">
+<!-- small_footer_square -->
+<div id="google_ads_div_small_footer_square_ad_container">
+<ins style="width: 200px; height: 200px; display: inline-table; position: relative; border: 0pt none;"><ins style="width: 200px; height: 200px; display: block; position: relative; border: 0pt none;"><iframe src="index_7.html" style="border: 0pt none; position: absolute; top: 0pt; left: 0pt;" marginheight="0" marginwidth="0" name="google_ads_iframe_small_footer_square" id="google_ads_iframe_small_footer_square" scrolling="no" width="200" frameborder="0" height="200"></iframe></ins></ins></div>
+
+ </div>
+<div id="footer-middle">
+<!-- small_footer_square_middle -->
+<div id="google_ads_div_small_footer_square_middle_ad_container">
+<ins style="width: 200px; height: 200px; display: inline-table; position: relative; border: 0pt none;"><ins style="width: 200px; height: 200px; display: block; position: relative; border: 0pt none;"><iframe src="index_8.html" style="border: 0pt none; position: absolute; top: 0pt; left: 0pt;" marginheight="0" marginwidth="0" name="google_ads_iframe_small_footer_square_middle" id="google_ads_iframe_small_footer_square_middle" scrolling="no" width="200" frameborder="0" height="200"></iframe></ins></ins></div>
+
+ </div>
+<div id="footer-right">
+<!-- small_footer_square_right -->
+<div id="google_ads_div_small_footer_square_right_ad_container">
+<ins style="width: 200px; height: 200px; display: inline-table; position: relative; border: 0pt none;"><ins style="width: 200px; height: 200px; display: block; position: relative; border: 0pt none;"><iframe src="index_9.html" style="border: 0pt none; position: absolute; top: 0pt; left: 0pt;" marginheight="0" marginwidth="0" name="google_ads_iframe_small_footer_square_right" id="google_ads_iframe_small_footer_square_right" scrolling="no" width="200" frameborder="0" height="200"></iframe></ins></ins></div>
+
+</div>  </div>
+
+  
+</div></div> <!-- /block-inner, /block -->
+<div id="block-menu-menu-subscriptions" class="block block-menu region-odd odd region-count-3 count-17"><div class="block-inner">
+
+      <h2 class="title">Digital Edition</h2>
+  
+  <div class="content">
+    <ul class="menu"><li class="leaf first"><a href="https://www.pubservice.com/subnew1.aspx?PC=LJ" title="Subscribe to Linux Journal">Subscribe/Renew</a></li>
+<li class="leaf"><a href="https://www.pubservice.com/subinfo.aspx?PC=LJ&amp;DO=P" title="Pay Your Subscription Bill">Pay My Bill</a></li>
+<li class="leaf"><a href="http://www.linuxjournal.com/subs/customer_service" title="">Customer Service</a></li>
+<li class="leaf"><a href="http://www.linuxjournal.com/digital" title="">Digital Downloads</a></li>
+<li class="leaf last"><a href="https://www.pubservice.com/subgift.aspx?PC=LJ" title="Give a Subscription to Linux Journal">Gift Subscriptions</a></li>
+</ul>  </div>
+
+  
+</div></div> <!-- /block-inner, /block -->
+<div id="block-menu-menu-linux-resources" class="block block-menu region-even even region-count-4 count-18"><div class="block-inner">
+
+      <h2 class="title">Magazine Formats</h2>
+  
+  <div class="content">
+    <ul class="menu"><li class="leaf first"><a href="http://www.linuxjournal.com/content/android" title="Android App">Android</a></li>
+<li class="leaf"><a href="http://www.linuxjournal.com/content/enhanced-digital-edition" title="Enhanced Digital Edition">Enhanced Digital</a></li>
+<li class="leaf"><a href="http://www.linuxjournal.com/content/epub" title="EPUB Format">EPUB</a></li>
+<li class="leaf"><a href="http://www.linuxjournal.com/content/kindle" title="Kindle Format">Kindle</a></li>
+<li class="leaf last"><a href="http://www.linuxjournal.com/content/pdf" title="PDF Format">PDF Archive</a></li>
+</ul>  </div>
+
+  
+</div></div> <!-- /block-inner, /block -->
+<div id="block-menu-menu-store" class="block block-menu region-odd odd region-count-5 count-19"><div class="block-inner">
+
+      <h2 class="title">The Store</h2>
+  
+  <div class="content">
+    <ul class="menu"><li class="leaf first"><a href="http://lj.mybigcommerce.com/categories/Buttons-%26-Stickers/" title="Buttons &amp; Stickers">Stickers</a></li>
+<li class="leaf"><a href="http://lj.mybigcommerce.com/categories/T%252dShirts-%26-Apparel/" title="T-shirts and Apparel">T-shirts</a></li>
+<li class="leaf"><a href="http://lj.mybigcommerce.com/categories/Posters/" title="Posters">Posters</a></li>
+<li class="leaf"><a href="http://lj.mybigcommerce.com/categories/Back-Issues-%252d-Digital-Downloads/" title="Buy Back Issues of Linux Journal">Back Issues</a></li>
+<li class="leaf last"><a href="http://linuxjournal.com/archive_cd" title="Archive CD">Archive CD</a></li>
+</ul>  </div>
+
+  
+</div></div> <!-- /block-inner, /block -->
+<div id="block-menu-menu-about" class="block block-menu region-even even region-count-6 count-20"><div class="block-inner">
+
+      <h2 class="title">About Us</h2>
+  
+  <div class="content">
+    <ul class="menu"><li class="leaf first"><a href="http://www.linuxjournal.com/advertising" title="Advertise in Linux Journal">Advertise</a></li>
+<li class="leaf"><a href="http://www.linuxjournal.com/author" title="Write for Us">Author Info</a></li>
+<li class="leaf"><a href="http://www.linuxjournal.com/contact" title="Write a Letter to the Editor">Write a Letter</a></li>
+<li class="leaf"><a href="http://www.linuxjournal.com/aboutus/FAQ" title="Frequently Asked Questions">FAQ</a></li>
+<li class="leaf last"><a href="http://www.linuxjournal.com/staff" title="Masthead">Masthead</a></li>
+</ul>  </div>
+
+  
+</div></div> <!-- /block-inner, /block -->
+<div id="block-menu-menu-the-site" class="block block-menu region-odd odd region-count-7 count-21"><div class="block-inner">
+
+      <h2 class="title">The Site</h2>
+  
+  <div class="content">
+    <ul class="menu"><li class="leaf first"><a href="http://www.linuxjournal.com/content/copyright" title="Copyright">Copyright</a></li>
+<li class="leaf"><a href="http://www.linuxjournal.com/rss_feeds" title="RSS Feeds">RSS Feeds</a></li>
+<li class="leaf"><a href="http://www.linuxjournal.com/content/privacy-statement" title="Privacy Statement">Privacy Policy</a></li>
+<li class="leaf"><a href="mailto:webmaster@linuxjournal.com" title="Report Problems">Report Problems</a></li>
+<li class="leaf last"><a href="http://www.linuxjournal.com/aboutus" title="Contact Us">Contact Us</a></li>
+</ul>  </div>
+
+  
+</div></div> <!-- /block-inner, /block -->
+<div id="block-block-70" class="block block-block region-even even region-count-8 count-22"><div class="block-inner">
+
+  
+  <div class="content">
+    <!--paging_filter--><div id="copyright">Copyright © 1994 - 2011 <em>Linux Journal</em>. All rights reserved.</div>
+  </div>
+
+  
+</div></div> <!-- /block-inner, /block -->
+
+      </div></div> <!-- /#footer-inner, /#footer -->
+    
+  </div></div> <!-- /#page-inner, /#page -->
+
+  
+  <div id="user_relationships_popup_form" class="user_relationships_ui_popup_form"></div>
+
+
+
+
+</body>
+</html>

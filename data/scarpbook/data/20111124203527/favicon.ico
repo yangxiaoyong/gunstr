@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="STYLESHEET" type="text/css" href="/style.css">
+<title>mnot: not found</title>
+<style type="text/css">
+html {
+        background: url(/lib/notfound.jpg) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+}
+body {
+  background-color: rgba(100%, 100%, 100%, 0.6);
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 180px;
+  padding-bottom: 2em;
+}
+</style>
+</head>
+<body>
+<h1>404, Baby.</h1>
+
+<h2>You&#8217;ve requested something that isn&#8217;t here.</h2>
+
+<p>
+<form method="get" action="http://search.yahoo.com/search">
+Take a look at the <a href="/">top page</a> for links to everything
+here, or try searching the site: 
+<input type="text" name="p" size="16" />
+<input type="hidden" name="vs" id="ysvs21" value="mnot.net" />
+<input type="hidden" name="fr" value="yscpb" />  
+<input type="submit" value="search" />
+</form>
+</p>
+
+<p>If you're looking for code, try my <a href="http://github.com/mnot" class="offsite">github page</a> and my
+<a href="http://gist.github.com/mnot" class="offsite">gists</a>.</p>
+
+<p>Otherwise, you can also <a href="/contact/">e-mail me</a>, and I&#8217;ll look into it.</p>
+
+</body>
+</html>
+

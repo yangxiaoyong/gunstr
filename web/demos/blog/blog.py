@@ -142,12 +142,12 @@ class AuthLoginHandler(BaseHandler):
         username = self.get_argument('username', None)
         password = self.get_argument('password', None)
         if username is not None:
-            ret = self.db.query('SELECT id,password from users WHERE name = ?',
+            ret = self.db.get('SELECT id,password from users WHERE name = ?',
                                  username)
             logging.error('ret: %s' % str(ret))
             if ret:
-                if ret[0]['password'] == password:
-                    self.set_secure_cookie("user", str(ret[0]['id']))
+                if ret['password'] == password:
+                    self.set_secure_cookie("user", str(ret['id']))
 
         self.redirect(self.get_argument("next", "/"))
 

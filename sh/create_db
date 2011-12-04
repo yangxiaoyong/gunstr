@@ -1,0 +1,7 @@
+#!/bin/sh
+
+. ./my_env.sh
+
+test -z "$1" && echo "$0 db_name" && exit 1
+
+$MYSQL -u${MY_USER} -p${MY_PWD} -Bse "CREATE DATABASE ${1}"

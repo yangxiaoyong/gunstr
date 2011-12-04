@@ -1,27 +1,55 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
-    <title>{{ escape(handler.settings["blog_title"]) }}</title>
-    <link rel="stylesheet" href="{{ static_url("blog.css") }}" type="text/css"/>
-    <link rel="alternate" href="/feed" type="application/atom+xml" title="{{ escape(handler.settings["blog_title"]) }}"/>
-    {% block head %}{% end %}
-  </head>
-  <body>
-    <div id="body">
-      <div id="header">
-        <div style="float:right">
-          {% if current_user %}
-            <a href="/compose">{{ _("New post") }}</a> -
-            <a href="/auth/logout?next={{ url_escape(request.uri) }}">{{ _("Sign out") }}</a>
-          {% else %}
-            {{ _('<a href="%(url)s">Sign in</a> to compose/edit') % {"url": "/auth/login?next=" + url_escape(request.uri)} }}
-          {% end %}
-        </div>
-        <h1><a href="/">{{ escape(handler.settings["blog_title"]) }}</a></h1>
-      </div>
-      <div id="content">{% block body %}{% end %}</div>
-    </div>
-    {% block bottom %}{% end %}
-  </body>
-</html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <title>{{ escape(handler.settings["blog_title"]) }}</title>
+        <link rel="stylesheet" type="text/css" href="/static/style.css" />
+        <link rel="alternate" href="/feed" type="application/atom+xml" title="{{ escape(handler.settings["blog_title"]) }}"/>
+    </head>
+    <body>
+        <div id="wrap">
+
+            <div id="header">
+
+                <div class="menu">
+                    <ul>
+                        <li><a href="/">首页</a></li>
+                        <li><a href="/links">链接</a></li>
+                        <li><a href="/contact">联系方式</a></li>
+                        <li><a href="/about">关于我</a></li>
+                    </ul>
+                </div>
+
+                <h1><a href="/">YXY 的博客 </a></h1>
+
+            </div>
+
+            <div id="contentwrap">
+                <div id="content">{% block body %}{% end %}
+                </div>
+            </div>
+
+            <div id="sidebar">
+                <h3>菜单导航</h3>
+                <iframe width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=-1&isTitle=1&noborder=1&isWeibo=1&isFans=1&uid=1743503941&verifier=369717bc&colors=d6f3f7,ffffff,666666,0082cb,ecfbfd&dpc=1"></iframe></iframe>
+                <!--
+                <ul>
+                    <li><a href="#">Donec sempe</a></li>
+                    <li><a href="#">Suspendisse potenti</a></li>
+                </ul>
+
+                --!>
+                <h3>Useful Resources</h3>
+                <ul>
+                    <li><a href="#">Praesent ultricies</a></li>
+                </ul>
+
+            </div>
+            <div style="clear: both;"> </div>
+            <div id="footer">
+                <p>&copy; Copyright 2010 You | Template by <a href="http://www.independentinvestor.co.uk/spread-betting/">Financial Spread Betting Guide</a></p>
+            </div>
+            {% block bottom %}{% end %}
+        </body>
+    </html>

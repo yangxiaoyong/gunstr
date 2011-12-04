@@ -1,0 +1,16 @@
+===
+CDN
+===
+
+What
+++++
+Content Dellvery Network or Content Distribution Network
+
+Why
++++
+通过缓存快速获取资源文件，txt,img,大的下载内容
+
+How
++++
+用户访问最近的服务器
+

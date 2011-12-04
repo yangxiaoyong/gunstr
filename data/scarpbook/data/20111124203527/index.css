@@ -1,0 +1,56 @@
+/* ::::: http://www.mnot.net/style.css ::::: */
+
+@font-face {
+	font-family: "CallunaRegular";
+	font-style: normal;
+	font-weight: normal;
+	src: local("☺"), url('calluna-regular-webfont.woff') format("woff"), url('calluna-regular-webfont.ttf') format("truetype"), url('calluna-regular-webfont.svg') format("svg");
+}
+body { font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif; font-size: 15px; line-height: 20px; text-rendering: optimizelegibility; text-align: left; color: rgb(68, 68, 68); }
+h2, h3, h4, h5, h6, pre { font-family: "Helvetica Neue",Arial,Geneva,sans-serif; font-weight: normal; }
+h2, h3 { letter-spacing: -0.05em; }
+h1, .subtitle { font-family: CallunaRegular,Georgia,"Times New Roman",Times,serif; font-weight: normal; }
+.example, code, pre, .spec { font-family: "Lucida Console",Courier,monospace; }
+body { width: 820px; padding: 0px 36px; background-color: rgb(255, 255, 255); margin: 72px auto; }
+p { margin-top: 0.5em; }
+#main { max-width: 600px; }
+a:link, a:visited, a:active { color: rgb(48, 58, 134); text-decoration: none; background-color: transparent; }
+a:visited { color: rgb(96, 106, 134); }
+a:active { color: rgb(48, 58, 134); background-color: rgb(170, 204, 255); }
+a.offsite:hover { background-color: rgb(208, 219, 231); text-decoration: none; border-bottom: medium none; }
+a.offsite:hover:after { color: white; }
+@media screen {
+}
+img { max-width: 100%; }
+a img { border: medium none; }
+h1 [id]:hover:after, h2 [id]:hover:after, h3 [id]:hover:after, h4 [id]:hover:after { content: " #" attr(id) " "; font-size: 75%; line-height: 75%; color: rgb(204, 204, 204); text-decoration: none; }
+h1, h2, h3, h4, h5, h6 { color: rgb(187, 85, 0); background-color: transparent; margin: 1em 0pt 0pt; padding: 0pt; line-height: 1em; page-break-after: avoid; page-break-inside: avoid; }
+h1 { font-size: 3.6em; margin-top: 24px; color: rgb(51, 51, 51); display: inline-block; }
+h2 { font-size: 1.8em; }
+h3 { font-size: 1.2em; }
+h1 + p { margin-top: 0.5em; }
+h1 + .subtitle { font-size: 1em; line-height: 18pt; text-align: left; max-width: 200px; display: inline-block; margin-left: 1em; }
+ul { list-style-type: disc; margin: 0.5em 0pt; padding-left: 1.5em; }
+p + ul, div + ul { margin: -0.5em 0pt 0.5em; }
+@media screen {
+	ul { list-style-type: none; padding-left: 0pt; }
+	ul li:before { content: "⋆ "; color: rgb(68, 17, 17); font-size: 1.3em; }
+	ul li { text-indent: -1em; padding-left: 1em; }
+}
+@media screen {
+}
+b, strong { font-weight: 500; }
+.hilite {  }
+.callout { width: 200px; font-weight: 500; line-height: 1.5em; padding: 0pt 15px; page-break-inside: avoid; text-align: left; float: right; margin: 0.5em -40px 0.5em 1em; border-left: thin solid rgb(187, 85, 0); }
+.banner { margin: 2em 0pt; padding: 1em; background-color: rgb(236, 236, 218); }
+.button { text-align: right; }
+p.navigation { color: rgb(51, 51, 51); margin: 0pt; padding: 0.5em 0pt; background-color: rgba(255, 255, 255, 0.9); text-align: right; border-bottom: 1px solid rgb(204, 204, 204); position: fixed; top: 0pt; right: 36px; width: 320px; float: right; z-index: 10; }
+p.navigation *, p.navtop * { margin-left: 6px; padding: 1px 6px; }
+p.navigation .hilite { background-color: rgb(221, 238, 255); border-radius: 5px 5px 5px 5px; }
+.version { text-align: right; font-style: italic; font-size: 0.9em; margin: 0pt; padding-top: 12px; color: rgb(153, 153, 153); }
+.example { font-size: 0.9em; line-height: 1.25em; background: none repeat scroll 0% 0% rgb(226, 236, 239); margin: 0.25em; padding: 0.5em 1em; overflow: auto; }
+.galimg:hover:after, div:hover:after { display: none; }
+@media screen and (max-device-width: 900px) {
+	#main { max-width: 900px; }
+	body { font-size: 1.2em; line-height: 1.4em; }
+}

@@ -52,14 +52,12 @@ class BaseHandler(tornado.web.RequestHandler):
     def get_current_user(self):
         user_json = self.get_secure_cookie("user")
         if not user_json: return None
-        # return tornado.escape.json_decode(user_json)
-        return user_json
+        return tornado.escape.json_decode(user_json)
 
 
 class MainHandler(BaseHandler):
     @tornado.web.authenticated
     def get(self):
-        logging.info(MessageMixin.cache)
         self.render("index.html", messages=MessageMixin.cache)
 
 
@@ -72,9 +70,11 @@ class MessageMixin(object):
         cls = MessageMixin
         if cursor:
             index = 0
+            #  search for the id from the last
             for i in xrange(len(cls.cache)):
                 index = len(cls.cache) - i - 1
                 if cls.cache[index]["id"] == cursor: break
+            # if found many results, iter again
             recent = cls.cache[index + 1:]
             if recent:
                 callback(recent)
@@ -134,21 +134,18 @@ class MessageUpdatesHandler(BaseHandler, MessageMixin):
 
 
 class AuthLoginHandler(BaseHandler, tornado.auth.GoogleMixin):
+    @tornado.web.asynchronous
     def get(self):
-        self.set_secure_cookie("user", "yxy")
+        if self.get_argument("openid.mode", None):
+            self.get_authenticated_user(self.async_callback(self._on_auth))
+            return
+        self.authenticate_redirect(ax_attrs=["name"])
 
-    # @tornado.web.asynchronous
-    # def get(self):
-    #     if self.get_argument("openid.mode", None):
-    #         self.get_authenticated_user(self.async_callback(self._on_auth))
-    #         return
-    #     self.authenticate_redirect(ax_attrs=["name"])
-
-    # def _on_auth(self, user):
-    #     if not user:
-    #         raise tornado.web.HTTPError(500, "Google auth failed")
-    #     self.set_secure_cookie("user", tornado.escape.json_encode(user))
-    #     self.redirect("/")
+    def _on_auth(self, user):
+        if not user:
+            raise tornado.web.HTTPError(500, "Google auth failed")
+        self.set_secure_cookie("user", tornado.escape.json_encode(user))
+        self.redirect("/")
 
 
 class AuthLogoutHandler(BaseHandler):
