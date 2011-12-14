@@ -1,0 +1,5 @@
+#abg { color: rgb(0, 0, 0); font-family: arial,sans-serif; font-size: 12px; font-weight: bold; text-decoration: underline; white-space: nowrap; }
+#abg:hover { text-decoration: underline; }
+.al { font-family: arial,sans-serif; font-size: 13px; line-height: 14px; white-space: nowrap; }
+.al .alt, .al a { color: rgb(0, 102, 153); font-weight: normal; text-decoration: underline; white-space: nowrap; }
+.al a:hover { color: rgb(153, 0, 102); text-decoration: underline; }
