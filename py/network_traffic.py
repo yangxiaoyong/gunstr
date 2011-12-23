@@ -88,10 +88,14 @@ def output_network_throught(interface, times=5, interval=1, unit='bytes'):
     unit_dict = {'bytes': 1,
                  'KiB': 1024,
                  'MiB': 1024 * 1024}
+
+    if not unit in unit_dict:
+        print 'Fallback to unit bytes'
+        unit = 'bytes'
     format = lambda x: x + ' %s' % unit
     netdev = NetDevice(interface)
     print 'Traffic about %s, interval: %s seconds' % (interface, interval)
-    print 'IncomingTraffic    OutTraffic    SumTraffic'
+    print 'IncomingTraffic    OutTraffic    SumTraffic     (%s)' % unit
     while times > 0:
         times -= 1
         rx_bytes = netdev.get('rx_bytes')
@@ -100,8 +104,9 @@ def output_network_throught(interface, times=5, interval=1, unit='bytes'):
         rx = (netdev.get('rx_bytes') - rx_bytes) / unit_dict.get(unit, 1)
         tx = (netdev.get('tx_bytes') - tx_bytes) / unit_dict.get(unit, 1)
         sum_traffic = rx + tx
-        output = map(format,
-                     ['%.4f' % rx,  '%10.4f' % tx, '%10.4f' % sum_traffic])
+        output = ['%10.2f' % rx,  '%10.2f' % tx, '%10.2f' % sum_traffic]
+
+        # map(format,
         # print output
         print ''.join(output)
 
