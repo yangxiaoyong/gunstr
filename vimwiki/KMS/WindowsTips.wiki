@@ -1,0 +1,13 @@
+记录windows的一些常用技巧
+
+# 找出名为`"nginx.exe"`的进程名信息
+  {{{
+  tasklist /fi "imagename eq nginx.exe"
+
+  Image Name           PID Session Name     Session#    Mem Usage
+  =============== ======== ============== ========== ============
+  nginx.exe            652 Console                 0      2 780 K
+  nginx.exe           1332 Console                 0      3 112 K
+
+  }}}
+

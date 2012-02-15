@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    
+    
+    <title>tornado.database — Simple MySQL client wrapper — Tornado v2.1.1 documentation</title>
+    
+    
+    
+    
+    
+    
+    <link rel="top" title="Tornado v2.1.1 documentation" href="http://www.tornadoweb.org/documentation/index.html">
+    <link rel="up" title="Integration with other services" href="http://www.tornadoweb.org/documentation/integration.html">
+    <link rel="next" title="tornado.platform.twisted — Run code written for Twisted on Tornado" href="http://www.tornadoweb.org/documentation/twisted.html">
+    <link rel="prev" title="tornado.auth — Third-party login with OpenID and OAuth" href="http://www.tornadoweb.org/documentation/auth.html"> 
+  
+<link rel="stylesheet" type="text/css" href="database.css" media="all">
+</head>
+<body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index" accesskey="I">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="twisted.html" title="tornado.platform.twisted — Run code written for Twisted on Tornado" accesskey="N">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="auth.html" title="tornado.auth — Third-party login with OpenID and OAuth" accesskey="P">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="integration.html" accesskey="U">Integration with other services</a> »</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-tornado.database">
+<span id="tornado-database-simple-mysql-client-wrapper"></span><h1><tt class="docutils literal"><span class="pre">tornado.database</span></tt> — Simple MySQL client wrapper<a class="headerlink" href="#module-tornado.database" title="Permalink to this headline">¶</a></h1>
+<p>A lightweight wrapper around MySQLdb.</p>
+<dl class="class">
+<dt id="tornado.database.Connection">
+<em class="property">class </em><tt class="descclassname">tornado.database.</tt><tt class="descname">Connection</tt><big>(</big><em>host</em>, <em>database</em>, <em>user=None</em>, <em>password=None</em>, <em>max_idle_time=25200</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/database.html#Connection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.database.Connection" title="Permalink to this definition">¶</a></dt>
+<dd><p>A lightweight wrapper around MySQLdb DB-API connections.</p>
+<p>The main value we provide is wrapping rows in a dict/object so that
+columns can be accessed by name. Typical usage:</p>
+<div class="highlight-none"><div class="highlight"><pre>db = database.Connection("localhost", "mydatabase")
+for article in db.query("SELECT * FROM articles"):
+    print article.title
+</pre></div>
+</div>
+<p>Cursors are hidden by the implementation, but other than that, the methods
+are very similar to the DB-API.</p>
+<p>We explicitly set the timezone to UTC and the character encoding to
+UTF-8 on all connections to avoid time zone and encoding errors.</p>
+<dl class="method">
+<dt id="tornado.database.Connection.close">
+<tt class="descname">close</tt><big>(</big><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/database.html#Connection.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.database.Connection.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Closes this database connection.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.database.Connection.reconnect">
+<tt class="descname">reconnect</tt><big>(</big><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/database.html#Connection.reconnect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.database.Connection.reconnect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Closes the existing database connection and re-opens it.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.database.Connection.iter">
+<tt class="descname">iter</tt><big>(</big><em>query</em>, <em>*parameters</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/database.html#Connection.iter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.database.Connection.iter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an iterator for the given query and parameters.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.database.Connection.query">
+<tt class="descname">query</tt><big>(</big><em>query</em>, <em>*parameters</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/database.html#Connection.query"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.database.Connection.query" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a row list for the given query and parameters.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.database.Connection.get">
+<tt class="descname">get</tt><big>(</big><em>query</em>, <em>*parameters</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/database.html#Connection.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.database.Connection.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the first row returned for the given query.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.database.Connection.execute">
+<tt class="descname">execute</tt><big>(</big><em>query</em>, <em>*parameters</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/database.html#Connection.execute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.database.Connection.execute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes the given query, returning the lastrowid from the query.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.database.Connection.execute_lastrowid">
+<tt class="descname">execute_lastrowid</tt><big>(</big><em>query</em>, <em>*parameters</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/database.html#Connection.execute_lastrowid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.database.Connection.execute_lastrowid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes the given query, returning the lastrowid from the query.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.database.Connection.execute_rowcount">
+<tt class="descname">execute_rowcount</tt><big>(</big><em>query</em>, <em>*parameters</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/database.html#Connection.execute_rowcount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.database.Connection.execute_rowcount" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes the given query, returning the rowcount from the query.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.database.Connection.executemany">
+<tt class="descname">executemany</tt><big>(</big><em>query</em>, <em>parameters</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/database.html#Connection.executemany"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.database.Connection.executemany" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes the given query against all the given param sequences.</p>
+<p>We return the lastrowid from the query.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.database.Connection.executemany_lastrowid">
+<tt class="descname">executemany_lastrowid</tt><big>(</big><em>query</em>, <em>parameters</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/database.html#Connection.executemany_lastrowid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.database.Connection.executemany_lastrowid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes the given query against all the given param sequences.</p>
+<p>We return the lastrowid from the query.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.database.Connection.executemany_rowcount">
+<tt class="descname">executemany_rowcount</tt><big>(</big><em>query</em>, <em>parameters</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/database.html#Connection.executemany_rowcount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.database.Connection.executemany_rowcount" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes the given query against all the given param sequences.</p>
+<p>We return the rowcount from the query.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tornado.database.Row">
+<em class="property">class </em><tt class="descclassname">tornado.database.</tt><tt class="descname">Row</tt><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/database.html#Row"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.database.Row" title="Permalink to this definition">¶</a></dt>
+<dd><p>A dict that allows for object-like property access syntax.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a indepth="true" href="auth.html" title="previous chapter"><tt class="docutils literal docutils literal"><span class="pre">tornado.auth</span></tt> — Third-party login with OpenID and OAuth</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a indepth="true" href="twisted.html" title="next chapter"><tt class="docutils literal"><span class="pre">tornado.platform.twisted</span></tt> — Run code written for Twisted on Tornado</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="http://www.tornadoweb.org/documentation/_sources/database.txt" rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none;">
+  <h3>Quick search</h3>
+    <form class="search" action="http://www.tornadoweb.org/documentation/search.html" method="get">
+      <input value="" name="q" size="18" type="text">
+      <input value="Go" type="submit">
+      <input name="check_keywords" value="yes" type="hidden">
+      <input name="area" value="default" type="hidden">
+    </form>
+    <p class="searchtip" style="font-size: 90%;">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="twisted.html" title="tornado.platform.twisted — Run code written for Twisted on Tornado">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="auth.html" title="tornado.auth — Third-party login with OpenID and OAuth">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="integration.html">Integration with other services</a> »</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        © Copyright 2011, Facebook.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  
+
+
+</body></html>

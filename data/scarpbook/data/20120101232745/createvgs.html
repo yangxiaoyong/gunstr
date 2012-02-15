@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Creating a volume group</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.7"><link rel="HOME" title="LVM HOWTO" href="http://www.tldp.org/HOWTO/LVM-HOWTO/index.html"><link rel="UP" title="Common Tasks" href="http://www.tldp.org/HOWTO/LVM-HOWTO/commontask.html"><link rel="PREVIOUS" title="Initializing disks or disk partitions" href="http://www.tldp.org/HOWTO/LVM-HOWTO/initdisks.html"><link rel="NEXT" title="Activating a volume group" href="http://www.tldp.org/HOWTO/LVM-HOWTO/activatevgs.html"></head>
+<body class="sect1" alink="#0000FF" bgcolor="#FFFFFF" link="#0000FF" text="#000000" vlink="#840084"><div class="NAVHEADER"><table summary="Header navigation table" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><th colspan="3" align="center">LVM HOWTO</th></tr><tr><td align="left" valign="bottom" width="10%"><a indepth="true" href="initdisks.html" accesskey="P">Prev</a></td><td align="center" valign="bottom" width="80%">Chapter 11. Common Tasks</td><td align="right" valign="bottom" width="10%"><a indepth="true" href="activatevgs.html" accesskey="N">Next</a></td></tr></tbody></table><hr align="LEFT" width="100%"></div><div class="sect1"><h1 class="sect1"><a name="createvgs"></a>11.2. Creating a volume group</h1><p>
+        Use the 'vgcreate' program:
+        <table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen"><b class="command"># vgcreate my_volume_group /dev/hda1 /dev/hdb1 </b>
+        </pre></font></td></tr></tbody></table>
+        <em>NOTE:</em> If you are using LVM 1 with
+        devfs it is essential to use the full devfs name of the
+        device rather than the symlinked name in <tt class="filename">/dev</tt>. So the above would be:
+        <table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen"><b class="command"># vgcreate my_volume_group /dev/ide/host0/bus0/target0/lun0/part1 \
+                           /dev/ide/host0/bus0/target1/lun0/part1</b>
+        </pre></font></td></tr></tbody></table>
+        LVM 2 does not have this restriction.
+      </p><p>
+        You can also specify the extent size with this command if the
+        default of 32MB is not suitable for you with the '-s' switch.  In
+        addition you can put some limits on the number of physical or
+        logical volumes the volume can have.
+      </p></div><div class="NAVFOOTER"><hr align="LEFT" width="100%"><table summary="Footer navigation table" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td align="left" valign="top" width="33%"><a indepth="true" href="initdisks.html" accesskey="P">Prev</a></td><td align="center" valign="top" width="34%"><a indepth="true" href="index.html" accesskey="H">Home</a></td><td align="right" valign="top" width="33%"><a indepth="true" href="activatevgs.html" accesskey="N">Next</a></td></tr><tr><td align="left" valign="top" width="33%">Initializing disks or disk partitions</td><td align="center" valign="top" width="34%"><a indepth="true" href="commontask.html" accesskey="U">Up</a></td><td align="right" valign="top" width="33%">Activating a volume group</td></tr></tbody></table></div>
+
+</body></html>

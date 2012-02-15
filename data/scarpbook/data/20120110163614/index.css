@@ -1,0 +1,77 @@
+/* ::::: http://www.linuxsir.org/main/modules/aggregator/aggregator.css ::::: */
+
+/* ::::: http://www.linuxsir.org/main/modules/book/book.css ::::: */
+
+/* ::::: http://www.linuxsir.org/main/modules/codefilter/codefilter.css ::::: */
+
+div.codeblock { padding: 5px; border: 1px solid rgb(204, 204, 204); background-color: rgb(238, 238, 238); }
+/* ::::: http://www.linuxsir.org/main/modules/node/node.css ::::: */
+
+/* ::::: http://www.linuxsir.org/main/modules/system/defaults.css ::::: */
+
+img { border: 0pt none; }
+table { border-collapse: collapse; }
+/* ::::: http://www.linuxsir.org/main/modules/system/system.css ::::: */
+
+tbody { border-top: 1px solid rgb(204, 204, 204); }
+.breadcrumb { padding-bottom: 0.5em; }
+.item-list ul { margin: 0pt 0pt 0.75em; padding: 0pt; }
+.item-list ul li { margin: 0pt 0pt 0.25em 1.5em; padding: 0pt; list-style: disc outside none; }
+.more-link { text-align: right; }
+ul.menu { list-style: none outside none; border: medium none; text-align: left; }
+ul.menu li { margin: 0pt 0pt 0pt 0.5em; }
+li.leaf { list-style-type: square; list-style-image: url('menu-leaf.png'); padding: 0.2em 0.5em 0pt 0pt; margin: 0pt; }
+ul.links { margin: 0pt; padding: 0pt; }
+ul.links.inline { display: inline; }
+ul.links li { display: inline; list-style-type: none; padding: 0pt 0.5em; }
+.block ul { margin: 0pt; padding: 0pt 0pt 0.25em 1em; }
+/* ::::: http://www.linuxsir.org/main/modules/user/user.css ::::: */
+
+/* ::::: http://www.linuxsir.org/main/modules/comment/comment.css ::::: */
+
+.indented { margin-left: 25px; }
+/* ::::: http://www.linuxsir.org/main/themes/chameleon/marvin/style.css ::::: */
+
+body { background: none no-repeat scroll right top rgb(255, 255, 255); font-family: arial,helvetica,sans-serif; }
+a:link { color: rgb(0, 0, 0); }
+a:visited { color: rgb(0, 0, 0); }
+a:active { color: rgb(0, 0, 0); }
+h2 { background-color: rgb(234, 234, 234); border: 1px solid rgb(119, 119, 119); font-size: 1.1em; margin: 0.5em 0em; padding: 0.5em; }
+h2.title { background-color: rgb(255, 255, 255); border: 1px solid rgb(198, 198, 198); margin-top: 1em; }
+p { margin: 0pt 1em 1em 0pt; padding: 0pt; }
+table { font-size: 1em; }
+#main { width: 100%; }
+ul.links li { border-left: 1px solid rgb(198, 198, 198); }
+ul.links li.first { border: medium none; }
+.node .content { clear: both; padding-left: 1em; }
+.node .links { padding: 0.2em 0em 0.1em 0.2em; }
+.comment { border: 1px solid rgb(119, 119, 119); margin: 0.5em 0pt; padding: 0.5em; }
+.block { margin-bottom: 10px; font-size: 12px; }
+.block .content { border-right: 1px solid rgb(198, 198, 198); border-width: medium 1px 1px; border-style: none solid solid; border-color: -moz-use-text-color rgb(198, 198, 198) rgb(198, 198, 198); -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; -moz-border-image: none; margin: 0pt; padding: 5px; }
+.block h2.title { margin: 0pt; }
+.item-list ul li {  }
+/* ::::: http://www.linuxsir.org/main/themes/chameleon/common.css ::::: */
+
+a, a:link, a:active { font-weight: normal; text-decoration: none; }
+a:hover { text-decoration: underline; }
+body { margin: 0pt; padding: 0.1em; font-size: 12px; line-height: 1.3em; }
+table { margin: 0pt; padding: 0.5em; border-collapse: collapse; }
+code, pre { font-size: 1em; }
+li { padding-bottom: 0.3em; }
+h1, h2, h3, h4, h5, h6 { margin-bottom: 0.25em; }
+h2 { font-size: 1.2em; }
+h3 { font-size: 1.1em; }
+p { margin: 0pt 0pt 0.5em; }
+br { line-height: 0.6em; }
+#header { margin-bottom: 2em; }
+#content { clear: both; }
+#sidebar-left, #sidebar-right { vertical-align: top; padding: 6px; }
+#main { padding-left: 0.5em; padding-right: 0.5em; vertical-align: top; }
+#footer { font-size: 0.8em; padding-top: 3em; text-align: center; }
+.title { margin: 0pt 0pt 1em; }
+.content { margin: 0pt 0pt 1em; }
+.links { font-size: 1em; line-height: 1em; }
+.block { width: 160px; }
+.navlinks { padding: 0.4em 0.4em 0.4em 1em; clear: both; background: none no-repeat scroll right center rgb(0, 113, 188); }
+#header img { float: left; padding: 0em 1em 0.1em 0em; }
+#header { clear: both; }

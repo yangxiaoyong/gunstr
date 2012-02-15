@@ -1,0 +1,13 @@
+# HTTP headers
+  这个模块介绍了二个指令来影响发送给客户端的头消息
+  - add_header
+    * syntax: add_header Name Value
+    * 只为以下响应代码生效： 200, 204, 301, 302 和 304
+  - expires
+    * 允许你控制发送给客户端的HTTP头消息里 *Expires* 和 *Cache-Control* 的值
+    * off; 不修改头消息
+    * A time value: 24h 设置过期时间从现在开始后的24小时
+    * epoch: 设置 Cache-Control头的值为no-cache，这个文件的过期时间为 1970-1-1，也就是
+      永远不缓存
+    * max: 设置文件的过期时间为2037-11-32，Cache-Control头设置为10年
+

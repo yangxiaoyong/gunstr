@@ -1,0 +1,18 @@
+- 命令行写参数的规范
+{{{
+USAGE: $(basename "${0?}") [-a ANSWER_FILE] [-A ANSWER_FILE]
+
+OPTIONS:
+
+    -a ANSWER_FILE
+        Read answers from xxxx
+    -A ANSWER_FILE
+        Read xxxxxxxxxxxx
+
+}}}
+
+- 创建一个临时目录
+{{{
+WORKDIR=$(mktemp -t -d tmp.name.XXXXXX)
+}}}
+

@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    
+    
+    <title>What’s new in Tornado 2.1.1 — Tornado v2.1.1 documentation</title>
+    
+    
+    
+    
+    
+    
+    <link rel="top" title="Tornado v2.1.1 documentation" href="http://www.tornadoweb.org/documentation/index.html">
+    <link rel="up" title="Release notes" href="http://www.tornadoweb.org/documentation/releases.html">
+    <link rel="next" title="What’s new in Tornado 2.1" href="http://www.tornadoweb.org/documentation/releases/v2.1.0.html">
+    <link rel="prev" title="Release notes" href="http://www.tornadoweb.org/documentation/releases.html"> 
+  
+<link rel="stylesheet" type="text/css" href="v2.1.1.css" media="all">
+</head>
+<body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index" accesskey="I">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="v2.1.0.html" title="What’s new in Tornado 2.1" accesskey="N">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="releases.html" title="Release notes" accesskey="P">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="releases.html" accesskey="U">Release notes</a> »</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="what-s-new-in-tornado-2-1-1">
+<h1>What’s new in Tornado 2.1.1<a class="headerlink" href="#what-s-new-in-tornado-2-1-1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="oct-4-2011">
+<h2>Oct 4, 2011<a class="headerlink" href="#oct-4-2011" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="bug-fixes">
+<h3>Bug fixes<a class="headerlink" href="#bug-fixes" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Fixed handling of closed connections with the <tt class="docutils literal"><span class="pre">epoll</span></tt> (i.e. Linux)
+<tt class="docutils literal"><span class="pre">IOLoop</span></tt>.  Previously, closed connections could be shut down too early,
+which most often manifested as “Stream is closed” exceptions in
+<tt class="docutils literal"><span class="pre">SimpleAsyncHTTPClient</span></tt>.</li>
+<li>Fixed a case in which chunked responses could be closed prematurely,
+leading to truncated output.</li>
+<li><tt class="docutils literal"><span class="pre">IOStream.connect</span></tt> now reports errors more consistently via logging
+and the close callback (this affects e.g. connections to localhost
+on FreeBSD).</li>
+<li><tt class="docutils literal"><span class="pre">IOStream.read_bytes</span></tt> again accepts both <tt class="docutils literal"><span class="pre">int</span></tt> and <tt class="docutils literal"><span class="pre">long</span></tt> arguments.</li>
+<li><tt class="docutils literal"><span class="pre">PeriodicCallback</span></tt> no longer runs repeatedly when <tt class="docutils literal"><span class="pre">IOLoop</span></tt> iterations
+complete faster than the resolution of <tt class="docutils literal"><span class="pre">time.time()</span></tt> (mainly a problem
+on Windows).</li>
+</ul>
+</div>
+<div class="section" id="backwards-compatibility-note">
+<h3>Backwards-compatibility note<a class="headerlink" href="#backwards-compatibility-note" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Listening for <tt class="docutils literal"><span class="pre">IOLoop.ERROR</span></tt> alone is no longer sufficient for detecting
+closed connections on an otherwise unused socket.  <tt class="docutils literal"><span class="pre">IOLoop.ERROR</span></tt> must
+always be used in combination with <tt class="docutils literal"><span class="pre">READ</span></tt> or <tt class="docutils literal"><span class="pre">WRITE</span></tt>.</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a indepth="true" href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">What’s new in Tornado 2.1.1</a><ul>
+<li><a class="reference internal" href="#oct-4-2011">Oct 4, 2011</a><ul>
+<li><a class="reference internal" href="#bug-fixes">Bug fixes</a></li>
+<li><a class="reference internal" href="#backwards-compatibility-note">Backwards-compatibility note</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a indepth="true" href="releases.html" title="previous chapter">Release notes</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a indepth="true" href="v2.1.0.html" title="next chapter">What’s new in Tornado 2.1</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="http://www.tornadoweb.org/documentation/_sources/releases/v2.1.1.txt" rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none;">
+  <h3>Quick search</h3>
+    <form class="search" action="http://www.tornadoweb.org/documentation/search.html" method="get">
+      <input value="" name="q" size="18" type="text">
+      <input value="Go" type="submit">
+      <input name="check_keywords" value="yes" type="hidden">
+      <input name="area" value="default" type="hidden">
+    </form>
+    <p class="searchtip" style="font-size: 90%;">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="v2.1.0.html" title="What’s new in Tornado 2.1">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="releases.html" title="Release notes">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="releases.html">Release notes</a> »</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        © Copyright 2011, Facebook.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  
+
+
+</body></html>

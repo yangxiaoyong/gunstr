@@ -1,0 +1,91 @@
+[[SSH]]
+[[GCC]]
+
+文件描述符: 文件描述符是一个整数指示被当前进程打开的文件
+在linux里面，通常有三个文件描述符被分配给进程
+0： 标准输入
+1： 标准输出
+2： 标准错误
+其它的文件，socket, pipe 以3开头的数字
+
+[[How to Debug Bash Scripts]]
+
+== sed ==
+# 将文件里的每行多加一行换行符号
+{{{
+sed G file.txt
+}}}
+# 将文件里的每行多加三行换行符号
+{{{
+sed 'G;G' file.txt
+}}}
+# 终于找到这个了，find and replace
+{{{
+text: a = b
+change to: a = c
+sed 's/\(a\)\ =\ \(b\)/\1\ =\  c/' file.txt
+}}}
+# 替换匹配的字符，除非该行里有别的字符
+{{{
+substiute "FIND_TERM" with "REPLACE_TERM" EXCEPT for lines which contain "baz"
+sed '/baz/!s/FIND_TERM/REPLACE_TERM/g' file.txt
+}}}
+遇到一个问题，要将文件里某行配置改变，文件内容如下
+{{{
+[buildout]
+develop = .
+eggs-directory = ${buildout:directory}/buildout-cache/eggs
+downloads-directory = ${buildout:directory}/buildout-cache/tmp
+parts =
+    xprompt
+        test
+
+}}}
+需求：我要将eggs-directory = 后的路径能够动态赋值
+
+我想到的处理流程
+#. 找出eggs-directory所在的行
+#. 用sed将该行重写
+
+{{{
+filename=buildout.cfg
+line=$(grep -n eggs-directory $filename | cut -d: -f1)
+sed -e "${line}c eggs-directory = /opt/buildout-cache/eggs"
+}}}
+
+但是这样处理很不优雅，目前找不到合适的方法
+另外就是也可以用perl这样来做，但同样也是不优雅的方法
+
+{{{
+filename=buildout.cfg
+perl -pi -e 's/eggs-directory.*$/eggs-directory\ =\ \/opt\/buildout-cache\/eggs/g' $filename
+}}}
+
+{{{
+sed -i -e 's/patter.*/replace/g' $filename
+}}}
+
+要替换某行的内容
+{{{
+sed "2c ballballaba" $filename
+}}}
+
+去掉文件的空行
+{{{
+sed -e '/^$/d' file.txt
+}}}
+
+== linux的管道，重定向，列表 ==
+
+=== 清理本机路由缓存 ===
+print kernel route 转发表
+
+{{{
+netstat -rn --cache
+}}}
+
+flush the cache
+
+{{{
+ip -s -s ro flush cache
+}}}

@@ -1,0 +1,37 @@
+==需求==
+让用户可以方便，简单的安装易度云查看
+整体安装过程使用一个buildout.cfg来控制
+
+
+==任务==
+- 安装时必须是root
+- 启动时必须是root
+- 启动时用supervisord统一启动
+
+* [X] 三个代码库的打包
+    * [X] cloudviwer
+    * [X] workonline
+        * [X] 只保留zopen.frs.core
+    * [X] edopaper
+    * [X] 编译删除源代码
+* [X] Openoffice
+* [X] Redis-server
+    * [X] redis-server 编译安装
+    * [X] redis.conf配置文件生成
+* [X] Nginx
+* [X] 字体文件
+* [X] pdftoppm
+* [X] 预处理配置文件
+    * [X] buildout.cfg的buildout-cache/eggs路径
+    * [X] supervisrod的daemon启动脚本
+    * [X] nginx.conf
+* [X] supervisor的安装
+* [X] 启动服务
+* [o] Tofix
+    * [ ] distribute
+    * [X] worker - pyPDF *GFW*
+    * [X] 修改fts_web的frs路径
+* [ ] 打包脚本
+
+* [ ] ZOPEN02的openoffice升级下
+* [ ] Clean

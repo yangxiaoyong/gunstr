@@ -1,0 +1,212 @@
+= Server Name =
+定义服务器名字可以使用:
+ - exact names(精确的名字)
+ - wildcard names(通配符名字)
+ - regular expressions(正则表达式)
+
+{{{
+server {
+    listen 80;
+    server_name nginx.org www.nginx.org; ...  }
+
+server {
+    listen 80;
+    server_name *.nginx.org
+    ...
+}
+
+server {
+    listen 80;
+    server_name mail.*;
+    ...
+}
+
+server {
+    listen 80;
+    server_name ~^(?<user>+)\.nginx\.net$;
+    ...
+}
+}}}
+
+匹配的优先级
+#. 精确的名字
+#. 以`*`开头的通配符服务器名
+#. 以`*`结尾的通配符服务器名
+#. 配置文件中按顺序排序的正则表达式
+
+第一个搜索匹配到了会停止后面的搜索
+
+== Wildcard names 通配符名字 ==
+一个通配符名字只能在首或尾包含星号(`*`)，而且只能在`.`的前后
+比如： `"www.*.nginx.org"` 和 `"w*.nginx.org"` 都是无效的
+
+当然上面的服务器名，你可以使用正则表达式来匹配
+比如： `"~^www\..+\.nginx\.org$" 和 "~^w.*\.nginx\.org$"`
+
+一个特别的通配符格式 `".nginx.org"` 可以用来匹配一个精确的名字 `"nginx.org"` 和
+一个通配符名字 `"*.nginx.org"`
+
+== Regular expressions names 正则表达式名字 ==
+nginx使用的正则表达式与`PCRE`使用的兼容，要使用一个正则表达式，server_name 必须使用
+波形号`(~)`打头
+
+{{{
+server_name ~^www\d+\.nginx\.net$;
+}}}
+
+否则的话，就会被当成一个精确名字匹配了。不要忘记设置`"^"` 和 `"$"` 锚，它们在句法上虽然不
+是必须的，但是是符合逻辑的。同时，也要记住域名句号`.`必须用`\`转义,一个正则表达式包含
+字符`"{"` 和 `"}"` 必须用引号包围
+
+{{{
+server_name "~^(?<name>\w\d{1,3}+)\.nginx\.net$";
+}}}
+
+否则nginx会启动失败，并显示消息
+{{{
+directive "server_name" is not terminated by ";" in ...
+}}}
+
+一个命名的正则表达式捕获可以被后面以变量形式使用
+{{{
+server {
+    server_name ~^(www\.)?(?<domain>.+)$;
+    location / {
+        root /sites/$domain;
+    }
+}}}
+
+`PCRE`库支持的使用下列语法的命名捕获
+- `?<name>` Perl5.10 兼容语法，从 PCRE-7.0 后支持
+- `?'name'` Perl 5.10 兼容语法，从 PCRE-7.0 后支持
+- `?P<name>` Python兼容语法，从 PCRE-4.0 后支持
+
+如果nginx启动失败，并显示下面的错误信息
+{{{
+pcre_compile() failed: unrecognized character aft (?< in ...
+}}}
+
+这表示你使用的PCRE库很老，你应该尝试使用`"?P<name>"`的语法，捕获到的字符同样可以使用
+数字变量来访问
+{{{
+server {
+    server_name ~^(www\.)?(.+)$;
+    location / {
+        root /sites/$2;
+    }
+}
+}}}
+尽管如此，这样的使用案例仅限于简单的例子（像上面的一样），因为数字变量引用很容易被覆写
+
+=== Miscellaneous names 各种名字 ===
+在一个不是默认的服务块里，如果你想处理一个没有带`"Host"`头的请求，那么你必须配置一个空
+的名字
+{{{
+server {
+    listen 80;
+    server_name nginx.org www.nginx.org "";
+    ...
+}
+}}}
+
+如果在服务块里`"server_name"`没有被定义，那么nginx使用空的名字来作为服务器名字
+如果有些人用IP地址来而不是服务名来作为请求，那么该请求的 `"Host"` 头会包含ip地址，你可以
+使用该IP地址作为服务器名字来处理
+{{{
+server {
+    listen 80;
+    server_name nginx.org
+                www.nginx.org
+                ""
+                192.168.1.1
+                ;
+    ...
+}
+}}}
+你可以使用特殊的名字 `"_"`捕获上面例子的所有服务名:
+{{{
+server {
+    listen 80 default_server;
+    server_name _;
+    return    444;
+}
+}}}
+
+记住，没有一个办法使用`"server_name"`指令来配置捕获所有的服务名(`catch-all name`)或者
+默认的服务名(`"default server")`，这是一个叫`"listen"`的指令段的属性而不是`"server_name"`
+你可以参考[http://nginx.org/en/docs/http/request_processing.html nginx是如何处理请求]
+你可以定义服务在监听端口`*:80`和`*:8080`,然后将要去默认服务的请求导向到端口`*:8080`，其它
+的都导向到端口`*:80`
+{{{
+server {
+    listen 80;
+    listen 8080 default_server;
+    server_name nginx.net;
+    ...
+}
+server {
+    listen 80 default_server;
+    listen 8080;
+    server_name nginx.org;
+    ...
+}
+}}}
+
+=== 优化===
+精确的名字(`exact names`)和通配符名字(`wildcard names`)使用哈希值来存储，这些哈希值与监
+听端口是绑定的，而且每一个监听端口可能有三个哈希值：
+- 一个精确名字的哈希值
+- 一个以星号(`*`)打头的通配符哈希值
+- 一个以星号(`*`)结尾的通配符哈希值
+这些哈希值的大小在配置文件里就被优化了，所以一个名字可以在使用最小的CPU缓存下被找到。
+精确匹配的名字是第一个被搜索的，如果一个名字使用精确名字的哈希值没有找到，那么以星号
+打头的通配符哈希值会接着被搜索，如果还没有找到，再用以星号结尾的通配符哈希值搜索
+搜索通配符哈希值比搜索精确名字的哈希值慢，因为名字被搜索的时候是按域名部分来搜索的，记住
+特别的通配符额格式 `".nginx.org"` 是按通配符哈希值来存储的而不是精确名字哈希值。正则表达
+式是按顺序来测试的因此是所有方法里最慢的部分而且也没有弹性
+
+因为这些原因，最好尽可能地使用精确名字。比如，如果访问最频繁的服务名 `"nginx.org"` 和
+`"www.nginx.org"` 使用明确的名字
+{{{
+server {
+    listen 80;
+    server_name nginx.org www.nginx.org *.nginx.org;
+}
+}}}
+比起下面简单的格式是更高效的做法
+{{{
+server {
+    listen 80;
+    server_name .nginx.org;
+}
+}}}
+如果你定义了一个大量的服务名称，或者定义一个非常长的服务名称，你可能需要调整在http层的
+`"server_name_hash_max_size"` 和 `"server_names_hash_bucket_size"` 指令的值.
+默认的`"server_names_hash_bucket_size"`的值可能等于32，或64，或者其它值，这取决于你的
+计算机缓存线大小。如果默认的值是32和你已经定义了一个`"too.long.server.name.nginx.org"`
+作为你的服务名称，Nginx会启动失败并显示下面的错误消息
+{{{
+could not build the server_names_hash;
+you should increases server_names_hash_bucket_size: 32
+}}}
+在这样的情况下，你必须设置该指令的值为原先的2倍
+{{{
+http{
+    server_name_hash_max_size 64;
+    ...
+}
+}}}
+如果你定义了大量的服务器名字，你会得到下面的错误消息
+{{{
+could not build the server_names_hash,
+you should increase either server_names_hash_max_size: 512
+or server_names_hash_bucket_size: 32
+}}}
+你必须先尝试增加`"server_names_hash_max_size"`的值到一个接近你服务名字数量的数值。
+只有当这个没有帮助的时候，或者nginx启动时间很长难以让人接受时，你必须尝试增加
+`"server_names_hash_bucket_size"`的值
+
+如果一个监听端口只有一个服务，那么nginx不会去测试服务名字,而且也不会建立监听端口的哈希值
+但是，这也有一个例外，如果一个`"server_name"`是一个带捕获的正则表达式，那么nginx会去执行
+这个正则表达式来获得捕获值
+

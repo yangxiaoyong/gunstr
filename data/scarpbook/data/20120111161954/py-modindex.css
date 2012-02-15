@@ -1,0 +1,50 @@
+/* ::::: http://www.tornadoweb.org/documentation/_static/sphinx.css ::::: */
+
+/* ::::: http://www.tornadoweb.org/documentation/_static/default.css ::::: */
+
+/* ::::: http://www.tornadoweb.org/documentation/_static/basic.css ::::: */
+
+div.clearer { clear: both; }
+div.related { width: 100%; font-size: 90%; }
+div.related h3 { display: none; }
+div.related ul { margin: 0pt; padding: 0pt 0pt 0pt 10px; list-style: none outside none; }
+div.related li { display: inline; }
+div.related li.right { float: right; margin-right: 5px; }
+div.sphinxsidebarwrapper { padding: 10px 5px 0pt 10px; }
+div.sphinxsidebar { float: left; width: 230px; margin-left: -100%; font-size: 90%; }
+div.sphinxsidebar form { margin-top: 10px; }
+div.sphinxsidebar input { border: 1px solid rgb(152, 219, 204); font-family: sans-serif; font-size: 1em; }
+img { border: 0pt none; }
+table.indextable { width: 100%; }
+table.indextable td { text-align: left; vertical-align: top; }
+table.indextable tr.pcap { height: 10px; }
+table.indextable tr.cap { margin-top: 10px; background-color: rgb(242, 242, 242); }
+img.toggler { margin-right: 3px; margin-top: 3px; cursor: pointer; }
+div.modindex-jumpbox { border-top: 1px solid rgb(221, 221, 221); border-bottom: 1px solid rgb(221, 221, 221); margin: 1em 0pt; padding: 0.4em; }
+div.body td { text-align: left; }
+tt.xref, a tt { background-color: transparent; font-weight: bold; }
+body { font-family: Georgia,serif; font-size: 100%; background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); margin: 0pt; padding: 0pt; }
+div.document { background-color: rgb(255, 255, 255); }
+div.documentwrapper { float: left; width: 100%; }
+div.bodywrapper { margin: 0pt 0pt 0pt 230px; }
+div.body { background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); padding: 0pt 20px 30px; }
+div.footer { color: rgb(0, 0, 0); width: 100%; padding: 9px 0pt; text-align: center; font-size: 75%; }
+div.footer a { color: rgb(0, 0, 0); text-decoration: underline; }
+div.related { background-color: rgb(255, 255, 255); line-height: 30px; color: rgb(0, 0, 0); }
+div.related a { color: rgb(33, 96, 147); }
+div.sphinxsidebar { top: 30px; bottom: 0pt; margin: 0pt; position: fixed; overflow: auto; height: auto; }
+div.sphinxsidebar h3 { font-family: Calibri,sans-serif; color: rgb(77, 140, 191); font-size: 1.4em; font-weight: normal; margin: 0pt; padding: 0pt; }
+div.sphinxsidebar p { color: rgb(77, 140, 191); }
+div.sphinxsidebar input { border: 1px solid rgb(33, 96, 147); font-family: sans-serif; font-size: 1em; }
+a { color: rgb(33, 96, 147); text-decoration: none; }
+a:visited { color: rgb(33, 96, 147); text-decoration: none; }
+a:hover { text-decoration: underline; }
+div.body h1, div.body h2, div.body h3, div.body h4, div.body h5, div.body h6 { font-family: Calibri,sans-serif; background-color: rgb(255, 255, 255); font-weight: normal; color: rgb(77, 140, 191); border-bottom: 1px solid rgb(204, 204, 204); margin: 20px -20px 10px; padding: 3px 0pt 3px 10px; }
+div.body h1 { margin-top: 0pt; font-size: 200%; }
+tt { background-color: rgb(236, 240, 243); padding: 0pt 1px; font-size: 0.95em; }
+div.body h1, div.body h2, div.body h3, div.body h4, div.body h5, div.body h6, div.sphinxsidebar h3, div.sphinxsidebar h4 { font-weight: bold; border-bottom: medium none; }
+div.related { position: fixed; }
+div.body { top: 30px; bottom: 0pt; right: 0pt; left: 230px; margin: 0pt; position: fixed; overflow: auto; height: auto; }
+div.related, div.sphinxsidebar { font-family: Calibri,sans-serif; }
+/* ::::: http://www.tornadoweb.org/documentation/_static/pygments.css ::::: */
+

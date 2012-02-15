@@ -1,0 +1,273 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    
+    
+    <title>tornado.netutil — Miscellaneous network utilities — Tornado v2.1.1 documentation</title>
+    
+    
+    
+    
+    
+    
+    <link rel="top" title="Tornado v2.1.1 documentation" href="http://www.tornadoweb.org/documentation/index.html">
+    <link rel="up" title="Asynchronous networking" href="http://www.tornadoweb.org/documentation/networking.html">
+    <link rel="next" title="Integration with other services" href="http://www.tornadoweb.org/documentation/integration.html">
+    <link rel="prev" title="tornado.httpclient — Non-blocking HTTP client" href="http://www.tornadoweb.org/documentation/httpclient.html"> 
+  
+<link rel="stylesheet" type="text/css" href="netutil.css" media="all">
+</head>
+<body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index" accesskey="I">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="integration.html" title="Integration with other services" accesskey="N">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="httpclient.html" title="tornado.httpclient — Non-blocking HTTP client" accesskey="P">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="networking.html" accesskey="U">Asynchronous networking</a> »</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-tornado.netutil">
+<span id="tornado-netutil-miscellaneous-network-utilities"></span><h1><tt class="docutils literal"><span class="pre">tornado.netutil</span></tt> — Miscellaneous network utilities<a class="headerlink" href="#module-tornado.netutil" title="Permalink to this headline">¶</a></h1>
+<p>Miscellaneous network utility code.</p>
+<dl class="class">
+<dt id="tornado.netutil.TCPServer">
+<em class="property">class </em><tt class="descclassname">tornado.netutil.</tt><tt class="descname">TCPServer</tt><big>(</big><em>io_loop=None</em>, <em>ssl_options=None</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/netutil.html#TCPServer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.netutil.TCPServer" title="Permalink to this definition">¶</a></dt>
+<dd><p>A non-blocking, single-threaded TCP server.</p>
+<p>To use <a class="reference internal" href="#tornado.netutil.TCPServer" title="tornado.netutil.TCPServer"><tt class="xref py py-obj docutils literal"><span class="pre">TCPServer</span></tt></a>, define a subclass which overrides the <a class="reference internal" href="#tornado.netutil.TCPServer.handle_stream" title="tornado.netutil.TCPServer.handle_stream"><tt class="xref py py-obj docutils literal"><span class="pre">handle_stream</span></tt></a>
+method.</p>
+<p><a class="reference internal" href="#tornado.netutil.TCPServer" title="tornado.netutil.TCPServer"><tt class="xref py py-obj docutils literal"><span class="pre">TCPServer</span></tt></a> can serve SSL traffic with Python 2.6+ and OpenSSL.
+To make this server serve SSL traffic, send the ssl_options dictionary
+argument with the arguments required for the <tt class="xref py py-obj docutils literal"><span class="pre">ssl.wrap_socket</span></tt> method,
+including “certfile” and “keyfile”:</p>
+<div class="highlight-none"><div class="highlight"><pre>TCPServer(ssl_options={
+    "certfile": os.path.join(data_dir, "mydomain.crt"),
+    "keyfile": os.path.join(data_dir, "mydomain.key"),
+})
+</pre></div>
+</div>
+<p><a class="reference internal" href="#tornado.netutil.TCPServer" title="tornado.netutil.TCPServer"><tt class="xref py py-obj docutils literal"><span class="pre">TCPServer</span></tt></a> initialization follows one of three patterns:</p>
+<ol class="arabic">
+<li><p class="first"><a class="reference internal" href="#tornado.netutil.TCPServer.listen" title="tornado.netutil.TCPServer.listen"><tt class="xref py py-obj docutils literal"><span class="pre">listen</span></tt></a>: simple single-process:</p>
+<div class="highlight-none"><div class="highlight"><pre>server = TCPServer()
+server.listen(8888)
+IOLoop.instance().start()
+</pre></div>
+</div>
+</li>
+<li><p class="first"><a class="reference internal" href="#tornado.netutil.TCPServer.bind" title="tornado.netutil.TCPServer.bind"><tt class="xref py py-obj docutils literal"><span class="pre">bind</span></tt></a>/<a class="reference internal" href="#tornado.netutil.TCPServer.start" title="tornado.netutil.TCPServer.start"><tt class="xref py py-obj docutils literal"><span class="pre">start</span></tt></a>: simple multi-process:</p>
+<div class="highlight-none"><div class="highlight"><pre>server = TCPServer()
+server.bind(8888)
+server.start(0)  # Forks multiple sub-processes
+IOLoop.instance().start()
+</pre></div>
+</div>
+<p>When using this interface, an <tt class="xref py py-obj docutils literal"><span class="pre">IOLoop</span></tt> must <em>not</em> be passed
+to the <a class="reference internal" href="#tornado.netutil.TCPServer" title="tornado.netutil.TCPServer"><tt class="xref py py-obj docutils literal"><span class="pre">TCPServer</span></tt></a> constructor.  <a class="reference internal" href="#tornado.netutil.TCPServer.start" title="tornado.netutil.TCPServer.start"><tt class="xref py py-obj docutils literal"><span class="pre">start</span></tt></a> will always start
+the server on the default singleton <tt class="xref py py-obj docutils literal"><span class="pre">IOLoop</span></tt>.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="#tornado.netutil.TCPServer.add_sockets" title="tornado.netutil.TCPServer.add_sockets"><tt class="xref py py-obj docutils literal"><span class="pre">add_sockets</span></tt></a>: advanced multi-process:</p>
+<div class="highlight-none"><div class="highlight"><pre>sockets = bind_sockets(8888)
+tornado.process.fork_processes(0)
+server = TCPServer()
+server.add_sockets(sockets)
+IOLoop.instance().start()
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="#tornado.netutil.TCPServer.add_sockets" title="tornado.netutil.TCPServer.add_sockets"><tt class="xref py py-obj docutils literal"><span class="pre">add_sockets</span></tt></a> interface is more complicated, but it can be
+used with <a indepth="true" class="reference internal" href="process.html#tornado.process.fork_processes" title="tornado.process.fork_processes"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.process.fork_processes</span></tt></a> to give you more
+flexibility in when the fork happens.  <a class="reference internal" href="#tornado.netutil.TCPServer.add_sockets" title="tornado.netutil.TCPServer.add_sockets"><tt class="xref py py-obj docutils literal"><span class="pre">add_sockets</span></tt></a> can
+also be used in single-process servers if you want to create
+your listening sockets in some way other than
+<a class="reference internal" href="#tornado.netutil.bind_sockets" title="tornado.netutil.bind_sockets"><tt class="xref py py-obj docutils literal"><span class="pre">bind_sockets</span></tt></a>.</p>
+</li>
+</ol>
+<dl class="method">
+<dt id="tornado.netutil.TCPServer.listen">
+<tt class="descname">listen</tt><big>(</big><em>port</em>, <em>address=''</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/netutil.html#TCPServer.listen"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.netutil.TCPServer.listen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts accepting connections on the given port.</p>
+<p>This method may be called more than once to listen on multiple ports.
+<a class="reference internal" href="#tornado.netutil.TCPServer.listen" title="tornado.netutil.TCPServer.listen"><tt class="xref py py-obj docutils literal"><span class="pre">listen</span></tt></a> takes effect immediately; it is not necessary to call
+<a class="reference internal" href="#tornado.netutil.TCPServer.start" title="tornado.netutil.TCPServer.start"><tt class="xref py py-obj docutils literal"><span class="pre">TCPServer.start</span></tt></a> afterwards.  It is, however, necessary to start
+the <tt class="xref py py-obj docutils literal"><span class="pre">IOLoop</span></tt>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.netutil.TCPServer.add_sockets">
+<tt class="descname">add_sockets</tt><big>(</big><em>sockets</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/netutil.html#TCPServer.add_sockets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.netutil.TCPServer.add_sockets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes this server start accepting connections on the given sockets.</p>
+<p>The <tt class="docutils literal"><span class="pre">sockets</span></tt> parameter is a list of socket objects such as
+those returned by <a class="reference internal" href="#tornado.netutil.bind_sockets" title="tornado.netutil.bind_sockets"><tt class="xref py py-obj docutils literal"><span class="pre">bind_sockets</span></tt></a>.
+<a class="reference internal" href="#tornado.netutil.TCPServer.add_sockets" title="tornado.netutil.TCPServer.add_sockets"><tt class="xref py py-obj docutils literal"><span class="pre">add_sockets</span></tt></a> is typically used in combination with that
+method and <a indepth="true" class="reference internal" href="process.html#tornado.process.fork_processes" title="tornado.process.fork_processes"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.process.fork_processes</span></tt></a> to provide greater
+control over the initialization of a multi-process server.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.netutil.TCPServer.add_socket">
+<tt class="descname">add_socket</tt><big>(</big><em>socket</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/netutil.html#TCPServer.add_socket"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.netutil.TCPServer.add_socket" title="Permalink to this definition">¶</a></dt>
+<dd><p>Singular version of <a class="reference internal" href="#tornado.netutil.TCPServer.add_sockets" title="tornado.netutil.TCPServer.add_sockets"><tt class="xref py py-obj docutils literal"><span class="pre">add_sockets</span></tt></a>.  Takes a single socket object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.netutil.TCPServer.bind">
+<tt class="descname">bind</tt><big>(</big><em>port</em>, <em>address=None</em>, <em>family=0</em>, <em>backlog=128</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/netutil.html#TCPServer.bind"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.netutil.TCPServer.bind" title="Permalink to this definition">¶</a></dt>
+<dd><p>Binds this server to the given port on the given address.</p>
+<p>To start the server, call <a class="reference internal" href="#tornado.netutil.TCPServer.start" title="tornado.netutil.TCPServer.start"><tt class="xref py py-obj docutils literal"><span class="pre">start</span></tt></a>. If you want to run this server
+in a single process, you can call <a class="reference internal" href="#tornado.netutil.TCPServer.listen" title="tornado.netutil.TCPServer.listen"><tt class="xref py py-obj docutils literal"><span class="pre">listen</span></tt></a> as a shortcut to the
+sequence of <a class="reference internal" href="#tornado.netutil.TCPServer.bind" title="tornado.netutil.TCPServer.bind"><tt class="xref py py-obj docutils literal"><span class="pre">bind</span></tt></a> and <a class="reference internal" href="#tornado.netutil.TCPServer.start" title="tornado.netutil.TCPServer.start"><tt class="xref py py-obj docutils literal"><span class="pre">start</span></tt></a> calls.</p>
+<p>Address may be either an IP address or hostname.  If it’s a hostname,
+the server will listen on all IP addresses associated with the
+name.  Address may be an empty string or None to listen on all
+available interfaces.  Family may be set to either <tt class="docutils literal"><span class="pre">socket.AF_INET</span></tt>
+or <tt class="docutils literal"><span class="pre">socket.AF_INET6</span></tt> to restrict to ipv4 or ipv6 addresses, otherwise
+both will be used if available.</p>
+<p>The <tt class="docutils literal"><span class="pre">backlog</span></tt> argument has the same meaning as for
+<tt class="xref py py-obj docutils literal"><span class="pre">socket.listen</span></tt>.</p>
+<p>This method may be called multiple times prior to <a class="reference internal" href="#tornado.netutil.TCPServer.start" title="tornado.netutil.TCPServer.start"><tt class="xref py py-obj docutils literal"><span class="pre">start</span></tt></a> to listen
+on multiple ports or interfaces.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.netutil.TCPServer.start">
+<tt class="descname">start</tt><big>(</big><em>num_processes=1</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/netutil.html#TCPServer.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.netutil.TCPServer.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts this server in the IOLoop.</p>
+<p>By default, we run the server in this process and do not fork any
+additional child process.</p>
+<p>If num_processes is <tt class="xref docutils literal"><span class="pre">None</span></tt> or &lt;= 0, we detect the number of cores
+available on this machine and fork that number of child
+processes. If num_processes is given and &gt; 1, we fork that
+specific number of sub-processes.</p>
+<p>Since we use processes and not threads, there is no shared memory
+between any server code.</p>
+<p>Note that multiple processes are not compatible with the autoreload
+module (or the <tt class="docutils literal"><span class="pre">debug=True</span></tt> option to <a indepth="true" class="reference internal" href="web.html#tornado.web.Application" title="tornado.web.Application"><tt class="xref py py-obj docutils literal"><span class="pre">tornado.web.Application</span></tt></a>).
+When using multiple processes, no IOLoops can be created or
+referenced until after the call to <tt class="docutils literal"><span class="pre">TCPServer.start(n)</span></tt>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.netutil.TCPServer.stop">
+<tt class="descname">stop</tt><big>(</big><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/netutil.html#TCPServer.stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.netutil.TCPServer.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stops listening for new connections.</p>
+<p>Requests currently in progress may still continue after the
+server is stopped.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.netutil.TCPServer.handle_stream">
+<tt class="descname">handle_stream</tt><big>(</big><em>stream</em>, <em>address</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/netutil.html#TCPServer.handle_stream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.netutil.TCPServer.handle_stream" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override to handle a new <tt class="xref py py-obj docutils literal"><span class="pre">IOStream</span></tt> from an incoming connection.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="tornado.netutil.bind_sockets">
+<tt class="descclassname">tornado.netutil.</tt><tt class="descname">bind_sockets</tt><big>(</big><em>port</em>, <em>address=None</em>, <em>family=0</em>, <em>backlog=128</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/netutil.html#bind_sockets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.netutil.bind_sockets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates listening sockets bound to the given port and address.</p>
+<p>Returns a list of socket objects (multiple sockets are returned if
+the given address maps to multiple IP addresses, which is most common
+for mixed IPv4 and IPv6 use).</p>
+<p>Address may be either an IP address or hostname.  If it’s a hostname,
+the server will listen on all IP addresses associated with the
+name.  Address may be an empty string or None to listen on all
+available interfaces.  Family may be set to either socket.AF_INET
+or socket.AF_INET6 to restrict to ipv4 or ipv6 addresses, otherwise
+both will be used if available.</p>
+<p>The <tt class="docutils literal"><span class="pre">backlog</span></tt> argument has the same meaning as for 
+<tt class="docutils literal"><span class="pre">socket.listen()</span></tt>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tornado.netutil.bind_unix_socket">
+<tt class="descclassname">tornado.netutil.</tt><tt class="descname">bind_unix_socket</tt><big>(</big><em>file</em>, <em>mode=384</em>, <em>backlog=128</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/netutil.html#bind_unix_socket"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.netutil.bind_unix_socket" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a listening unix socket.</p>
+<p>If a socket with the given name already exists, it will be deleted.
+If any other file with that name exists, an exception will be
+raised.</p>
+<p>Returns a socket object (not a list of socket objects like 
+<a class="reference internal" href="#tornado.netutil.bind_sockets" title="tornado.netutil.bind_sockets"><tt class="xref py py-obj docutils literal"><span class="pre">bind_sockets</span></tt></a>)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tornado.netutil.add_accept_handler">
+<tt class="descclassname">tornado.netutil.</tt><tt class="descname">add_accept_handler</tt><big>(</big><em>sock</em>, <em>callback</em>, <em>io_loop=None</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/netutil.html#add_accept_handler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.netutil.add_accept_handler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds an <tt class="docutils literal"><span class="pre">IOLoop</span></tt> event handler to accept new connections on <tt class="docutils literal"><span class="pre">sock</span></tt>.</p>
+<p>When a connection is accepted, <tt class="docutils literal"><span class="pre">callback(connection,</span> <span class="pre">address)</span></tt> will
+be run (<tt class="docutils literal"><span class="pre">connection</span></tt> is a socket object, and <tt class="docutils literal"><span class="pre">address</span></tt> is the
+address of the other end of the connection).  Note that this signature
+is different from the <tt class="docutils literal"><span class="pre">callback(fd,</span> <span class="pre">events)</span></tt> signature used for
+<tt class="docutils literal"><span class="pre">IOLoop</span></tt> handlers.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a indepth="true" href="httpclient.html" title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">tornado.httpclient</span></tt> — Non-blocking HTTP client</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a indepth="true" href="integration.html" title="next chapter">Integration with other services</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="http://www.tornadoweb.org/documentation/_sources/netutil.txt" rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none;">
+  <h3>Quick search</h3>
+    <form class="search" action="http://www.tornadoweb.org/documentation/search.html" method="get">
+      <input value="" name="q" size="18" type="text">
+      <input value="Go" type="submit">
+      <input name="check_keywords" value="yes" type="hidden">
+      <input name="area" value="default" type="hidden">
+    </form>
+    <p class="searchtip" style="font-size: 90%;">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="integration.html" title="Integration with other services">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="httpclient.html" title="tornado.httpclient — Non-blocking HTTP client">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="networking.html">Asynchronous networking</a> »</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        © Copyright 2011, Facebook.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  
+
+
+</body></html>

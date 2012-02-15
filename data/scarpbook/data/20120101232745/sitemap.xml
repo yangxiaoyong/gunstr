@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="../../sitemap.xsl" type="text/xsl" media="all"?>
+<site>
+<page file="index.html" text="LVM HOWTO" title="LVM HOWTO">
+<page file="snapshotintro.html" text="" title="Snapshots"/>
+<page file="snapshots_backup.html" text="" title="Taking a Backup Using Snapshots"/>
+<page file="initdisks.html" text="" title="Initializing disks or disk partitions"/>
+<page file="intro.html" text="Introduction" title="Introduction"/>
+<page file="latest_version.html" text="Latest Version" title="Latest Version"/>
+<page file="disclaimer.html" text="Disclaimer" title="Disclaimer"/>
+<page file="contributors.html" text="Contributors" title="Contributors"/>
+<page file="whatislvm.html" text="What is LVM?" title="What is LVM?"/>
+<page file="whatisvolman.html" text="What is Logical Volume Management?" title="What is Logical Volume Management?"/>
+<page file="whywouldiwantit.html" text="Why would I want it?" title="Why would I want it?"/>
+<page file="benefitsoflvmsmall.html" text="Benefits of Logical Volume Management on a Small System" title="Benefits of Logical Volume Management on a Small System"/>
+<page file="benefitsoflvmlarge.html" text="Benefits of Logical Volume Management on a Large System" title="Benefits of Logical Volume Management on a Large System"/>
+<page file="anatomy.html" text="Anatomy of LVM" title="Anatomy of LVM"/>
+<page file="vg.html" text="volume group (VG)" title="volume group (VG)"/>
+<page file="pv.html" text="physical volume (PV)" title="physical volume (PV)"/>
+<page file="lv.html" text="logical volume (LV)" title="logical volume (LV)"/>
+<page file="pe.html" text="physical extent (PE)" title="physical extent (PE)"/>
+<page file="le.html" text="logical extent (LE)" title="logical extent (LE)"/>
+<page file="tyingittogether.html" text="Tying it all together" title="Tying it all together"/>
+<page file="mapmode.html" text="mapping modes (linear/striped)" title="mapping modes (linear/striped)"/>
+<page file="faq.html" text="Frequently Asked Questions" title="Frequently Asked Questions"/>
+<page file="lvm2faq.html" text="LVM 2 FAQ" title="LVM 2 FAQ"/>
+<page file="lvm1faq.html" text="LVM 1 FAQ" title="LVM 1 FAQ"/>
+<page file="getlvm.html" text="Acquiring LVM" title="Acquiring LVM"/>
+<page file="downloadsource.html" text="Download the source" title="Download the source"/>
+<page file="publiccvs.html" text="Download the development source via CVS" title="Download the development source via CVS"/>
+<page file="beforebeginning.html" text="Before You Begin" title="Before You Begin"/>
+<page file="initsetup.html" text="Initial Setup" title="Initial Setup"/>
+<page file="checkoutsource.html" text="Checking Out Source Code" title="Checking Out Source Code"/>
+<page file="codeupdate.html" text="Code Updates" title="Code Updates"/>
+<page file="startproj.html" text="Starting a Project" title="Starting a Project"/>
+<page file="hackingcode.html" text="Hacking the Code" title="Hacking the Code"/>
+<page file="conflicts.html" text="Conflicts" title="Conflicts"/>
+<page file="buildkernelmods.html" text="Building the kernel modules" title="Building the kernel modules"/>
+<page file="builddmmod.html" text="Building the device-mapper module" title="Building the device-mapper module"/>
+<page file="buildlvmmod.html" text="Build the LVM 1 kernel module" title="Build the LVM 1 kernel module"/>
+<page file="boot_scripts.html" text="LVM 1 Boot time scripts" title="LVM 1 Boot time scripts"/>
+<page file="initscriptcaldera.html" text="Caldera" title="Caldera"/>
+<page file="initscriptdebian.html" text="Debian" title="Debian"/>
+<page file="initscriptmandrake.html" text="Mandrake" title="Mandrake"/>
+<page file="initscriptredhat.html" text="Redhat" title="Redhat"/>
+<page file="initscriptslackware.html" text="Slackware" title="Slackware"/>
+<page file="initscriptsuse.html" text="SuSE" title="SuSE"/>
+<page file="lvm2_boot.html" text="LVM 2 Boot Time Scripts" title="LVM 2 Boot Time Scripts"/>
+<page file="buildlvm.html" text="Building LVM from the Source" title="Building LVM from the Source"/>
+<page file="makelvm1user.html" text="Make LVM library and tools" title="Make LVM library and tools"/>
+<page file="installlvm1user.html" text="Install LVM library and tools" title="Install LVM library and tools"/>
+<page file="removelvm1user.html" text="Removing LVM library and tools" title="Removing LVM library and tools"/>
+<page file="trans1.html" text="Transitioning from previous versions of LVM to LVM 1.0.8" title="Transitioning from previous versions of LVM to LVM 1.0.8"/>
+<page file="upgradelvm1.html" text="Upgrading to LVM 1.0.8 with a non-LVM root partition" title="Upgrading to LVM 1.0.8 with a non-LVM root partition"/>
+<page file="upgradetolvmroot.html" text="Upgrading to LVM 1.0.8 with an LVM root partition and initrd" title="Upgrading to LVM 1.0.8 with an LVM root partition and initrd"/>
+<page file="commontask.html" text="Common Tasks" title="Common Tasks"/>
+<page file="createvgs.html" text="Creating a volume group" title="Creating a volume group"/>
+<page file="activatevgs.html" text="Activating a volume group" title="Activating a volume group"/>
+<page file="removevgs.html" text="Removing a volume group" title="Removing a volume group"/>
+<page file="addpvstovg.html" text="Adding physical volumes to a volume group" title="Adding physical volumes to a volume group"/>
+<page file="removepvsfromvg.html" text="Removing physical volumes from a volume group" title="Removing physical volumes from a volume group"/>
+<page file="createlv.html" text="Creating a logical volume" title="Creating a logical volume"/>
+<page file="removelv.html" text="Removing a logical volume" title="Removing a logical volume"/>
+<page file="extendlv.html" text="Extending a logical volume" title="Extending a logical volume"/>
+<page file="reducelv.html" text="Reducing a logical volume" title="Reducing a logical volume"/>
+<page file="migrateoffpv.html" text="Migrating data off of a physical volume" title="Migrating data off of a physical volume"/>
+<page file="diskpart.html" text="Disk partitioning" title="Disk partitioning"/>
+<page file="multpartitions.html" text="Multiple partitions on the same disk" title="Multiple partitions on the same disk"/>
+<page file="sundisklabels.html" text="Sun disk labels" title="Sun disk labels"/>
+<page file="recipes.html" text="Recipes" title="Recipes"/>
+<page file="recipethreescsi.html" text="Setting up LVM on three SCSI disks" title="Setting up LVM on three SCSI disks"/>
+<page file="recipethreescsistripe.html" text="Setting up LVM on three SCSI disks with striping" title="Setting up LVM on three SCSI disks with striping"/>
+<page file="recipeadddisk.html" text="Add a new disk to a multi-disk SCSI system" title="Add a new disk to a multi-disk SCSI system"/>
+<page file="removeadisk.html" text="Removing an Old Disk" title="Removing an Old Disk"/>
+<page file="recipemovevgtonewsys.html" text="Moving a volume group to another system" title="Moving a volume group to another system"/>
+<page file="recipesplitvg.html" text="Splitting a volume group" title="Splitting a volume group"/>
+<page file="upgraderoottolvm.html" text="Converting a root filesystem to         LVM 1" title="Converting a root filesystem to LVM 1"/>
+<page file="recovermetadata.html" text="Recover physical volume metadata" title="Recover physical volume metadata"/>
+<page file="dangerousops.html" text="Dangerous Operations" title="Dangerous Operations"/>
+<page file="uuidfixer.html" text="Restoring the VG UUIDs using uuid_fixer" title="Restoring the VG UUIDs using uuid_fixer"/>
+<page file="sharinglvm1.html" text="Sharing LVM volumes" title="Sharing LVM volumes"/>
+</page>
+</site>

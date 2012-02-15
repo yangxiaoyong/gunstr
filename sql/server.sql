@@ -1,0 +1,11 @@
+CREATE DATABASE IF NOT EXISTS `server`;
+
+USE server;
+
+CREATE TABLE login (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    ip CHAR(100),
+    domain CHAR(100),
+    user_password VARCHAR(100),
+    created TIMESTAMP DEFAULT NOW()
+) ENGINE=MyISAM DEFAULT CHARSET=utf-8;

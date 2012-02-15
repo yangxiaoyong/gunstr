@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head xmlns="http://www.w3.org/1999/xhtml">
+<meta content="application/xhtml+xml; charset=UTF-8" http-equiv="Content-Type" />
+
+    <title>Problem loading page</title>
+    <link rel="stylesheet" href="chrome://global/skin/netError.css" type="text/css" media="all" />
+    <!-- If the location of the favicon is changed here, the FAVICON_ERRORPAGE_URL symbol in
+         toolkit/components/places/src/nsFaviconService.h should be updated. -->
+    <link rel="icon" type="image/png" id="favicon" href="chrome://global/skin/icons/warning-16.png" />
+
+    
+  </head>
+<body xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
+
+    <!-- ERROR ITEM CONTAINER (removed during loading to avoid bug 39098) -->
+    
+
+    <!-- PAGE CONTAINER (for styling purposes only) -->
+    <div id="errorPageContainer">
+    
+      <!-- Error Title -->
+      <div id="errorTitle">
+        <h1 id="errorTitleText">The connection has timed out</h1>
+      </div>
+      
+      <!-- LONG CONTENT (the section most likely to require scrolling) -->
+      <div id="errorLongContent">
+      
+        <!-- Short Description -->
+        <div id="errorShortDesc">
+          <p id="errorShortDescText">The server at www.facebook.com is taking too long to respond.</p>
+        </div>
+
+        <!-- Long Description (Note: See netError.dtd for used XHTML tags) -->
+        <div id="errorLongDesc">
+<ul>
+  <li>The site could be temporarily unavailable or too busy. Try again in a few
+    moments.</li>
+  <li>If you are unable to load any pages, check your computer's network
+    connection.</li>
+  <li>If your computer or network is protected by a firewall or proxy, make sure
+    that Firefox is permitted to access the Web.</li>
+</ul>
+</div>
+
+        <!-- Override section - For ssl errors only.  Removed on init for other
+             error types.  -->
+        
+      </div>
+
+      <!-- Retry Button -->
+      <button id="errorTryAgain" autocomplete="off" onclick="retryThis(this);">Try Again</button>
+
+    </div>
+
+    <!--
+    - Note: It is important to run the script this way, instead of using
+    - an onload handler. This is because error pages are loaded as
+    - LOAD_BACKGROUND, which means that onload handlers will not be executed.
+    -->
+    
+
+  </body>
+</html>

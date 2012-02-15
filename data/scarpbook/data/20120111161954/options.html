@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    
+    
+    <title>tornado.options — Command-line parsing — Tornado v2.1.1 documentation</title>
+    
+    
+    
+    
+    
+    
+    <link rel="top" title="Tornado v2.1.1 documentation" href="http://www.tornadoweb.org/documentation/index.html">
+    <link rel="up" title="Utilities" href="http://www.tornadoweb.org/documentation/utilities.html">
+    <link rel="next" title="tornado.process — Utilities for multiple processes" href="http://www.tornadoweb.org/documentation/process.html">
+    <link rel="prev" title="tornado.httputil — Manipulate HTTP headers and URLs" href="http://www.tornadoweb.org/documentation/httputil.html"> 
+  
+<link rel="stylesheet" type="text/css" href="options.css" media="all">
+</head>
+<body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index" accesskey="I">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="process.html" title="tornado.process — Utilities for multiple processes" accesskey="N">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="httputil.html" title="tornado.httputil — Manipulate HTTP headers and URLs" accesskey="P">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="utilities.html" accesskey="U">Utilities</a> »</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-tornado.options">
+<span id="tornado-options-command-line-parsing"></span><h1><tt class="docutils literal"><span class="pre">tornado.options</span></tt> — Command-line parsing<a class="headerlink" href="#module-tornado.options" title="Permalink to this headline">¶</a></h1>
+<p>A command line parsing module that lets modules define their own options.</p>
+<p>Each module defines its own options, e.g.:</p>
+<div class="highlight-none"><div class="highlight"><pre>from tornado.options import define, options
+
+define("mysql_host", default="127.0.0.1:3306", help="Main user DB")
+define("memcache_hosts", default="127.0.0.1:11011", multiple=True,
+       help="Main user memcache servers")
+
+def connect():
+    db = database.Connection(options.mysql_host)
+    ...
+</pre></div>
+</div>
+<p>The main() method of your application does not need to be aware of all of
+the options used throughout your program; they are all automatically loaded
+when the modules are loaded. Your main() method can parse the command line
+or parse a config file with:</p>
+<div class="highlight-none"><div class="highlight"><pre>import tornado.options
+tornado.options.parse_config_file("/etc/server.conf")
+tornado.options.parse_command_line()
+</pre></div>
+</div>
+<p>Command line formats are what you would expect (“–myoption=myvalue”).
+Config files are just Python files. Global names become options, e.g.:</p>
+<div class="highlight-none"><div class="highlight"><pre>myoption = "myvalue"
+myotheroption = "myothervalue"
+</pre></div>
+</div>
+<p>We support datetimes, timedeltas, ints, and floats (just pass a ‘type’
+kwarg to define). We also accept multi-value options. See the documentation
+for define() below.</p>
+<dl class="function">
+<dt id="tornado.options.define">
+<tt class="descclassname">tornado.options.</tt><tt class="descname">define</tt><big>(</big><em>name</em>, <em>default=None</em>, <em>type=None</em>, <em>help=None</em>, <em>metavar=None</em>, <em>multiple=False</em>, <em>group=None</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/options.html#define"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.options.define" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines a new command line option.</p>
+<p>If type is given (one of str, float, int, datetime, or timedelta)
+or can be inferred from the default, we parse the command line
+arguments based on the given type. If multiple is True, we accept
+comma-separated values, and the option value is always a list.</p>
+<p>For multi-value integers, we also accept the syntax x:y, which
+turns into range(x, y) - very useful for long integer ranges.</p>
+<p>help and metavar are used to construct the automatically generated
+command line help string. The help message is formatted like:</p>
+<div class="highlight-none"><div class="highlight"><pre>--name=METAVAR      help string
+</pre></div>
+</div>
+<p>group is used to group the defined options in logical groups. By default,
+command line options are grouped by the defined file.</p>
+<p>Command line option names must be unique globally. They can be parsed
+from the command line with parse_command_line() or parsed from a
+config file with parse_config_file.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tornado.options.parse_command_line">
+<tt class="descclassname">tornado.options.</tt><tt class="descname">parse_command_line</tt><big>(</big><em>args=None</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/options.html#parse_command_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.options.parse_command_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses all options given on the command line.</p>
+<p>We return all command line arguments that are not options as a list.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tornado.options.parse_config_file">
+<tt class="descclassname">tornado.options.</tt><tt class="descname">parse_config_file</tt><big>(</big><em>path</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/options.html#parse_config_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.options.parse_config_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses and loads the Python config file at the given path.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tornado.options.print_help">
+<tt class="descclassname">tornado.options.</tt><tt class="descname">print_help</tt><big>(</big><em>file=&lt;open file '&lt;stdout&gt;'</em>, <em>mode 'w' at 0x1044781e0&gt;</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/options.html#print_help"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.options.print_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints all the command line options to stdout.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="tornado.options.Error">
+<em class="property">exception </em><tt class="descclassname">tornado.options.</tt><tt class="descname">Error</tt><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/options.html#Error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.options.Error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exception raised by errors in the options module.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tornado.options.enable_pretty_logging">
+<tt class="descclassname">tornado.options.</tt><tt class="descname">enable_pretty_logging</tt><big>(</big><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/options.html#enable_pretty_logging"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.options.enable_pretty_logging" title="Permalink to this definition">¶</a></dt>
+<dd><p>Turns on formatted logging output as configured.</p>
+<p>This is called automatically by <a class="reference internal" href="#tornado.options.parse_command_line" title="tornado.options.parse_command_line"><tt class="xref py py-obj docutils literal"><span class="pre">parse_command_line</span></tt></a>.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a indepth="true" href="httputil.html" title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">tornado.httputil</span></tt> — Manipulate HTTP headers and URLs</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a indepth="true" href="process.html" title="next chapter"><tt class="docutils literal"><span class="pre">tornado.process</span></tt> — Utilities for multiple processes</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="http://www.tornadoweb.org/documentation/_sources/options.txt" rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none;">
+  <h3>Quick search</h3>
+    <form class="search" action="http://www.tornadoweb.org/documentation/search.html" method="get">
+      <input value="" name="q" size="18" type="text">
+      <input value="Go" type="submit">
+      <input name="check_keywords" value="yes" type="hidden">
+      <input name="area" value="default" type="hidden">
+    </form>
+    <p class="searchtip" style="font-size: 90%;">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="process.html" title="tornado.process — Utilities for multiple processes">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="httputil.html" title="tornado.httputil — Manipulate HTTP headers and URLs">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="utilities.html">Utilities</a> »</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        © Copyright 2011, Facebook.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  
+
+
+</body></html>

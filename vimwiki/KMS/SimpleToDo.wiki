@@ -1,0 +1,152 @@
+== Pyramid 快速教程 ==
+
+程序最终的样子:
+- 提供一个视图去列出，插入和关闭任务
+- 使用路由模式来匹配URLS到视图代码函数
+- 使用Mako模板来渲染视图
+- 在Sqlit数据库里存储数据
+
+=== 第一步 - 组织项目 ===
+程序的目录结构
+{{{
+/tasks
+   /static
+   /templates
+}}}
+
+=== 第二步 - 设置程序 ===
+在`tasks`目录下增加一个`tasks.py`的python源代码文件，添加内容
+{{{
+#!/usr/bin/env python
+# -*- encoding:utf-8 -*-
+
+import os
+import logging
+
+from pyramid.config import Configurator
+from pyramid.session import UnencryptedCookieSessionFactoryConfig
+
+from paste.httpserver import serve
+
+# 我们设置日志，和当前工作路径的变量
+logging.basicConfig()
+log = logging.getLogger(__file__)
+
+here = os.path.dirname(os.path.abspath(__file__))
+
+
+if __name__ == "__main__":
+    # 配置设置集
+    settings = {}
+    settings['reload_all'] = True
+    settings['debug_all'] = True
+
+    # session facotry(会话工厂)
+    # TODO 这个不是很明白，待搞清楚
+    session_factory = UnencryptedCookieSessionFactoryConfig('itsaseekreet')
+    # 安装配置器
+    config = Configuator(settings=settings, session_factory=session_factory)
+    # 伺服wsgi程序
+    app = config.make_wsgi_app()
+    serve(app, host='0.0.0.0')
+
+}}}
+
+我们现在有一个基本的项目结构了来运行我们的程序了，但是我们还需要增加数据库支持，
+路由，视图和模板
+
+===第三步 - 数据库和模式 ===
+为了让事情更直接顺利，我们使用普遍都已安装的sqlite数据库，我们任务程序的数据库模式很简单
+：
+- 一个*id*来保持任务的唯一行
+- 一个不长于100个字符的*name*
+- 还有一个*closed*的布尔值，来表示任务是否完成
+
+在tasks目录下增加一个文件`schema.sql`，输入以下内容：
+{{{
+CREATE TABLE IF NOT EXISTS tasks (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name CHAR(100) NOT NULL,
+    closed BOOL NOT NULL
+);
+
+INSERT OR IGNORE INTO tasks (id, name, closed) VALUES (1, 'Start learning Pyramid', 0);
+INSERT OR IGNORE INTO tasks (id, name, closed) VALUES (2, 'Do quick tutorial', 0);
+}}}
+增加一些import语句到`tasks.py`里
+{{{
+from pyramid.events import NewRequest
+from pyramid.events import subscriber
+from pyramid.events import ApplicationCreated
+
+import sqlite3
+}}}
+为了让创建数据库更简单些，比起需要用户手动执行SQLite语句导入数据，我们会创建一个函数订阅
+Pyramid的事件自动处理这件事情，使用订阅一个函数到`ApplicationCreated`事件，每一次我们启动
+这个程序，我们的被订阅函数就会被执行，所以，只要程序启动了，我们的数据库会被创建或者被
+更新
+
+{{{
+@subscriber(ApplicationCreated)
+def application_created_subscriber(event):
+    log.warn('Initializing database...')
+    with open(os.path.join(here, 'schema.sql')) as fb:
+        stmt = fb.read()
+        settings = event.app.registry.settings
+        db = sqlite3.connect(settings['db'])
+        db.executescript(stmt)
+        db.commit()
+}}}
+我们同样需要让我们的数据库链接适用于整个程序，我们会提供一个连接对象就想程序请求的一个属
+性一样。当一个Pyramid请求开始时，订阅Pyramid的`NewRequest`事件，我们会初始化一个连接到数
+据库，它将是`request.db`，我们会在请求的生命周期的最后使用`request.add_finised_callback`方法关闭这个连接
+{{{
+@subscriber(NewRequest)
+def new_request_subscriber(event):
+    request = event.request
+    settings = event.registry.settings
+    request.db = sqlite3.connect(settings['db'])
+    request.add_finished_callback(close_db_connection)
+
+def close_db_connection(request):
+    request.db.close()
+}}}
+为了让这些改变生效，我们需要在配置里设置一个数据库的位置和保证我们的`@subscriber`装饰器
+能被程序在运行时使用`config.scan()`扫描到
+{{{
+...
+settings['db'] = os.path.join(here, 'tasks.db')
+...
+# 扫描所有的被subscriber装饰过的函数
+config.scan()
+...
+}}}
+
+=== 第四步 - 视图函数和路由 ===
+我们在`task.py`里再增加一些导入，我们将导入`view_config`装饰器，用来让程序发现和注册视图
+{{{
+...
+from pyramid.exception import NotFound
+from pyramid.httpexceptions import HTTPFound
+from pyramid.view import view_config
+...
+}}}
+现在我们将增加程序的一些视图方法： 列出，增加， 和关闭待办事项
+
+==== 列出待办事项 ====
+这个视图方法根据数据库里的task表来显示所有未完成的条目。
+
+==== 增加新的待办事项 ====
+==== 完成一个待办事项 ====
+==== 404页面定制 ====
+==== 增加路由信息 ====
+
+=== 第五步 - 视图模板 ===
+===== layout.jinja2 =====
+===== list.jinja2 =====
+===== new.jinja2 =====
+===== notfound.jinja2 =====
+===== 配置模板路径 =====
+
+=== 第六步 - 个性化你的模板 ===
+=== 第七步 - 启动运行你的程序 ===

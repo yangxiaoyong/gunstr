@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="../../sitemap.xsl" type="text/xsl" media="all"?>
+<site>
+<page file="index.html" text="Documentation | Puppet Labs - PE 2.0 » Index" title="Documentation | Puppet Labs - PE 2.0 » Index">
+<page file="welcome_getting_started.html" text="Welcome to Puppet Enterprise" title="Documentation | Puppet Labs - PE 2.0 » Welcome » Getting Started"/>
+<page file="install_system_requirements.html" text="Installing Puppet Enterprise" title="Documentation | Puppet Labs - PE 2.0 » Installing » System Requirements"/>
+<page file="console_accessing.html" text="The Console" title="Documentation | Puppet Labs - PE 2.0 » Console » Accessing"/>
+<page file="puppet_overview.html" text="Puppet For New PE Users" title="Documentation | Puppet Labs - PE 2.0 » Puppet » Overview"/>
+<page file="orchestration_overview.html" text="Orchestration For New PE Users" title="Documentation | Puppet Labs - PE 2.0 » Orchestration » Overview"/>
+<page file="cloudprovisioner_overview.html" text="Cloud Provisioning" title="Documentation | Puppet Labs - PE 2.0 » Cloud Provisioning » Overview"/>
+<page file="compliance_basics.html" text="The Compliance Workflow" title="Documentation | Puppet Labs - PE 2.0 » Compliance » Basics and UI"/>
+<page file="accounts_user_type.html" text="The PE Accounts Module" title="Documentation | Puppet Labs - PE 2.0 » Accounts Module » The pe_accounts::user Type"/>
+<page file="maint_common_config_errors.html" text="Maintenance and Troubleshooting" title="Documentation | Puppet Labs - PE 2.0 » Maintenance and Troubleshooting » Common Config Errors"/>
+<page file="welcome_roles.html" text="Components and Roles" title="Documentation | Puppet Labs - PE 2.0 » Welcome » Components and Roles"/>
+<page file="welcome_whats_new.html" text="What’s New" title="Documentation | Puppet Labs - PE 2.0 » Welcome » What's New"/>
+<page file="welcome_known_issues.html" text="Known Issues" title="Documentation | Puppet Labs - PE 2.0 » Welcome » Known Issues"/>
+<page file="welcome_getting_support.html" text="Getting Support" title="Documentation | Puppet Labs - PE 2.0 » Welcome » Getting Support"/>
+<page file="install_preparing.html" text="Preparing to Install" title="Documentation | Puppet Labs - PE 2.0 » Installing » Preparing to Install"/>
+<page file="install_basic.html" text="Basic Installation" title="Documentation | Puppet Labs - PE 2.0 » Installing » Basic Installation"/>
+<page file="install_upgrading.html" text="Upgrading" title="Documentation | Puppet Labs - PE 2.0 » Installing » Upgrading"/>
+<page file="install_automated.html" text="Automated Installation" title="Documentation | Puppet Labs - PE 2.0 » Installing » Automated Installation"/>
+<page file="install_answer_file_reference.html" text="Answer File Reference" title="Documentation | Puppet Labs - PE 2.0 » Installing » Answer File Reference"/>
+<page file="install_what_and_where.html" text="What gets installed where?" title="Documentation | Puppet Labs - PE 2.0 » Installing » What Gets Installed Where?"/>
+<page file="console_navigating.html" text="Navigating the Console" title="Documentation | Puppet Labs - PE 2.0 » Console » Navigating"/>
+<page file="console_reports.html" text="Viewing Reports and Inventory Data" title="Documentation | Puppet Labs - PE 2.0 » Console » Viewing Reports"/>
+<page file="console_classes_groups.html" text="Grouping and Classifying Nodes" title="Documentation | Puppet Labs - PE 2.0 » Console » Grouping and Classifying Nodes"/>
+<page file="console_live.html" text="Live Management" title="Documentation | Puppet Labs - PE 2.0 » Console » Live Management"/>
+<page file="console_live_resources.html" text="Live Management: Managing Resources" title="Documentation | Puppet Labs - PE 2.0 » Console » Live Mgmt: Managing Resources"/>
+<page file="console_live_puppet.html" text="Live Management: Controlling Puppet" title="Documentation | Puppet Labs - PE 2.0 » Console » Live Mgmt: Controlling Puppet"/>
+<page file="console_live_advanced.html" text="Live Management: Advanced Tasks" title="Documentation | Puppet Labs - PE 2.0 » Console » Live Mgmt: Advanced Tasks"/>
+<page file="puppet_first_module.html" text="Your First Module" title="Documentation | Puppet Labs - PE 2.0 » Puppet » Your First Module"/>
+<page file="puppet_classifying.html" text="Assigning a Class to a Node" title="Documentation | Puppet Labs - PE 2.0 » Puppet » Assigning a Class to a Node"/>
+<page file="puppet_next_steps.html" text="Next Steps" title="Documentation | Puppet Labs - PE 2.0 » Puppet » Next Steps"/>
+<page file="orchestration_usage.html" text="Usage and Examples" title="Documentation | Puppet Labs - PE 2.0 » Orchestration » Usage"/>
+<page file="cloudprovisioner_configuring.html" text="Configuring and Troubleshooting" title="Documentation | Puppet Labs - PE 2.0 » Cloud Provisioning » Configuring and Troubleshooting"/>
+<page file="cloudprovisioner_vmware.html" text="Provisioning with VMware" title="Documentation | Puppet Labs - PE 2.0 » Cloud Provisioning » VMware Provisioning"/>
+<page file="cloudprovisioner_aws.html" text="Provisioning with AWS" title="Documentation | Puppet Labs - PE 2.0 » Cloud Provisioning » AWS Provisioning"/>
+<page file="cloudprovisioner_classifying_installing.html" text="Classifying Nodes and Remotely Installing PE" title="Documentation | Puppet Labs - PE 2.0 » Cloud Provisioning » Classifying and Installing"/>
+<page file="cloudprovisioner_man_node_vmware.html" text="Man Page: node_vmware" title="Documentation | Puppet Labs - PE 2.0 » Cloud Provisioning » Man » node_vmware"/>
+<page file="cloudprovisioner_man_node_aws.html" text="Man Page: node_aws" title="Documentation | Puppet Labs - PE 2.0 » Cloud Provisioning » Man » node_aws"/>
+<page file="cloudprovisioner_man_node.html" text="Man Page: node" title="Documentation | Puppet Labs - PE 2.0 » Cloud Provisioning » Man » node"/>
+<page file="compliance_using.html" text="Using the Compliance Workflow" title="Documentation | Puppet Labs - PE 2.0 » Compliance » Using the Workflow"/>
+<page file="compliance_tutorial.html" text="Tutorial" title="Documentation | Puppet Labs - PE 2.0 » Compliance » Tutorial"/>
+<page file="accounts_class.html" text="The pe_accounts Class" title="Documentation | Puppet Labs - PE 2.0 » Accounts Module » The pe_accounts Class"/>
+<page file="maint_maintaining_console.html" text="Console Maintenance Tasks" title="Documentation | Puppet Labs - PE 2.0 » Maintenance and Troubleshooting » Console Maintenance Tasks"/>
+<page file="maint_installing_additional.html" text="Installing Additional Components" title="Documentation | Puppet Labs - PE 2.0 » Maintenance and Troubleshooting » Installing Additional Components"/>
+<page file="maint_reconfiguring.html" text="Reconfiguring Complex Settings" title="Documentation | Puppet Labs - PE 2.0 » Maintenance and Troubleshooting » Reconfiguring PE"/>
+<page file="puppet-enterprise.html" text="Try Puppet Enterprise FREE" title="Puppet Labs: The Leading IT Automation Software Solution"/>
+<page file="default.html" text="Chat with us on IRC" title="freenode Web IRC (qwebirc)"/>
+</page>
+</site>

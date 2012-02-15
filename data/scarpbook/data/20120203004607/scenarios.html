@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>
+A Traffic Control Journey: Real World Scenarios
+</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.79"><link rel="HOME" title="A Practical Guide to Linux Traffic Control" href="http://blog.edseek.com/%7Ejasonb/articles/traffic_shaping/index.html"><link rel="PREVIOUS" title="
+Building a QoS Ready Kernel
+" href="http://blog.edseek.com/%7Ejasonb/articles/traffic_shaping/buildkernel.html"><link rel="NEXT" title="
+Graphing and Monitoring Traffic Control
+" href="http://blog.edseek.com/%7Ejasonb/articles/traffic_shaping/monitoring.html"></head>
+<body class="sect1" bgcolor="#FFFFFF" link="#0000FF" text="#000000" vlink="#840084" alink="#0000FF"><div class="NAVHEADER"><table summary="Header navigation table" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><th colspan="3" align="center">A Practical Guide to Linux Traffic Control</th></tr><tr><td valign="bottom" width="10%" align="left"><a indepth="true" href="buildkernel.html" accesskey="P">Prev</a></td><td valign="bottom" width="80%" align="center"></td><td valign="bottom" width="10%" align="right"><a indepth="true" href="monitoring.html" accesskey="N">Next</a></td></tr></tbody></table><hr width="100%" align="LEFT"></div><div class="sect1"><h1 class="sect1"><a name="scenarios">8. A Traffic Control Journey: Real World Scenarios</a></h1><p>
+Having read the previous sections and familiarizing yourself with traffic control concepts and the tools available under GNU/Linux to deploy QoS, you should be ready to rock.  Now, let us examine some real world scenarios and effective resolutions.
+</p><p>
+Below I overview two popular scenarios, guaranteeing a specific rate and guaranteeing flow priority.  The first involves a basic Web server, the second a consumer broadband Internet connection.  First, let us examine a few strategies to deal with situations that exist in many environments that may wish to employ traffic control.
+</p><div class="sect2"><h2 class="sect2"><a name="AEN546">8.1. Common Traffic Control Situations</a></h2><p>
+Whether you're trying to guarantee a specific rate or priority for flows, you need to handle situations where TOS flags are improperly set (especially in the case of the <b class="command">prio</b> qdisc), handle TCP handshake packets, and classify network resource intensive p2p traffic flows.  What follows are <em>Netfilter</em> based solutions, although <em>Netfilter</em> need not be employed for actual classification.  It is often easier to classify with <em>Netfilter</em> if you are already using it for stateful packet inspection.
+</p><div class="sect3"><h3 class="sect3"><a name="AEN553">8.1.1. Handling TOS Flags</a></h3><p>
+Some applications, specifically <em>OpenSSH</em>, provide incorrect type of service (TOS) information which can result in misclassification of tunnels and bulk data transfers.  With reliable remote shell connectivity typically being a must for servers, this can be a problem.  What's more, p2p applications like to mask bulk data packets as TCP acknowledgment packets.  Erik Hensema has an excellent two pronged <a href="http://www.docum.org/docum.org/faq/cache/49.html" target="_top">Netfilter based solution</a> for this situation.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">iptables -t mangle -N tosfix
+iptables -t mangle -A tosfix -p tcp -m length --length 0:512 -j RETURN
+iptables -t mangle -A tosfix -m limit --limit 2/s --limit-burst 10 -j RETURN
+iptables -t mangle -A tosfix -j TOS --set-tos Maximize-Throughput
+iptables -t mangle -A tosfix -j RETURN
+...
+iptables -t mangle -A POSTROUTING -p tcp -m tos --tos Minimize-Delay -j tosfix
+</pre></font></td></tr></tbody></table>
+<p></p><p>
+First, a new chain is created to examine Minimize-Delay packets.  They are evaluated for length and then a short burst is allowed for.  When both of these sanity checks are violated, packets larger than 512 bytes with the TOS Minimize-Delay flag set have TOS reclassified to Maximize-Throughput instead.  The underlying assumption is that packets that need Minimum-Delay priority are small and only exceed 512 bytes for short bursts.  Traffic flows from <em>OpenSSH</em> mesh well with this rule.  Without it, using <em>OpenSSH</em> tunneling and copying files with <b class="command">scp</b> or <b class="command">sftp</b> can render your <em>OpenSSH</em> session rather useless for the duration if your packets are queuing.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">iptables -t mangle -N ack
+iptables -t mangle -A ack -m tos ! --tos Normal-Service -j RETURN
+iptables -t mangle -A ack -p tcp -m length --length 0:128 \
+  -j TOS --set-tos Minimize-Delay
+iptables -t mangle -A ack -p tcp -m length --length 128: \
+  -j TOS --set-tos Maximize-Throughput
+iptables -t mangle -A ack -j RETURN
+...
+iptables -t mangle -A POSTROUTING -p tcp -m tcp --tcp-flags SYN,RST,ACK ACK -j ack
+</pre></font></td></tr></tbody></table>
+<p></p><p>
+Last, a new chain is created specifically for modifying the TOS bits if they are not sane.  TCP packets with the ACK flag set that already have TOS assigned are ignored.  If the TCP packet is no larger than 128 bytes, it is considered a candidate for Minimize-Delay and elevated accordingly.  Strange TCP packets with the ACK flag set, like those generated by p2p applications generally fall into the category of being larger than 128 bytes and are flagged Maximize-Throughput accordingly.  The chain is only applied to TCP packets with the ACK flag set.
+</p></div><div class="sect3"><h3 class="sect3"><a name="AEN569">8.1.2. Prioritizing TCP Handshake Packets</a></h3><p>
+To prevent establishing and breaking down connections from encountering potentially lengthy delays, it's useful to assign these packets a higher priority.  It's not strictly necessary to elevate these packets, as they will be properly classified for any specific flows you classify and treated the same as unclassified traffic otherwise.  Reclassifying these packets is more a matter of personal taste.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">iptables -t mangle -A POSTROUTING -o $LOCALIF -p tcp -m tcp --tcp-flags ! SYN,RST,ACK ACK \
+        -j CLASSIFY --set-class 4:1
+iptables -t mangle -A POSTROUTING -o $LOCALIF -p tcp -m tcp --tcp-flags SYN,RST,ACK ACK \
+        -m length --length :128 -m tos --tos Minimize-Delay \
+        -j CLASSIFY --set-class 4:1
+</pre></font></td></tr></tbody></table>
+<p></p><p>
+The first rule matches TCP SYN and RST packets and classifies them using the CLASSIFY <em>Netfilter</em> target <a indepth="true" href="classflows.html#iptclassify">discussed earlier</a>.  The second rule builds on the TOS reclassification chain discussion above and again the CLASSIFY target is used on TCP packets with the ACK flag set that don't exceed 128 bytes and have a TOS flag of Minimize-Delay.
+</p></div><div class="sect3"><h3 class="sect3"><a name="AEN577">8.1.3. Handling Pervasive p2p Traffic</a></h3><p>
+p2p traffic can very easily saturate a network's entire upstream bandwidth.  Fortunately, with L7 Filter it is now rather easy to classify these flows and grant them priority below that of all other traffic.  p2p applications are always evolving, so L7 Filter is no magic bullet.  It can help pin down p2p traffic, however.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">iptables -t mangle -A POSTROUTING -m layer7 --l7proto edonkey -j CLASSIFY --set-class 4:5
+iptables -t mangle -A POSTROUTING -m layer7 --l7proto fasttrack -j CLASSIFY --set-class 4:5
+iptables -t mangle -A POSTROUTING -m layer7 --l7proto gnutella -j CLASSIFY --set-class 4:5
+iptables -t mangle -A POSTROUTING -m layer7 --l7proto audiogalaxy -j CLASSIFY --set-class 4:5
+iptables -t mangle -A POSTROUTING -m layer7 --l7proto bittorrent -j CLASSIFY --set-class 4:5
+</pre></font></td></tr></tbody></table>
+<p></p><p>
+There is no single pattern match for all known p2p applications, so you will need to specify a rule for each that's present now or you believe may be in the future.  You may have to create your own patterns for p2p traffic that does not yet have an L7 Filter pattern match.  Packet analysis is beyond the scope of this document.
+</p></div></div><div class="sect2"><h2 class="sect2"><a name="guarrate">8.2. Guaranteeing Rate</a></h2><p>
+When guaranteeing a minimum bandwidth rate is necessary, the classful <b class="command">htb</b> qdisc is your friend.  In this scenario our objective is to guarantee a specific rate for HTTP traffic while sharing the link with SMTP, POP3, and <em>OpenSSH</em> traffic.  All other traffic is assigned to the default class.
+</p><div class="sect3"><h3 class="sect3"><a name="AEN588">8.2.1. Designing the Classful qdisc Hierarchy</a></h3><p>
+A Web server networked via Ethernet has 8Mbps of bandwidth available to it.  Web traffic is most important.  Other traffic is secondary.  Accordingly, the class hierarchy created below allocates 6000Kbps for HTTP traffic.  The remaining bandwidth is split into three more classes.  SMTP and POP3 are allocated 1000Kbps.  OpenSSH gets 500Kbps as does the default class.  All classes except the default class can use excess bandwidth up to the full speed of the line.  The careful reader will note that all the rates add up to the overall rate specified in the first <b class="command">htb</b> parent class, as they always should.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">#!/bin/bash
+
+RATE=8000
+
+if [ x$1 = 'xstop' ]
+then
+        tc qdisc del dev eth0 root &gt;/dev/null 2&gt;&amp;1
+fi
+
+tc qdisc add dev eth0 root handle 1: htb default 90
+tc class add dev eth0 parent 1: classid 1:1 htb rate ${RATE}kbit ceil ${RATE}kbit
+
+tc class add dev eth0 parent 1:1 classid 1:10 htb rate 6000kbit ceil ${RATE}kbit
+tc class add dev eth0 parent 1:1 classid 1:20 htb rate 1000kbit ceil ${RATE}kbit
+tc class add dev eth0 parent 1:1 classid 1:50 htb rate 500kbit ceil ${RATE}kbit
+tc class add dev eth0 parent 1:1 classid 1:90 htb rate 500kbit ceil 500kbit
+
+tc qdisc add dev eth0 parent 1:10 handle 10: sfq perturb 10
+tc qdisc add dev eth0 parent 1:20 handle 20: sfq perturb 10
+tc qdisc add dev eth0 parent 1:50 handle 50: sfq perturb 10
+tc qdisc add dev eth0 parent 1:90 handle 90: sfq perturb 10
+</pre></font></td></tr></tbody></table>
+<p></p><p>
+The above shell script will create the class structure described above.  It is rather simplistic and no deep nesting occurs.  The parent class only has immediate children and no additional ancestors.  For fairness, the <b class="command">sfq</b> scheduling qdisc is attached to each leaf <b class="command">htb</b> class.
+</p></div><div class="sect3"><h3 class="sect3"><a name="AEN597">8.2.2. Classifying Flows</a></h3><p>
+Classification of flows is done using <b class="command">tc</b>'s <code class="option">filter</code> combined with the <em>u32</em> selector, <a indepth="true" href="classflows.html#iptu32">discussed earlier</a>.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">tc filter add dev eth0 parent 1:0 protocol ip u32 match ip sport 80 0xffff classid 1:10
+tc filter add dev eth0 parent 1:0 protocol ip u32 match ip sport 22 0xffff classid 1:20
+tc filter add dev eth0 parent 1:0 protocol ip u32 match ip sport 25 0xffff classid 1:50
+tc filter add dev eth0 parent 1:0 protocol ip u32 match ip sport 110 0xffff classid 1:50
+</pre></font></td></tr></tbody></table>
+<p></p><p>
+The <b class="command">tc</b> commands above classify flows using the <em>u32</em> selector based on TCP source port number.  HTTP, SSH, SMTP, and POP3 are classified based on their traditional source ports.  Any unclassified traffic is assigned to classid 1:90 as specified earlier when the <b class="command">htb</b> class hierarchy was created.
+</p></div><div class="sect3"><h3 class="sect3"><a name="AEN610">8.2.3. Observations</a></h3><p>
+The classful <b class="command">htb</b> qdisc is excellent at accurately guaranteeing rates for classified flows.  Each <b class="command">htb</b> class can dequeue at its assigned rate and, if allowed, exceed that in proportion to its parent's rate.  It's especially useful for guaranteeing particular rates for specific services or entire ranges of network traffic.
+</p></div></div><div class="sect2"><h2 class="sect2"><a name="guarprio">8.3. Guaranteeing Priority</a></h2><p>
+When guaranteeing flow priority is necessary, the classful <b class="command">prio</b> qdisc is your friend.  In this scenario our objective is to guarantee interactive applications have priority over bulk transfers and p2p applications.
+</p><div class="sect3"><h3 class="sect3"><a name="AEN619">8.3.1. Designing the Classful qdisc Hierarchy</a></h3><p>
+The <b class="command">prio</b> qdisc only knows about bands, where each band corresponds to a level of priority.  While band numbering starts at zero, each band is described by major:band+1.  To ensure that the priority classifications stick, the classful shaping qdisc <b class="command">tbf</b> must be employed in conjunction with the <b class="command">prio</b> qdisc.  <b class="command">tbf</b> will ensure that if link speed is exceeded a queue fills locally, where it is still controllable. Such a configuration is possible using <b class="command">tbf</b> qdisc with Linux 2.6.1 and beyond.
+</p><p>
+Structurally, the class hierarchy utilizes a <b class="command">tbf</b> qdisc and serves as a container for the <b class="command">prio</b> qdisc, ensuring any packet queue remains local.  The <b class="command">prio</b> qdisc is then assigned to the only <b class="command">tbf</b> class, with an extra band added.  As described earlier, the <b class="command">prio</b> qdisc automatically creates a class structure for as many bands as you create, with the default being three. Finally we assign the <b class="command">sfq</b> scheduling qdisc as the leaf for three of the four new <b class="command">prio</b> qdisc classes.  The fourth, which is for p2p traffic, is assigned the <b class="command">tbf</b> scheduling qdisc, with a <b class="command">pfifo</b> qdisc attached to the <b class="command">tbf</b> class.
+</p><p>
+It's important to note that the <b class="command">prio</b> qdisc is merely a scheduler.  As such, it cannot perform any shaping.  Therefore, if one or more higher priority bands consume the link, lower priority bands will never have an opportunity to dequeue packets.  In other words, starvation occurs.  To combat this careful planning is necessary.  If starvation cannot occur, you should look instead at <a indepth="true" href="scenarios.html#guarrate">guaranteeing rates</a> above.
+</p><p>
+The proposed configuration is effective for residential consumer broadband, in the form of ADSL or Cable Internet services, where one must often suffer an asymmetrical connection.  The example below assumes a usable rate of 160Kbps on a residential ADSL connection with an advertised rate of 256Kbps.  The tricky part is guessing what your actual bandwidth rate is. &nbsp;With overhead it's usually 60% to 90% of your rated connection.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">tc qdisc add dev eth0 root handle 1: tbf rate 160kbit burst 1600 limit 1
+tc qdisc add dev eth0 parent 1:1 handle 2: prio bands 4
+tc qdisc add dev eth0 parent 2:1 handle 10: sfq perturb 20
+tc qdisc add dev eth0 parent 2:2 handle 20: sfq perturb 20
+tc qdisc add dev eth0 parent 2:3 handle 30: sfq perturb 20
+tc qdisc add dev eth0 parent 2:4 handle 40: tbf rate 144kbit burst 1600 limit 3000
+tc qdisc add dev eth0 parent 40:1 handle 41: pfifo limit 10
+</pre></font></td></tr></tbody></table>
+<p></p><p>
+The above commands will create the class structure described above.  The actual hierarchy is more complex than immediately obvious, due to the <b class="command">prio</b> qdisc automatically creating a class for each band it manages.
+</p></div><div class="sect3"><h3 class="sect3"><a name="AEN646">8.3.2. Classifying Flows</a></h3><p>
+Now we can use <em>Netfilter</em> and its CLASSIFY target to classify traffic.  We handle packets with type of service set as described earlier.  TCP packets with the ACK flag are also handled as described above.  As you may recall, the <b class="command">prio</b> qdisc uses the TOS flags to classify packets by default.  Most importantly, Minimize-Cost is assigned priority level zero, Normal-Service priority level one, and Maximize-Throughput priority level two.  Ensuring packets have a proper TOS flag is obviously of paramount importance.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen"># Is our TOS broken? Fix it for TCP ACK and OpenSSH.
+
+iptables -t mangle -A POSTROUTING -p tcp -m tcp --tcp-flags SYN,RST,ACK ACK -j ack
+iptables -t mangle -A POSTROUTING -p tcp -m tos --tos Minimize-Delay -j tosfix
+
+# Here we deal with ACK, SYN, and RST packets
+
+# Match SYN and RST packets
+iptables -t mangle -A POSTROUTING -o $LOCALIF -p tcp -m tcp --tcp-flags ! SYN,RST,ACK ACK \
+        -j CLASSIFY --set-class 2:1
+
+# Match ACK packets
+iptables -t mangle -A POSTROUTING -o $LOCALIF -p tcp -m tcp --tcp-flags SYN,RST,ACK ACK \
+        -m length --length :128 -m tos --tos Minimize-Delay \
+        -j CLASSIFY --set-class 2:1
+
+# Match packets with TOS Minimize-Delay
+iptables -t mangle -A POSTROUTING -o $LOCALIF -p tcp -m tos --tos Minimize-Delay \
+        -j CLASSIFY --set-class 2:1
+</pre></font></td></tr></tbody></table>
+<p></p><p>
+The first packets classified are those that can delay flows if not handled expediently.  All TCP flows are handled the same in that packets with handshake flags set are promoted.  Later, some of these flows will be entirely demoted.  The most generic rule wins.  Each time a rule matches, the packet is reassigned to the associated traffic control class.  Classification progression with <em>Netfilter</em> should proceed from the least to the most specific.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">### Actual traffic shaping classifications with CLASSIFY
+
+# ICMP (ping)
+
+iptables -t mangle -A POSTROUTING -o $LOCALIF -p icmp -j CLASSIFY --set-class 2:1
+
+# Outbound client requests for HTTP, IRC and AIM (dport matches)
+
+iptables -t mangle -A POSTROUTING -o $LOCALIF -p tcp --dport 80 -j CLASSIFY --set-class 2:2
+iptables -t mangle -A POSTROUTING -o $LOCALIF -p tcp --dport 6667 -j CLASSIFY --set-class 2:2
+iptables -t mangle -A POSTROUTING -o $LOCALIF -p tcp --dport 5190 -j CLASSIFY --set-class 2:2
+
+# Enemy Territory (UDP, realtime gaming packets)
+
+iptables -t mangle -A POSTROUTING -o $LOCALIF -p udp --dport 27960:27970 \
+        -j CLASSIFY --set-class 2:2
+</pre></font></td></tr></tbody></table>
+<p></p><p>
+After the earlier magic, classification of most flows is generally as easy and straightforward as using <b class="command">iptables</b> matching rules.  Above we assign ICMP traffic, which includes things like the packets sent in association with the <b class="command">ping</b> command, to class described by 2:1.  We assign all other interactive traffic to the class described by 2:2.  Notice we have classified both ICMP and UDP flows in additional to more common TCP flows.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen"># SSH
+
+# The most general rule always wins, so list specific rules _LAST_
+
+iptables -t mangle -A POSTROUTING -o $LOCALIF -p tcp --dport 22 -j CLASSIFY --set-class 2:2
+iptables -t mangle -A POSTROUTING -o $LOCALIF -p tcp --sport 22 -j CLASSIFY --set-class 2:2
+
+iptables -t mangle -A POSTROUTING -p tcp -m tos --tos Maximize-Throughput \
+        --sport ssh -j CLASSIFY --set-class 2:3
+iptables -t mangle -A POSTROUTING -p tcp -m tos --tos Maximize-Throughput \
+        --dport ssh -j CLASSIFY --set-class 2:3
+
+# Matches for Edonkey and Overnet
+
+iptables -t mangle -A POSTROUTING -m layer7 --l7proto edonkey -j CLASSIFY --set-class 2:4
+</pre></font></td></tr></tbody></table>
+<p></p><p>
+Finally, we handle flows generated by <em>OpenSSH</em> and a p2p application.  The former is assigned to the interactive class for sessions originating both within the local network and destined for the local network from the Internet.  (Or perhaps from another segment on a WAN.)  Earlier, packets with the TOS flag Minimize-Delay larger than 512 bytes had their TOS altered to a more reasonable Maximize-Throughput.  That is taken advantage of now implicitly in the second pair of rules relating to <em>OpenSSH</em>.  Tunnels and transfers using <b class="command">scp</b> and <b class="command">sftp</b> will now correctly be assigned to the class described by 2:3.  The final rule uses L7-Filter to match packets sent by the p2p application <em>eMule</em> by applying a regular expression against each packet and matching the protocol at the application layer.  The traffic is then assigned to the class represented by 2:4, the p2p class.
+</p></div><div class="sect3"><h3 class="sect3"><a name="AEN668">8.3.3. Observations</a></h3><p>
+The classful <b class="command">prio</b> qdisc paired with the classful <b class="command">tbf</b> qdisc is an excellent way of guaranteeing priority for flows in situations where you can live with one or more bands dominating lower priority bands, possibly starving them entirely at times.
+</p></div></div></div><div class="NAVFOOTER"><hr width="100%" align="LEFT"><table summary="Footer navigation table" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td valign="top" width="33%" align="left"><a indepth="true" href="buildkernel.html" accesskey="P">Prev</a></td><td valign="top" width="34%" align="center"><a href="http://blog.edseek.com/%7Ejasonb/articles/traffic_shaping/index.html" accesskey="H">Home</a></td><td valign="top" width="33%" align="right"><a indepth="true" href="monitoring.html" accesskey="N">Next</a></td></tr><tr><td valign="top" width="33%" align="left">Building a QoS Ready Kernel</td><td valign="top" width="34%" align="center">&nbsp;</td><td valign="top" width="33%" align="right">Graphing and Monitoring Traffic Control</td></tr></tbody></table></div>
+
+</body></html>

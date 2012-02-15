@@ -1,0 +1,17 @@
+/* ::::: http://www.linuxdoc.org/m/default/media/style/howto.css ::::: */
+
+div#LinuxDocHead { background-color: rgb(53, 111, 203); padding: 10px; margin-bottom: 40px; border-bottom: 8px solid rgb(0, 0, 0); }
+div#LinuxDocHead a { color: rgb(255, 255, 255); text-decoration: none; font-size: 16pt; }
+div#gsearchform { position: absolute; right: 30px; top: 20px; background: none repeat scroll 0% 0% rgb(255, 255, 255); padding: 10px; border-radius: 5px 5px 5px 5px; border: 2px solid rgb(0, 0, 0); }
+/* ::::: http://www.google.com/cse/api/branding.css ::::: */
+
+.cse-branding-bottom, .cse-branding-right { margin: 0pt; padding: 0pt; }
+.cse-branding-bottom, .cse-branding-right {  }
+.cse-branding-bottom:after, .cse-branding-right:after { content: "."; display: block; height: 0pt; clear: both; visibility: hidden; }
+.cse-branding-text { font: 10px Arial; }
+.cse-branding-form form { margin-bottom: 0pt; padding-bottom: 0pt; }
+.cse-branding-right .cse-branding-form { float: left; }
+.cse-branding-right .cse-branding-logo, .cse-branding-right .cse-branding-text { margin-left: 4px; }
+.cse-branding-right .cse-branding-form { float: left; margin-right: 4px; }
+.cse-branding-right .cse-branding-logo { padding: 0pt; }
+.cse-branding-right .cse-branding-text { margin-top: -4px; }

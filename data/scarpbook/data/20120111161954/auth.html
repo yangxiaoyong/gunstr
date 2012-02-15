@@ -1,0 +1,591 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    
+    
+    <title>tornado.auth — Third-party login with OpenID and OAuth — Tornado v2.1.1 documentation</title>
+    
+    
+    
+    
+    
+    
+    <link rel="top" title="Tornado v2.1.1 documentation" href="http://www.tornadoweb.org/documentation/index.html">
+    <link rel="up" title="Integration with other services" href="http://www.tornadoweb.org/documentation/integration.html">
+    <link rel="next" title="tornado.database — Simple MySQL client wrapper" href="http://www.tornadoweb.org/documentation/database.html">
+    <link rel="prev" title="Integration with other services" href="http://www.tornadoweb.org/documentation/integration.html"> 
+  
+<link rel="stylesheet" type="text/css" href="auth.css" media="all">
+</head>
+<body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index" accesskey="I">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="database.html" title="tornado.database — Simple MySQL client wrapper" accesskey="N">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="integration.html" title="Integration with other services" accesskey="P">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="integration.html" accesskey="U">Integration with other services</a> »</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-tornado.auth">
+<span id="tornado-auth-third-party-login-with-openid-and-oauth"></span><h1><tt class="docutils literal"><span class="pre">tornado.auth</span></tt> — Third-party login with OpenID and OAuth<a class="headerlink" href="#module-tornado.auth" title="Permalink to this headline">¶</a></h1>
+<p>Implementations of various third-party authentication schemes.</p>
+<p>All the classes in this file are class Mixins designed to be used with
+web.py RequestHandler classes. The primary methods for each service are
+authenticate_redirect(), authorize_redirect(), and get_authenticated_user().
+The former should be called to redirect the user to, e.g., the OpenID
+authentication page on the third party service, and the latter should
+be called upon return to get the user data from the data returned by
+the third party service.</p>
+<p>They all take slightly different arguments due to the fact all these
+services implement authentication and authorization slightly differently.
+See the individual service classes below for complete documentation.</p>
+<p>Example usage for Google OpenID:</p>
+<div class="highlight-none"><div class="highlight"><pre>class GoogleHandler(tornado.web.RequestHandler, tornado.auth.GoogleMixin):
+    @tornado.web.asynchronous
+    def get(self):
+        if self.get_argument("openid.mode", None):
+            self.get_authenticated_user(self.async_callback(self._on_auth))
+            return
+        self.authenticate_redirect()
+
+    def _on_auth(self, user):
+        if not user:
+            raise tornado.web.HTTPError(500, "Google auth failed")
+        # Save the user with, e.g., set_secure_cookie()
+</pre></div>
+</div>
+<div class="section" id="common-protocols">
+<h2>Common protocols<a class="headerlink" href="#common-protocols" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tornado.auth.OpenIdMixin">
+<em class="property">class </em><tt class="descclassname">tornado.auth.</tt><tt class="descname">OpenIdMixin</tt><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/auth.html#OpenIdMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.auth.OpenIdMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract implementation of OpenID and Attribute Exchange.</p>
+<p>See GoogleMixin below for example implementations.</p>
+<dl class="method">
+<dt id="tornado.auth.OpenIdMixin.authenticate_redirect">
+<tt class="descname">authenticate_redirect</tt><big>(</big><em>callback_uri=None, ax_attrs=['name', 'email', 'language', 'username']</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/auth.html#OpenIdMixin.authenticate_redirect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.auth.OpenIdMixin.authenticate_redirect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the authentication URL for this service.</p>
+<p>After authentication, the service will redirect back to the given
+callback URI.</p>
+<p>We request the given attributes for the authenticated user by
+default (name, email, language, and username). If you don’t need
+all those attributes for your app, you can request fewer with
+the ax_attrs keyword argument.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.auth.OpenIdMixin.get_authenticated_user">
+<tt class="descname">get_authenticated_user</tt><big>(</big><em>callback</em>, <em>http_client=None</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/auth.html#OpenIdMixin.get_authenticated_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.auth.OpenIdMixin.get_authenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches the authenticated user data upon redirect.</p>
+<p>This method should be called by the handler that receives the
+redirect from the authenticate_redirect() or authorize_redirect()
+methods.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tornado.auth.OAuthMixin">
+<em class="property">class </em><tt class="descclassname">tornado.auth.</tt><tt class="descname">OAuthMixin</tt><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/auth.html#OAuthMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.auth.OAuthMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract implementation of OAuth.</p>
+<p>See TwitterMixin and FriendFeedMixin below for example implementations.</p>
+<dl class="method">
+<dt id="tornado.auth.OAuthMixin.authorize_redirect">
+<tt class="descname">authorize_redirect</tt><big>(</big><em>callback_uri=None</em>, <em>extra_params=None</em>, <em>http_client=None</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/auth.html#OAuthMixin.authorize_redirect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.auth.OAuthMixin.authorize_redirect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Redirects the user to obtain OAuth authorization for this service.</p>
+<p>Twitter and FriendFeed both require that you register a Callback
+URL with your application. You should call this method to log the
+user in, and then call get_authenticated_user() in the handler
+you registered as your Callback URL to complete the authorization
+process.</p>
+<p>This method sets a cookie called _oauth_request_token which is
+subsequently used (and cleared) in get_authenticated_user for
+security purposes.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.auth.OAuthMixin.get_authenticated_user">
+<tt class="descname">get_authenticated_user</tt><big>(</big><em>callback</em>, <em>http_client=None</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/auth.html#OAuthMixin.get_authenticated_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.auth.OAuthMixin.get_authenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the OAuth authorized user and access token on callback.</p>
+<p>This method should be called from the handler for your registered
+OAuth Callback URL to complete the registration process. We call
+callback with the authenticated user, which in addition to standard
+attributes like ‘name’ includes the ‘access_key’ attribute, which
+contains the OAuth access you can use to make authorized requests
+to this service on behalf of the user.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tornado.auth.OAuth2Mixin">
+<em class="property">class </em><tt class="descclassname">tornado.auth.</tt><tt class="descname">OAuth2Mixin</tt><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/auth.html#OAuth2Mixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.auth.OAuth2Mixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract implementation of OAuth v 2.</p>
+<dl class="method">
+<dt id="tornado.auth.OAuth2Mixin.authorize_redirect">
+<tt class="descname">authorize_redirect</tt><big>(</big><em>redirect_uri=None</em>, <em>client_id=None</em>, <em>client_secret=None</em>, <em>extra_params=None</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/auth.html#OAuth2Mixin.authorize_redirect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.auth.OAuth2Mixin.authorize_redirect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Redirects the user to obtain OAuth authorization for this service.</p>
+<p>Some providers require that you register a Callback
+URL with your application. You should call this method to log the
+user in, and then call get_authenticated_user() in the handler
+you registered as your Callback URL to complete the authorization
+process.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="twitter">
+<h2>Twitter<a class="headerlink" href="#twitter" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tornado.auth.TwitterMixin">
+<em class="property">class </em><tt class="descclassname">tornado.auth.</tt><tt class="descname">TwitterMixin</tt><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/auth.html#TwitterMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.auth.TwitterMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Twitter OAuth authentication.</p>
+<p>To authenticate with Twitter, register your application with
+Twitter at <a class="reference external" href="http://twitter.com/apps">http://twitter.com/apps</a>. Then copy your Consumer Key and
+Consumer Secret to the application settings ‘twitter_consumer_key’ and
+‘twitter_consumer_secret’. Use this Mixin on the handler for the URL
+you registered as your application’s Callback URL.</p>
+<p>When your application is set up, you can use this Mixin like this
+to authenticate the user with Twitter and get access to their stream:</p>
+<div class="highlight-none"><div class="highlight"><pre>class TwitterHandler(tornado.web.RequestHandler,
+                     tornado.auth.TwitterMixin):
+    @tornado.web.asynchronous
+    def get(self):
+        if self.get_argument("oauth_token", None):
+            self.get_authenticated_user(self.async_callback(self._on_auth))
+            return
+        self.authorize_redirect()
+
+    def _on_auth(self, user):
+        if not user:
+            raise tornado.web.HTTPError(500, "Twitter auth failed")
+        # Save the user using, e.g., set_secure_cookie()
+</pre></div>
+</div>
+<p>The user object returned by get_authenticated_user() includes the
+attributes ‘username’, ‘name’, and all of the custom Twitter user
+attributes describe at
+<a class="reference external" href="http://apiwiki.twitter.com/Twitter-REST-API-Method%3A-users%C2%A0show">http://apiwiki.twitter.com/Twitter-REST-API-Method%3A-users%C2%A0show</a>
+in addition to ‘access_token’. You should save the access token with
+the user; it is required to make requests on behalf of the user later
+with twitter_request().</p>
+<dl class="method">
+<dt id="tornado.auth.TwitterMixin.authenticate_redirect">
+<tt class="descname">authenticate_redirect</tt><big>(</big><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/auth.html#TwitterMixin.authenticate_redirect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.auth.TwitterMixin.authenticate_redirect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Just like authorize_redirect(), but auto-redirects if authorized.</p>
+<p>This is generally the right interface to use if you are using
+Twitter for single-sign on.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.auth.TwitterMixin.twitter_request">
+<tt class="descname">twitter_request</tt><big>(</big><em>path</em>, <em>callback</em>, <em>access_token=None</em>, <em>post_args=None</em>, <em>**args</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/auth.html#TwitterMixin.twitter_request"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.auth.TwitterMixin.twitter_request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches the given API path, e.g., “/statuses/user_timeline/btaylor”</p>
+<p>The path should not include the format (we automatically append
+”.json” and parse the JSON output).</p>
+<p>If the request is a POST, post_args should be provided. Query
+string arguments should be given as keyword arguments.</p>
+<p>All the Twitter methods are documented at
+<a class="reference external" href="http://apiwiki.twitter.com/Twitter-API-Documentation">http://apiwiki.twitter.com/Twitter-API-Documentation</a>.</p>
+<p>Many methods require an OAuth access token which you can obtain
+through authorize_redirect() and get_authenticated_user(). The
+user returned through that process includes an ‘access_token’
+attribute that can be used to make authenticated requests via
+this method. Example usage:</p>
+<div class="highlight-none"><div class="highlight"><pre>class MainHandler(tornado.web.RequestHandler,
+                  tornado.auth.TwitterMixin):
+    @tornado.web.authenticated
+    @tornado.web.asynchronous
+    def get(self):
+        self.twitter_request(
+            "/statuses/update",
+            post_args={"status": "Testing Tornado Web Server"},
+            access_token=user["access_token"],
+            callback=self.async_callback(self._on_post))
+
+    def _on_post(self, new_entry):
+        if not new_entry:
+            # Call failed; perhaps missing permission?
+            self.authorize_redirect()
+            return
+        self.finish("Posted a message!")
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="friendfeed">
+<h2>FriendFeed<a class="headerlink" href="#friendfeed" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tornado.auth.FriendFeedMixin">
+<em class="property">class </em><tt class="descclassname">tornado.auth.</tt><tt class="descname">FriendFeedMixin</tt><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/auth.html#FriendFeedMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.auth.FriendFeedMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>FriendFeed OAuth authentication.</p>
+<p>To authenticate with FriendFeed, register your application with
+FriendFeed at <a class="reference external" href="http://friendfeed.com/api/applications">http://friendfeed.com/api/applications</a>. Then
+copy your Consumer Key and Consumer Secret to the application settings
+‘friendfeed_consumer_key’ and ‘friendfeed_consumer_secret’. Use
+this Mixin on the handler for the URL you registered as your
+application’s Callback URL.</p>
+<p>When your application is set up, you can use this Mixin like this
+to authenticate the user with FriendFeed and get access to their feed:</p>
+<div class="highlight-none"><div class="highlight"><pre>class FriendFeedHandler(tornado.web.RequestHandler,
+                        tornado.auth.FriendFeedMixin):
+    @tornado.web.asynchronous
+    def get(self):
+        if self.get_argument("oauth_token", None):
+            self.get_authenticated_user(self.async_callback(self._on_auth))
+            return
+        self.authorize_redirect()
+
+    def _on_auth(self, user):
+        if not user:
+            raise tornado.web.HTTPError(500, "FriendFeed auth failed")
+        # Save the user using, e.g., set_secure_cookie()
+</pre></div>
+</div>
+<p>The user object returned by get_authenticated_user() includes the
+attributes ‘username’, ‘name’, and ‘description’ in addition to
+‘access_token’. You should save the access token with the user;
+it is required to make requests on behalf of the user later with
+friendfeed_request().</p>
+<dl class="method">
+<dt id="tornado.auth.FriendFeedMixin.friendfeed_request">
+<tt class="descname">friendfeed_request</tt><big>(</big><em>path</em>, <em>callback</em>, <em>access_token=None</em>, <em>post_args=None</em>, <em>**args</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/auth.html#FriendFeedMixin.friendfeed_request"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.auth.FriendFeedMixin.friendfeed_request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches the given relative API path, e.g., “/bret/friends”</p>
+<p>If the request is a POST, post_args should be provided. Query
+string arguments should be given as keyword arguments.</p>
+<p>All the FriendFeed methods are documented at
+<a class="reference external" href="http://friendfeed.com/api/documentation">http://friendfeed.com/api/documentation</a>.</p>
+<p>Many methods require an OAuth access token which you can obtain
+through authorize_redirect() and get_authenticated_user(). The
+user returned through that process includes an ‘access_token’
+attribute that can be used to make authenticated requests via
+this method. Example usage:</p>
+<div class="highlight-none"><div class="highlight"><pre>class MainHandler(tornado.web.RequestHandler,
+                  tornado.auth.FriendFeedMixin):
+    @tornado.web.authenticated
+    @tornado.web.asynchronous
+    def get(self):
+        self.friendfeed_request(
+            "/entry",
+            post_args={"body": "Testing Tornado Web Server"},
+            access_token=self.current_user["access_token"],
+            callback=self.async_callback(self._on_post))
+
+    def _on_post(self, new_entry):
+        if not new_entry:
+            # Call failed; perhaps missing permission?
+            self.authorize_redirect()
+            return
+        self.finish("Posted a message!")
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="google">
+<h2>Google<a class="headerlink" href="#google" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tornado.auth.GoogleMixin">
+<em class="property">class </em><tt class="descclassname">tornado.auth.</tt><tt class="descname">GoogleMixin</tt><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/auth.html#GoogleMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.auth.GoogleMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Google Open ID / OAuth authentication.</p>
+<p>No application registration is necessary to use Google for authentication
+or to access Google resources on behalf of a user. To authenticate with
+Google, redirect with authenticate_redirect(). On return, parse the
+response with get_authenticated_user(). We send a dict containing the
+values for the user, including ‘email’, ‘name’, and ‘locale’.
+Example usage:</p>
+<div class="highlight-none"><div class="highlight"><pre>class GoogleHandler(tornado.web.RequestHandler, tornado.auth.GoogleMixin):
+   @tornado.web.asynchronous
+   def get(self):
+       if self.get_argument("openid.mode", None):
+           self.get_authenticated_user(self.async_callback(self._on_auth))
+           return
+    self.authenticate_redirect()
+
+    def _on_auth(self, user):
+        if not user:
+            raise tornado.web.HTTPError(500, "Google auth failed")
+        # Save the user with, e.g., set_secure_cookie()
+</pre></div>
+</div>
+<dl class="method">
+<dt id="tornado.auth.GoogleMixin.authorize_redirect">
+<tt class="descname">authorize_redirect</tt><big>(</big><em>oauth_scope, callback_uri=None, ax_attrs=['name', 'email', 'language', 'username']</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/auth.html#GoogleMixin.authorize_redirect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.auth.GoogleMixin.authorize_redirect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Authenticates and authorizes for the given Google resource.</p>
+<p>Some of the available resources are:</p>
+<ul class="simple">
+<li>Gmail Contacts - <a class="reference external" href="http://www.google.com/m8/feeds/">http://www.google.com/m8/feeds/</a></li>
+<li>Calendar - <a class="reference external" href="http://www.google.com/calendar/feeds/">http://www.google.com/calendar/feeds/</a></li>
+<li>Finance - <a class="reference external" href="http://finance.google.com/finance/feeds/">http://finance.google.com/finance/feeds/</a></li>
+</ul>
+<p>You can authorize multiple resources by separating the resource
+URLs with a space.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.auth.GoogleMixin.get_authenticated_user">
+<tt class="descname">get_authenticated_user</tt><big>(</big><em>callback</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/auth.html#GoogleMixin.get_authenticated_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.auth.GoogleMixin.get_authenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches the authenticated user data upon redirect.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="facebook">
+<h2>Facebook<a class="headerlink" href="#facebook" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tornado.auth.FacebookMixin">
+<em class="property">class </em><tt class="descclassname">tornado.auth.</tt><tt class="descname">FacebookMixin</tt><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/auth.html#FacebookMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.auth.FacebookMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Facebook Connect authentication.</p>
+<p>New applications should consider using <a class="reference internal" href="#tornado.auth.FacebookGraphMixin" title="tornado.auth.FacebookGraphMixin"><tt class="xref py py-obj docutils literal"><span class="pre">FacebookGraphMixin</span></tt></a> below instead
+of this class.</p>
+<p>To authenticate with Facebook, register your application with
+Facebook at <a class="reference external" href="http://www.facebook.com/developers/apps.php">http://www.facebook.com/developers/apps.php</a>. Then
+copy your API Key and Application Secret to the application settings
+‘facebook_api_key’ and ‘facebook_secret’.</p>
+<p>When your application is set up, you can use this Mixin like this
+to authenticate the user with Facebook:</p>
+<div class="highlight-none"><div class="highlight"><pre>class FacebookHandler(tornado.web.RequestHandler,
+                      tornado.auth.FacebookMixin):
+    @tornado.web.asynchronous
+    def get(self):
+        if self.get_argument("session", None):
+            self.get_authenticated_user(self.async_callback(self._on_auth))
+            return
+        self.authenticate_redirect()
+
+    def _on_auth(self, user):
+        if not user:
+            raise tornado.web.HTTPError(500, "Facebook auth failed")
+        # Save the user using, e.g., set_secure_cookie()
+</pre></div>
+</div>
+<p>The user object returned by get_authenticated_user() includes the
+attributes ‘facebook_uid’ and ‘name’ in addition to session attributes
+like ‘session_key’. You should save the session key with the user; it is
+required to make requests on behalf of the user later with
+facebook_request().</p>
+<dl class="method">
+<dt id="tornado.auth.FacebookMixin.authenticate_redirect">
+<tt class="descname">authenticate_redirect</tt><big>(</big><em>callback_uri=None</em>, <em>cancel_uri=None</em>, <em>extended_permissions=None</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/auth.html#FacebookMixin.authenticate_redirect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.auth.FacebookMixin.authenticate_redirect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Authenticates/installs this app for the current user.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.auth.FacebookMixin.authorize_redirect">
+<tt class="descname">authorize_redirect</tt><big>(</big><em>extended_permissions</em>, <em>callback_uri=None</em>, <em>cancel_uri=None</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/auth.html#FacebookMixin.authorize_redirect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.auth.FacebookMixin.authorize_redirect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Redirects to an authorization request for the given FB resource.</p>
+<p>The available resource names are listed at
+<a class="reference external" href="http://wiki.developers.facebook.com/index.php/Extended_permission">http://wiki.developers.facebook.com/index.php/Extended_permission</a>.
+The most common resource types include:</p>
+<ul class="simple">
+<li>publish_stream</li>
+<li>read_stream</li>
+<li>email</li>
+<li>sms</li>
+</ul>
+<p>extended_permissions can be a single permission name or a list of
+names. To get the session secret and session key, call
+get_authenticated_user() just as you would with
+authenticate_redirect().</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.auth.FacebookMixin.get_authenticated_user">
+<tt class="descname">get_authenticated_user</tt><big>(</big><em>callback</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/auth.html#FacebookMixin.get_authenticated_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.auth.FacebookMixin.get_authenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches the authenticated Facebook user.</p>
+<p>The authenticated user includes the special Facebook attributes
+‘session_key’ and ‘facebook_uid’ in addition to the standard
+user attributes like ‘name’.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.auth.FacebookMixin.facebook_request">
+<tt class="descname">facebook_request</tt><big>(</big><em>method</em>, <em>callback</em>, <em>**args</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/auth.html#FacebookMixin.facebook_request"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.auth.FacebookMixin.facebook_request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes a Facebook API REST request.</p>
+<p>We automatically include the Facebook API key and signature, but
+it is the callers responsibility to include ‘session_key’ and any
+other required arguments to the method.</p>
+<p>The available Facebook methods are documented here:
+<a class="reference external" href="http://wiki.developers.facebook.com/index.php/API">http://wiki.developers.facebook.com/index.php/API</a></p>
+<p>Here is an example for the stream.get() method:</p>
+<div class="highlight-none"><div class="highlight"><pre>class MainHandler(tornado.web.RequestHandler,
+                  tornado.auth.FacebookMixin):
+    @tornado.web.authenticated
+    @tornado.web.asynchronous
+    def get(self):
+        self.facebook_request(
+            method="stream.get",
+            callback=self.async_callback(self._on_stream),
+            session_key=self.current_user["session_key"])
+
+    def _on_stream(self, stream):
+        if stream is None:
+           # Not authorized to read the stream yet?
+           self.redirect(self.authorize_redirect("read_stream"))
+           return
+        self.render("stream.html", stream=stream)
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tornado.auth.FacebookGraphMixin">
+<em class="property">class </em><tt class="descclassname">tornado.auth.</tt><tt class="descname">FacebookGraphMixin</tt><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/auth.html#FacebookGraphMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.auth.FacebookGraphMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Facebook authentication using the new Graph API and OAuth2.</p>
+<dl class="method">
+<dt id="tornado.auth.FacebookGraphMixin.get_authenticated_user">
+<tt class="descname">get_authenticated_user</tt><big>(</big><em>redirect_uri</em>, <em>client_id</em>, <em>client_secret</em>, <em>code</em>, <em>callback</em>, <em>extra_fields=None</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/auth.html#FacebookGraphMixin.get_authenticated_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.auth.FacebookGraphMixin.get_authenticated_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles the login for the Facebook user, returning a user object.</p>
+<p>Example usage:</p>
+<div class="highlight-none"><div class="highlight"><pre>class FacebookGraphLoginHandler(LoginHandler, tornado.auth.FacebookGraphMixin):
+  @tornado.web.asynchronous
+  def get(self):
+      if self.get_argument("code", False):
+          self.get_authenticated_user(
+            redirect_uri='/auth/facebookgraph/',
+            client_id=self.settings["facebook_api_key"],
+            client_secret=self.settings["facebook_secret"],
+            code=self.get_argument("code"),
+            callback=self.async_callback(
+              self._on_login))
+          return
+      self.authorize_redirect(redirect_uri='/auth/facebookgraph/',
+                              client_id=self.settings["facebook_api_key"],
+                              extra_params={"scope": "read_stream,offline_access"})
+
+  def _on_login(self, user):
+    logging.error(user)
+    self.finish()
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.auth.FacebookGraphMixin.facebook_request">
+<tt class="descname">facebook_request</tt><big>(</big><em>path</em>, <em>callback</em>, <em>access_token=None</em>, <em>post_args=None</em>, <em>**args</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/auth.html#FacebookGraphMixin.facebook_request"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.auth.FacebookGraphMixin.facebook_request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fetches the given relative API path, e.g., “/btaylor/picture”</p>
+<p>If the request is a POST, post_args should be provided. Query
+string arguments should be given as keyword arguments.</p>
+<p>An introduction to the Facebook Graph API can be found at
+<a class="reference external" href="http://developers.facebook.com/docs/api">http://developers.facebook.com/docs/api</a></p>
+<p>Many methods require an OAuth access token which you can obtain
+through authorize_redirect() and get_authenticated_user(). The
+user returned through that process includes an ‘access_token’
+attribute that can be used to make authenticated requests via
+this method. Example usage:</p>
+<div class="highlight-none"><div class="highlight"><pre>class MainHandler(tornado.web.RequestHandler,
+                  tornado.auth.FacebookGraphMixin):
+    @tornado.web.authenticated
+    @tornado.web.asynchronous
+    def get(self):
+        self.facebook_request(
+            "/me/feed",
+            post_args={"message": "I am posting from my Tornado application!"},
+            access_token=self.current_user["access_token"],
+            callback=self.async_callback(self._on_post))
+
+    def _on_post(self, new_entry):
+        if not new_entry:
+            # Call failed; perhaps missing permission?
+            self.authorize_redirect()
+            return
+        self.finish("Posted a message!")
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a indepth="true" href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">tornado.auth</span></tt> — Third-party login with OpenID and OAuth</a><ul>
+<li><a class="reference internal" href="#common-protocols">Common protocols</a></li>
+<li><a class="reference internal" href="#twitter">Twitter</a></li>
+<li><a class="reference internal" href="#friendfeed">FriendFeed</a></li>
+<li><a class="reference internal" href="#google">Google</a></li>
+<li><a class="reference internal" href="#facebook">Facebook</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a indepth="true" href="integration.html" title="previous chapter">Integration with other services</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a indepth="true" href="database.html" title="next chapter"><tt class="docutils literal"><span class="pre">tornado.database</span></tt> — Simple MySQL client wrapper</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="http://www.tornadoweb.org/documentation/_sources/auth.txt" rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none;">
+  <h3>Quick search</h3>
+    <form class="search" action="http://www.tornadoweb.org/documentation/search.html" method="get">
+      <input value="" name="q" size="18" type="text">
+      <input value="Go" type="submit">
+      <input name="check_keywords" value="yes" type="hidden">
+      <input name="area" value="default" type="hidden">
+    </form>
+    <p class="searchtip" style="font-size: 90%;">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="database.html" title="tornado.database — Simple MySQL client wrapper">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="integration.html" title="Integration with other services">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="integration.html">Integration with other services</a> »</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        © Copyright 2011, Facebook.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  
+
+
+</body></html>

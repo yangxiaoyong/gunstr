@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    
+    
+    <title>What’s new in Tornado 2.0 — Tornado v2.1.1 documentation</title>
+    
+    
+    
+    
+    
+    
+    <link rel="top" title="Tornado v2.1.1 documentation" href="http://www.tornadoweb.org/documentation/index.html">
+    <link rel="up" title="Release notes" href="http://www.tornadoweb.org/documentation/releases.html">
+    <link rel="next" title="What’s new in Tornado 1.2.1" href="http://www.tornadoweb.org/documentation/releases/v1.2.1.html">
+    <link rel="prev" title="What’s new in Tornado 2.1" href="http://www.tornadoweb.org/documentation/releases/v2.1.0.html"> 
+  
+<link rel="stylesheet" type="text/css" href="v2.0.0.css" media="all">
+</head>
+<body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index" accesskey="I">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="v1.2.1.html" title="What’s new in Tornado 1.2.1" accesskey="N">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="v2.1.0.html" title="What’s new in Tornado 2.1" accesskey="P">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="releases.html" accesskey="U">Release notes</a> »</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="what-s-new-in-tornado-2-0">
+<h1>What’s new in Tornado 2.0<a class="headerlink" href="#what-s-new-in-tornado-2-0" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="jun-21-2011">
+<h2>Jun 21, 2011<a class="headerlink" href="#jun-21-2011" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-none"><div class="highlight"><pre>Major changes:
+* Template output is automatically escaped by default; see backwards
+  compatibility note below.
+* The default AsyncHTTPClient implementation is now simple_httpclient.
+* Python 3.2 is now supported.
+
+Backwards compatibility:
+* Template autoescaping is enabled by default.  Applications upgrading from
+  a previous release of Tornado must either disable autoescaping or adapt
+  their templates to work with it.  For most applications, the simplest
+  way to do this is to pass autoescape=None to the Application constructor.
+  Note that this affects certain built-in methods, e.g. xsrf_form_html
+  and linkify, which must now be called with {% raw %} instead of {}
+* Applications that wish to continue using curl_httpclient instead of
+  simple_httpclient may do so by calling
+    AsyncHTTPClient.configure("tornado.curl_httpclient.CurlAsyncHTTPClient")
+  at the beginning of the process.  Users of Python 2.5 will probably want
+  to use curl_httpclient as simple_httpclient only supports ssl on Python 2.6+.
+* Python 3 compatibility involved many changes throughout the codebase,
+  so users are encouraged to test their applications more thoroughly than
+  usual when upgrading to this release.
+
+Other changes in this release:
+* Templates support several new directives:
+  - {% autoescape ...%} to control escaping behavior
+  - {% raw ... %} for unescaped output
+  - {% module ... %} for calling UIModules
+* {% module Template(path, **kwargs) %} may now be used to call another
+  template with an independent namespace
+* All IOStream callbacks are now run directly on the IOLoop via add_callback.
+* HTTPServer now supports IPv6 where available.  To disable, pass
+  family=socket.AF_INET to HTTPServer.bind().
+* HTTPClient now supports IPv6, configurable via allow_ipv6=bool on the
+  HTTPRequest.  allow_ipv6 defaults to false on simple_httpclient and true
+  on curl_httpclient.
+* RequestHandlers can use an encoding other than utf-8 for query parameters
+  by overriding decode_argument()
+* Performance improvements, especially for applications that use a lot of
+  IOLoop timeouts
+* HTTP OPTIONS method no longer requires an XSRF token.
+* JSON output (RequestHandler.write(dict)) now sets Content-Type to
+  application/json
+* Etag computation can now be customized or disabled by overriding
+  RequestHandler.compute_etag
+* USE_SIMPLE_HTTPCLIENT environment variable is no longer supported.
+  Use AsyncHTTPClient.configure instead.
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a indepth="true" href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">What’s new in Tornado 2.0</a><ul>
+<li><a class="reference internal" href="#jun-21-2011">Jun 21, 2011</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a indepth="true" href="v2.1.0.html" title="previous chapter">What’s new in Tornado 2.1</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a indepth="true" href="v1.2.1.html" title="next chapter">What’s new in Tornado 1.2.1</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="http://www.tornadoweb.org/documentation/_sources/releases/v2.0.0.txt" rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none;">
+  <h3>Quick search</h3>
+    <form class="search" action="http://www.tornadoweb.org/documentation/search.html" method="get">
+      <input value="" name="q" size="18" type="text">
+      <input value="Go" type="submit">
+      <input name="check_keywords" value="yes" type="hidden">
+      <input name="area" value="default" type="hidden">
+    </form>
+    <p class="searchtip" style="font-size: 90%;">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="v1.2.1.html" title="What’s new in Tornado 1.2.1">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="v2.1.0.html" title="What’s new in Tornado 2.1">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="releases.html">Release notes</a> »</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        © Copyright 2011, Facebook.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  
+
+
+</body></html>

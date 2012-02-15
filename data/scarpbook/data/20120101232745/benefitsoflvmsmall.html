@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Benefits of Logical Volume Management on a Small System</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.7"><link rel="HOME" title="LVM HOWTO" href="http://www.tldp.org/HOWTO/LVM-HOWTO/index.html"><link rel="UP" title="What is Logical Volume Management?" href="http://www.tldp.org/HOWTO/LVM-HOWTO/whatisvolman.html"><link rel="PREVIOUS" title="Why would I want it?" href="http://www.tldp.org/HOWTO/LVM-HOWTO/whywouldiwantit.html"><link rel="NEXT" title="Benefits of Logical Volume Management on a Large System" href="http://www.tldp.org/HOWTO/LVM-HOWTO/benefitsoflvmlarge.html"></head>
+<body class="sect1" alink="#0000FF" bgcolor="#FFFFFF" link="#0000FF" text="#000000" vlink="#840084"><div class="NAVHEADER"><table summary="Header navigation table" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><th colspan="3" align="center">LVM HOWTO</th></tr><tr><td align="left" valign="bottom" width="10%"><a indepth="true" href="whywouldiwantit.html" accesskey="P">Prev</a></td><td align="center" valign="bottom" width="80%">Chapter 2. What is Logical Volume Management?</td><td align="right" valign="bottom" width="10%"><a indepth="true" href="benefitsoflvmlarge.html" accesskey="N">Next</a></td></tr></tbody></table><hr align="LEFT" width="100%"></div><div class="sect1"><h1 class="sect1"><a name="benefitsoflvmsmall"></a>2.2. Benefits of Logical Volume Management on a Small System</h1><p>
+        One of the difficult decisions facing a new user installing Linux
+        for the first time is how to partition the disk drive. The need to
+        estimate just how much space is likely to be needed for system
+        files and user files makes the installation more complex than is
+        necessary and some users simply opt to put all their data into one
+        large partition in an attempt to avoid the issue.
+      </p><p>
+        Once the user has guessed how much space is needed for /home /usr /
+        (or has let the installation program do it) then is quite common
+        for one of these partitions to fill up even if there is plenty of
+        disk space in one of the other partitions.
+      </p><p>
+        With logical volume management, the whole disk would be allocated
+        to a single volume group and logical volumes created to hold the /
+        /usr and /home file systems. If, for example the /home logical
+        volume later filled up but there was still space available on /usr
+        then it would be possible to shrink /usr by a few megabytes and
+        reallocate that space to /home.
+      </p><p>
+        Another alternative would be to allocate minimal amounts of space
+        for each logical volume and leave some of the disk unallocated.
+        Then, when the partitions start to fill up, they can be expanded as
+        necessary.
+      </p><p>
+        As an example:
+        
+        Joe buys a PC with an 8.4 Gigabyte disk on it and installs Linux
+        using the following partitioning system:
+        <table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">/boot    /dev/hda1     10 Megabytes
+swap     /dev/hda2    256 Megabytes
+/        /dev/hda3      2 Gigabytes
+/home    /dev/hda4      6 Gigabytes
+        </pre></font></td></tr></tbody></table>
+        This, he thinks, will maximize the amount of space available for all his MP3
+        files.
+      </p><p>
+        Sometime later Joe decides that he want to install the latest
+        office suite and desktop UI available but realizes that the root
+        partition isn't large enough.  But, having archived all his MP3s
+        onto a new writable DVD drive there is plenty of space on /home.
+      </p><p>
+        His options are not good:
+      </p><p></p><ol type="1"><li><p>
+            Reformat the disk, change the partitioning scheme and
+            reinstall.
+          </p></li><li><p>
+            Buy a new disk and figure out some new partitioning scheme
+            that will require the minimum of data movement.
+          </p></li><li><p>
+            Set up a symlink farm on / pointing to /home and install the new
+            software on /home
+          </p></li></ol><p>
+        With LVM this becomes much easier:
+      </p><p>
+        Jane buys a similar PC but uses LVM to divide up the disk in a similar
+        manner:
+      </p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">/boot     /dev/hda1        10 Megabytes
+swap      /dev/vg00/swap   256 Megabytes
+/         /dev/vg00/root     2 Gigabytes
+/home     /dev/vg00/home     6 Gigabytes
+
+         </pre></font></td></tr></tbody></table><div class="note"><p></p><table class="note" border="0" width="100%"><tbody><tr><td align="CENTER" valign="TOP" width="25"><img src="note.gif" alt="Note" hspace="5"></td><td align="LEFT" valign="TOP"><p>
+          boot is not included on the LV because bootloaders don't
+          understand LVM volumes yet.  It's possible boot on LVM will
+          work, but you run the risk of having an unbootable system.
+        </p></td></tr></tbody></table></div><div class="warning"><p></p><table class="warning" border="0" width="100%"><tbody><tr><td align="CENTER" valign="TOP" width="25"><img src="warning.gif" alt="Warning" hspace="5"></td><th align="LEFT" valign="CENTER"><b>root on LV should be used by advanced users only</b></th></tr><tr><td>&nbsp;</td><td align="LEFT" valign="TOP"><p>
+          root on LVM requires an initrd image that activates the root
+          LV.  If a kernel is upgraded without building the necessary
+          initrd image, that kernel will be unbootable.  Newer
+          distributions support lvm in their mkinitrd scripts as well
+          as their packaged initrd images, so this becomes less of an
+          issue over time.
+        </p></td></tr></tbody></table></div><p>
+        When she hits a similar problem she can reduce the size of /home by
+        a gigabyte and add that space to the root partition.
+      </p><p>
+        Suppose that Joe and Jane then manage to fill up the /home
+        partition as well and decide to add a new 20 Gigabyte disk to their
+        systems.
+      </p><p>
+        Joe formats the whole disk as one partition (/dev/hdb1) and moves
+        his existing /home data onto it and uses the new disk as /home. But
+        he has 6 gigabytes unused or has to use symlinks to make that disk
+        appear as an extension of /home, say /home/joe/old-mp3s.
+      </p><p>
+        Jane simply adds the new disk to her existing volume group and
+        extends her /home logical volume to include the new disk. Or, in
+        fact, she could move the data from /home on the old disk to the new
+        disk and then extend the existing root volume to cover all of the
+        old disk.
+      </p></div><div class="NAVFOOTER"><hr align="LEFT" width="100%"><table summary="Footer navigation table" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td align="left" valign="top" width="33%"><a indepth="true" href="whywouldiwantit.html" accesskey="P">Prev</a></td><td align="center" valign="top" width="34%"><a indepth="true" href="index.html" accesskey="H">Home</a></td><td align="right" valign="top" width="33%"><a indepth="true" href="benefitsoflvmlarge.html" accesskey="N">Next</a></td></tr><tr><td align="left" valign="top" width="33%">Why would I want it?</td><td align="center" valign="top" width="34%"><a indepth="true" href="whatisvolman.html" accesskey="U">Up</a></td><td align="right" valign="top" width="33%">Benefits of Logical Volume Management on a Large System</td></tr></tbody></table></div>
+
+</body></html>

@@ -1,0 +1,678 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" class="client-js" dir="ltr">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Master boot record - Wikipedia, the free encyclopedia</title>
+
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="generator" content="MediaWiki 1.18wmf1">
+<link rel="alternate" type="application/x-wiki" title="Edit this page" href="http://en.wikipedia.org/w/index.php?title=Master_boot_record&amp;action=edit">
+<link rel="edit" title="Edit this page" href="http://en.wikipedia.org/w/index.php?title=Master_boot_record&amp;action=edit">
+<link rel="apple-touch-icon" href="http://en.wikipedia.org/apple-touch-icon.png">
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="http://en.wikipedia.org/w/opensearch_desc.php" title="Wikipedia (en)">
+<link rel="EditURI" type="application/rsd+xml" href="http://en.wikipedia.org/w/api.php?action=rsd">
+<link rel="copyright" href="http://creativecommons.org/licenses/by-sa/3.0/">
+<link rel="alternate" type="application/atom+xml" title="Wikipedia Atom feed" href="http://en.wikipedia.org/w/index.php?title=Special:RecentChanges&amp;feed=atom">
+
+<meta name="ResourceLoaderDynamicStyles" content="">
+
+
+
+
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/w/skins-1.18/vector/csshover.min.htc")}</style><![endif]-->
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="mediawiki ltr sitedir-ltr ns-0 ns-subject page-Master_boot_record action-view skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div class="js-messagebox" id="mw-js-message" style="display: none;"></div>
+						<!-- sitenotice -->
+			<div id="siteNotice"><!-- centralNotice loads here --></div>
+			<!-- /sitenotice -->
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Master boot record</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+								<!-- tagline -->
+				<div id="siteSub">From Wikipedia, the free encyclopedia</div>
+				<!-- /tagline -->
+								<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Jump to: <a href="#mw-head">navigation</a>,
+					<a href="#p-search">search</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodycontent -->
+				<div dir="ltr" class="mw-content-ltr" lang="en"><table class="metadata plainlinks ambox ambox-move" style="">
+<tbody><tr>
+<td class="mbox-image">
+<div style="width: 52px;"><img alt="" src="50px-mergefrom.svg.png" height="20" width="50"></div>
+</td>
+<td class="mbox-text" style="">It has been suggested that <i><a href="http://en.wikipedia.org/wiki/Boot_sector" title="Boot sector">Boot sector</a></i> and <i><a href="http://en.wikipedia.org/wiki/Volume_boot_record" title="Volume boot record">Volume boot record</a></i> be <a href="http://en.wikipedia.org/wiki/Wikipedia:Merging" title="Wikipedia:Merging">merged</a> into this article or section. (<a href="http://en.wikipedia.org/wiki/Talk:Master_boot_record#Merge_proposals" title="Talk:Master boot record">Discuss</a>) <small><i>Proposed since December 2011.</i></small></td>
+</tr>
+</tbody></table>
+<p>A <b>master boot record</b> (<b>MBR</b>) is a type of <a href="http://en.wikipedia.org/wiki/Boot_sector" title="Boot sector">boot sector</a> popularized by the <a href="http://en.wikipedia.org/wiki/IBM_Personal_Computer" title="IBM Personal Computer">IBM Personal Computer</a>.<sup id="cite_ref-msakamoto-mbr_0-0" class="reference"><a href="#cite_note-msakamoto-mbr-0"><span>[</span>1<span>]</span></a></sup> It consists of a sequence of 512 <a href="http://en.wikipedia.org/wiki/Byte" title="Byte">bytes</a> located at the first <a href="http://en.wikipedia.org/wiki/Disk_sector" title="Disk sector">sector</a> of a <a href="http://en.wikipedia.org/wiki/Data_storage_device" title="Data storage device">data storage device</a> such as a <a href="http://en.wikipedia.org/wiki/Hard_disk" title="Hard disk" class="mw-redirect">hard disk</a>. MBRs are usually placed on storage devices intended for use with <a href="http://en.wikipedia.org/wiki/IBM_PC-compatible" title="IBM PC-compatible" class="mw-redirect">IBM PC-compatible</a> systems.</p>
+<p>The MBR may be used for one or more of the following:</p>
+<ul>
+<li>Holding a <a href="http://en.wikipedia.org/wiki/Partition_table" title="Partition table">partition table</a>, which describes the <a href="http://en.wikipedia.org/wiki/Disk_partitioning" title="Disk partitioning">partitions</a> of a storage device. In this context the boot sector may also be called a <i>partition sector</i>.</li>
+<li><a href="http://en.wikipedia.org/wiki/Bootstrapping_%28computing%29" title="Bootstrapping (computing)" class="mw-redirect">Bootstrapping</a> an <a href="http://en.wikipedia.org/wiki/Operating_system" title="Operating system">operating system</a>. The <a href="http://en.wikipedia.org/wiki/BIOS" title="BIOS">BIOS</a> built into a PC-compatible computer loads the MBR from the <a href="http://en.wikipedia.org/wiki/Data_storage_device" title="Data storage device">storage device</a> and passes execution to <a href="http://en.wikipedia.org/wiki/Machine_code" title="Machine code">machine code</a> instructions at the beginning of the MBR.</li>
+<li>Uniquely identifying individual disk media, with a 32-bit <i>disk signature</i>, even though it may never be used by the operating system.<sup id="cite_ref-1" class="reference"><a href="#cite_note-1"><span>[</span>2<span>]</span></a></sup><sup id="cite_ref-2" class="reference"><a href="#cite_note-2"><span>[</span>3<span>]</span></a></sup><sup id="cite_ref-3" class="reference"><a href="#cite_note-3"><span>[</span>4<span>]</span></a></sup><sup id="cite_ref-4" class="reference"><a href="#cite_note-4"><span>[</span>5<span>]</span></a></sup></li>
+</ul>
+<p>Because of the broad popularity of PC-compatible computers, the MBR format is widely used, to the extent of being supported by computer operating systems in addition to other pre-existing or <a href="http://en.wikipedia.org/wiki/Cross-platform" title="Cross-platform">cross-platform</a> standards for bootstrapping and partitioning.<sup id="cite_ref-5" class="reference"><a href="#cite_note-5"><span>[</span>6<span>]</span></a></sup></p>
+<table class="wikitable" style="float: right; width: 512px; margin: 1em;">
+<caption>Structure of a master boot record</caption>
+<tbody><tr>
+<th colspan="3">Address</th>
+<th rowspan="2" style="vertical-align: middle;" colspan="2">Description</th>
+<th rowspan="2" style="vertical-align: middle;">Size in <a href="http://en.wikipedia.org/wiki/Byte" title="Byte">bytes</a></th>
+</tr>
+<tr>
+<th style="width: 3em;"><a href="http://en.wikipedia.org/wiki/Hexadecimal" title="Hexadecimal">Hex</a></th>
+<th style="width: 3em;"><a href="http://en.wikipedia.org/wiki/Octal" title="Octal">Oct</a></th>
+<th style="width: 3em;"><a href="http://en.wikipedia.org/wiki/Decimal" title="Decimal">Dec</a></th>
+</tr>
+<tr>
+<td style="text-align: center;"><code>0000</code></td>
+<td style="text-align: center;"><code>0000</code></td>
+<td style="text-align: center;">0</td>
+<td colspan="2">code area</td>
+<td style="text-align: center;"><b>440</b><br>
+(max. 446)</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>01B8</code></td>
+<td style="text-align: center;"><code>0670</code></td>
+<td style="text-align: center;">440</td>
+<td colspan="2">disk signature (optional)</td>
+<td style="text-align: center;"><b>4</b></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>01BC</code></td>
+<td style="text-align: center;"><code>0674</code></td>
+<td style="text-align: center;">444</td>
+<td colspan="2">Usually nulls; 0x0000</td>
+<td style="text-align: center;"><b>2</b></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>01BE</code></td>
+<td style="text-align: center;"><code>0676</code></td>
+<td style="text-align: center;">446</td>
+<td colspan="2"><b>Table of primary partitions</b><br>
+(Four 16-byte entries, IBM partition table scheme)</td>
+<td style="text-align: center;"><b>64</b></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>01FE</code></td>
+<td style="text-align: center;"><code>0776</code></td>
+<td style="text-align: center;">510</td>
+<td style="text-align: center;">55h</td>
+<td rowspan="2" style="vertical-align: middle; text-align: center;">MBR signature</td>
+<td rowspan="2" style="text-align: center;"><b>2</b></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>01FF</code></td>
+<td style="text-align: center;"><code>0777</code></td>
+<td style="text-align: center;">511</td>
+<td style="text-align: center;">AAh</td>
+</tr>
+<tr>
+<th colspan="5" style="text-align: right;">MBR, total size: 446 + 64 + 2 =</th>
+<th style="text-align: center;">512</th>
+</tr>
+</tbody></table>
+<table id="toc" class="toc">
+<tbody><tr>
+<td>
+<div id="toctitle">
+<h2>Contents</h2>
+<span class="toctoggle">&nbsp;[<a href="#" class="internal" id="togglelink">hide</a>]&nbsp;</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Disk_partitioning"><span class="tocnumber">1</span> <span class="toctext">Disk partitioning</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#System_bootstrapping"><span class="tocnumber">2</span> <span class="toctext">System bootstrapping</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Disk_identity"><span class="tocnumber">3</span> <span class="toctext">Disk identity</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Programming_considerations"><span class="tocnumber">4</span> <span class="toctext">Programming considerations</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#Editing.2Freplacing_MBR_contents"><span class="tocnumber">5</span> <span class="toctext">Editing/replacing MBR contents</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#See_also"><span class="tocnumber">6</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#References"><span class="tocnumber">7</span> <span class="toctext">References</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#Further_reading"><span class="tocnumber">8</span> <span class="toctext">Further reading</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#External_links"><span class="tocnumber">9</span> <span class="toctext">External links</span></a></li>
+</ul>
+</td>
+</tr>
+</tbody></table>
+<p><br style="clear: both;"></p>
+<h2><span class="editsection">[<a href="http://en.wikipedia.org/w/index.php?title=Master_boot_record&amp;action=edit&amp;section=1" title="Edit section: Disk partitioning">edit</a>]</span> <span class="mw-headline" id="Disk_partitioning">Disk partitioning</span></h2>
+<table class="wikitable" style="float: right; width: 50%; margin: 1em;">
+<caption>Layout of one 16-byte partition record</caption>
+<tbody><tr>
+<th>Offset</th>
+<th>Field<br>
+length<br>
+(bytes)</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>0x00</td>
+<td>1</td>
+<td>status (0x80 = bootable (<i>active</i>), 0x00 = non-bootable, other = invalid ) <sup class="reference plainlinks nourlexpansion" id="ref_a"><a href="#endnote_a">[a]</a></sup></td>
+</tr>
+<tr>
+<td>0x01</td>
+<td>3</td>
+<td><a href="http://en.wikipedia.org/wiki/Cylinder-head-sector" title="Cylinder-head-sector">CHS address</a> of first absolute sector in partition. <sup class="reference plainlinks nourlexpansion" id="ref_b"><a href="#endnote_b">[b]</a></sup> The format is described by 3 bytes, see the next 3 rows.</td>
+</tr>
+<tr>
+<td>0x01</td>
+<td>1</td>
+<td>
+<table class="wikitable">
+<tbody><tr>
+<td colspan="8" style="text-align: center;">h<sub>7-0</sub></td>
+<td rowspan="2">head <sup class="reference plainlinks nourlexpansion" id="ref_c"><a href="#endnote_c">[c]</a></sup></td>
+</tr>
+<tr>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+<tr>
+<td>0x02</td>
+<td>1</td>
+<td>
+<table class="wikitable">
+<tbody><tr>
+<td colspan="2" style="text-align: center;">c<sub>9‑8</sub></td>
+<td colspan="6" style="text-align: center;">s<sub>5–0</sub></td>
+<td rowspan="2">sector in bits 5–0; bits 7–6 are high bits of cylinder <sup class="reference plainlinks nourlexpansion" id="ref_c"><a href="#endnote_c">[c]</a></sup></td>
+</tr>
+<tr>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+<tr>
+<td>0x03</td>
+<td>1</td>
+<td>
+<table class="wikitable">
+<tbody><tr>
+<td colspan="8" style="text-align: center;">c<sub>7-0</sub></td>
+<td rowspan="2">bits 7–0 of cylinder <sup class="reference plainlinks nourlexpansion" id="ref_c"><a href="#endnote_c">[c]</a></sup></td>
+</tr>
+<tr>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+<tr>
+<td>0x04</td>
+<td>1</td>
+<td><a href="http://en.wikipedia.org/wiki/Partition_type" title="Partition type">Partition type</a><sup id="cite_ref-6" class="reference"><a href="#cite_note-6"><span>[</span>7<span>]</span></a></sup></td>
+</tr>
+<tr>
+<td>0x05</td>
+<td>3</td>
+<td><a href="http://en.wikipedia.org/wiki/Cylinder-head-sector" title="Cylinder-head-sector">CHS address</a> of last absolute sector in partition. <sup class="reference plainlinks nourlexpansion" id="ref_b"><a href="#endnote_b">[b]</a></sup> The format is described by 3 bytes, see the next 3 rows.</td>
+</tr>
+<tr>
+<td>0x05</td>
+<td>1</td>
+<td>
+<table class="wikitable">
+<tbody><tr>
+<td colspan="8" style="text-align: center;">h<sub>7-0</sub></td>
+<td rowspan="2">head <sup class="reference plainlinks nourlexpansion" id="ref_c"><a href="#endnote_c">[c]</a></sup></td>
+</tr>
+<tr>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+<tr>
+<td>0x06</td>
+<td>1</td>
+<td>
+<table class="wikitable">
+<tbody><tr>
+<td colspan="2" style="text-align: center;">c<sub>9‑8</sub></td>
+<td colspan="6" style="text-align: center;">s<sub>5–0</sub></td>
+<td rowspan="2">sector in bits 5–0; bits 7–6 are high bits of cylinder <sup class="reference plainlinks nourlexpansion" id="ref_c"><a href="#endnote_c">[c]</a></sup></td>
+</tr>
+<tr>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+<tr>
+<td>0x07</td>
+<td>1</td>
+<td>
+<table class="wikitable">
+<tbody><tr>
+<td colspan="8" style="text-align: center;">c<sub>7-0</sub></td>
+<td rowspan="2">bits 7–0 of cylinder</td>
+</tr>
+<tr>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+<tr>
+<td>0x08</td>
+<td>4</td>
+<td><a href="http://en.wikipedia.org/wiki/Logical_block_addressing" title="Logical block addressing">LBA</a> of first absolute sector in the partition <sup class="reference plainlinks nourlexpansion" id="ref_d"><a href="#endnote_d">[d]</a></sup></td>
+</tr>
+<tr>
+<td>0x0C</td>
+<td>4</td>
+<td>Number of sectors in partition, in <a href="http://en.wikipedia.org/wiki/Little-endian" title="Little-endian" class="mw-redirect">little-endian</a> format <sup class="reference plainlinks nourlexpansion" id="ref_d"><a href="#endnote_d">[d]</a></sup></td>
+</tr>
+<tr>
+<td colspan="3"><b>Notes</b>:
+<p><span class="citation wikicite" id="endnote_a"><b><a href="#ref_a">^</a></b></span> <b>a</b> Formally, status values other than <code>0x00</code> and <code>0x80</code> are <i>undefined</i>.<sup class="Template-Fact" style="white-space: nowrap;">[<i><a href="http://en.wikipedia.org/wiki/Wikipedia:Citation_needed" title="Wikipedia:Citation needed"><span title="This claim needs references to reliable sources from October 2011">citation needed</span></a></i>]</sup><br style="clear: both;"></p>
+<p><span class="citation wikicite" id="endnote_b"><b><a href="#ref_b">^</a></b></span> <b>b</b> <i>Starting Sector</i> fields are limited to 1023+1 cylinders, 255+1 heads, and 63 sectors; <i>Ending Sector</i> fields have the same limitations.<br style="clear: both;"></p>
+<p><span class="citation wikicite" id="endnote_c"><b><a href="#ref_c">^</a></b></span> <b>c</b> The range for sector is 1 through 63; the range for cylinder is 0 through 1023; the range for head is 0 through 255 inclusive.<sup id="cite_ref-phoenix_7-0" class="reference"><a href="#cite_note-phoenix-7"><span>[</span>8<span>]</span></a></sup><br style="clear: both;"></p>
+<p><span class="citation wikicite" id="endnote_d"><b><a href="#ref_d">^</a></b></span> <b>d</b> Used by OSes in certain circumstances; in such cases the CHS addresses are ignored.<sup id="cite_ref-lbablocks_8-0" class="reference"><a href="#cite_note-lbablocks-8"><span>[</span>9<span>]</span></a></sup></p>
+</td>
+</tr>
+</tbody></table>
+<p><a href="http://en.wikipedia.org/wiki/IBM" title="IBM">IBM</a> <a href="http://en.wikipedia.org/wiki/PC-DOS" title="PC-DOS" class="mw-redirect">PC-DOS</a> introduced the conventional <a href="http://en.wikipedia.org/wiki/IBM_PC" title="IBM PC" class="mw-redirect">IBM PC</a> (<code><a href="http://en.wikipedia.org/wiki/Fdisk" title="Fdisk">fdisk</a></code>) partitioning scheme, which took advantage of the space reserved for the master boot record. When a storage device has been partitioned with this scheme, its MBR contains a partition table describing the locations, sizes, and other attributes of linear regions referred to as partitions.</p>
+<p>The partitions themselves may also contain data to describe more complex partitioning schemes, such as <a href="http://en.wikipedia.org/wiki/Extended_boot_record" title="Extended boot record">extended boot records</a> (EBRs), <a href="http://en.wikipedia.org/wiki/BSD_disklabel" title="BSD disklabel">BSD disklabels</a>, or <a href="http://en.wikipedia.org/wiki/Logical_Disk_Manager" title="Logical Disk Manager">Logical Disk Manager</a> metadata partitions.<sup id="cite_ref-9" class="reference"><a href="#cite_note-9"><span>[</span>10<span>]</span></a></sup></p>
+<p>The MBR is not located in a partition; it is located at a first sector of the device (physical offset 0), preceding the first partition. The boot sector present on a non-partitioned device or within an individual partition is called a <b><a href="http://en.wikipedia.org/wiki/Volume_Boot_Record" title="Volume Boot Record" class="mw-redirect">volume boot record</a></b>. In cases where the computer is running a <a href="http://en.wikipedia.org/wiki/Interrupt_vector" title="Interrupt vector">BIOS overlay</a> or <a href="http://en.wikipedia.org/wiki/Boot_manager" title="Boot manager" class="mw-redirect">boot manager</a>, the partition table may be moved to some other physical location on the device; e.g., <a href="http://en.wikipedia.org/wiki/Disk_Manager" title="Disk Manager">Ontrack Disk Manager</a> often placed a copy of the original MBR contents in the second sector, then hid itself from any subsequently booted OS or application, so the MBR copy was treated as if it were still residing in the first sector.</p>
+<p>By convention, there are exactly four primary partition table entries in the MBR partition table scheme, although some operating systems extended this to five (PTS-DOS with Advanced Active Partitions),<sup id="cite_ref-10" class="reference"><a href="#cite_note-10"><span>[</span>11<span>]</span></a></sup> eight (AST and NEC MS-DOS)<sup id="cite_ref-11" class="reference"><a href="#cite_note-11"><span>[</span>12<span>]</span></a></sup><sup id="cite_ref-12" class="reference"><a href="#cite_note-12"><span>[</span>13<span>]</span></a></sup> or even sixteen (DISKMAN) entries.</p>
+<p>An artifact of hard disk technology from the era of the <a href="http://en.wikipedia.org/wiki/IBM_PC" title="IBM PC" class="mw-redirect">IBM PC</a>, the partition table subdivides a storage medium using units of <b><a href="http://en.wikipedia.org/wiki/Cylinder_%28disk_drive%29" title="Cylinder (disk drive)">cylinders</a></b>, <b><a href="http://en.wikipedia.org/wiki/Disk_read-and-write_head" title="Disk read-and-write head">heads</a></b>, and <b><a href="http://en.wikipedia.org/wiki/Disk_sector" title="Disk sector">sectors</a></b> (<b><a href="http://en.wikipedia.org/wiki/Cylinder-head-sector" title="Cylinder-head-sector">CHS</a></b> addressing). These values no longer correspond to their namesakes in modern disk drives, and other devices such as <a href="http://en.wikipedia.org/wiki/Solid-state_drive" title="Solid-state drive">solid-state drives</a> do not physically have cylinders or heads.</p>
+<p>Sector indices have always begun with a 1, not a zero, and due to an early error in MS-DOS, the heads are generally limited to 255<sup class="Template-Fact" style="white-space: nowrap;">[<i><a href="http://en.wikipedia.org/wiki/Wikipedia:Citation_needed" title="Wikipedia:Citation needed"><span title="This claim needs references to reliable sources from November 2010">citation needed</span></a></i>]</sup> instead of 256. Both the partition length and partition start address are sector values stored as 32-bit quantities. The sector size is fixed at 512 (2<sup>9</sup>) bytes, which implies that either the maximum size of a partition or the maximum start address (both in bytes) cannot exceed 2 <abbr title="TeraBytes = 1024×1024×1024×1024 bytes">TB</abbr>−512 bytes (2,199,023,255,040 bytes or 4,294,967,295 (2<sup>32</sup>−1) sectors × 512 (2<sup>9</sup>) bytes per sector). Alleviating this capacity limitation was one of the prime motivations for the development of the <a href="http://en.wikipedia.org/wiki/GUID_Partition_Table" title="GUID Partition Table">GUID partition table</a> (GPT).</p>
+<p>When a CHS address is too large to fit into these fields, the <a href="http://en.wikipedia.org/wiki/Tuple" title="Tuple">tuple</a> (1023, 254, 63) is used (if the situation involves a "protective" MBR on a disk with a GPT, Intel's <a href="http://en.wikipedia.org/wiki/Extensible_Firmware_Interface" title="Extensible Firmware Interface" class="mw-redirect">Extensible Firmware Interface</a> specification requires that the tuple (1023, 255, 63) be used). The 10-bit cylinder value is recorded within two bytes in order to facilitate making calls to the original/legacy <a href="http://en.wikipedia.org/wiki/INT_13H" title="INT 13H">INT 13h</a> BIOS disk access routines, where 16 bits were divided into sector and cylinder parts, and not on byte boundaries.<sup id="cite_ref-phoenix_7-1" class="reference"><a href="#cite_note-phoenix-7"><span>[</span>8<span>]</span></a></sup></p>
+<p>Where a data storage device has been partitioned with the GUID partition table (GPT) scheme, the master boot record will still contain a partition table, but its only purpose is to indicate the existence of the GPT and to prevent utility programs which understand only the MBR partition table scheme from creating any partitions in what they would otherwise see as free space on the disk, thereby accidentally erasing the GPT.</p>
+<h2><span class="editsection">[<a href="http://en.wikipedia.org/w/index.php?title=Master_boot_record&amp;action=edit&amp;section=2" title="Edit section: System bootstrapping">edit</a>]</span> <span class="mw-headline" id="System_bootstrapping">System bootstrapping</span></h2>
+<p>On <a href="http://en.wikipedia.org/wiki/IBM_PC-compatible" title="IBM PC-compatible" class="mw-redirect">IBM PC-compatible</a> computers, the bootstrapping <a href="http://en.wikipedia.org/wiki/Firmware" title="Firmware">firmware</a> contained within the <a href="http://en.wikipedia.org/wiki/Read-only_memory" title="Read-only memory">ROM</a> <a href="http://en.wikipedia.org/wiki/BIOS" title="BIOS">BIOS</a> loads and executes the master boot record.<sup id="cite_ref-osdev-mbr_13-0" class="reference"><a href="#cite_note-osdev-mbr-13"><span>[</span>14<span>]</span></a></sup> The original <a href="http://en.wikipedia.org/wiki/IBM_PC" title="IBM PC" class="mw-redirect">IBM PC</a> used an <a href="http://en.wikipedia.org/wiki/Intel_8088" title="Intel 8088">Intel 8088</a> <a href="http://en.wikipedia.org/wiki/Computer_processor" title="Computer processor" class="mw-redirect">microprocessor</a>. In order to remain compatible with the 8088, all x86 architecture systems start with the microprocessor in an <a href="http://en.wikipedia.org/wiki/X86#Operating_modes" title="X86">operating mode</a> referred to as <a href="http://en.wikipedia.org/wiki/Real_mode" title="Real mode">real mode</a>. Thus, the beginning of the MBR is expected to contain real mode <a href="http://en.wikipedia.org/wiki/Machine_code" title="Machine code">machine language</a> instructions.<sup id="cite_ref-osdev-mbr_13-1" class="reference"><a href="#cite_note-osdev-mbr-13"><span>[</span>14<span>]</span></a></sup> The BIOS reads the MBR from the storage device into <a href="http://en.wikipedia.org/wiki/Physical_memory" title="Physical memory" class="mw-redirect">physical memory</a>, and then directs the microprocessor to the start of the boot code.</p>
+<p>Due to the restricted size of the MBR's code section, it typically contains only a small program that copies additional code (such as a <a href="http://en.wikipedia.org/wiki/Boot_loader" title="Boot loader" class="mw-redirect">boot loader</a>) from the storage device into memory. Control is then passed to this code, which is responsible for loading the actual operating system. This process is known as <a href="http://en.wikipedia.org/wiki/Chain_loading" title="Chain loading">chain loading</a>.</p>
+<p>Popular MBR code programs were created for booting <a href="http://en.wikipedia.org/wiki/PC_DOS" title="PC DOS" class="mw-redirect">PC DOS</a> and <a href="http://en.wikipedia.org/wiki/MS-DOS" title="MS-DOS">MS-DOS</a>, and similar boot code remains in wide use. These boot sectors expect the <code>fdisk</code> partition table scheme to be in use, and scans the list of partitions in the MBR's embedded partition table to find the only one that is marked with the <i>active flag</i>.<sup id="cite_ref-thestarman-pcdos-mbr_14-0" class="reference"><a href="#cite_note-thestarman-pcdos-mbr-14"><span>[</span>15<span>]</span></a></sup> It then loads and runs the <a href="http://en.wikipedia.org/wiki/Volume_boot_record" title="Volume boot record">volume boot record</a> (VBR) of the active partition.</p>
+<p>There are alternative boot code implementations, some of which are installed by <a href="http://en.wikipedia.org/wiki/Boot_manager" title="Boot manager" class="mw-redirect">boot managers</a>, which operate in a variety of ways. Some MBR code loads additional code for a boot manager from the first track of the disk, which it assumes to be "free" space that is not allocated to any disk partition, and executes it. A MBR program may interact with the user to determine which partition on which drive should boot, and may transfer control to the MBR of a different drive. Other MBR code contains a list of disk locations (often corresponding to the contents of <a href="http://en.wikipedia.org/wiki/Computer_file" title="Computer file">files</a> in a <a href="http://en.wikipedia.org/wiki/Filesystem" title="Filesystem" class="mw-redirect">filesystem</a>) of the remainder of the boot manager code to load and to execute. (The first relies on behavior that is not universal across all disk partitioning utilities, most notably those which read and write <a href="http://en.wikipedia.org/wiki/GUID_Partition_Table" title="GUID Partition Table">GPTs</a>. The last requires that the embedded list of disk locations be updated when changes are made that would relocate the remainder of the code.)</p>
+<p>On machines that do not use <a href="http://en.wikipedia.org/wiki/X86" title="X86">x86</a> processors, or on x86 machines with non-BIOS firmware such as <a href="http://en.wikipedia.org/wiki/Open_Firmware" title="Open Firmware">Open Firmware</a> or <a href="http://en.wikipedia.org/wiki/Extensible_Firmware_Interface" title="Extensible Firmware Interface" class="mw-redirect">Extensible Firmware Interface</a> (EFI) firmware, this design is unsuitable, and the MBR is not used as part of the system bootstrap.<sup id="cite_ref-osxbook-boot_15-0" class="reference"><a href="#cite_note-osxbook-boot-15"><span>[</span>16<span>]</span></a></sup> EFI firmware is instead capable of directly understanding the <a href="http://en.wikipedia.org/wiki/GUID_Partition_Table" title="GUID Partition Table">GPT</a> partitioning scheme and the <a href="http://en.wikipedia.org/wiki/File_Allocation_Table" title="File Allocation Table">FAT</a> filesystem format, and loads and runs programs held as files in the <a href="http://en.wikipedia.org/wiki/EFI_System_partition" title="EFI System partition">EFI System partition</a>.<sup id="cite_ref-efiboot_16-0" class="reference"><a href="#cite_note-efiboot-16"><span>[</span>17<span>]</span></a></sup> The MBR will be involved only insofar as it might contain a partition table for compatibility purposes if the GPT partition table scheme has been used.</p>
+<p>There is some MBR replacement code that emulates EFI firmware's bootstrap, which makes non-EFI machines capable of booting from disks using the GPT partitioning scheme. It detects a GPT, places the processor in the correct operating mode, and loads the EFI compatible code from disk to complete this task.</p>
+<h2><span class="editsection">[<a href="http://en.wikipedia.org/w/index.php?title=Master_boot_record&amp;action=edit&amp;section=3" title="Edit section: Disk identity">edit</a>]</span> <span class="mw-headline" id="Disk_identity">Disk identity</span></h2>
+<div class="thumb tright">
+<div class="thumbinner" style="width: 202px;"><a href="http://en.wikipedia.org/wiki/File:Qtparted-usb-hdd-snapshot.png" class="image"><img alt="" src="200px-qtparted-usb-hdd-snapshot.png" class="thumbimage" height="150" width="200"></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="http://en.wikipedia.org/wiki/File:Qtparted-usb-hdd-snapshot.png" class="internal" title="Enlarge"><img src="magnify-clip.png" alt="" height="11" width="15"></a></div>
+Information contained in the Partition Table of an external hard drive as it appears in the utility program <a href="http://en.wikipedia.org/wiki/QtParted" title="QtParted">QtParted</a>, running under Linux.</div>
+</div>
+</div>
+<p>In addition to the bootstrap code and a partition table, master boot records may contain a <a href="http://en.wikipedia.org/wiki/Windows_NT" title="Windows NT">Windows NT</a> disk signature. This is a 32-bit value that is intended to identify uniquely the disk medium (as opposed to the disk unit — the two not necessarily being the same for removable hard disks).</p>
+<p>The disk signature was introduced by Windows NT version 3.5, but is now used by several operating systems, including the <a href="http://en.wikipedia.org/wiki/Linux" title="Linux">Linux</a> kernel version 2.6 and later. Linux uses the NT disk signature at boot time to determine the location of the boot volume.<sup id="cite_ref-17" class="reference"><a href="#cite_note-17"><span>[</span>18<span>]</span></a></sup></p>
+<p>Windows NT (and later Microsoft operating systems) uses the disk signature as an index to all the partitions on any disk ever connected to the computer under that OS; these signatures are kept in <a href="http://en.wikipedia.org/wiki/Windows_Registry" title="Windows Registry">registry</a> keys, primarily for storing the persistent mappings between disk partitions and drive letters. It may also be used in <a href="http://en.wikipedia.org/wiki/Boot.ini" title="Boot.ini" class="mw-redirect">boot.ini</a> files (though most do not), to describe the location of bootable Windows NT (or later) partitions.<sup id="cite_ref-18" class="reference"><a href="#cite_note-18"><span>[</span>19<span>]</span></a></sup> One key (among many) where NT disk signatures appear in a Windows 2000/XP registry is:</p>
+<pre>HKEY_LOCAL_MACHINE\SYSTEM\MountedDevices\
+</pre>
+<p>If a disk's signature stored in the MBR was <code>A8 E1 B9 D2</code> (in that order) and its first partition corresponded with logical drive C: under Windows, then the <code>REG_BINARY</code> data under the key value <b><code>DosDevices\C:</code></b> would be:</p>
+<pre>A8 E1 B9 D2 00 7E 00 00 00 00 00 00
+</pre>
+<p>The first four bytes are said disk signature. (<i>Note:</i> In other keys, these bytes may appear in reverse order from that found in the MBR sector.) These are followed by eight more bytes, forming a 64-bit integer, in <a href="http://en.wikipedia.org/wiki/Endianness" title="Endianness">little endian</a> notation, which are used to locate the byte offset of this partition. In this case, <code>00 7E</code> corresponds to the hexadecimal value <code>0x7E00</code> (<code>32,256<sub>dec</sub></code>). Dividing this byte offset by 512 (the size of a hard disk's physical sector in bytes) results in 63, which is the physical sector number (or LBA) containing the first sector of the partition (unlike the <i>sector count</i> used in the sectors value of CHS tuples, which counts from <b>one</b>, the absolute or LBA sector value starts counting from <b>zero</b>).</p>
+<p>If this disk had another partition with the values <code>00 F8 93 71 02</code> following the disk signature (under, e.g., the key value <code>\DosDevices\D:</code>), it would begin at byte offset <code>0x27193f800</code> (<code>10,495,457,280<sub>dec</sub></code>), which is also the first byte of physical sector 20,498,940.</p>
+<p>Starting with <a href="http://en.wikipedia.org/wiki/Windows_Vista" title="Windows Vista">Windows Vista</a>, the disk signature is also stored in the <a href="http://en.wikipedia.org/wiki/Boot_Configuration_Data" title="Boot Configuration Data" class="mw-redirect">Boot Configuration Data</a> (BCD) store and the boot process depends on it.<sup id="cite_ref-19" class="reference"><a href="#cite_note-19"><span>[</span>20<span>]</span></a></sup> If the disk signature changes, cannot be found or has a conflict, Windows is unable to boot.<sup id="cite_ref-20" class="reference"><a href="#cite_note-20"><span>[</span>21<span>]</span></a></sup></p>
+<h2><span class="editsection">[<a href="http://en.wikipedia.org/w/index.php?title=Master_boot_record&amp;action=edit&amp;section=4" title="Edit section: Programming considerations">edit</a>]</span> <span class="mw-headline" id="Programming_considerations">Programming considerations</span></h2>
+<p>The MBR originated in the original <a href="http://en.wikipedia.org/wiki/IBM_PC" title="IBM PC" class="mw-redirect">IBM PC</a>.<sup id="cite_ref-msakamoto-mbr_0-1" class="reference"><a href="#cite_note-msakamoto-mbr-0"><span>[</span>1<span>]</span></a></sup> <a href="http://en.wikipedia.org/wiki/IBM_PC-compatible" title="IBM PC-compatible" class="mw-redirect">IBM PC-compatible</a> computers are <a href="http://en.wikipedia.org/wiki/Endianness" title="Endianness">little-endian</a>, which means numeric values spanning two or more bytes are stored by the <a href="http://en.wikipedia.org/wiki/Computer_processor" title="Computer processor" class="mw-redirect">processor</a> in reverse order in memory. The format of the MBR on media reflects this convention. Thus, the MBR signature will appear in a <a href="http://en.wikipedia.org/wiki/Disk_editor" title="Disk editor">disk editor</a> as the sequence <code>55 AA</code>. Interpreting this "magic number" as little endian number 0xAA55 would be different from 0xAA550000 as used for <a href="http://en.wikipedia.org/wiki/FAT32" title="FAT32" class="mw-redirect">FAT32</a> signatures, arguably it is simpler to consider these signatures as strings in <a href="http://en.wikipedia.org/wiki/Network_order" title="Network order" class="mw-redirect">Network order</a>.</p>
+<p>The bootstrap sequence in the BIOS will load the first valid MBR that it finds into the computer's <a href="http://en.wikipedia.org/wiki/Physical_memory" title="Physical memory" class="mw-redirect">physical memory</a> at <a href="http://en.wikipedia.org/wiki/Memory_address" title="Memory address">address</a> 0x7C00. The last instruction executed in the BIOS code will be a "jump" to that address, to direct execution to the beginning of the MBR copy. The primary validation for most BIOSes is the 0xAA55 signature on the end, although a BIOS implementor may choose to include other checks, such verifying that the MBR contains a valid partition table without entries referring to sectors beyond the reported capacity of the disk.</p>
+<p>While the MBR <a href="http://en.wikipedia.org/wiki/Boot_sector" title="Boot sector">boot sector</a> code expects to be loaded at physical address 0x7C00, all the memory from physical address 0x501 (address 0x500 is the last one used by a Phoenix BIOS)<sup id="cite_ref-phoenix_7-2" class="reference"><a href="#cite_note-phoenix-7"><span>[</span>8<span>]</span></a></sup> to somewhere short of 0x9FFFF (below any <abbr title="extended BIOS data area">EBDA</abbr>) is typically available in real mode (a total of up to 640 <abbr title="1 KB = 1024 bytes">KB</abbr> minus the first 1281 bytes of memory); very old machines may have less than 640 KB (0xA0000 or 655,360 bytes) of memory, and newer machines may allocate significant amounts of memory for use by the BIOS. The <tt>INT 12h</tt> <a href="http://en.wikipedia.org/wiki/BIOS_interrupt_call" title="BIOS interrupt call">BIOS interrupt call</a> may help in determining how much memory can be allocated safely (it simply reads the base memory size in KiB from <a href="http://en.wikipedia.org/wiki/Memory_segmentation" title="Memory segmentation">segment</a>:offset location 0040h:0013h). In theory, only 64255 bytes are guaranteed (beginning at 0x501 and ending at 0x0FFFF); in practice it is safe to assume at least 391935 bytes (ending at 0x5FFFF) are available on modern hardware.</p>
+<p>The last 72 bytes of the 512 byte MBR are reserved for the partition table and other information, so the MBR boot sector program must be small enough to fit within 440 bytes of memory. The MBR code may communicate with the user, examine the partition table, or perform some housekeeping tasks such as enabling the <a href="http://en.wikipedia.org/wiki/A20_line" title="A20 line" class="mw-redirect">A20 line</a>, or changing the processor's operating mode from real mode to <a href="http://en.wikipedia.org/wiki/Unreal_mode" title="Unreal mode">unreal mode</a>. Eventually, the MBR will need to perform its main task, and load the program that will perform the next stage of the boot process, usually by making use of <a href="http://en.wikipedia.org/wiki/INT_13H" title="INT 13H"><tt>INT 13h</tt></a> <a href="http://en.wikipedia.org/wiki/BIOS_interrupt_call" title="BIOS interrupt call">BIOS calls</a>.</p>
+<p>As stated above, the conventional MBR bootstrap code loads and runs (boot loader or operating system dependent) <a href="http://en.wikipedia.org/wiki/Volume_boot_record" title="Volume boot record">volume boot record</a> code that is located at the beginning of the "active" partition. A conventional volume boot record is only one sector long, but it is safe for MBR code to load additional sectors to accommodate boot loaders longer than one sector. Like the MBR, a volume boot record often expects to be loaded at address 0x7C00. Since this is the same location where the MBR is loaded, one of the first tasks of an MBR is usually to relocate itself somewhere else in memory —most often at 0x600 (for MS-DOS MBR code)<sup class="Template-Fact" style="white-space: nowrap;">[<i><a href="http://en.wikipedia.org/wiki/Wikipedia:Citation_needed" title="Wikipedia:Citation needed"><span title="This claim needs references to reliable sources from May 2011">citation needed</span></a></i>]</sup>.</p>
+<p>The <i>Status</i> field in a non-extended partition table record is used to indicate an active partition. The status field in an extended partition table record may also be used by boot manager programs to determine which partitions are bootable, although values other than 0x00 and 0x80 are <i>undefined</i> and the bootstrap program may display an error message upon encountering unrecognized values. In practice, their parsing depends upon what the actual bootstrap code within the MBR has been coded to accept: some MBR bootstrap programs specifically look for the value 0x80 to indicate the bootable partition, others simply look for a non-zero value, and yet others look for any value with the highest <a href="http://en.wikipedia.org/wiki/Bit" title="Bit">bit</a> set.</p>
+<h2><span class="editsection">[<a href="http://en.wikipedia.org/w/index.php?title=Master_boot_record&amp;action=edit&amp;section=5" title="Edit section: Editing/replacing MBR contents">edit</a>]</span> <span class="mw-headline" id="Editing.2Freplacing_MBR_contents">Editing/replacing MBR contents</span></h2>
+<p>Though it is possible to manipulate the <a href="http://en.wikipedia.org/wiki/Byte" title="Byte">bytes</a> in the MBR sector directly using various <a href="http://en.wikipedia.org/wiki/Disk_editor" title="Disk editor">disk editors</a>, there are tools to write fixed sets of functioning code to the MBR. Since MS-DOS 5.0, the program <a href="http://en.wikipedia.org/wiki/Fdisk" title="Fdisk">fdisk</a> has included the switch <code>/mbr</code>, which will rewrite the MBR code.<sup id="cite_ref-21" class="reference"><a href="#cite_note-21"><span>[</span>22<span>]</span></a></sup> Under <a href="http://en.wikipedia.org/wiki/Windows_2000" title="Windows 2000">Windows 2000</a> and <a href="http://en.wikipedia.org/wiki/Windows_XP" title="Windows XP">Windows XP</a>, the <a href="http://en.wikipedia.org/wiki/Recovery_Console" title="Recovery Console">Recovery Console</a> can be used to write new MBR code to a storage device using its <code>fixmbr</code> command. Under <a href="http://en.wikipedia.org/wiki/Windows_Vista" title="Windows Vista">Windows Vista</a> and <a href="http://en.wikipedia.org/wiki/Windows_7" title="Windows 7">Windows 7</a>, the <a href="http://en.wikipedia.org/wiki/Recovery_Environment" title="Recovery Environment" class="mw-redirect">Recovery Environment</a> can be used to write new MBR code using the <code>bootrec /FixMbr</code> command. Some third-party utilities may also be used for directly editing the contents of partition tables (without requiring any knowledge of hexadecimal or disk/sector editors), such as <a href="http://en.wikipedia.org/wiki/MBRwizard" title="MBRwizard">MBRWizard</a>.<sup id="cite_ref-22" class="reference"><a href="#cite_note-22"><span>[</span>23<span>]</span></a></sup></p>
+<p><code>dd</code> is also a commonly used POSIX command to read or write to any location on a storage device, MBR included. In <a href="http://en.wikipedia.org/wiki/Linux" title="Linux">Linux</a>, ms-sys may be used to install a standard MBR. The <a href="http://en.wikipedia.org/wiki/GRUB" title="GRUB" class="mw-redirect">GRUB</a> and <a href="http://en.wikipedia.org/wiki/LILO_%28boot_loader%29" title="LILO (boot loader)">LILO</a> projects have tools for writing code to the MBR sector, namely <code>grub-install</code> and <code>lilo -mbr</code>. The GRUB Legacy interactive console can write to the MBR, using the <code>setup</code> and <code>embed</code> commands, but GRUB2 currently requires <code>grub-install</code> to be run from within an operating system.</p>
+<p>Various programs are able to create a "<a href="http://en.wikipedia.org/wiki/Backup" title="Backup">backup</a>" of both the primary partition table and the logical partitions in the extended partition.</p>
+<p>Linux sfdisk (on a <a href="http://en.wikipedia.org/wiki/SystemRescueCD" title="SystemRescueCD">SystemRescueCD</a>) is able to save a backup of the primary and extended partition table. It creates a file that can be read in a text editor, or this file can be used by sfdisk to restore the primary/extended partition table. An example command to back up the partition table is <code>sfdisk -d /dev/hda &gt; hda.out</code> and to restore is <code>sfdisk /dev/hda &lt; hda.out</code> . It is possible to copy the partition table from one disk to another this way, useful for setting up mirroring, but it should be noted that sfdisk executes the command without prompting/warnings using <code>sfdisk -d /dev/sda | sfdisk /dev/sdb</code><sup class="Template-Fact" style="white-space: nowrap;">[<i><a href="http://en.wikipedia.org/wiki/Wikipedia:Citation_needed" title="Wikipedia:Citation needed"><span title="This claim needs references to reliable sources from June 2011">citation needed</span></a></i>]</sup>.<sup id="cite_ref-23" class="reference"><a href="#cite_note-23"><span>[</span>24<span>]</span></a></sup></p>
+<h2><span class="editsection">[<a href="http://en.wikipedia.org/w/index.php?title=Master_boot_record&amp;action=edit&amp;section=6" title="Edit section: See also">edit</a>]</span> <span class="mw-headline" id="See_also">See also</span></h2>
+<ul>
+<li><a href="http://en.wikipedia.org/wiki/BIOS_Boot_partition" title="BIOS Boot partition">BIOS Boot partition</a></li>
+<li><a href="http://en.wikipedia.org/wiki/BIOS_interrupt_call" title="BIOS interrupt call">BIOS interrupt call</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Boot_loader" title="Boot loader" class="mw-redirect">Boot loader</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Disk_cloning" title="Disk cloning">Disk cloning</a></li>
+<li><a href="http://en.wikipedia.org/wiki/EFI_System_partition" title="EFI System partition">EFI System partition</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Extended_boot_record" title="Extended boot record">Extended boot record</a></li>
+<li><a href="http://en.wikipedia.org/wiki/GNU_Parted" title="GNU Parted">GNU Parted</a></li>
+<li><a href="http://en.wikipedia.org/wiki/GUID_Partition_Table" title="GUID Partition Table">GUID Partition Table</a> (GPT), a more modern partitioning scheme, replacing the purpose of the MBR</li>
+<li><a href="http://en.wikipedia.org/wiki/Recovery_disc" title="Recovery disc">Recovery disc</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Rigid_Disk_Block" title="Rigid Disk Block" class="mw-redirect">Rigid Disk Block</a>, the partitioning standard for <a href="http://en.wikipedia.org/wiki/Amiga" title="Amiga">Amiga</a> and compatible computers.</li>
+<li><a href="http://en.wikipedia.org/wiki/Volume_boot_record" title="Volume boot record">Volume boot record</a></li>
+</ul>
+<h2><span class="editsection">[<a href="http://en.wikipedia.org/w/index.php?title=Master_boot_record&amp;action=edit&amp;section=7" title="Edit section: References">edit</a>]</span> <span class="mw-headline" id="References">References</span></h2>
+<div class="reflist" style="list-style-type: decimal;">
+<ol class="references">
+<li id="cite_note-msakamoto-mbr-0">^ <a href="#cite_ref-msakamoto-mbr_0-0"><sup><i><b>a</b></i></sup></a> <a href="#cite_ref-msakamoto-mbr_0-1"><sup><i><b>b</b></i></sup></a> <span class="citation web">Masahiko Sakamoto (May 13, 2010). <a rel="nofollow" class="external text" href="http://www.glamenv-septzen.net/en/view/6">"Why BIOS loads MBR into 0x7C00 in x86&nbsp;?"</a>. Glamenv-Septzen.net<span class="printonly">. <a rel="nofollow" class="external free" href="http://www.glamenv-septzen.net/en/view/6">http://www.glamenv-septzen.net/en/view/6</a></span><span class="reference-accessdate">. Retrieved 2011-05-04</span>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=bookitem&amp;rft.btitle=Why+BIOS+loads+MBR+into+0x7C00+in+x86+%3F&amp;rft.atitle=&amp;rft.aulast=Masahiko+Sakamoto&amp;rft.au=Masahiko+Sakamoto&amp;rft.date=May+13%2C+2010&amp;rft.pub=Glamenv-Septzen.net&amp;rft_id=http%3A%2F%2Fwww.glamenv-septzen.net%2Fen%2Fview%2F6&amp;rfr_id=info:sid/en.wikipedia.org:Master_boot_record"><span style="display: none;">&nbsp;</span></span></li>
+<li id="cite_note-1"><b><a href="#cite_ref-1">^</a></b> <span class="citation book">Peter Norton and Scott Clark (2002). <i>Peter Norton's New Inside the PC</i>. Sams Publishing. pp.&nbsp;360–361. <a href="http://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="http://en.wikipedia.org/wiki/Special:BookSources/0672322897" title="Special:BookSources/0672322897">0672322897</a>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.btitle=Peter+Norton%27s+New+Inside+the+PC&amp;rft.aulast=Peter+Norton+and+Scott+Clark&amp;rft.au=Peter+Norton+and+Scott+Clark&amp;rft.date=2002&amp;rft.pages=pp.%26nbsp%3B360%26ndash%3B361&amp;rft.pub=Sams+Publishing&amp;rft.isbn=0672322897&amp;rfr_id=info:sid/en.wikipedia.org:Master_boot_record"><span style="display: none;">&nbsp;</span></span></li>
+<li id="cite_note-2"><b><a href="#cite_ref-2">^</a></b> <span class="citation book">Michael W. Graves (2004). <i>A+ Guide To PC Hardware Maintenance and Repair</i>. Thomson Delmar. p.&nbsp;276. <a href="http://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="http://en.wikipedia.org/wiki/Special:BookSources/1401852300" title="Special:BookSources/1401852300">1401852300</a>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.btitle=A%2B+Guide+To+PC+Hardware+Maintenance+and+Repair&amp;rft.aulast=Michael+W.+Graves&amp;rft.au=Michael+W.+Graves&amp;rft.date=2004&amp;rft.pages=p.%26nbsp%3B276&amp;rft.pub=Thomson+Delmar&amp;rft.isbn=1401852300&amp;rfr_id=info:sid/en.wikipedia.org:Master_boot_record"><span style="display: none;">&nbsp;</span></span></li>
+<li id="cite_note-3"><b><a href="#cite_ref-3">^</a></b> <span class="citation book">Jean Andrews (2003). <i>Upgrade and Repair with Jean Andrews</i>. Thomson Course Technology. p.&nbsp;646. <a href="http://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="http://en.wikipedia.org/wiki/Special:BookSources/1592001122" title="Special:BookSources/1592001122">1592001122</a>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.btitle=Upgrade+and+Repair+with+Jean+Andrews&amp;rft.aulast=Jean+Andrews&amp;rft.au=Jean+Andrews&amp;rft.date=2003&amp;rft.pages=p.%26nbsp%3B646&amp;rft.pub=Thomson+Course+Technology&amp;rft.isbn=1592001122&amp;rfr_id=info:sid/en.wikipedia.org:Master_boot_record"><span style="display: none;">&nbsp;</span></span></li>
+<li id="cite_note-4"><b><a href="#cite_ref-4">^</a></b> <span class="citation book">William Boswell (2003). <i>Inside Windows Server 2003</i>. Addison-Wesley Professional. p.&nbsp;13. <a href="http://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="http://en.wikipedia.org/wiki/Special:BookSources/0735711585" title="Special:BookSources/0735711585">0735711585</a>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.btitle=Inside+Windows+Server+2003&amp;rft.aulast=William+Boswell&amp;rft.au=William+Boswell&amp;rft.date=2003&amp;rft.pages=p.%26nbsp%3B13&amp;rft.pub=Addison-Wesley+Professional&amp;rft.isbn=0735711585&amp;rfr_id=info:sid/en.wikipedia.org:Master_boot_record"><span style="display: none;">&nbsp;</span></span></li>
+<li id="cite_note-5"><b><a href="#cite_ref-5">^</a></b> <span class="citation book">Michael Lucas (2003). <a rel="nofollow" class="external text" href="http://books.google.com/books?id=wuUuTXMkNx8C&amp;pg=PA72&amp;lpg=PA72&amp;dq=mbr+partition+popularity&amp;source=bl&amp;ots=QanCnIdhMD&amp;sig=_731e1jnYlKChbxBJRu8BuuTCVY&amp;hl=pt-PT&amp;ei=RpGgTb7EGY6FtgfMy7meAw&amp;sa=X&amp;oi=book_result&amp;ct=result&amp;resnum=3&amp;ved=0CCgQ6AEwAg#v=onepage&amp;q&amp;f=false"><i>Absolute OpenBSD: Unix for the practical paranoid</i></a>. p.&nbsp;73<span class="printonly">. <a rel="nofollow" class="external free" href="http://books.google.com/books?id=wuUuTXMkNx8C&amp;pg=PA72&amp;lpg=PA72&amp;dq=mbr+partition+popularity&amp;source=bl&amp;ots=QanCnIdhMD&amp;sig=_731e1jnYlKChbxBJRu8BuuTCVY&amp;hl=pt-PT&amp;ei=RpGgTb7EGY6FtgfMy7meAw&amp;sa=X&amp;oi=book_result&amp;ct=result&amp;resnum=3&amp;ved=0CCgQ6AEwAg#v=onepage&amp;q&amp;f=false">http://books.google.com/books?id=wuUuTXMkNx8C&amp;pg=PA72&amp;lpg=PA72&amp;dq=mbr+partition+popularity&amp;source=bl&amp;ots=QanCnIdhMD&amp;sig=_731e1jnYlKChbxBJRu8BuuTCVY&amp;hl=pt-PT&amp;ei=RpGgTb7EGY6FtgfMy7meAw&amp;sa=X&amp;oi=book_result&amp;ct=result&amp;resnum=3&amp;ved=0CCgQ6AEwAg#v=onepage&amp;q&amp;f=false</a></span><span class="reference-accessdate">. Retrieved 2011-04-09</span>. "Every operating system includes tools to manage MBR partitions. Unfortunately, every operating system handles MBR partitions in a slightly different manner."</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.btitle=Absolute+OpenBSD%3A+Unix+for+the+practical+paranoid&amp;rft.aulast=Michael+Lucas&amp;rft.au=Michael+Lucas&amp;rft.date=2003&amp;rft.pages=p.%26nbsp%3B73&amp;rft_id=http%3A%2F%2Fbooks.google.com%2Fbooks%3Fid%3DwuUuTXMkNx8C%26pg%3DPA72%26lpg%3DPA72%26dq%3Dmbr%2Bpartition%2Bpopularity%26source%3Dbl%26ots%3DQanCnIdhMD%26sig%3D_731e1jnYlKChbxBJRu8BuuTCVY%26hl%3Dpt-PT%26ei%3DRpGgTb7EGY6FtgfMy7meAw%26sa%3DX%26oi%3Dbook_result%26ct%3Dresult%26resnum%3D3%26ved%3D0CCgQ6AEwAg%23v%3Donepage%26q%26f%3Dfalse&amp;rfr_id=info:sid/en.wikipedia.org:Master_boot_record"><span style="display: none;">&nbsp;</span></span></li>
+<li id="cite_note-6"><b><a href="#cite_ref-6">^</a></b> <span class="citation web"><a href="http://en.wikipedia.org/wiki/Andries_Brouwer" title="Andries Brouwer">Andries Brouwer</a>. <a rel="nofollow" class="external text" href="http://www.win.tue.nl/%7Eaeb/partitions/partition_types-1.html">"List of partition identifiers for PCs"</a>. <i>Partition types</i><span class="printonly">. <a rel="nofollow" class="external free" href="http://www.win.tue.nl/%7Eaeb/partitions/partition_types-1.html">http://www.win.tue.nl/~aeb/partitions/partition_types-1.html</a></span>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=bookitem&amp;rft.btitle=List+of+partition+identifiers+for+PCs&amp;rft.atitle=Partition+types&amp;rft.aulast=%5B%5BAndries+Brouwer%5D%5D&amp;rft.au=%5B%5BAndries+Brouwer%5D%5D&amp;rft_id=http%3A%2F%2Fwww.win.tue.nl%2F%7Eaeb%2Fpartitions%2Fpartition_types-1.html&amp;rfr_id=info:sid/en.wikipedia.org:Master_boot_record"><span style="display: none;">&nbsp;</span></span></li>
+<li id="cite_note-phoenix-7">^ <a href="#cite_ref-phoenix_7-0"><sup><i><b>a</b></i></sup></a> <a href="#cite_ref-phoenix_7-1"><sup><i><b>b</b></i></sup></a> <a href="#cite_ref-phoenix_7-2"><sup><i><b>c</b></i></sup></a> <span class="citation book"><i>System BIOS for IBM PC/XT/AT Computers and Compatibles</i>. <a href="http://en.wikipedia.org/wiki/Phoenix_Technologies" title="Phoenix Technologies">Phoenix</a> technical reference. <a href="http://en.wikipedia.org/wiki/Addison-Wesley" title="Addison-Wesley">Addison-Wesley</a>. 1989. <a href="http://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="http://en.wikipedia.org/wiki/Special:BookSources/0-201-51806-6" title="Special:BookSources/0-201-51806-6">0-201-51806-6</a>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.btitle=System+BIOS+for+IBM+PC%2FXT%2FAT+Computers+and+Compatibles&amp;rft.date=1989&amp;rft.series=%5B%5BPhoenix+Technologies%7CPhoenix%5D%5D+technical+reference&amp;rft.pub=%5B%5BAddison-Wesley%5D%5D&amp;rft.isbn=0-201-51806-6&amp;rfr_id=info:sid/en.wikipedia.org:Master_boot_record"><span style="display: none;">&nbsp;</span></span></li>
+<li id="cite_note-lbablocks-8"><b><a href="#cite_ref-lbablocks_8-0">^</a></b> [Microsoft (2000). <i>Microsoft Windows 2000 Server Operations Guide</i>, Microsoft Press. pp. 18.]</li>
+<li id="cite_note-9"><b><a href="#cite_ref-9">^</a></b> <span class="citation book">Roderick W. Smith (2000). <i>The Multi-Boot Configuration Handbook</i>. Que Publishing. pp.&nbsp;260–261. <a href="http://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="http://en.wikipedia.org/wiki/Special:BookSources/0789722836" title="Special:BookSources/0789722836">0789722836</a>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=book&amp;rft.btitle=The+Multi-Boot+Configuration+Handbook&amp;rft.aulast=Roderick+W.+Smith&amp;rft.au=Roderick+W.+Smith&amp;rft.date=2000&amp;rft.pages=pp.%26nbsp%3B260%26ndash%3B261&amp;rft.pub=Que+Publishing&amp;rft.isbn=0789722836&amp;rfr_id=info:sid/en.wikipedia.org:Master_boot_record"><span style="display: none;">&nbsp;</span></span></li>
+<li id="cite_note-10"><b><a href="#cite_ref-10">^</a></b> <span class="citation web">Andries Brouwer. <a rel="nofollow" class="external text" href="http://www.win.tue.nl/%7Eaeb/partitions/partition_types-2.html">"Properties of partition tables"</a>. <i>Partition types</i><span class="printonly">. <a rel="nofollow" class="external free" href="http://www.win.tue.nl/%7Eaeb/partitions/partition_types-2.html">http://www.win.tue.nl/~aeb/partitions/partition_types-2.html</a></span>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=bookitem&amp;rft.btitle=Properties+of+partition+tables&amp;rft.atitle=Partition+types&amp;rft.aulast=Andries+Brouwer&amp;rft.au=Andries+Brouwer&amp;rft_id=http%3A%2F%2Fwww.win.tue.nl%2F%7Eaeb%2Fpartitions%2Fpartition_types-2.html&amp;rfr_id=info:sid/en.wikipedia.org:Master_boot_record"><span style="display: none;">&nbsp;</span></span>. Matthias Paul: "PTS-DOS [uses] a special 5th partition entry in front of the other four entries in the MBR and corresponding AAP-aware MBR bootstrap code."</li>
+<li id="cite_note-11"><b><a href="#cite_ref-11">^</a></b> Brouwer, ibid. Some OEM systems, such as AST DOS (type <b>14</b>h) and NEC DOS (type <b>24</b>h) had 8 instead of 4 partition entries in their MBR sectors. (Matthias Paul). (NB. NEC MS-DOS 3.30 and AST MS-DOS partition tables with eight entries are preceded with a signature A55Ah at offset 17Ch.)</li>
+<li id="cite_note-12"><b><a href="#cite_ref-12">^</a></b> <span class="citation web">Daniel B. Sedory. <a rel="nofollow" class="external text" href="http://mirror.href.com/thestarman/asm/mbr/DOS33MBR.htm">"Notes on the Differences in one OEM version of the DOS 3.30 MBR"</a>. <i>Master Boot Records</i><span class="printonly">. <a rel="nofollow" class="external free" href="http://mirror.href.com/thestarman/asm/mbr/DOS33MBR.htm">http://mirror.href.com/thestarman/asm/mbr/DOS33MBR.htm</a></span>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=bookitem&amp;rft.btitle=Notes+on+the+Differences+in+one+OEM+version+of+the+DOS+3.30+MBR&amp;rft.atitle=Master+Boot+Records&amp;rft.aulast=Daniel+B.+Sedory&amp;rft.au=Daniel+B.+Sedory&amp;rft_id=http%3A%2F%2Fmirror.href.com%2Fthestarman%2Fasm%2Fmbr%2FDOS33MBR.htm&amp;rfr_id=info:sid/en.wikipedia.org:Master_boot_record"><span style="display: none;">&nbsp;</span></span> Shows an 8-entry partition table and where its boot code differs from MS-DOS 3.30: "When we added partitions to this NEC Table, the first one was placed at offsets 07EEh through 07FDh and the next entry was added just above it. So, the entries are inserted and listed backwards from that of a normal Table. Thus, looking at such a Table with a disk editor or partition listing utility, it would show the first entry in a NEC eight-entry table as being the last one (fourth entry) in a normal Partition Table."</li>
+<li id="cite_note-osdev-mbr-13">^ <a href="#cite_ref-osdev-mbr_13-0"><sup><i><b>a</b></i></sup></a> <a href="#cite_ref-osdev-mbr_13-1"><sup><i><b>b</b></i></sup></a> <span class="citation web"><a rel="nofollow" class="external text" href="http://wiki.osdev.org/MBR_%28x86%29">"MBR (x86) - OSDev Wiki"</a>. osdev.org. June 11, 2011<span class="printonly">. <a rel="nofollow" class="external free" href="http://wiki.osdev.org/MBR_%28x86%29">http://wiki.osdev.org/MBR_%28x86%29</a></span><span class="reference-accessdate">. Retrieved 2011-07-22</span>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=bookitem&amp;rft.btitle=MBR+%28x86%29+-+OSDev+Wiki&amp;rft.atitle=&amp;rft.date=June+11%2C+2011&amp;rft.pub=osdev.org&amp;rft_id=http%3A%2F%2Fwiki.osdev.org%2FMBR_%2528x86%2529&amp;rfr_id=info:sid/en.wikipedia.org:Master_boot_record"><span style="display: none;">&nbsp;</span></span></li>
+<li id="cite_note-thestarman-pcdos-mbr-14"><b><a href="#cite_ref-thestarman-pcdos-mbr_14-0">^</a></b> <span class="citation web">Daniel B. Sedory (July 30, 2003). <a rel="nofollow" class="external text" href="http://thestarman.pcministry.com/asm/mbr/200MBR.htm">"IBM DOS 2.00 Master Boot Record"</a>. The Starman's Realm<span class="printonly">. <a rel="nofollow" class="external free" href="http://thestarman.pcministry.com/asm/mbr/200MBR.htm">http://thestarman.pcministry.com/asm/mbr/200MBR.htm</a></span><span class="reference-accessdate">. Retrieved 2011-07-22</span>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=bookitem&amp;rft.btitle=IBM+DOS+2.00+Master+Boot+Record&amp;rft.atitle=&amp;rft.aulast=Daniel+B.+Sedory&amp;rft.au=Daniel+B.+Sedory&amp;rft.date=July+30%2C+2003&amp;rft.pub=The+Starman%27s+Realm&amp;rft_id=http%3A%2F%2Fthestarman.pcministry.com%2Fasm%2Fmbr%2F200MBR.htm&amp;rfr_id=info:sid/en.wikipedia.org:Master_boot_record"><span style="display: none;">&nbsp;</span></span></li>
+<li id="cite_note-osxbook-boot-15"><b><a href="#cite_ref-osxbook-boot_15-0">^</a></b> <span class="citation web">Amit Singh (December 25, 2009). <a rel="nofollow" class="external text" href="http://osxbook.com/book/bonus/ancient/whatismacosx/arch_boot.html">"Booting Mac OS X"</a>. Mac OS X Internals: The Book<span class="printonly">. <a rel="nofollow" class="external free" href="http://osxbook.com/book/bonus/ancient/whatismacosx/arch_boot.html">http://osxbook.com/book/bonus/ancient/whatismacosx/arch_boot.html</a></span><span class="reference-accessdate">. Retrieved 2011-07-22</span>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=bookitem&amp;rft.btitle=Booting+Mac+OS+X&amp;rft.atitle=&amp;rft.aulast=Amit+Singh&amp;rft.au=Amit+Singh&amp;rft.date=December+25%2C+2009&amp;rft.pub=Mac+OS+X+Internals%3A+The+Book&amp;rft_id=http%3A%2F%2Fosxbook.com%2Fbook%2Fbonus%2Fancient%2Fwhatismacosx%2Farch_boot.html&amp;rfr_id=info:sid/en.wikipedia.org:Master_boot_record"><span style="display: none;">&nbsp;</span></span></li>
+<li id="cite_note-efiboot-16"><b><a href="#cite_ref-efiboot_16-0">^</a></b> <span class="citation web">Jonathan de Boyne Pollard (July 10, 2011). <a rel="nofollow" class="external text" href="http://homepage.ntlworld.com./jonathan.deboynepollard/FGA/efi-boot-process.html">"FGA: The EFI boot process."</a>. <i>Frequently Given Answers</i>. Jonathan de Boyne Pollard<span class="printonly">. <a rel="nofollow" class="external free" href="http://homepage.ntlworld.com./jonathan.deboynepollard/FGA/efi-boot-process.html">http://homepage.ntlworld.com./jonathan.deboynepollard/FGA/efi-boot-process.html</a></span><span class="reference-accessdate">. Retrieved 2011-07-22</span>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=bookitem&amp;rft.btitle=FGA%3A+The+EFI+boot+process.&amp;rft.atitle=Frequently+Given+Answers&amp;rft.aulast=Jonathan+de+Boyne+Pollard&amp;rft.au=Jonathan+de+Boyne+Pollard&amp;rft.date=July+10%2C+2011&amp;rft.pub=Jonathan+de+Boyne+Pollard&amp;rft_id=http%3A%2F%2Fhomepage.ntlworld.com.%2Fjonathan.deboynepollard%2FFGA%2Fefi-boot-process.html&amp;rfr_id=info:sid/en.wikipedia.org:Master_boot_record"><span style="display: none;">&nbsp;</span></span></li>
+<li id="cite_note-17"><b><a href="#cite_ref-17">^</a></b> <span class="citation web">Matt Domsch. <a rel="nofollow" class="external text" href="http://lkml.org/lkml/2003/12/19/139">"Re: RFC 2.6.0 EDD enhancements"</a>. <i>Linux Kernel Mailing List</i><span class="printonly">. <a rel="nofollow" class="external free" href="http://lkml.org/lkml/2003/12/19/139">http://lkml.org/lkml/2003/12/19/139</a></span>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=bookitem&amp;rft.btitle=Re%3A+RFC+2.6.0+EDD+enhancements&amp;rft.atitle=Linux+Kernel+Mailing+List&amp;rft.aulast=Matt+Domsch&amp;rft.au=Matt+Domsch&amp;rft_id=http%3A%2F%2Flkml.org%2Flkml%2F2003%2F12%2F19%2F139&amp;rfr_id=info:sid/en.wikipedia.org:Master_boot_record"><span style="display: none;">&nbsp;</span></span></li>
+<li id="cite_note-18"><b><a href="#cite_ref-18">^</a></b> <span class="citation web">Microsoft. <a rel="nofollow" class="external text" href="http://support.microsoft.com/kb/227704">"Windows May Use Signature() Syntax in the Boot.ini File"</a>. <i>KnowledgeBase</i><span class="printonly">. <a rel="nofollow" class="external free" href="http://support.microsoft.com/kb/227704">http://support.microsoft.com/kb/227704</a></span>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=bookitem&amp;rft.btitle=Windows+May+Use+Signature%28%29+Syntax+in+the+Boot.ini+File&amp;rft.atitle=KnowledgeBase&amp;rft.aulast=Microsoft&amp;rft.au=Microsoft&amp;rft_id=http%3A%2F%2Fsupport.microsoft.com%2Fkb%2F227704&amp;rfr_id=info:sid/en.wikipedia.org:Master_boot_record"><span style="display: none;">&nbsp;</span></span></li>
+<li id="cite_note-19"><b><a href="#cite_ref-19">^</a></b> <a rel="nofollow" class="external text" href="http://www.multibooters.co.uk/mbr.html">Vista's MBR Disk Signature</a></li>
+<li id="cite_note-20"><b><a href="#cite_ref-20">^</a></b> <a rel="nofollow" class="external text" href="http://blogs.technet.com/b/markrussinovich/archive/2011/11/08/3463572.aspx">Fixing Disk Signature Collisions</a></li>
+<li id="cite_note-21"><b><a href="#cite_ref-21">^</a></b> <a rel="nofollow" class="external free" href="http://support.microsoft.com/kb/69013">http://support.microsoft.com/kb/69013</a></li>
+<li id="cite_note-22"><b><a href="#cite_ref-22">^</a></b> For example, <i>Power Quest's Partition Table Editor</i> (PTEDIT32.EXE), which runs under Windows operating systems, is still available here: <a rel="nofollow" class="external text" href="ftp://ftp.symantec.com/public/english_us_canada/tools/pq/utilities/PTEDIT32.zip">Symantec's FTP site</a>.</li>
+<li id="cite_note-23"><b><a href="#cite_ref-23">^</a></b> <span class="citation web"><a rel="nofollow" class="external text" href="http://linux.die.net/man/8/sfdisk">"sfdisk(8) - Linux man page"</a><span class="printonly">. <a rel="nofollow" class="external free" href="http://linux.die.net/man/8/sfdisk">http://linux.die.net/man/8/sfdisk</a></span>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=bookitem&amp;rft.btitle=sfdisk%288%29+-+Linux+man+page&amp;rft.atitle=&amp;rft_id=http%3A%2F%2Flinux.die.net%2Fman%2F8%2Fsfdisk&amp;rfr_id=info:sid/en.wikipedia.org:Master_boot_record"><span style="display: none;">&nbsp;</span></span></li>
+</ol>
+</div>
+<h2><span class="editsection">[<a href="http://en.wikipedia.org/w/index.php?title=Master_boot_record&amp;action=edit&amp;section=8" title="Edit section: Further reading">edit</a>]</span> <span class="mw-headline" id="Further_reading">Further reading</span></h2>
+<ul>
+<li><span class="citation web">H. Gilbert. <a rel="nofollow" class="external text" href="http://www.yale.edu/pclt/BOOT/PARTITIO.HTM">"Partitions and Volumes"</a>. <i>PC Lube &amp; Tune</i><span class="printonly">. <a rel="nofollow" class="external free" href="http://www.yale.edu/pclt/BOOT/PARTITIO.HTM">http://www.yale.edu/pclt/BOOT/PARTITIO.HTM</a></span>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=bookitem&amp;rft.btitle=Partitions+and+Volumes&amp;rft.atitle=PC+Lube+%26+Tune&amp;rft.aulast=H.+Gilbert&amp;rft.au=H.+Gilbert&amp;rft_id=http%3A%2F%2Fwww.yale.edu%2Fpclt%2FBOOT%2FPARTITIO.HTM&amp;rfr_id=info:sid/en.wikipedia.org:Master_boot_record"><span style="display: none;">&nbsp;</span></span></li>
+<li><span class="citation web">Ray Knights. <a rel="nofollow" class="external text" href="http://www.rayknights.org/pc_boot/pc_boot.htm">"Ray's Place"</a>. <i>MBR and Windows Boot Sectors (includes code disassembly and explanations of boot process)</i><span class="printonly">. <a rel="nofollow" class="external free" href="http://www.rayknights.org/pc_boot/pc_boot.htm">http://www.rayknights.org/pc_boot/pc_boot.htm</a></span>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=bookitem&amp;rft.btitle=Ray%27s+Place&amp;rft.atitle=MBR+and+Windows+Boot+Sectors+%28includes+code+disassembly+and+explanations+of+boot+process%29&amp;rft.aulast=Ray+Knights&amp;rft.au=Ray+Knights&amp;rft_id=http%3A%2F%2Fwww.rayknights.org%2Fpc_boot%2Fpc_boot.htm&amp;rfr_id=info:sid/en.wikipedia.org:Master_boot_record"><span style="display: none;">&nbsp;</span></span></li>
+<li><span class="citation web">Hale Landis. <a rel="nofollow" class="external text" href="http://www.ata-atapi.com/hiwmbr.html">"Master Boot Record"</a>. <i>How It Works</i><span class="printonly">. <a rel="nofollow" class="external free" href="http://www.ata-atapi.com/hiwmbr.html">http://www.ata-atapi.com/hiwmbr.html</a></span>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=bookitem&amp;rft.btitle=Master+Boot+Record&amp;rft.atitle=How+It+Works&amp;rft.aulast=Hale+Landis&amp;rft.au=Hale+Landis&amp;rft_id=http%3A%2F%2Fwww.ata-atapi.com%2Fhiwmbr.html&amp;rfr_id=info:sid/en.wikipedia.org:Master_boot_record"><span style="display: none;">&nbsp;</span></span></li>
+<li><span class="citation web">Daniel B. Sedory. <a rel="nofollow" class="external text" href="http://thestarman.pcministry.com/asm/mbr/index.html">"MBRs (Master Boot Records)"</a>. <i>Boot Records Revealed!</i><span class="printonly">. <a rel="nofollow" class="external free" href="http://thestarman.pcministry.com/asm/mbr/index.html">http://thestarman.pcministry.com/asm/mbr/index.html</a></span>.</span><span class="Z3988" title="ctx_ver=Z39.88-2004&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=bookitem&amp;rft.btitle=MBRs+%28Master+Boot+Records%29&amp;rft.atitle=Boot+Records+Revealed%21&amp;rft.aulast=Daniel+B.+Sedory&amp;rft.au=Daniel+B.+Sedory&amp;rft_id=http%3A%2F%2Fthestarman.pcministry.com%2Fasm%2Fmbr%2Findex.html&amp;rfr_id=info:sid/en.wikipedia.org:Master_boot_record"><span style="display: none;">&nbsp;</span></span> <a rel="nofollow" class="external text" href="http://mirror.href.com/thestarman/asm/mbr/index.html">(Mirror site)</a> <a rel="nofollow" class="external text" href="http://thestarman.narod.ru/asm/mbr/index.html">(Another mirror)</a></li>
+</ul>
+<h2><span class="editsection">[<a href="http://en.wikipedia.org/w/index.php?title=Master_boot_record&amp;action=edit&amp;section=9" title="Edit section: External links">edit</a>]</span> <span class="mw-headline" id="External_links">External links</span></h2>
+<ul>
+<li><a rel="nofollow" class="external text" href="http://wiki.osdev.org/MBR_%28x86%29">Article on Master Boot Record</a></li>
+</ul>
+
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 16494/1000000
+Post-expand include size: 93199/2048000 bytes
+Template argument size: 33075/2048000 bytes
+Expensive parser function count: 5/500
+-->
+
+<!-- Saved in parser cache with key enwiki:pcache:idhash:24782330-0!*!0!!en!4!* and timestamp 20120107131745 generated by srv261 -->
+</div>				<!-- /bodycontent -->
+								<!-- printfooter -->
+				<div class="printfooter">
+				Retrieved from "<a href="http://en.wikipedia.org/w/index.php?title=Master_boot_record&amp;oldid=469853100">http://en.wikipedia.org/w/index.php?title=Master_boot_record&amp;oldid=469853100</a>"				</div>
+				<!-- /printfooter -->
+												<!-- catlinks -->
+				<div class="articleFeedback" id="mw-articlefeedback"><div class="articleFeedback-panel">	<div class="articleFeedback-buffer articleFeedback-ui">		<div class="articleFeedback-switch articleFeedback-switch-report articleFeedback-visibleWith-form" rel="report">View page ratings</div>		<div style="display: none;" class="articleFeedback-switch articleFeedback-switch-form articleFeedback-visibleWith-report" rel="form">Rate this page</div>		<div class="articleFeedback-title articleFeedback-visibleWith-form">Rate this page</div>		<div style="display: none;" class="articleFeedback-title articleFeedback-visibleWith-report">Page ratings</div>		<div class="articleFeedback-explanation articleFeedback-visibleWith-form"><a href="http://en.wikipedia.org/wiki/Wikipedia:Article%20Feedback%20Tool" class="articleFeedback-explanation-link">What's this?</a></div>		<div style="display: none;" class="articleFeedback-description articleFeedback-visibleWith-report">Current average ratings.</div>		<div style="clear: both;"></div>		<div class="articleFeedback-ratings"><div rel="trustworthy" class="articleFeedback-rating">	<div original-title="Do you feel this page has sufficient citations and that those citations come from trustworthy sources?" class="articleFeedback-label">Trustworthy</div>	<input name="r1" type="hidden">	<div class="articleFeedback-rating-labels articleFeedback-visibleWith-form">		<div class="articleFeedback-rating-label" rel="1"></div>		<div class="articleFeedback-rating-label" rel="2"></div>		<div class="articleFeedback-rating-label" rel="3"></div>		<div class="articleFeedback-rating-label" rel="4"></div>		<div class="articleFeedback-rating-label" rel="5"></div>		<div original-title="Remove this rating" class="articleFeedback-rating-clear"></div>	</div>	<div class="articleFeedback-visibleWith-form">		<div class="articleFeedback-rating-tooltip"></div>	</div>	<div style="display: none;" class="articleFeedback-rating-average articleFeedback-visibleWith-report"></div>	<div style="display: none;" class="articleFeedback-rating-meter articleFeedback-visibleWith-report"><div></div></div>	<div style="display: none;" class="articleFeedback-rating-count articleFeedback-visibleWith-report"></div>	<div style="clear: both;"></div></div><div rel="objective" class="articleFeedback-rating">	<div original-title="Do you feel that this page shows a fair representation of all perspectives on the issue?" class="articleFeedback-label">Objective</div>	<input name="r2" type="hidden">	<div class="articleFeedback-rating-labels articleFeedback-visibleWith-form">		<div class="articleFeedback-rating-label" rel="1"></div>		<div class="articleFeedback-rating-label" rel="2"></div>		<div class="articleFeedback-rating-label" rel="3"></div>		<div class="articleFeedback-rating-label" rel="4"></div>		<div class="articleFeedback-rating-label" rel="5"></div>		<div original-title="Remove this rating" class="articleFeedback-rating-clear"></div>	</div>	<div class="articleFeedback-visibleWith-form">		<div class="articleFeedback-rating-tooltip"></div>	</div>	<div style="display: none;" class="articleFeedback-rating-average articleFeedback-visibleWith-report"></div>	<div style="display: none;" class="articleFeedback-rating-meter articleFeedback-visibleWith-report"><div></div></div>	<div style="display: none;" class="articleFeedback-rating-count articleFeedback-visibleWith-report"></div>	<div style="clear: both;"></div></div><div rel="complete" class="articleFeedback-rating">	<div original-title="Do you feel that this page covers the essential topic areas that it should?" class="articleFeedback-label">Complete</div>	<input name="r3" type="hidden">	<div class="articleFeedback-rating-labels articleFeedback-visibleWith-form">		<div class="articleFeedback-rating-label" rel="1"></div>		<div class="articleFeedback-rating-label" rel="2"></div>		<div class="articleFeedback-rating-label" rel="3"></div>		<div class="articleFeedback-rating-label" rel="4"></div>		<div class="articleFeedback-rating-label" rel="5"></div>		<div original-title="Remove this rating" class="articleFeedback-rating-clear"></div>	</div>	<div class="articleFeedback-visibleWith-form">		<div class="articleFeedback-rating-tooltip"></div>	</div>	<div style="display: none;" class="articleFeedback-rating-average articleFeedback-visibleWith-report"></div>	<div style="display: none;" class="articleFeedback-rating-meter articleFeedback-visibleWith-report"><div></div></div>	<div style="display: none;" class="articleFeedback-rating-count articleFeedback-visibleWith-report"></div>	<div style="clear: both;"></div></div><div rel="wellwritten" class="articleFeedback-rating">	<div original-title="Do you feel that this page is well-organized and well-written?" class="articleFeedback-label">Well-written</div>	<input name="r4" type="hidden">	<div class="articleFeedback-rating-labels articleFeedback-visibleWith-form">		<div class="articleFeedback-rating-label" rel="1"></div>		<div class="articleFeedback-rating-label" rel="2"></div>		<div class="articleFeedback-rating-label" rel="3"></div>		<div class="articleFeedback-rating-label" rel="4"></div>		<div class="articleFeedback-rating-label" rel="5"></div>		<div original-title="Remove this rating" class="articleFeedback-rating-clear"></div>	</div>	<div class="articleFeedback-visibleWith-form">		<div class="articleFeedback-rating-tooltip"></div>	</div>	<div style="display: none;" class="articleFeedback-rating-average articleFeedback-visibleWith-report"></div>	<div style="display: none;" class="articleFeedback-rating-meter articleFeedback-visibleWith-report"><div></div></div>	<div style="display: none;" class="articleFeedback-rating-count articleFeedback-visibleWith-report"></div>	<div style="clear: both;"></div></div></div>		<div style="clear: both;"></div>		<div class="articleFeedback-options">			<div class="articleFeedback-expertise articleFeedback-visibleWith-form">				<input id="articleFeedback-expertise-general" value="general" disabled="disabled" type="checkbox"><label for="articleFeedback-expertise-general" class="articleFeedback-expertise-disabled">I am highly knowledgeable about this topic (optional)</label>				<div class="articleFeedback-expertise-options">					<div><input id="articleFeedback-expertise-studies" value="studies" type="checkbox"><label for="articleFeedback-expertise-studies">I have a relevant college/university degree</label></div>					<div><input id="articleFeedback-expertise-profession" value="profession" type="checkbox"><label for="articleFeedback-expertise-profession">It is part of my profession</label></div>					<div><input id="articleFeedback-expertise-hobby" value="hobby" type="checkbox"><label for="articleFeedback-expertise-hobby">It is a deep personal passion</label></div>					<div><input id="articleFeedback-expertise-other" value="other" type="checkbox"><label for="articleFeedback-expertise-other">The source of my knowledge is not listed here</label></div>					<div class="articleFeedback-helpimprove">						<input id="articleFeedback-expertise-helpimprove-email" value="helpimprove-email" type="checkbox">						<label for="articleFeedback-expertise-helpimprove-email">I would like to help improve Wikipedia, send me an e-mail (optional)</label>						<input value="" placeholder="email@example.org" class="articleFeedback-helpimprove-email" type="text">						<div class="articleFeedback-helpimprove-note">We will send you a confirmation e-mail. We will not share your e-mail address with outside parties as per our <a href="http://wikimediafoundation.org/wiki/Feedback_privacy_statement">feedback privacy statement</a>.</div>					</div>				</div>			</div>			<div style="clear: both;"></div>		</div>		<button aria-disabled="true" role="button" class="articleFeedback-submit articleFeedback-visibleWith-form ui-button ui-widget ui-state-default ui-corner-all ui-button-disabled ui-state-disabled ui-button-text-only ui-button-blue" type="submit" disabled="disabled"><span class="ui-button-text">Submit ratings</span></button>		<div class="articleFeedback-success articleFeedback-visibleWith-form"><span>Saved successfully</span></div>		<div class="articleFeedback-pending articleFeedback-visibleWith-form"><span>Your ratings have not been submitted yet</span></div>		<div style="clear: both;"></div>		<div class="articleFeedback-notices articleFeedback-visibleWith-form">			<div class="articleFeedback-expiry">				<div class="articleFeedback-expiry-title">Your ratings have expired</div>				<div class="articleFeedback-expiry-message">Please reevaluate this page and submit new ratings.</div>			</div>		</div>	</div>	<div class="articleFeedback-error"><div class="articleFeedback-error-message">An error has occured. Please try again later.</div></div>	<div class="articleFeedback-pitches"><div rel="survey" class="articleFeedback-pitch">	<div class="articleFeedback-buffer">		<div class="articleFeedback-title">Thanks! Your ratings have been saved.</div>		<div class="articleFeedback-pop">			<div class="articleFeedback-message">Please take a moment to complete a short survey.</div>			<div class="articleFeedback-body"></div>			<button role="button" class="articleFeedback-accept ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-button-green"><span class="ui-button-text">Start survey</span></button>			<button class="articleFeedback-reject">Maybe later</button>		</div>	</div></div><div rel="join" class="articleFeedback-pitch">	<div class="articleFeedback-buffer">		<div class="articleFeedback-title">Thanks! Your ratings have been saved.</div>		<div class="articleFeedback-pop">			<div class="articleFeedback-message">Do you want to create an account?</div>			<div class="articleFeedback-body">An account will help you track your edits, get involved in discussions, and be a part of the community.</div>			<button role="button" class="articleFeedback-accept ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-button-green"><span class="ui-button-text">Create an account</span></button><span class="articleFeedback-pitch-or">or</span><button role="button" class="articleFeedback-altAccept ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-button-green"><span class="ui-button-text">Log in</span></button>			<button class="articleFeedback-reject">Maybe later</button>		</div>	</div></div><div rel="edit" class="articleFeedback-pitch">	<div class="articleFeedback-buffer">		<div class="articleFeedback-title">Thanks! Your ratings have been saved.</div>		<div class="articleFeedback-pop">			<div class="articleFeedback-message">Did you know that you can edit this page?</div>			<div class="articleFeedback-body"></div>			<button role="button" class="articleFeedback-accept ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-button-green"><span class="ui-button-text">Edit this page</span></button>			<button class="articleFeedback-reject">Maybe later</button>		</div>	</div></div></div>	<div style="clear: both;"></div></div><div class="articleFeedback-lock"></div>		</div><div id="catlinks" class="catlinks"><div id="mw-normal-catlinks"><a href="http://en.wikipedia.org/wiki/Special:Categories" title="Special:Categories">Categories</a>: <ul><li><a href="http://en.wikipedia.org/wiki/Category:BIOS" title="Category:BIOS">BIOS</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Booting" title="Category:Booting">Booting</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-cats-hidden">Hidden categories: <ul><li><a href="http://en.wikipedia.org/wiki/Category:Articles_to_be_merged_from_December_2011" title="Category:Articles to be merged from December 2011">Articles to be merged from December 2011</a></li><li><a href="http://en.wikipedia.org/wiki/Category:All_articles_to_be_merged" title="Category:All articles to be merged">All articles to be merged</a></li><li><a href="http://en.wikipedia.org/wiki/Category:All_articles_with_unsourced_statements" title="Category:All articles with unsourced statements">All articles with unsourced statements</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Articles_with_unsourced_statements_from_October_2011" title="Category:Articles with unsourced statements from October 2011">Articles with unsourced statements from October 2011</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Articles_with_unsourced_statements_from_November_2010" title="Category:Articles with unsourced statements from November 2010">Articles with unsourced statements from November 2010</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Articles_with_unsourced_statements_from_May_2011" title="Category:Articles with unsourced statements from May 2011">Articles with unsourced statements from May 2011</a></li><li><a href="http://en.wikipedia.org/wiki/Category:Articles_with_unsourced_statements_from_June_2011" title="Category:Articles with unsourced statements from June 2011">Articles with unsourced statements from June 2011</a></li></ul></div></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+				<!-- debughtml -->
+								<!-- /debughtml -->
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Personal tools</h5>
+	<ul>
+		<li id="pt-login"><a href="http://en.wikipedia.org/w/index.php?title=Special:UserLogin&amp;returnto=Master+boot+record&amp;campaign=ACP1" title="You are encouraged to log in; however, it is not mandatory. [alt-shift-o]" accesskey="o">Log in / create account</a></li>
+	</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Namespaces</h5>
+	<ul>
+					<li id="ca-nstab-main" class="selected"><span><a href="http://en.wikipedia.org/wiki/Master_boot_record" title="View the content page [alt-shift-c]" accesskey="c">Article</a></span></li>
+					<li id="ca-talk"><span><a href="http://en.wikipedia.org/wiki/Talk:Master_boot_record" title="Discussion about the content page [alt-shift-t]" accesskey="t">Talk</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Variants</span><a href="#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Views</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="http://en.wikipedia.org/wiki/Master_boot_record">Read</a></span></li>
+					<li id="ca-edit"><span><a href="http://en.wikipedia.org/w/index.php?title=Master_boot_record&amp;action=edit" title="You can edit this page. 
+Please use the preview button before saving. [alt-shift-e]" accesskey="e">Edit</a></span></li>
+					<li id="ca-history" class="collapsible"><span><a href="http://en.wikipedia.org/w/index.php?title=Master_boot_record&amp;action=history" title="Past versions of this page [alt-shift-h]" accesskey="h">View history</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Actions</span><a href="#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Search</label></h5>
+	<form action="http://en.wikipedia.org/w/index.php" id="searchform">
+		<input name="title" value="Special:Search" type="hidden">
+				<div id="simpleSearch">
+						<input autocomplete="off" placeholder="Search" tabindex="1" name="search" value="" title="Search Wikipedia [alt-shift-f]" accesskey="f" id="searchInput" type="text">						<button type="submit" name="button" title="Search Wikipedia for this text" id="searchButton"><img src="search-ltr.png" alt="Search"></button>					</div>
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint collapsible-nav">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url('wiki.png');" href="http://en.wikipedia.org/wiki/Main_Page" title="Visit the main page"></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal first persistent" id="p-navigation">
+	<h5>Navigation</h5>
+	<div class="body">
+		<ul>
+			<li id="n-mainpage-description"><a href="http://en.wikipedia.org/wiki/Main_Page" title="Visit the main page [alt-shift-z]" accesskey="z">Main page</a></li>
+			<li id="n-contents"><a href="http://en.wikipedia.org/wiki/Portal:Contents" title="Guides to browsing Wikipedia">Contents</a></li>
+			<li id="n-featuredcontent"><a href="http://en.wikipedia.org/wiki/Portal:Featured_content" title="Featured content – the best of Wikipedia">Featured content</a></li>
+			<li id="n-currentevents"><a href="http://en.wikipedia.org/wiki/Portal:Current_events" title="Find background information on current events">Current events</a></li>
+			<li id="n-randompage"><a href="http://en.wikipedia.org/wiki/Special:Random" title="Load a random article [alt-shift-x]" accesskey="x">Random article</a></li>
+			<li id="n-sitesupport"><a href="http://wikimediafoundation.org/wiki/Special:Landingcheck?landing_page=WMFJA085&amp;language=en&amp;utm_source=donate&amp;utm_medium=sidebar&amp;utm_campaign=20101204SB002" title="Support us">Donate to Wikipedia</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- interaction -->
+<div class="portal expanded" id="p-interaction">
+	<h5 tabindex="2">Interaction</h5>
+	<div style="display: block;" class="body">
+		<ul>
+			<li id="n-help"><a href="http://en.wikipedia.org/wiki/Help:Contents" title="Guidance on how to use and edit Wikipedia">Help</a></li>
+			<li id="n-aboutsite"><a href="http://en.wikipedia.org/wiki/Wikipedia:About" title="Find out about Wikipedia">About Wikipedia</a></li>
+			<li id="n-portal"><a href="http://en.wikipedia.org/wiki/Wikipedia:Community_portal" title="About the project, what you can do, where to find things">Community portal</a></li>
+			<li id="n-recentchanges"><a href="http://en.wikipedia.org/wiki/Special:RecentChanges" title="A list of recent changes in the wiki [alt-shift-r]" accesskey="r">Recent changes</a></li>
+			<li id="n-contact"><a href="http://en.wikipedia.org/wiki/Wikipedia:Contact_us" title="How to contact Wikipedia">Contact Wikipedia</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /interaction -->
+
+<!-- TOOLBOX -->
+<div class="portal collapsed" id="p-tb">
+	<h5 tabindex="3">Toolbox</h5>
+	<div class="body">
+		<ul>
+			<li id="t-whatlinkshere"><a href="http://en.wikipedia.org/wiki/Special:WhatLinksHere/Master_boot_record" title="List of all English Wikipedia pages containing links to this page [alt-shift-j]" accesskey="j">What links here</a></li>
+			<li id="t-recentchangeslinked"><a href="http://en.wikipedia.org/wiki/Special:RecentChangesLinked/Master_boot_record" title="Recent changes in pages linked from this page [alt-shift-k]" accesskey="k">Related changes</a></li>
+			<li id="t-upload"><a href="http://en.wikipedia.org/wiki/Wikipedia:Upload" title="Upload files [alt-shift-u]" accesskey="u">Upload file</a></li>
+			<li id="t-specialpages"><a href="http://en.wikipedia.org/wiki/Special:SpecialPages" title="A list of all special pages [alt-shift-q]" accesskey="q">Special pages</a></li>
+			<li id="t-permalink"><a href="http://en.wikipedia.org/w/index.php?title=Master_boot_record&amp;oldid=469853100" title="Permanent link to this revision of the page">Permanent link</a></li>
+<li id="t-cite"><a href="http://en.wikipedia.org/w/index.php?title=Special:Cite&amp;page=Master_boot_record&amp;id=469853100" title="Information on how to cite this page">Cite this page</a></li>		<li id="t-articlefeedback"><a href="#mw-articlefeedback">Rate this page</a></li></ul>
+	</div>
+</div>
+
+<!-- /TOOLBOX -->
+
+<!-- coll-print_export -->
+<div class="portal collapsed" id="p-coll-print_export">
+	<h5 tabindex="4">Print/export</h5>
+	<div class="body">
+		<ul id="collectionPortletList"><li id="coll-create_a_book"><a href="http://en.wikipedia.org/w/index.php?title=Special:Book&amp;bookcmd=book_creator&amp;referer=Master+boot+record" title="Create a book or page collection" rel="nofollow">Create a book</a></li><li id="coll-download-as-rl"><a href="http://en.wikipedia.org/w/index.php?title=Special:Book&amp;bookcmd=render_article&amp;arttitle=Master+boot+record&amp;oldid=469853100&amp;writer=rl" title="Download a PDF version of this wiki page" rel="nofollow">Download as PDF</a></li><li id="t-print"><a href="http://en.wikipedia.org/w/index.php?title=Master_boot_record&amp;printable=yes" title="Printable version of this page [alt-shift-p]" accesskey="p">Printable version</a></li></ul>	</div>
+</div>
+
+<!-- /coll-print_export -->
+
+<!-- LANGUAGES -->
+<div class="portal expanded" id="p-lang">
+	<h5 tabindex="5">Languages</h5>
+	<div style="display: block;" class="body">
+		<ul>
+			<li class="interwiki-bg"><a href="http://bg.wikipedia.org/wiki/%D0%A1%D0%B5%D0%BA%D1%82%D0%BE%D1%80_%D0%B7%D0%B0_%D0%BD%D0%B0%D1%87%D0%B0%D0%BB%D0%BD%D0%BE_%D0%B7%D0%B0%D1%80%D0%B5%D0%B6%D0%B4%D0%B0%D0%BD%D0%B5">Български</a></li>
+			<li class="interwiki-ca"><a href="http://ca.wikipedia.org/wiki/Master_boot_record">Català</a></li>
+			<li class="interwiki-cs"><a href="http://cs.wikipedia.org/wiki/Master_boot_record">Česky</a></li>
+			<li class="interwiki-da"><a href="http://da.wikipedia.org/wiki/Master_boot_record">Dansk</a></li>
+			<li class="interwiki-de"><a href="http://de.wikipedia.org/wiki/Master_Boot_Record">Deutsch</a></li>
+			<li class="interwiki-es"><a href="http://es.wikipedia.org/wiki/Master_boot_record">Español</a></li>
+			<li class="interwiki-eu"><a href="http://eu.wikipedia.org/wiki/MBR">Euskara</a></li>
+			<li class="interwiki-fa"><a href="http://fa.wikipedia.org/wiki/%D8%B1%DA%A9%D9%88%D8%B1%D8%AF_%D8%B1%D8%A7%D9%87_%D8%A7%D9%86%D8%AF%D8%A7%D8%B2_%D8%A7%D8%B5%D9%84%DB%8C">فارسی</a></li>
+			<li class="interwiki-fr"><a href="http://fr.wikipedia.org/wiki/Master_boot_record">Français</a></li>
+			<li class="interwiki-ko"><a href="http://ko.wikipedia.org/wiki/%EB%A7%88%EC%8A%A4%ED%84%B0_%EB%B6%80%ED%8A%B8_%EB%A0%88%EC%BD%94%EB%93%9C">한국어</a></li>
+			<li class="interwiki-id"><a href="http://id.wikipedia.org/wiki/Master_boot_record">Bahasa Indonesia</a></li>
+			<li class="interwiki-it"><a href="http://it.wikipedia.org/wiki/Master_boot_record">Italiano</a></li>
+			<li class="interwiki-he"><a href="http://he.wikipedia.org/wiki/Master_boot_record">עברית</a></li>
+			<li class="interwiki-hu"><a href="http://hu.wikipedia.org/wiki/Master_Boot_Record">Magyar</a></li>
+			<li class="interwiki-nl"><a href="http://nl.wikipedia.org/wiki/Master_boot_record">Nederlands</a></li>
+			<li class="interwiki-ja"><a href="http://ja.wikipedia.org/wiki/%E3%83%9E%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%96%E3%83%BC%E3%83%88%E3%83%AC%E3%82%B3%E3%83%BC%E3%83%89">日本語</a></li>
+			<li class="interwiki-no"><a href="http://no.wikipedia.org/wiki/Master_boot_record">‪Norsk (bokmål)‬</a></li>
+			<li class="interwiki-pl"><a href="http://pl.wikipedia.org/wiki/Master_Boot_Record">Polski</a></li>
+			<li class="interwiki-pt"><a href="http://pt.wikipedia.org/wiki/Master_Boot_Record">Português</a></li>
+			<li class="interwiki-ru"><a href="http://ru.wikipedia.org/wiki/%D0%93%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F_%D0%B7%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BE%D1%87%D0%BD%D0%B0%D1%8F_%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D1%8C">Русский</a></li>
+			<li class="interwiki-sv"><a href="http://sv.wikipedia.org/wiki/Master_Boot_Record">Svenska</a></li>
+			<li class="interwiki-uk"><a href="http://uk.wikipedia.org/wiki/%D0%93%D0%BE%D0%BB%D0%BE%D0%B2%D0%BD%D0%B8%D0%B9_%D0%B7%D0%B0%D0%B2%D0%B0%D0%BD%D1%82%D0%B0%D0%B6%D1%83%D0%B2%D0%B0%D0%BB%D1%8C%D0%BD%D0%B8%D0%B9_%D0%B7%D0%B0%D0%BF%D0%B8%D1%81">Українська</a></li>
+			<li class="interwiki-vi"><a href="http://vi.wikipedia.org/wiki/Boot_record">Tiếng Việt</a></li>
+			<li class="interwiki-zh"><a href="http://zh.wikipedia.org/wiki/%E4%B8%BB%E5%BC%95%E5%AF%BC%E8%AE%B0%E5%BD%95">中文</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- /LANGUAGES -->
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last modified on 6 January 2012 at 05:34.<br></li>
+											<li id="footer-info-copyright">Text is available under the <a rel="license" href="http://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License">Creative Commons Attribution-ShareAlike License</a><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/" style="display: none;"></a>;
+additional terms may apply.
+See <a href="http://wikimediafoundation.org/wiki/Terms_of_use">Terms of use</a> for details.<br>
+Wikipedia® is a registered trademark of the <a href="http://www.wikimediafoundation.org/">Wikimedia Foundation, Inc.</a>, a non-profit organization.<br></li><li class="noprint"><a class="internal" href="http://en.wikipedia.org/wiki/Wikipedia:Contact_us">Contact us</a></li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="http://wikimediafoundation.org/wiki/Privacy_policy" title="wikimedia:Privacy policy">Privacy policy</a></li>
+											<li id="footer-places-about"><a href="http://en.wikipedia.org/wiki/Wikipedia:About" title="Wikipedia:About">About Wikipedia</a></li>
+											<li id="footer-places-disclaimer"><a href="http://en.wikipedia.org/wiki/Wikipedia:General_disclaimer" title="Wikipedia:General disclaimer">Disclaimers</a></li>
+											<li id="footer-places-mobileview"><a href="http://en.wikipedia.org/w/index.php?title=Master_boot_record&amp;useformat=mobile" class="noprint">Mobile view</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+					<li id="footer-copyrightico">
+						<a href="http://wikimediafoundation.org/"><img src="wikimedia-button.png" alt="Wikimedia Foundation" height="31" width="88"></a>
+					</li>
+					<li id="footer-poweredbyico">
+						<a href="http://www.mediawiki.org/"><img src="poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" height="31" width="88"></a>
+					</li>
+				</ul>
+						<div style="clear: both;"></div>
+		</div>
+		<!-- /footer -->
+		<!-- fixalpha -->
+		
+		<!-- /fixalpha -->
+		
+
+
+
+<!-- Served by srv196 in 0.064 secs. -->
+	
+
+<div class="suggestions" style="top: 72px; width: 204px; display: none; left: auto; right: 29px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div></body>
+</html>

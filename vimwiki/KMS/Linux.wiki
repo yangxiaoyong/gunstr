@@ -1,0 +1,84 @@
+[[Bash]]
+[[LVM HOWTO]]
+[[FAQ]]
+
+PS
+==
+输出长格式的进程信息
+{{{
+ # ps -Al
+}}}
+
+打开更多的模式（将会显示传递给进程的参数）
+{{{
+ # ps -AlF
+}}}
+
+查看线程 （LWP 和 NLWP）
+{{{
+ # ps -AlFH
+}}}
+
+查看进程下的线程
+{{{
+ # ps -ALlm
+}}}
+
+打印在服务器上运行的所有进程信息
+{{{
+ # ps ax
+ # ps axu
+}}}
+
+打印一个进程树
+{{{
+ # ps -ejH
+ # ps axjf
+ # pstree
+}}}
+
+打印安全信息
+{{{
+ # ps -eo euser,ruser,suser,fuser,f,comm,label
+ # ps axZ
+ # ps -eM
+}}}
+
+查看用户apps运行的所有进程
+{{{
+ # ps -U apps -u apps u
+}}}
+
+自定义输出
+{{{
+ # ps -eo pid,tid,class,rtprio,ni,pri,psr,pcpu,stat,wchan:14,comm
+ # ps axo stat,euid,ruid,tty,tpgid,sess,pgrp,ppid,pid,pcpu,comm
+ # ps -eopid,tt,user,fname,tmout,f,wchan
+}}}
+
+只查看Lighthttpd的进程ID
+{{{
+ # ps -C lighttpd -o pid=
+}}}
+或者
+{{{
+ # pgrep lighttpd
+ # pgrep -u apps lighttpd
+}}}
+
+显示PID是 55977 的进程名
+{{{
+ # ps -p 55977 -o comm=
+}}}
+
+找出消耗内存最大的前10个进程
+{{{
+ # ps -auxf | sort -nr -k 4 | head -10
+}}}
+
+找出消耗CPU最大的前10个进程
+{{{
+ # ps -auxf | sort -nr -k 3 | head -10
+}}}
+
+

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="../../sitemap.xsl" type="text/xsl" media="all"?>
+<site>
+<page file="index.html" text="Tornado Documentation — Tornado v2.1.1 documentation" title="Tornado Documentation — Tornado v2.1.1 documentation">
+<page file="genindex.html" text="index" title="Index — Tornado v2.1.1 documentation"/>
+<page file="py-modindex.html" text="modules" title="Python Module Index — Tornado v2.1.1 documentation"/>
+<page file="overview.html" text="next" title="Overview — Tornado v2.1.1 documentation"/>
+<page file="webframework.html" text="Core web framework" title="Core web framework — Tornado v2.1.1 documentation"/>
+<page file="web.html" text="tornado.web — RequestHandler and Application classes" title="tornado.web — RequestHandler and Application classes — Tornado v2.1.1 documentation"/>
+<page file="httpserver.html" text="tornado.httpserver — Non-blocking HTTP server" title="tornado.httpserver — Non-blocking HTTP server — Tornado v2.1.1 documentation"/>
+<page file="template.html" text="tornado.template — Flexible output generation" title="tornado.template — Flexible output generation — Tornado v2.1.1 documentation"/>
+<page file="escape.html" text="tornado.escape — Escaping and string manipulation" title="tornado.escape — Escaping and string manipulation — Tornado v2.1.1 documentation"/>
+<page file="locale.html" text="tornado.locale — Internationalization support" title="tornado.locale — Internationalization support — Tornado v2.1.1 documentation"/>
+<page file="networking.html" text="Asynchronous networking" title="Asynchronous networking — Tornado v2.1.1 documentation"/>
+<page file="ioloop.html" text="tornado.ioloop — Main event loop" title="tornado.ioloop — Main event loop — Tornado v2.1.1 documentation"/>
+<page file="iostream.html" text="tornado.iostream — Convenient wrappers for non-blocking sockets" title="tornado.iostream — Convenient wrappers for non-blocking sockets — Tornado v2.1.1 documentation"/>
+<page file="httpclient.html" text="tornado.httpclient — Non-blocking HTTP client" title="tornado.httpclient — Non-blocking HTTP client — Tornado v2.1.1 documentation"/>
+<page file="netutil.html" text="tornado.netutil — Miscellaneous network utilities" title="tornado.netutil — Miscellaneous network utilities — Tornado v2.1.1 documentation"/>
+<page file="integration.html" text="Integration with other services" title="Integration with other services — Tornado v2.1.1 documentation"/>
+<page file="auth.html" text="tornado.auth — Third-party login with OpenID and OAuth" title="tornado.auth — Third-party login with OpenID and OAuth — Tornado v2.1.1 documentation"/>
+<page file="database.html" text="tornado.database — Simple MySQL client wrapper" title="tornado.database — Simple MySQL client wrapper — Tornado v2.1.1 documentation"/>
+<page file="twisted.html" text="tornado.platform.twisted — Run code written for Twisted on Tornado" title="tornado.platform.twisted — Run code written for Twisted on Tornado — Tornado v2.1.1 documentation"/>
+<page file="websocket.html" text="tornado.websocket — Bidirectional communication to the browser" title="tornado.websocket — Bidirectional communication to the browser — Tornado v2.1.1 documentation"/>
+<page file="wsgi.html" text="tornado.wsgi — Interoperability with other Python frameworks and servers" title="tornado.wsgi — Interoperability with other Python frameworks and servers — Tornado v2.1.1 documentation"/>
+<page file="utilities.html" text="Utilities" title="Utilities — Tornado v2.1.1 documentation"/>
+<page file="autoreload.html" text="tornado.autoreload — Automatically detect code changes in development" title="tornado.autoreload — Automatically detect code changes in development — Tornado v2.1.1 documentation"/>
+<page file="gen.html" text="tornado.gen — Simplify asynchronous code" title="tornado.gen — Simplify asynchronous code — Tornado v2.1.1 documentation"/>
+<page file="httputil.html" text="tornado.httputil — Manipulate HTTP headers and URLs" title="tornado.httputil — Manipulate HTTP headers and URLs — Tornado v2.1.1 documentation"/>
+<page file="options.html" text="tornado.options — Command-line parsing" title="tornado.options — Command-line parsing — Tornado v2.1.1 documentation"/>
+<page file="process.html" text="tornado.process — Utilities for multiple processes" title="tornado.process — Utilities for multiple processes — Tornado v2.1.1 documentation"/>
+<page file="stack_context.html" text="tornado.stack_context — Exception handling across asynchronous callbacks" title="tornado.stack_context — Exception handling across asynchronous callbacks — Tornado v2.1.1 documentation"/>
+<page file="testing.html" text="tornado.testing — Unit testing support for asynchronous code" title="tornado.testing — Unit testing support for asynchronous code — Tornado v2.1.1 documentation"/>
+<page file="releases.html" text="Release notes" title="Release notes — Tornado v2.1.1 documentation"/>
+<page file="v2.1.1.html" text="What’s new in Tornado 2.1.1" title="What’s new in Tornado 2.1.1 — Tornado v2.1.1 documentation"/>
+<page file="v2.1.0.html" text="What’s new in Tornado 2.1" title="What’s new in Tornado 2.1 — Tornado v2.1.1 documentation"/>
+<page file="v2.0.0.html" text="What’s new in Tornado 2.0" title="What’s new in Tornado 2.0 — Tornado v2.1.1 documentation"/>
+<page file="v1.2.1.html" text="What’s new in Tornado 1.2.1" title="What’s new in Tornado 1.2.1 — Tornado v2.1.1 documentation"/>
+<page file="v1.2.0.html" text="What’s new in Tornado 1.2" title="What’s new in Tornado 1.2 — Tornado v2.1.1 documentation"/>
+<page file="v1.1.1.html" text="What’s new in Tornado 1.1.1" title="What’s new in Tornado 1.1.1 — Tornado v2.1.1 documentation"/>
+<page file="v1.1.0.html" text="What’s new in Tornado 1.1" title="What’s new in Tornado 1.1 — Tornado v2.1.1 documentation"/>
+<page file="v1.0.1.html" text="What’s new in Tornado 1.0.1" title="What’s new in Tornado 1.0.1 — Tornado v2.1.1 documentation"/>
+<page file="v1.0.0.html" text="What’s new in Tornado 1.0" title="What’s new in Tornado 1.0 — Tornado v2.1.1 documentation"/>
+</page>
+</site>

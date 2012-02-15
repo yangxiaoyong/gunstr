@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    
+    
+    <title>tornado.httputil — Manipulate HTTP headers and URLs — Tornado v2.1.1 documentation</title>
+    
+    
+    
+    
+    
+    
+    <link rel="top" title="Tornado v2.1.1 documentation" href="http://www.tornadoweb.org/documentation/index.html">
+    <link rel="up" title="Utilities" href="http://www.tornadoweb.org/documentation/utilities.html">
+    <link rel="next" title="tornado.options — Command-line parsing" href="http://www.tornadoweb.org/documentation/options.html">
+    <link rel="prev" title="tornado.gen — Simplify asynchronous code" href="http://www.tornadoweb.org/documentation/gen.html"> 
+  
+<link rel="stylesheet" type="text/css" href="httputil.css" media="all">
+</head>
+<body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index" accesskey="I">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="options.html" title="tornado.options — Command-line parsing" accesskey="N">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="gen.html" title="tornado.gen — Simplify asynchronous code" accesskey="P">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="utilities.html" accesskey="U">Utilities</a> »</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-tornado.httputil">
+<span id="tornado-httputil-manipulate-http-headers-and-urls"></span><h1><tt class="docutils literal"><span class="pre">tornado.httputil</span></tt> — Manipulate HTTP headers and URLs<a class="headerlink" href="#module-tornado.httputil" title="Permalink to this headline">¶</a></h1>
+<p>HTTP utility code shared by clients and servers.</p>
+<dl class="class">
+<dt id="tornado.httputil.HTTPHeaders">
+<em class="property">class </em><tt class="descclassname">tornado.httputil.</tt><tt class="descname">HTTPHeaders</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/httputil.html#HTTPHeaders"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.httputil.HTTPHeaders" title="Permalink to this definition">¶</a></dt>
+<dd><p>A dictionary that maintains Http-Header-Case for all keys.</p>
+<p>Supports multiple values per key via a pair of new methods,
+add() and get_list().  The regular dictionary interface returns a single
+value per key, with multiple values joined by a comma.</p>
+<div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; h = HTTPHeaders({"content-type": "text/html"})
+&gt;&gt;&gt; h.keys()
+['Content-Type']
+&gt;&gt;&gt; h["Content-Type"]
+'text/html'
+</pre></div>
+</div>
+<div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; h.add("Set-Cookie", "A=B")
+&gt;&gt;&gt; h.add("Set-Cookie", "C=D")
+&gt;&gt;&gt; h["set-cookie"]
+'A=B,C=D'
+&gt;&gt;&gt; h.get_list("set-cookie")
+['A=B', 'C=D']
+</pre></div>
+</div>
+<div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; for (k,v) in sorted(h.get_all()):
+...    print '%s: %s' % (k,v)
+...
+Content-Type: text/html
+Set-Cookie: A=B
+Set-Cookie: C=D
+</pre></div>
+</div>
+<dl class="method">
+<dt id="tornado.httputil.HTTPHeaders.add">
+<tt class="descname">add</tt><big>(</big><em>name</em>, <em>value</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/httputil.html#HTTPHeaders.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.httputil.HTTPHeaders.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a new value for the given key.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.httputil.HTTPHeaders.get_list">
+<tt class="descname">get_list</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/httputil.html#HTTPHeaders.get_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.httputil.HTTPHeaders.get_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all values for the given header as a list.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.httputil.HTTPHeaders.get_all">
+<tt class="descname">get_all</tt><big>(</big><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/httputil.html#HTTPHeaders.get_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.httputil.HTTPHeaders.get_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an iterable of all (name, value) pairs.</p>
+<p>If a header has multiple values, multiple pairs will be
+returned with the same name.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.httputil.HTTPHeaders.parse_line">
+<tt class="descname">parse_line</tt><big>(</big><em>line</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/httputil.html#HTTPHeaders.parse_line"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.httputil.HTTPHeaders.parse_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates the dictionary with a single header line.</p>
+<div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; h = HTTPHeaders()
+&gt;&gt;&gt; h.parse_line("Content-Type: text/html")
+&gt;&gt;&gt; h.get('content-type')
+'text/html'
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="tornado.httputil.HTTPHeaders.parse">
+<em class="property">classmethod </em><tt class="descname">parse</tt><big>(</big><em>headers</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/httputil.html#HTTPHeaders.parse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.httputil.HTTPHeaders.parse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a dictionary from HTTP header text.</p>
+<div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; h = HTTPHeaders.parse("Content-Type: text/html\r\nContent-Length: 42\r\n")
+&gt;&gt;&gt; sorted(h.iteritems())
+[('Content-Length', '42'), ('Content-Type', 'text/html')]
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="tornado.httputil.url_concat">
+<tt class="descclassname">tornado.httputil.</tt><tt class="descname">url_concat</tt><big>(</big><em>url</em>, <em>args</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/httputil.html#url_concat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.httputil.url_concat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Concatenate url and argument dictionary regardless of whether
+url has existing query parameters.</p>
+<div class="highlight-none"><div class="highlight"><pre>&gt;&gt;&gt; url_concat("http://example.com/foo?a=b", dict(c="d"))
+'http://example.com/foo?a=b&amp;c=d'
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="tornado.httputil.HTTPFile">
+<em class="property">class </em><tt class="descclassname">tornado.httputil.</tt><tt class="descname">HTTPFile</tt><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/httputil.html#HTTPFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.httputil.HTTPFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents an HTTP file. For backwards compatibility, its instance
+attributes are also accessible as dictionary keys.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<colgroup><col class="field-name">
+<col class="field-body">
+</colgroup><tbody valign="top">
+<tr class="field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><strong>filename</strong> – </li>
+<li><strong>body</strong> – </li>
+<li><strong>content_type</strong> – The content_type comes from the provided HTTP header
+and should not be trusted outright given that it can be easily forged.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="tornado.httputil.parse_multipart_form_data">
+<tt class="descclassname">tornado.httputil.</tt><tt class="descname">parse_multipart_form_data</tt><big>(</big><em>boundary</em>, <em>data</em>, <em>arguments</em>, <em>files</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/httputil.html#parse_multipart_form_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.httputil.parse_multipart_form_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses a multipart/form-data body.</p>
+<p>The boundary and data parameters are both byte strings.
+The dictionaries given in the arguments and files parameters
+will be updated with the contents of the body.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a indepth="true" href="gen.html" title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">tornado.gen</span></tt> — Simplify asynchronous code</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a indepth="true" href="options.html" title="next chapter"><tt class="docutils literal"><span class="pre">tornado.options</span></tt> — Command-line parsing</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="http://www.tornadoweb.org/documentation/_sources/httputil.txt" rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none;">
+  <h3>Quick search</h3>
+    <form class="search" action="http://www.tornadoweb.org/documentation/search.html" method="get">
+      <input value="" name="q" size="18" type="text">
+      <input value="Go" type="submit">
+      <input name="check_keywords" value="yes" type="hidden">
+      <input name="area" value="default" type="hidden">
+    </form>
+    <p class="searchtip" style="font-size: 90%;">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="options.html" title="tornado.options — Command-line parsing">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="gen.html" title="tornado.gen — Simplify asynchronous code">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="utilities.html">Utilities</a> »</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        © Copyright 2011, Facebook.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  
+
+
+</body></html>

@@ -1,0 +1,13 @@
+* [ ] E_FW::get_config: 读取配置的数组
+* [ ] COOKIE: cookie通常用来标示一个用户，保存在计算机上的一个小文件。每一次相同的机器
+      用浏览器请求一个页面，它也会发送这个cookie
+
+* [ ] E_FW::load_file: include一个php源码文件
+* [ ] Game_Exception:
+      1116
+      1102
+      1107
+      1108
+      1109
+      1110
+      1111

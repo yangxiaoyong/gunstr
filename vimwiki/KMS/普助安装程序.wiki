@@ -1,0 +1,8 @@
+* [X] 装字体
+* [X] 安装dotnetframework2.0
+* [X] 装odp-convert
+* [X] 过程
+    * [X] 获取安装路径
+    * [X] 获得python的路径
+    * [X] 调用python来执行安装字体，安装odp-convert，等步骤
+    * [X] 记录日志

@@ -1,0 +1,10 @@
+/* ::::: http://linux-ip.net/articles/Traffic-Control-HOWTO/Traffic-Control-HOWTO.css ::::: */
+
+:link { color: rgb(0, 0, 153); text-decoration: none; }
+:visited { color: rgb(0, 0, 153); text-decoration: none; }
+BODY { color: black; background-color: rgb(255, 255, 255); }
+.revhistory { display: none; width: 100%; }
+.revhistory table { padding-left: 0em; padding-right: 0em; margin: 0em 0%; }
+.revhistory td { padding-left: 0.5em; padding-right: 0.5em; margin: 0em 0%; }
+.revhistory tr { padding-left: 0em; padding-right: 0em; margin: 0em 0%; }
+.revhistory > * { font-size: 0.5em; text-align: right; color: rgb(128, 128, 128); }

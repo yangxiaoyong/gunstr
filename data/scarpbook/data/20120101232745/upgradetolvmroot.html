@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Upgrading to LVM 1.0.8 with an LVM root partition and initrd</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.7"><link rel="HOME" title="LVM HOWTO" href="http://www.tldp.org/HOWTO/LVM-HOWTO/index.html"><link rel="UP" title="Transitioning from previous versions of LVM to LVM 1.0.8" href="http://www.tldp.org/HOWTO/LVM-HOWTO/trans1.html"><link rel="PREVIOUS" title="Upgrading to LVM 1.0.8 with a non-LVM root partition" href="http://www.tldp.org/HOWTO/LVM-HOWTO/upgradelvm1.html"><link rel="NEXT" title="Common Tasks" href="http://www.tldp.org/HOWTO/LVM-HOWTO/commontask.html"></head>
+<body class="sect1" alink="#0000FF" bgcolor="#FFFFFF" link="#0000FF" text="#000000" vlink="#840084"><div class="NAVHEADER"><table summary="Header navigation table" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><th colspan="3" align="center">LVM HOWTO</th></tr><tr><td align="left" valign="bottom" width="10%"><a indepth="true" href="upgradelvm1.html" accesskey="P">Prev</a></td><td align="center" valign="bottom" width="80%">Chapter 10. Transitioning from previous versions of LVM to LVM 1.0.8</td><td align="right" valign="bottom" width="10%"><a indepth="true" href="commontask.html" accesskey="N">Next</a></td></tr></tbody></table><hr align="LEFT" width="100%"></div><div class="sect1"><h1 class="sect1"><a name="upgradetolvmroot"></a>10.2. Upgrading to LVM 1.0.8 with an LVM root partition and initrd</h1><p>
+        This is relatively straightforward if you follow the steps
+        carefully.  It is recommended you have a good backup and a suitable
+        rescue disk handy just in case.
+      </p><p>
+        The <span class="QUOTE">"normal"</span> way of running an LVM root file system is
+        to have a single non-LVM partition called 
+        <tt class="filename">/boot</tt>
+        which contains the kernel and initial RAM disk needed to start the
+        system. The system I upgraded was as follows:
+        <table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen"><b class="command"> # df</b>
+<tt class="computeroutput">
+Filesystem           1k-blocks      Used Available Use% Mounted on
+/dev/rootvg/root        253871     93384    147380  39% /
+/dev/hda1                17534     12944      3685  78% /boot
+/dev/rootvg/home       4128448      4568   3914168   0% /home
+/dev/rootvg/usr        1032088    332716    646944  34% /usr
+/dev/rootvg/var         253871     31760    209004  13% /var
+</tt>
+            </pre></font></td></tr></tbody></table>
+        <tt class="filename">/boot</tt>
+        contains the old kernel and an initial RAM disk as well as the LILO
+        boot files and the following entry in 
+        <tt class="filename">/etc/lilo.conf</tt>
+        <table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen"><b class="command"> # ls /boot</b>
+<tt class="computeroutput">
+System.map                 lost+found              vmlinux-2.2.16lvm
+map                        module-info	           boot.0300  
+boot.b                     os2_d.b                 chain.b
+initrd.gz                  
+</tt>
+<b class="command"> # tail /etc/lilo.conf</b>
+<tt class="computeroutput">
+image=/boot/vmlinux-2.2.16lvm
+        label=lvm08
+        read-only
+        root=/dev/rootvg/root
+        initrd=/boot/initrd.gz
+        append="ramdisk_size=8192"
+</tt>
+            </pre></font></td></tr></tbody></table>
+
+        </p><p></p><ol type="1"><li><p>
+              <strong>
+                Build LVM kernel and modules
+              </strong>
+            </p><p>
+              Follow the steps outlined in
+              <a indepth="true" href="getlvm.html">Chapter 5</a> - <a indepth="true" href="buildlvmmod.html">Section 6.2</a>
+              for instructions on how to get and build the necessary
+              kernel components of LVM.
+            </p></li><li><p>
+              <strong>
+                Build the LVM user tools
+              </strong>
+            </p><p>
+              Follow the steps in
+              <a indepth="true" href="buildlvmmod.html">Section 6.2</a> to build and install the user
+              tools for LVM.
+            </p><p>
+              Install the new tools. Once you have done this you cannot
+              do any LVM manipulation as they are not compatible with
+              the kernel you are currently running.
+            </p></li><li><p>
+              <strong>
+                Rename the existing initrd.gz
+              </strong>
+            </p><p>
+              This is so it doesn't get overwritten by the new one
+              <table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen"><b class="command"># mv /boot/initrd.gz /boot/initrd08.gz</b>
+                     </pre></font></td></tr></tbody></table>
+            </p></li><li><p>
+              <strong>
+                Edit <tt class="filename">/etc/lilo.conf</tt>
+              </strong>
+            </p><p>
+              Make the existing boot entry point to the renamed file.
+              You will need to reboot using this if something goes wrong
+              in the next reboot. The changed entry will look something
+              like this:
+              <table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">image=/boot/vmlinux-2.2.16lvm
+        label=lvm08
+        read-only
+        root=/dev/rootvg/root
+        initrd=/boot/initrd08.gz
+        append="ramdisk_size=8192"
+                     </pre></font></td></tr></tbody></table>
+            </p></li><li><p>
+              <strong>
+                Run lvmcreate_initrd to create a new initial RAM disk
+              </strong>
+              <table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen"><b class="command"># lvmcreate_initrd 2.4.9</b>
+                     </pre></font></td></tr></tbody></table>
+              Don't forget the put the new kernel version in there so
+              that it picks up the correct modules.
+            </p></li><li><p>
+              <strong>
+                Add a new entry into /etc/lilo.conf
+              </strong>
+            </p><p>
+              This new entry is to boot the new kernel with its new
+              initrd.
+              <table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">image=/boot/vmlinux-2.4.9lvm
+        label=lvm10
+        read-only
+        root=/dev/rootvg/root
+        initrd=/boot/initrd.gz
+        append="ramdisk_size=8192"
+                     </pre></font></td></tr></tbody></table>
+            </p></li><li><p>
+              <strong>
+                Re-run lilo
+              </strong>
+            </p><p>
+              This will install the new boot block
+              <table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen"><b class="command"># /sbin/lilo</b>
+                     </pre></font></td></tr></tbody></table>
+            </p></li><li><p>
+              <strong>
+                Reboot
+              </strong>
+            </p><p>
+              When you get the LILO prompt select the new entry name (in
+              this example lvm10) and your system should boot into Linux
+              using the new LVM version.
+            </p><p>
+              If the new kernel does not boot, then simply boot the old
+              one and try to fix the problem.  It may be that the new
+              kernel does not have all the correct device drivers built
+              into it, or that they are not available in the initrd.
+              Remember that all device drivers (apart from LVM) needed
+              to access the root device should be compiled into the
+              kernel and not as modules.
+            </p><p>
+              If you need to do any LVM manipulation when booted back
+              into the old version, then simply recompile the old tools
+              and install them with
+              <table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen"><b class="command"># make install</b>
+                     </pre></font></td></tr></tbody></table>
+              If you do this, don't forget to install the new tools when
+              you reboot into the new LVM version.
+            </p></li></ol>
+
+        When you are happy with the new system remember to change the
+        ``default='' entry in your lilo.conf file so that it is the default
+        kernel.
+      <p></p></div><div class="NAVFOOTER"><hr align="LEFT" width="100%"><table summary="Footer navigation table" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td align="left" valign="top" width="33%"><a indepth="true" href="upgradelvm1.html" accesskey="P">Prev</a></td><td align="center" valign="top" width="34%"><a indepth="true" href="index.html" accesskey="H">Home</a></td><td align="right" valign="top" width="33%"><a indepth="true" href="commontask.html" accesskey="N">Next</a></td></tr><tr><td align="left" valign="top" width="33%">Upgrading to LVM 1.0.8 with a non-LVM root partition</td><td align="center" valign="top" width="34%"><a indepth="true" href="trans1.html" accesskey="U">Up</a></td><td align="right" valign="top" width="33%">Common Tasks</td></tr></tbody></table></div>
+
+</body></html>

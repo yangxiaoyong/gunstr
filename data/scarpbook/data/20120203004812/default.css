@@ -1,0 +1,33 @@
+/* ::::: http://www.squid-cache.org/default.css ::::: */
+
+* { font-family: "Trebuchet MS",Arial,Helvetica,sans-serif; }
+body { margin: 30px 0pt; padding: 0pt; background: none repeat scroll 0% 0% rgb(239, 239, 239); font-size: 12px; color: rgb(30, 30, 30); }
+h1, h2, h3, h4, h5, h6 { margin: 0pt; padding: 0pt; font-weight: normal; color: rgb(0, 0, 0); }
+h2 { margin-bottom: 10px; border-bottom: 1px solid rgb(223, 223, 223); font-size: 26px; }
+h3 { padding-bottom: 5px; font-size: 16px; border-bottom: 1px solid rgb(223, 223, 223); }
+p, ol, ul, blockquote { line-height: 24px; }
+a { color: rgb(176, 32, 96); }
+a:hover { text-decoration: none; }
+img { border: medium none; }
+#textfield1 { width: 185px; margin-bottom: 10px; border-width: 1px; border-style: solid; border-color: rgb(160, 160, 160) rgb(214, 214, 214) rgb(214, 214, 214) rgb(160, 160, 160); -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; -moz-border-image: none; }
+#submit1 { border-width: 1px; border-style: solid; border-color: rgb(235, 235, 235) rgb(235, 235, 235) rgb(221, 221, 221); -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; -moz-border-image: none; background: url('img7.gif') repeat-x scroll 0% 0% rgb(251, 251, 251); text-transform: lowercase; font-size: 12px; color: rgb(122, 122, 122); }
+#header { width: 917px; height: 115px; margin: 0pt auto; background: url('img2.gif') repeat-x scroll 0% 0% transparent; }
+#logo { float: left; height: 115px; padding: 0pt; background: url('img1.gif') no-repeat scroll 0% 0% transparent; }
+#logo * { text-decoration: none; }
+#logo h1 { padding: 50px 0pt 0pt 40px; font-size: 36px; }
+#logo h1 a { color: rgb(0, 0, 0); }
+#logo h1 span { font-weight: bold; }
+#logo h2 { padding: 0pt 0pt 0pt 40px; font-size: 12px; border: medium none; }
+#menu { float: right; height: 45px; padding: 70px 25px 0pt 0pt; background: url('img3.gif') no-repeat scroll right top transparent; }
+#menu ul { margin: 0pt; padding: 0pt; list-style: none outside none; }
+#menu li { display: inline; }
+#menu a { padding: 0pt 5px; border-left: 1px solid rgb(219, 219, 219); text-transform: lowercase; text-decoration: none; font-size: 13px; color: rgb(73, 102, 130); }
+#menu .first a { border: medium none; }
+#splash { width: 877px; height: 140px; margin: 0pt auto; clear: both; background: url('img5.gif') repeat-x scroll left bottom transparent; border-right: 20px solid rgb(255, 255, 255); border-left: 20px solid rgb(255, 255, 255); }
+#content { width: 847px; margin: 0pt auto; padding: 30px 35px 0pt; background: url('img8.gif') no-repeat scroll left bottom rgb(255, 255, 255); }
+#colOne { float: right; width: 620px; }
+#colTwo { float: left; width: 185px; padding: 5px 0pt 0pt; }
+#colTwo ul { margin-left: 0pt; padding-left: 0pt; list-style: none outside none; }
+#footer { font-size: 9px; }
+#footer p { text-align: center; color: rgb(119, 119, 119); }
+#footer a { color: rgb(93, 93, 93); }

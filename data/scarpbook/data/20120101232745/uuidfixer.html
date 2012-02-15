@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Restoring the VG UUIDs using uuid_fixer</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.7"><link rel="HOME" title="LVM HOWTO" href="http://www.tldp.org/HOWTO/LVM-HOWTO/index.html"><link rel="UP" title="Dangerous Operations" href="http://www.tldp.org/HOWTO/LVM-HOWTO/dangerousops.html"><link rel="PREVIOUS" title="Dangerous Operations" href="http://www.tldp.org/HOWTO/LVM-HOWTO/dangerousops.html"><link rel="NEXT" title="Sharing LVM volumes" href="http://www.tldp.org/HOWTO/LVM-HOWTO/sharinglvm1.html"></head>
+<body class="sect1" alink="#0000FF" bgcolor="#FFFFFF" link="#0000FF" text="#000000" vlink="#840084"><div class="NAVHEADER"><table summary="Header navigation table" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><th colspan="3" align="center">LVM HOWTO</th></tr><tr><td align="left" valign="bottom" width="10%"><a indepth="true" href="dangerousops.html" accesskey="P">Prev</a></td><td align="center" valign="bottom" width="80%">Appendix A. Dangerous Operations</td><td align="right" valign="bottom" width="10%"><a indepth="true" href="sharinglvm1.html" accesskey="N">Next</a></td></tr></tbody></table><hr align="LEFT" width="100%"></div><div class="sect1"><h1 class="sect1"><a name="uuidfixer"></a>A.1. Restoring the VG UUIDs using uuid_fixer</h1><p>
+        If you've upgraded LVM from previous versions to early 0.9 and
+        0.9.1 versions of LVM and <b class="command">vgscan</b> says 
+        <tt class="computeroutput">vgscan -- no volume groups found</tt>,
+        this is one way to fix it.
+      </p><p></p><ul><li><p>
+            Download the UUID fixer program from the contributor
+            directory at Sistina.
+          </p><p>
+            It is located at
+            <a href="ftp://ftp.sistina.com/pub/LVM/contrib/uuid_fixer-0.3-IOP10.tar.gz" target="_top">ftp://ftp.sistina.com/pub/LVM/contrib/uuid_fixer-0.3-IOP10.tar.gz"</a>
+          </p></li><li><p>
+            Extract <tt class="filename">uuid_fixer-0.3-IOP10.tar.gz</tt>
+            <table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen"><b class="command"># tar zxf uuid_fixer-0.3-IOP10.tar.gz</b>
+            </pre></font></td></tr></tbody></table>
+          </p></li><li><p>
+            cd to uuid_fixer
+            <table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen"><b class="command"># cd uuid_fixer</b>
+            </pre></font></td></tr></tbody></table>
+          </p><p>
+            You have one of two options at this point:
+          </p><p></p><ol type="1"><li><p>
+                Use the prebuild binary (it is build for i386
+                architecture).
+              </p><p>
+                Make sure you list all the PVs in the VG you are
+                restoring, and follow the prompts
+                <table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen"><b class="command"># ./uuid_fixer </b><tt class="replaceable"><i>&lt;LIST OF ALL PVS IN VG TO BE RESTORED&gt;</i></tt>
+                </pre></font></td></tr></tbody></table>
+              </p></li><li><p>
+                Build the uuid_builder program from source
+              </p><p>
+                Edit the Makefile with your favorite editor, and make
+                sure LVMDIR points to your LVM source.
+              </p><p>
+                Then run make.
+                <table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen"><b class="command"># make</b>
+                </pre></font></td></tr></tbody></table>
+              </p><p>
+                Now run uuid_fixer.  Make sure you list all the PVs in
+                the VG you are restoring, and follow the prompts.
+                <table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen"><b class="command"># ./uuid_fixer </b><tt class="replaceable"><i>&lt;LIST OF ALL PVS IN VG TO BE RESTORED&gt;</i></tt>
+                </pre></font></td></tr></tbody></table>
+              </p></li></ol></li><li><p>
+            Deactivate any active Volume Groups
+            (<em>optional</em>)
+            <table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen"><b class="command"># vgchange -an</b>
+            </pre></font></td></tr></tbody></table>
+          </p></li><li><p>
+            Run vgscan
+            <table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen"><b class="command"># vgscan</b>
+            </pre></font></td></tr></tbody></table>
+          </p></li><li><p>
+            Reactivate Volume Groups
+            <table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen"><b class="command"># vgchange -ay</b>
+            </pre></font></td></tr></tbody></table>
+          </p></li></ul></div><div class="NAVFOOTER"><hr align="LEFT" width="100%"><table summary="Footer navigation table" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td align="left" valign="top" width="33%"><a indepth="true" href="dangerousops.html" accesskey="P">Prev</a></td><td align="center" valign="top" width="34%"><a indepth="true" href="index.html" accesskey="H">Home</a></td><td align="right" valign="top" width="33%"><a indepth="true" href="sharinglvm1.html" accesskey="N">Next</a></td></tr><tr><td align="left" valign="top" width="33%">Dangerous Operations</td><td align="center" valign="top" width="34%"><a indepth="true" href="dangerousops.html" accesskey="U">Up</a></td><td align="right" valign="top" width="33%">Sharing LVM volumes</td></tr></tbody></table></div>
+
+</body></html>

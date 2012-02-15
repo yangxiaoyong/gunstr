@@ -1,0 +1,35 @@
+body {
+  font: 62.5%/1.5 Verdana, Arial, Helvetica, sans-serif;
+  /* 字体颜色为黑色 */
+  color: #000000;
+  /* 背景为白色 */
+  background: #ffffff;
+  /* 内边距确保页面内容不会紧靠浏览器窗口的边界 */
+  padding: 20px;
+  background-image: url(fav.jpeg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+#wrapper {
+  font-size: 1.2em;
+  line-height: 1.5em;
+  /* 居中 */
+  margin: auto;
+  /* 定义固定的宽度 */
+  width: 500px;
+}
+
+h1 {
+  font: 1.5em/1.8em Arial, sans-serif;
+  text-transform: uppercase;
+}
+
+blockquote {
+  margin: 0 100px;
+}
+
+blockquote p {
+  font-style: italic;
+  font-size: 1.2m;
+}

@@ -1,0 +1,320 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    
+    
+    <title>tornado.testing — Unit testing support for asynchronous code — Tornado v2.1.1 documentation</title>
+    
+    
+    
+    
+    
+    
+    <link rel="top" title="Tornado v2.1.1 documentation" href="http://www.tornadoweb.org/documentation/index.html">
+    <link rel="up" title="Utilities" href="http://www.tornadoweb.org/documentation/utilities.html">
+    <link rel="next" title="Release notes" href="http://www.tornadoweb.org/documentation/releases.html">
+    <link rel="prev" title="tornado.stack_context — Exception handling across asynchronous callbacks" href="http://www.tornadoweb.org/documentation/stack_context.html"> 
+  
+<link rel="stylesheet" type="text/css" href="testing.css" media="all">
+</head>
+<body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index" accesskey="I">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="releases.html" title="Release notes" accesskey="N">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="stack_context.html" title="tornado.stack_context — Exception handling across asynchronous callbacks" accesskey="P">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="utilities.html" accesskey="U">Utilities</a> »</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-tornado.testing">
+<span id="tornado-testing-unit-testing-support-for-asynchronous-code"></span><h1><tt class="docutils literal"><span class="pre">tornado.testing</span></tt> — Unit testing support for asynchronous code<a class="headerlink" href="#module-tornado.testing" title="Permalink to this headline">¶</a></h1>
+<p>Support classes for automated testing.</p>
+<p>This module contains three parts:</p>
+<ul class="simple">
+<li><a class="reference internal" href="#tornado.testing.AsyncTestCase" title="tornado.testing.AsyncTestCase"><tt class="xref py py-obj docutils literal"><span class="pre">AsyncTestCase</span></tt></a>/<a class="reference internal" href="#tornado.testing.AsyncHTTPTestCase" title="tornado.testing.AsyncHTTPTestCase"><tt class="xref py py-obj docutils literal"><span class="pre">AsyncHTTPTestCase</span></tt></a>:  Subclasses of unittest.TestCase
+with additional support for testing asynchronous (IOLoop-based) code.</li>
+<li><a class="reference internal" href="#tornado.testing.LogTrapTestCase" title="tornado.testing.LogTrapTestCase"><tt class="xref py py-obj docutils literal"><span class="pre">LogTrapTestCase</span></tt></a>:  Subclass of unittest.TestCase that discards log output
+from tests that pass and only produces output for failing tests.</li>
+<li><a class="reference internal" href="#tornado.testing.main" title="tornado.testing.main"><tt class="xref py py-obj docutils literal"><span class="pre">main()</span></tt></a>: A simple test runner (wrapper around unittest.main()) with support
+for the tornado.autoreload module to rerun the tests when code changes.</li>
+</ul>
+<p>These components may be used together or independently.  In particular,
+it is safe to combine AsyncTestCase and LogTrapTestCase via multiple
+inheritance.  See the docstrings for each class/function below for more
+information.</p>
+<div class="section" id="asynchronous-test-cases">
+<h2>Asynchronous test cases<a class="headerlink" href="#asynchronous-test-cases" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tornado.testing.AsyncTestCase">
+<em class="property">class </em><tt class="descclassname">tornado.testing.</tt><tt class="descname">AsyncTestCase</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/testing.html#AsyncTestCase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.testing.AsyncTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>TestCase subclass for testing IOLoop-based asynchronous code.</p>
+<p>The unittest framework is synchronous, so the test must be complete
+by the time the test method returns.  This method provides the stop()
+and wait() methods for this purpose.  The test method itself must call
+self.wait(), and asynchronous callbacks should call self.stop() to signal
+completion.</p>
+<p>By default, a new IOLoop is constructed for each test and is available
+as self.io_loop.  This IOLoop should be used in the construction of
+HTTP clients/servers, etc.  If the code being tested requires a
+global IOLoop, subclasses should override get_new_ioloop to return it.</p>
+<p>The IOLoop’s start and stop methods should not be called directly.
+Instead, use self.stop self.wait.  Arguments passed to self.stop are
+returned from self.wait.  It is possible to have multiple
+wait/stop cycles in the same test.</p>
+<p>Example:</p>
+<div class="highlight-none"><div class="highlight"><pre># This test uses an asynchronous style similar to most async
+# application code.
+class MyTestCase(AsyncTestCase):
+    def test_http_fetch(self):
+        client = AsyncHTTPClient(self.io_loop)
+        client.fetch("http://www.tornadoweb.org/", self.handle_fetch)
+        self.wait()
+
+    def handle_fetch(self, response)
+        # Test contents of response (failures and exceptions here
+        # will cause self.wait() to throw an exception and end the
+        # test).
+        self.stop()
+
+# This test uses the argument passing between self.stop and self.wait
+# for a simpler, more synchronous style
+class MyTestCase2(AsyncTestCase):
+    def test_http_fetch(self):
+        client = AsyncHTTPClient(self.io_loop)
+        client.fetch("http://www.tornadoweb.org/", self.stop)
+        response = self.wait()
+        # Test contents of response
+</pre></div>
+</div>
+<dl class="method">
+<dt id="tornado.testing.AsyncTestCase.get_new_ioloop">
+<tt class="descname">get_new_ioloop</tt><big>(</big><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/testing.html#AsyncTestCase.get_new_ioloop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.testing.AsyncTestCase.get_new_ioloop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new IOLoop for this test.  May be overridden in
+subclasses for tests that require a specific IOLoop (usually
+the singleton).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.testing.AsyncTestCase.stop">
+<tt class="descname">stop</tt><big>(</big><em>_arg=None</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/testing.html#AsyncTestCase.stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.testing.AsyncTestCase.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stops the ioloop, causing one pending (or future) call to wait()
+to return.</p>
+<p>Keyword arguments or a single positional argument passed to stop() are
+saved and will be returned by wait().</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.testing.AsyncTestCase.wait">
+<tt class="descname">wait</tt><big>(</big><em>condition=None</em>, <em>timeout=5</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/testing.html#AsyncTestCase.wait"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.testing.AsyncTestCase.wait" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs the IOLoop until stop is called or timeout has passed.</p>
+<p>In the event of a timeout, an exception will be thrown.</p>
+<p>If condition is not None, the IOLoop will be restarted after stop()
+until condition() returns true.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tornado.testing.AsyncHTTPTestCase">
+<em class="property">class </em><tt class="descclassname">tornado.testing.</tt><tt class="descname">AsyncHTTPTestCase</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/testing.html#AsyncHTTPTestCase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.testing.AsyncHTTPTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>A test case that starts up an HTTP server.</p>
+<p>Subclasses must override get_app(), which returns the
+tornado.web.Application (or other HTTPServer callback) to be tested.
+Tests will typically use the provided self.http_client to fetch
+URLs from this server.</p>
+<p>Example:</p>
+<div class="highlight-none"><div class="highlight"><pre>class MyHTTPTest(AsyncHTTPTestCase):
+    def get_app(self):
+        return Application([('/', MyHandler)...])
+
+    def test_homepage(self):
+        # The following two lines are equivalent to
+        #   response = self.fetch('/')
+        # but are shown in full here to demonstrate explicit use
+        # of self.stop and self.wait.
+        self.http_client.fetch(self.get_url('/'), self.stop)
+        response = self.wait()
+        # test contents of response
+</pre></div>
+</div>
+<dl class="method">
+<dt id="tornado.testing.AsyncHTTPTestCase.get_app">
+<tt class="descname">get_app</tt><big>(</big><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/testing.html#AsyncHTTPTestCase.get_app"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.testing.AsyncHTTPTestCase.get_app" title="Permalink to this definition">¶</a></dt>
+<dd><p>Should be overridden by subclasses to return a
+tornado.web.Application or other HTTPServer callback.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.testing.AsyncHTTPTestCase.fetch">
+<tt class="descname">fetch</tt><big>(</big><em>path</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/testing.html#AsyncHTTPTestCase.fetch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.testing.AsyncHTTPTestCase.fetch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convenience method to synchronously fetch a url.</p>
+<p>The given path will be appended to the local server’s host and port.
+Any additional kwargs will be passed directly to
+AsyncHTTPClient.fetch (and so could be used to pass method=”POST”,
+body=”...”, etc).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.testing.AsyncHTTPTestCase.get_httpserver_options">
+<tt class="descname">get_httpserver_options</tt><big>(</big><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/testing.html#AsyncHTTPTestCase.get_httpserver_options"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.testing.AsyncHTTPTestCase.get_httpserver_options" title="Permalink to this definition">¶</a></dt>
+<dd><p>May be overridden by subclasses to return additional
+keyword arguments for HTTPServer.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.testing.AsyncHTTPTestCase.get_http_port">
+<tt class="descname">get_http_port</tt><big>(</big><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/testing.html#AsyncHTTPTestCase.get_http_port"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.testing.AsyncHTTPTestCase.get_http_port" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the port used by the HTTPServer.</p>
+<p>A new port is chosen for each test.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.testing.AsyncHTTPTestCase.get_url">
+<tt class="descname">get_url</tt><big>(</big><em>path</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/testing.html#AsyncHTTPTestCase.get_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.testing.AsyncHTTPTestCase.get_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an absolute url for the given path on the test server.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="controlling-log-output">
+<h2>Controlling log output<a class="headerlink" href="#controlling-log-output" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="tornado.testing.LogTrapTestCase">
+<em class="property">class </em><tt class="descclassname">tornado.testing.</tt><tt class="descname">LogTrapTestCase</tt><big>(</big><em>methodName='runTest'</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/testing.html#LogTrapTestCase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.testing.LogTrapTestCase" title="Permalink to this definition">¶</a></dt>
+<dd><p>A test case that captures and discards all logging output
+if the test passes.</p>
+<p>Some libraries can produce a lot of logging output even when
+the test succeeds, so this class can be useful to minimize the noise.
+Simply use it as a base class for your test case.  It is safe to combine
+with AsyncTestCase via multiple inheritance
+(“class MyTestCase(AsyncHTTPTestCase, LogTrapTestCase):”)</p>
+<p>This class assumes that only one log handler is configured and that
+it is a StreamHandler.  This is true for both logging.basicConfig
+and the “pretty logging” configured by tornado.options.</p>
+<p>Create an instance of the class that will use the named test
+method when executed. Raises a ValueError if the instance does
+not have a method with the specified name.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="test-runner">
+<h2>Test runner<a class="headerlink" href="#test-runner" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="tornado.testing.main">
+<tt class="descclassname">tornado.testing.</tt><tt class="descname">main</tt><big>(</big><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/testing.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.testing.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple test runner.</p>
+<p>This test runner is essentially equivalent to <tt class="xref py py-obj docutils literal"><span class="pre">unittest.main</span></tt> from
+the standard library, but adds support for tornado-style option
+parsing and log formatting.</p>
+<p>The easiest way to run a test is via the command line:</p>
+<div class="highlight-none"><div class="highlight"><pre>python -m tornado.testing tornado.test.stack_context_test
+</pre></div>
+</div>
+<p>See the standard library unittest module for ways in which tests can
+be specified.</p>
+<p>Projects with many tests may wish to define a test script like
+tornado/test/runtests.py.  This script should define a method all()
+which returns a test suite and then call tornado.testing.main().
+Note that even when a test script is used, the all() test suite may
+be overridden by naming a single test on the command line:</p>
+<div class="highlight-none"><div class="highlight"><pre># Runs all tests
+tornado/test/runtests.py
+# Runs one test
+tornado/test/runtests.py tornado.test.stack_context_test
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="helper-functions">
+<h2>Helper functions<a class="headerlink" href="#helper-functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="tornado.testing.get_unused_port">
+<tt class="descclassname">tornado.testing.</tt><tt class="descname">get_unused_port</tt><big>(</big><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/testing.html#get_unused_port"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.testing.get_unused_port" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a (hopefully) unused port number.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a indepth="true" href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">tornado.testing</span></tt> — Unit testing support for asynchronous code</a><ul>
+<li><a class="reference internal" href="#asynchronous-test-cases">Asynchronous test cases</a></li>
+<li><a class="reference internal" href="#controlling-log-output">Controlling log output</a></li>
+<li><a class="reference internal" href="#test-runner">Test runner</a></li>
+<li><a class="reference internal" href="#helper-functions">Helper functions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a indepth="true" href="stack_context.html" title="previous chapter"><tt class="docutils literal docutils literal docutils literal"><span class="pre">tornado.stack_context</span></tt> — Exception handling across asynchronous callbacks</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a indepth="true" href="releases.html" title="next chapter">Release notes</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="http://www.tornadoweb.org/documentation/_sources/testing.txt" rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none;">
+  <h3>Quick search</h3>
+    <form class="search" action="http://www.tornadoweb.org/documentation/search.html" method="get">
+      <input value="" name="q" size="18" type="text">
+      <input value="Go" type="submit">
+      <input name="check_keywords" value="yes" type="hidden">
+      <input name="area" value="default" type="hidden">
+    </form>
+    <p class="searchtip" style="font-size: 90%;">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="releases.html" title="Release notes">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="stack_context.html" title="tornado.stack_context — Exception handling across asynchronous callbacks">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="utilities.html">Utilities</a> »</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        © Copyright 2011, Facebook.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  
+
+
+</body></html>

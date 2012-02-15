@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Class Structure Revealed</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.79"><link rel="HOME" title="A Practical Guide to Linux Traffic Control" href="http://blog.edseek.com/%7Ejasonb/articles/traffic_shaping/index.html"><link rel="PREVIOUS" title="Linux Traffic Control" href="http://blog.edseek.com/%7Ejasonb/articles/traffic_shaping/linuxtc.html"><link rel="NEXT" title="An Overview of Common qdiscs" href="http://blog.edseek.com/%7Ejasonb/articles/traffic_shaping/qdiscs.html"></head>
+<body class="sect1" bgcolor="#FFFFFF" link="#0000FF" text="#000000" vlink="#840084" alink="#0000FF"><div class="NAVHEADER"><table summary="Header navigation table" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><th colspan="3" align="center">A Practical Guide to Linux Traffic Control</th></tr><tr><td valign="bottom" width="10%" align="left"><a indepth="true" href="linuxtc.html" accesskey="P">Prev</a></td><td valign="bottom" width="80%" align="center"></td><td valign="bottom" width="10%" align="right"><a indepth="true" href="qdiscs.html" accesskey="N">Next</a></td></tr></tbody></table><hr width="100%" align="LEFT"></div><div class="sect1"><h1 class="sect1"><a name="classes">4. Class Structure Revealed</a></h1><p>
+Paramount to creating a useful traffic control configuration is understanding how to manipulate the class hierarchy you can attach to each root hook.  You configure all aspects of the actual shaping using the <b class="command">tc</b> binary.  (Traffic classification can be done with the <b class="command">tc</b> binary as well, but we will instead look at a <a indepth="true" href="classflows.html">more powerful method</a> later.)
+</p><div class="sect2"><h2 class="sect2"><a name="classlessqdisc">4.1. A Classless qdisc</a></h2><p>
+Let us take an example, using the <b class="command">tc</b> binary.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">tc qdisc add dev eth2 parent root handle 1:0 pfifo
+</pre></font></td></tr></tbody></table>
+<p></p><p>
+Now, that is a lot to take in at once.  I have added some verbosity you seldom see to further attempt to clarify what is happening here.
+</p><p>
+First, we specify that we want to work with a <em>qdisc</em>.  Next, we indicate we wish to <em>add</em> a new qdisc to the Ethernet device eth2.  (You can specify <em>del</em> in place of <em>add</em> to remove the qdisc in question.)  Then, we specify the special <em>parent</em> <em>root</em>.  We discussed the importance of the root hook earlier.  It is the hook on the egress side of your Ethernet interface.  The <em>handle</em> is the magic userspace way of naming a particular qdisc, but more on that later.  Finally, we specify the qdisc we wish to add.  Because <b class="command">pfifo</b> is a classless qdisc, there is nothing more to do.
+</p><p>
+A graphical representation of the structure we just created is depicted below.  The color blue is used to represent a qdisc.  Later, you will see green used to represent a class.
+</p><p>
+<span class="inlinemediaobject"><img src="example1.gif" align="middle"></span>
+</p><p>  
+It is important to discuss the naming convention for qdiscs before proceeding.  qdiscs are always referred to using a combination of a major node number and a minor node number.  For any given qdisc, the major node number has to be unique for the root hook for a given Ethernet interface.  The minor number for any given qdisc will always be zero.  By convention, the first qdisc created is named 1:0.  You could, however, choose 7:0 instead.  These numbers are actually in hexadecimal, so any values in within the range of 1 to ffff are also valid.  For readability the digits 0 to 9 are generally used exclusively.
+</p></div><div class="sect2"><h2 class="sect2"><a name="classfulqdisc">4.2. A Classful qdisc</a></h2><p>
+Now, let us look at an example where we add a classful qdisc and a single class.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">tc qdisc add dev eth2 parent root handle 1:0 htb default 1
+</pre></font></td></tr></tbody></table>
+<p></p><p>
+Initially, it looks almost identical to the previous classless qdisc.  The <b class="command">htb</b> qdisc was used here.  However, to actually benefit from using this classful qdisc, we need to add some classes.  You will notice above the parameter <code class="option">default</code> is specified.  It is an option for <b class="command">htb</b> qdiscs described later.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">tc class add dev eth2 parent 1:0 classid 1:1 htb rate 1mbit
+</pre></font></td></tr></tbody></table>
+<p></p><p>
+Now, we use the <b class="command">tc</b> binary with the <em>class</em> argument, instead of the <em>qdisc</em> argument.  The <em>class</em> argument allows you to create a class hierarchy.  We are working with Ethernet device eth2 again.  The <em>parent</em> parameter enables you to attach this class to either an existing classful qdisc or another class of the same type.  Above we attach to the <b class="command">htb</b> qdisc we just attached to the root hook earlier.
+</p><p>
+The value for the <em>parent</em> parameter must be the major and minor node number of the qdisc or class you wish to attach to.  Earlier, the identifier 1:0 was chosen for <em>handle</em> of the <b class="command">htb</b> qdisc.  That must be used as the argument to the <em>parent</em> parameter so <b class="command">tc</b> knows where you are assigning this class.
+</p><p>
+The <em>classid</em> parameter serves the same purpose for classes that the <em>handle</em> parameter serves for qdiscs.  It is the identifier for this specific class.  The major node number has already been chosen for you.  It must be the same as the major node number specified for the <em>parent</em> argument earlier.  You are free to choose any minor node number you want for the <em>classid</em> parameter.  Traditionally numbering starts at 1, but numbers from 1 to ffff are valid.  For this class the <em>classid</em> 1:1 was chosen, because the qdisc it is being attached to has a major node number 1 for its <em>handle</em> parameter.
+</p><p>
+Finally we specify the type of class and any options that class requires.  In this instance, the <b class="command">htb</b> class was chosen, as the <b class="command">htb</b> qdisc can only have <b class="command">htb</b> classes assigned to it.  (This is generally true of classful qdiscs.)  The <code class="option">rate</code> option for <b class="command">htb</b> is <a indepth="true" href="qdiscs.html#qhtb">discussed later</a>.
+</p><p>
+Another graphical representation, this time of an <b class="command">htb</b> qdisc and an associated class in a simple hierarchy, is shown below.  The qdisc is blue and the class green.
+</p><p>
+</p><div class="mediaobject"><p><img src="example2.gif" align="middle"></p></div>
+<p></p></div><div class="sect2"><h2 class="sect2"><a name="qdiscex">4.3. A Combined Example</a></h2><p>
+Finally, we can reveal a complete example using both classful and classless qdiscs.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">tc qdisc add dev eth2 parent root handle 1:0 htb default 20
+tc class add dev eth2 parent 1:0 classid 1:1 htb rate 1000kbit
+tc class add dev eth2 parent 1:1 classid 1:10 htb rate 500kbit
+tc class add dev eth2 parent 1:1 classid 1:20 htb rate 500kbit
+tc qdisc add dev eth2 parent 1:20 handle 2:0 sfq
+</pre></font></td></tr></tbody></table>
+<p></p><p>
+Now we have a nested structure, with a <b class="command">htb</b> classful qdisc assigned to the root hook, three <b class="command">htb</b> classes, and a<b class="command">sfq</b> qdisc as a leaf qdisc for one <b class="command">htb</b> class.  The other has an implicit <b class="command">pfifo</b> attached.  The careful reader will notice each qdisc has a minor node number of zero, as is required.
+</p><p>
+A graphical representation of the class hierarchy just created should be beneficial.
+</p><p>
+</p><div class="mediaobject"><p><img src="example3.gif" align="middle"></p></div>
+<p></p><p>
+First, notice the at the top of the hierarchy is a <b class="command">htb</b> qdisc.  Three classes are assigned to it.  Only the first is immediately attached to it, using the <em>parent</em> 1:0.  The other two classes are children of the first class.  If you examine the <b class="command">tc</b> command with the <em>class</em> option, you will see that the <em>parent</em> refers to the parent class in the hierarchy via its <em>classid</em>.
+</p><p>
+Each of the three <b class="command">htb</b> classes attached to the <b class="command">htb</b> qdisc are assigned a major node number of 1 for the <em>classid</em>, as the qdisc they are attached to has a <em>handle</em> with 1 as the major node number.  The minor node number for each <em>classid</em> must merely be a unique number between 1 and ffff in hexadecimal.
+</p><p>
+Finally, a <b class="command">sfq</b> qdisc is attached to the leaf class with <em>classid</em> 1:20.  Notice the qdisc is added nearly the same as the <b class="command">htb</b>.  However, instead of being assigned to the magic <em>root</em> hook, the target is 1:20.  The <em>handle</em> is chosen based on the rules discussed earlier.  Briefly, the major node number must be a unique number between 1 and ffff and the minor node must be 0.
+</p><p>
+Last, the whole structure can be deleted simply by deleting the root hook as demonstrated below.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">tc qdisc del dev eth2 root
+</pre></font></td></tr></tbody></table>
+<p></p></div><div class="sect2"><h2 class="sect2"><a name="qdiscdetails">4.4. Displaying qdisc and class Details</a></h2><p>
+Now we can take a look at the details of the hierarchy we have created.  Using the <b class="command">tc</b> tool again the following output is produced.  
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen"># tc -s -d qdisc show dev eth2
+qdisc sfq 2: quantum 1514b limit 128p flows 128/1024
+ Sent 0 bytes 0 pkts (dropped 0, overlimits 0)
+
+qdisc htb 1: r2q 10 default 0 direct_packets_stat 0 ver 3.16
+ Sent 0 bytes 0 pkts (dropped 0, overlimits 0)
+</pre></font></td></tr></tbody></table>
+<p></p><p>
+Each qdisc in your hierarchy is shown along with statistics and the details of its parameters.  The information available for each qdisc varies.  The number of sent bytes and packets is self explanatory.  For classful qdiscs, the totals are class wide and include the dequeue totals from children and siblings.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen"># tc -s -d class show dev eth2
+class htb 1:10 root leaf 2: prio 0 quantum 13107 rate 1Mbit ceil 1Mbit
+  burst 2909b/8 mpu 0b cburst 2909b/8 mpu 0b level 0
+ Sent 0 bytes 0 pkts (dropped 0, overlimits 0)
+ lended: 0 borrowed: 0 giants: 0
+ tokens: 28791 ctokens: 2879
+</pre></font></td></tr></tbody></table>
+<p></p><p>
+The detailed output for classes is similar to that of qdiscs.  The information available varies depending on the type of class.  The above is typical of a <b class="command">htb</b> qdisc's class.
+</p><p>
+Next, we will discuss some of the more interesting qdiscs available, including <a indepth="true" href="qdiscs.html#qpfifo">pfifo</a>, <a indepth="true" href="qdiscs.html#qsfq">sfq</a>, <a indepth="true" href="qdiscs.html#qtbf">tbf</a>, <a indepth="true" href="qdiscs.html#qprio">prio</a>, <a indepth="true" href="qdiscs.html#qhtb">htb</a>.  
+</p></div></div><div class="NAVFOOTER"><hr width="100%" align="LEFT"><table summary="Footer navigation table" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td valign="top" width="33%" align="left"><a indepth="true" href="linuxtc.html" accesskey="P">Prev</a></td><td valign="top" width="34%" align="center"><a href="http://blog.edseek.com/%7Ejasonb/articles/traffic_shaping/index.html" accesskey="H">Home</a></td><td valign="top" width="33%" align="right"><a indepth="true" href="qdiscs.html" accesskey="N">Next</a></td></tr><tr><td valign="top" width="33%" align="left">Linux Traffic Control</td><td valign="top" width="34%" align="center">&nbsp;</td><td valign="top" width="33%" align="right">An Overview of Common qdiscs</td></tr></tbody></table></div>
+
+</body></html>

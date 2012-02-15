@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="../../sitemap.xsl" type="text/xsl" media="all"?>
+<site>
+<page file="index.html" text="Traffic Control HOWTO" title="Traffic Control HOWTO">
+<page file="fdl.html" text="http://www.gnu.org/licenses/fdl.html" title="GNU Free Documentation License v1.3 - GNU Project - Free Software Foundation (FSF)"/>
+<page file="overview.html" text="2. Overview of Concepts" title="2. Overview of Concepts"/>
+<page file="elements.html" text="3. Traditional Elements of Traffic Control" title="3. Traditional Elements of Traffic Control"/>
+<page file="components.html" text="4. Components of Linux Traffic Control" title="4. Components of Linux Traffic Control"/>
+<page file="software.html" text="5. Software and Tools" title="5. Software and Tools"/>
+<page file="classless-qdiscs.html" text="6. Classless Queuing Disciplines (qdiscs)" title="6. Classless Queuing Disciplines (qdiscs)"/>
+<page file="classful-qdiscs.html" text="7. Classful Queuing Disciplines (qdiscs)" title="7. Classful Queuing Disciplines (qdiscs)"/>
+<page file="rules.html" text="8. Rules, Guidelines and Approaches" title="8. Rules, Guidelines and Approaches"/>
+<page file="scripts.html" text="9. Scripts for use with QoS/Traffic Control" title="9. Scripts for use with QoS/Traffic Control"/>
+<page file="diagram.html" text="10. Diagram" title="10. Diagram"/>
+<page file="links.html" text="11. Annotated Traffic Control Links" title="11. Annotated Traffic Control Links"/>
+</page>
+</site>

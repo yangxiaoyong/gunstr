@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="../../sitemap.xsl" type="text/xsl" media="all"?>
+<site>
+<page file="index.html" text="A Practical Guide to Linux Traffic Control" title="A Practical Guide to Linux Traffic Control">
+<page file="introduction.html" text="Introduction" title="Introduction"/>
+<page file="qosintro.html" text="Introduction to QoS" title="Introduction to QoS"/>
+<page file="linuxtc.html" text="Linux Traffic Control" title="Linux Traffic Control"/>
+<page file="classes.html" text="Class Structure Revealed" title="Class Structure Revealed"/>
+<page file="qdiscs.html" text="An Overview of Common qdiscs" title="An Overview of Common qdiscs"/>
+<page file="classflows.html" text="Classifying Flows" title="Classifying Flows"/>
+<page file="buildkernel.html" text="Building a QoS Ready Kernel" title="Building a QoS Ready Kernel"/>
+<page file="scenarios.html" text="A Traffic Control Journey: Real World Scenarios" title="A Traffic Control Journey: Real World Scenarios"/>
+<page file="monitoring.html" text="Graphing and Monitoring Traffic Control" title="Graphing and Monitoring Traffic Control"/>
+<page file="links.html" text="Suggested Reading for Further Study" title="Suggested Reading for Further Study"/>
+</page>
+</site>

@@ -1,0 +1,4 @@
+如何快速的转换进制，递归神马都是浮云
+ "{0:#d}".format(your_bin): "{0:#d}".format(0b100)
+ "{0:#b}".format(your_dec): "{0:#b}".format(100)
+

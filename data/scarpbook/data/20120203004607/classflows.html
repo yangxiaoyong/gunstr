@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>
+Classifying Flows
+</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.79"><link rel="HOME" title="A Practical Guide to Linux Traffic Control" href="http://blog.edseek.com/%7Ejasonb/articles/traffic_shaping/index.html"><link rel="PREVIOUS" title="An Overview of Common qdiscs" href="http://blog.edseek.com/%7Ejasonb/articles/traffic_shaping/qdiscs.html"><link rel="NEXT" title="
+Building a QoS Ready Kernel
+" href="http://blog.edseek.com/%7Ejasonb/articles/traffic_shaping/buildkernel.html"></head>
+<body class="sect1" bgcolor="#FFFFFF" link="#0000FF" text="#000000" vlink="#840084" alink="#0000FF"><div class="NAVHEADER"><table summary="Header navigation table" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><th colspan="3" align="center">A Practical Guide to Linux Traffic Control</th></tr><tr><td valign="bottom" width="10%" align="left"><a indepth="true" href="qdiscs.html" accesskey="P">Prev</a></td><td valign="bottom" width="80%" align="center"></td><td valign="bottom" width="10%" align="right"><a indepth="true" href="buildkernel.html" accesskey="N">Next</a></td></tr></tbody></table><hr width="100%" align="LEFT"></div><div class="sect1"><h1 class="sect1"><a name="classflows">6. Classifying Flows</a></h1><p>
+A variety of methods exist to classify flows.  You can use <b class="command">tc</b> to classify traffic, but it suffers from being entirely stateless.  The <em>Netfilter</em> framework is a stateful firewall which can be used to classify flows in additional to providing firewalling services.  Moreover, it's often more convenient to simply add a classification chain to an existing <em>Netfilter</em> configuration.  The simplest method for classifying traffic with <em>Netfilter</em> is the CLASSIFY target, although the MARK target combined with <b class="command">tc</b> filters is also effective.  In either case, you should target your classifications at the most specific class possible in your hierarchy.
+</p><div class="sect2"><h2 class="sect2"><a name="iptu32">6.1. Using tc and the u32 selector</a></h2><p>
+The <em>u32</em> selector allows you to match specific bits in the headers of IP, TCP, UDP, and ICMP packets.  Most commonly it is used to classify packets based on the usual suspects, including source or destination address and source or destination port number.  I only intend to cover aliases for commonly sought after bit offsets included within the <b class="command">tc</b> binary.  Matching portions of packets by hand is covered in <a href="http://lartc.org/howto/lartc.adv-filter.html#LARTC.ADV-FILTER.U32" target="_top">light detail</a> in the <a href="http://lartc.org/howto/index.html" target="_top">Linux Advanced Routing and Traffic Control HOWTO</a>.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">tc filter add dev eth0 parent 1:0 protocol ip u32 match ip sport 80 0xffff classid 1:10
+</pre></font></td></tr></tbody></table>
+<p></p><p>
+The syntax for <b class="command">tc</b> when adding filters is verbose, but few of the values will change.  First we specify that we want to work with a <code class="option">filter</code>.  We indicate we want to <code class="option">add</code> a new <code class="option">filter</code> for <code class="option">dev</code> <em>eth0</em>.  The <code class="option">parent</code> is generally the parent qdisc for the specified interface, often 1:0 unless you choose a different major node number.  Next, <code class="option">protocol</code> is specified with <em>ip</em> as its value.  Last, the <em>u32</em> selector is specified.
+</p><p>
+With that, the stage is set for values to be passed off to the <em>u32</em> selector itself.  These values will always take the format of the keyword <code class="option">match</code> followed by keyword <code class="option">ip</code>.  Next, for readability a selector of <em>src</em>, <em>dst</em>, <em>sport</em>, or <em>dport</em> is specified along with relevant arguments.  Finally, <code class="option">classid</code> is specified and should correspond to the qdisc or class you wish to assign the packet to.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">tc filter add dev eth0 parent 1:0 protocol ip u32 match ip dport 22 0xffff \
+  match ip dst 192.168.0.70/32 classid 1:20
+</pre></font></td></tr></tbody></table>
+<p></p><p>
+For example, the above <em>u32</em> match will assign packets with a destination port of 22 and a destination IP address of 192.168.0.70 to the qdisc described by 1:20.  Notice you can include multiple instances of <code class="option">match</code> in a single filter.  The syntax for matching a source IP address and source port are the same, with only the selector name changing.  You can match entire ranges of IP addresses using standard CIDR notation.
+</p><p>
+Deleting <code class="option">filter</code>s is an involved process.  The syntax presented above lacks some of the keywords necessary to allow effective, consistent deletion of individual filters.  You can delete all <code class="option">filter</code> entries by deleting the egress qdisc for a device, <a indepth="true" href="classes.html">demonstrated earlier</a>.
+</p></div><div class="sect2"><h2 class="sect2"><a name="iptclassify">6.2. Using the Netfilter CLASSIFY Target</a></h2><p>
+Since Linux 2.6 the CLASSIFY target has been part of the standard distribution, so you need not patch your kernel.  The CLASSIFY extension was added to <em>Netfilter</em> in version 1.2.9.
+</p><p>
+The CLASSIFY target is simple to use, provided you have some existing familiarity with <em>Netfilter</em>.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">iptables -t mangle -A POSTROUTING -o eth2 -p tcp --sport 80 -j CLASSIFY --set-class 1:10
+</pre></font></td></tr></tbody></table>
+<p></p><p>
+Briefly, iptables is being instructed to append a rule to the <code class="option">POSTROUTING</code> section of <code class="option">mangle</code> table. The rule matches TCP packets with a source port of 80 that are passing out of the eth2 network interface.  The target of this rule is the CLASSIFY extension, which is directed to classify this traffic into the class described by the major node number 1 and the minor node number 10.  The careful reader will notice that, based on the minor node number being greater than zero, the target must be a class assigned to a classful qdisc.  A detailed discussion of how to use <em>Netfilter</em> and <b class="command">iptables</b> is beyond this document's scope.
+</p><p>
+You can only use CLASSIFY from the <code class="option">POSTROUTING</code> chain of the <code class="option">mangle</code> table.  It is prohibited elsewhere.  If you find you need to classify packets elsewhere, you may need to use the MARK target instead.
+</p></div><div class="sect2"><h2 class="sect2"><a name="iptmark">6.3. Using the Netfilter MARK Target</a></h2><p>
+If you cannot use the CLASSIFY target, you can use the mark target in conjunction with <b class="command">tc</b> to classify flows.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">iptables -t mangle -A POSTROUTING -o eth2 -p tcp --sport 80 -j MARK --set-mark 1
+</pre></font></td></tr></tbody></table>
+<p></p><p>
+The above iptables rule will set an invisible mark on any packet it matches.  The mark exists in kernel space only.  The packet is not actually modified.  The <b class="command">tc</b> binary can be used to classify flows based on these marks.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">tc filter add dev eth0 protocol ip parent 1:0 prio 1 handle 1 fw classid 1:10
+</pre></font></td></tr></tbody></table>
+<p></p><p>
+The above <b class="command">tc</b> command is not unlike the familiar qdisc and class variants, except now you're adding a filter instead.  The <em>parent</em> parameter will always refer to the root qdisc for the given interface, which must exist prior to creating the filter.  The actual parameter <em>handle</em> refers to the mark that you gave the flow earlier.  The parameter <em>classid</em> refers to, unsurprisingly, the <em>handle</em> of the class you wish to assign this flow to.  It's generally only useful to add filters for interfaces which have classful qdiscs configured.
+</p></div><div class="sect2"><h2 class="sect2"><a name="iptl7">6.4. Using the L7 Filter Netfilter Module</a></h2><p>
+L7 is an exciting new extension module for Netfilter which lets you match layer 7 traffic.  L7 will investigate the contents of one or more packets in a flow to match patterns you specify.  L7 already has a rich database of matching patterns for different application layer protocols.  L7 is very useful for matching the flows of peer to peer (p2p) applications, many of which use random ports, but generally do not (yet) encrypt their data payloads to avoid detection.
+</p><p>
+Since L7 is not yet officially part of the standard Netfilter distribution, you will need to <a href="http://sourceforge.net/project/showfiles.php?group_id=80085" target="_top">download</a> the sources and patch both your kernel and iptables.  There is an <a href="http://l7-filter.sourceforge.net/L7-HOWTO-Netfilter" target="_top">excellent HOWTO</a> that details the steps to compile L7.  Once you have installed your patched kernel and iptables with L7 support, you can start using it to match flows based on layer 7 protocols.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">iptables -t mangle -A POSTROUTING -m layer7 --l7proto edonkey \
+  -j CLASSIFY --set-class 2:1
+</pre></font></td></tr></tbody></table>
+<p></p><p>
+For example, assuming the patterns are installed in the default location, the above will match flows generated by the popular p2p application eMule and use the <a indepth="true" href="classflows.html#iptclassify">CLASSIFY target</a> described above to classify the flow appropriately.  The POSTROUTING and PREROUTING chains are recommended since a flow's packets pass through either in both directions, so you aren't listening to half a conversation, which will break some layer 7 matches.
+</p></div></div><div class="NAVFOOTER"><hr width="100%" align="LEFT"><table summary="Footer navigation table" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td valign="top" width="33%" align="left"><a indepth="true" href="qdiscs.html" accesskey="P">Prev</a></td><td valign="top" width="34%" align="center"><a href="http://blog.edseek.com/%7Ejasonb/articles/traffic_shaping/index.html" accesskey="H">Home</a></td><td valign="top" width="33%" align="right"><a indepth="true" href="buildkernel.html" accesskey="N">Next</a></td></tr><tr><td valign="top" width="33%" align="left">An Overview of Common qdiscs</td><td valign="top" width="34%" align="center">&nbsp;</td><td valign="top" width="33%" align="right">Building a QoS Ready Kernel</td></tr></tbody></table></div>
+
+</body></html>

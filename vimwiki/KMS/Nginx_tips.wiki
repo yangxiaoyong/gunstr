@@ -1,0 +1,375 @@
+= server_name特性详解 =
+server_name 是可以使用正则表达式的
+
+{{{
+  server {
+    listen  80;
+    server_name domain.com www.domain.com;
+    }
+}}}
+
+# 在一个server块中配置多个站点：
+{{{
+  server {
+    listen 80;
+    server_name ~^(www\.)?(.+)$;
+    root /var/www/$2;
+  }
+}}}
+$1 代表(www\.)所匹配的项
+$2 代表(.+)所匹配的项
+$n 依次类推
+
+# 在一个server块里为一个站点配置多个二级域名
+以实际的例子，一个站点会有一些二级域名，而这些二级域名都有各自的目录，我们可以使用正则
+表达式来配置多个二级域名
+{{{
+  server {
+    listen 80;
+    server_name ~^(.+)?\.domain\.com$;
+    index index.html;
+
+    if ($host = domain.com) {
+        # 以301（永久跳转）跳转到www.domain.com
+        rewrite ^ http://www.domain.com permanent;
+    }
+    root /var/www/domain.com/$1/;
+  }
+}}}
+
+= 如何配置服务器直接使用ip来访问服务器 =
+官方文档里这么写道： If you do not want to process requests with undefined "Host" header
+lines, you man define a default server that just drops the requests:
+
+{{{
+  server {
+    listen 80 default_server;
+    server_name _;
+    return 444;
+  }
+}}}
+
+这样做，当访客使用ip访问就直接重置444错误，当然这样做不太友好，我们可以配置其直接跳到网
+站的某跳url上
+
+{{{
+  server {
+    listen 80 default_server;
+    server_name _;
+    # 我那天确实看到末尾要加一个?表示什么意思？
+    rewrite ^ http://www.domain.com$request_uri?;
+  }
+}}}
+
+当然出于某些原因，我们需要使用ip地址直接访问而不进行跳转，比如反问nginx当前的状态信息，
+可以通过设置不同的location来达到这个目的
+
+{{{
+  server {
+    listen 80;
+    server_name _;
+    location /NginxStatus {
+        stub_status on;
+        access_log off;
+    }
+
+    location / {
+        rewrite ^ http://www.domain.com$request_uri?;
+    }
+  }
+}}}
+
+= Nginx 接收的信号 =
+kill -USR2 nginx_pid 可平滑升级
+kill -HUP nginx_pid / nginx -s reload 平滑加载配置文件
+
+= Nginx 重写模块 =
+正则表达式
+
+| ~   | 区分大小写匹配       |
+|-----+----------------------|
+| ~*  | 不区分大小写匹配     |
+|-----+----------------------|
+| !~  | 区分大小写的不匹配   |
+|-----+----------------------|
+| !~* | 不区分大消协的不匹配 |
+
+文件及目录匹配
+
+| -f / !-f | 判断文件是否存在         |
+|----------+--------------------------|
+| -d / !-d | 判断目录是否存在         |
+|----------+--------------------------|
+| -e / !-e | 判断文件或目录是否存在   |
+|----------+--------------------------|
+| -x / !-x | 判断文件是否又可执行权限 |
+
+flag 标记
+
+
+| last      | 相当于Apache里的[L]标记，表示完成rewrite    |
+|-----------+---------------------------------------------|
+| break     | 终止匹配，不再匹配后面的规则                |
+|-----------+---------------------------------------------|
+| redirect  | 返回302临时重定向，地址栏会显示跳转后的地址 |
+|-----------+---------------------------------------------|
+| permanent | 返回301永久重定向，地址栏会显示跳转后的地址 |
+
+一些例子
+- 结合qeePHP的例子
+  {{{
+    # 如果请求的目录不存在
+    if (!-d $request_filename){
+
+      # 如果请求的url中有至少2层目录，并且url中只包含英文字母的大小写，那么将匹配的第一，二目录作为$1,$2变量，剩下的目录作为$3变量
+      # 将整个url重写到/index.php，并附上参数
+      rewrite ^/([a-z-A-Z]+)/([a-z-A-z]+)/?.(.*)$ /index.php?namespace=user&amp;controller=$1&amp;action=$2&amp;$3 last;
+      # 如果请求的url只有一层目录，那么将该层目录作为变量$1，重写url到/index.php并传
+      # 递参数$1
+      rewrite ^/([a-z-A-Z]+)/?$ /index.php?namespace=user&amp;controller=$1 last;
+      # 不再匹配后续的规则
+      break;
+    }
+  }}}
+
+- 多目录转成参数
+  abc.domain.com/sort/2 => abc.domain.com/index.php?act=sort&name=abc&id=2
+  {{{
+    if ($host ~* (.*)\.domain\.com)
+      # 将匹配的子域名赋值给变量stub_name
+      set $stub_name $1;
+      rewrite ^/sort\/(\d+)\/?$ /index.php?act=sort&cid=$sub_name&id=$1 last;
+  }}}
+- 目录交换
+  /123/xxx -> /xxx?id=123
+  {{{
+    rewrite ^/(\d+)/(.+)$ /$2?id=$1 last;
+  }}}
+
+- 将使用ie的用户重定向到/nginx-is目录下
+  {{{
+    if ($http_user_agent ~ MSIE) {
+      rewrite ^(.*)$ /nginx-ie/$1 break;
+    }
+  }}}
+
+- 目录自动加"/"
+  {{{
+    if (-d $request_filename) {
+      rewrite ^/(.*)([^/])$ http://$host/$1$2/ permenant;
+    }
+  }}}
+
+- 禁止访问htaccess
+  {{{
+    location ~/\.ht {
+      deny all;
+    }
+  }}}
+- 禁止访问多个目录
+  {{{
+    location ~ ^/(cron|tempaltes) {
+      deny all;
+      break;
+    }
+  }}}
+
+- 禁止以/data打头的url
+  {{{
+    location ~ ^/data {
+      deny all;
+    }
+  }}}
+- 禁止单个目录（不能禁止其下面文件的获取）
+  {{{
+    location ~ /data/sec/ {
+       deny all;
+    }
+  }}}
+- 禁止单个文件的获取
+  {{{
+    location ~ /data/sql/data.sql {
+      deny all;
+    }
+  }}}
+- 设定某个文件的过期时间
+  {{{
+    location ~^/html/js/head_1.js {
+      access_log off;
+      root /var/www/js;
+      expires 600s;
+      break;
+    }
+  }}}
+- 文件反盗链并设置过期时间
+  {{{
+    # 显示一张盗链图片
+    rewrite ^/ http://domain.com/daolian.png;
+    # 不记录日志，减轻服务器的压力
+    access_log off;
+    #所有文件3天的浏览器缓存
+    expires 3d;
+
+    location ~* ^.+\.(jpg|jpeg|gif|png|swf)$ {
+      ###### todo here
+      valid_refers none
+    }
+  }}}
+- 只允许ip访问网站，并需要密码认证
+  {{{
+  root /var/www;
+  allow 192.168.1.8;
+  allow 192.168.1.9;
+  deny all;
+  auth_basic "Internal_admin"
+  auth_basic_usere_file /opt/sec/htpasswd;
+  }}}
+- 将多级目录下的文件转换为一个单一的url，增强seo效果
+  {{{
+  # /job-123-456-789.html -> /job/123/456/789.html
+  rewrite ^/job-(\d+)-(\d+)-(\d+)\.html$ /job/$1/$2/jobshow_$3.html last;
+  }}}
+- 域名跳转
+  {{{
+  # 单域名跳转
+  server {
+    listen 80;
+    server_name a.example.com;
+    rewrite ^ http://www.example.com/;
+    access_log off;
+  }
+  # 匹配域名跳转
+  server {
+    listen 80;
+    server_name .example.com .website.com;
+
+    if ($host ~ "a\.example\.com") {
+       rewrite ^(.*) http://www.example.com$1 permanent;
+    }
+  }
+  }}}
+# 使用expires指令控制页面缓存
+  expires 使用了特定的时间，并且要求服务器和客户端是严格同步的。
+  而Cache-Control是用max-age指令指定文件被缓存多久
+  对于不支持http1.1的浏览器，还是需要expires来控制，所以最好能指定二个响应头。但HTTP规范
+  max-age指令将重写expires头
+  {{{
+  # 如果不想让浏览器缓存，加no-cache参数或private参数
+  # 这样浏览器F5刷新时，返回的响应代码是200，而不是304
+  add_header Cache-Control no-cache;
+  add_header Cache-Control private;
+  }}}
+
+# 使用backup实现双机热备份
+  {{{
+  upstream server_1 {
+     server 127.0.0.1:9000;
+     # 通过添加一个backup的参数，让1.2这台服务器作为备份用机
+     # 平常不会接受任何请求，只有当其它服务器不能工作的时候，
+     # 这台服务器才开始工作
+     server 192.168.1.2:9001 backup;
+  }
+  }}}
+
+# 由于要rewrite一个地址从[/mag/xx/xxx/] -> [/m/xxx] 但是原先的 [/mag/xx/more/] 要保留
+  最先想到的
+  {{{
+  location ~* ^/mag/[^/]+/[^(more)]+/{
+    rewrite ^/mag/[^/]+/(.*) /m/$1 permanent;
+  }
+  }}}
+  []做的写法并不紧凑，里面是匹配单个字符的，这样无效，匹配不了。
+  继续深入，得知非某单词的写法 *(?!more)*
+  {{{
+  location ~* ^/mag/[^/]+/(?!more)([^/]+)/ {
+    rewrite ^/mag/[^/]+/(.*) /m/$1 permanent;
+  }
+  }}}
+
+| (exp)        | 匹配exp，并捕获文本到自动命名的组里         |
+|--------------+---------------------------------------------|
+| (?'name'exp) | 匹配exp，并捕获文本到名称为name的组里       |
+|--------------+---------------------------------------------|
+| (?:exp)      | 匹配exp，不捕获匹配的文本，也不给此分组组号 |
+|--------------+---------------------------------------------|
+| (?=exp)      | 零宽断言,匹配exp前面的位置                  |
+|--------------+---------------------------------------------|
+| (?<=exp)     | 零宽断言,匹配exp后面的位置                  |
+|--------------+---------------------------------------------|
+| (?!exp)      | 零宽断言,匹配后面跟的不是exp的位置          |
+
+# Location 搜索顺序和优先级
+  Location 块的配置可以是： location [=|~|~*|^~|@] pattern { ... }
+  第一个选项参数是一个叫 *location modifier*(定位修改符) 的符号
+
+| Modifier | Description                                                           |
+|----------+-----------------------------------------------------------------------|
+| =        | The location URI must match the specified pattern exactly.            |
+|          | 不能使用正则表达式::                                                  |
+|          | server_name website.com                                               |
+|          | location = /abcd {                                                    |
+|          | ...                                                                   |
+|          | }                                                                     |
+|          | - 匹配http://website.com/abcd(精确匹配)                               |
+|          | - 匹配http://website.com/ABCD(如果你的操作系统大小些忽略)             |
+|          | - 匹配http://website.com/abcd?param2&param2(忽略查询字符参数)         |
+|          | - 不匹配http://website.com/abcd/(有末尾反斜线/)                       |
+|          | - 不匹配http://website.com/abcde(废话)                                |
+|----------+-----------------------------------------------------------------------|
+| (None)   | URL必须以配置的匹配开头，不允许使用正则表达式::                       |
+|          | server {                                                              |
+|          | server_name website.com;                                              |
+|          | location /abcd {                                                      |
+|          | [...]}                                                                |
+|          | - 匹配http://website.com/abcd(精确匹配)                               |
+|          | - 匹配http://website.com/ABCD(如果你的操作系统大小些忽略)             |
+|          | - 匹配http://website.com/abcd?param2&param2(忽略查询字符参数)         |
+|          | - 匹配http://website.com/abcd/                                        |
+|          | - 匹配http://website.com/abcde(匹配以/abcd开头)                       |
+|----------+-----------------------------------------------------------------------|
+| ~        | The requested URI must be a case-sensitive match to the specified     |
+|          | regular expression.                                                   |
+|          | 匹配的指定的正则表达式的请求URI必须是大小写敏感的                     |
+|          | server {                                                              |
+|          | server_name website.com;                                              |
+|          | location ~ ^/abcd$ {                                                  |
+|          | [...]}}                                                               |
+|          | - 匹配http://website.com/abcd(精确匹配)                               |
+|          | - 匹配http://website.com/ABCD(如果你的操作系统大小些忽略)             |
+|          | - 不匹配http://website.com/abcd/(有末尾反斜线/)                       |
+|          | - 不匹配http://website.com/abcde(以e结尾)                             |
+|----------+-----------------------------------------------------------------------|
+| ~*       | 跟~一样，只是大小写不敏感                                             |
+|----------+-----------------------------------------------------------------------|
+| ^~       | 跟*(None)*空符号类似，URI必须以配置的模式开头，不同的是，如果这个模式 |
+|          | 匹配了,Nginx将会停止向下搜索其它的模式                                |
+|----------+-----------------------------------------------------------------------|
+| @        | 定义一个命名的location块，这些块不能直接被客户端访问到,只能通过内部   |
+|          | 比如try_files或者error_page的指令生成的请求访问到                     |
+|----------+-----------------------------------------------------------------------|
+
+匹配顺序
+1. = 修改符号: 如果配置的字符完全匹配请求的URI，Nginx保留该location块
+2. 空修改符符号: 如果配置的字符完全匹配请求的URI，Nginx保留该location块
+3. ^~ 的修改符号：如果请求的URI开头匹配配置的正则表达式，Nginx保留该location块
+4. ~或~*修改符号: 如果正则表达式匹配请求的URI，Nginx保留该location块
+5. 空修改符符号:如果配置的字符匹配请求的URI开头部分，Nginx保留该location块
+
+{{{
+server {
+  server_name website.com;
+  location ^~ /doc {
+    [...] # requires beginning with "/doc"
+  }
+  location ~* ^/document$ {
+    [...] # requires exactly matching "/documents"
+  }
+}
+}}}
+
+当访问http://website.com/document哪一个location块会被应用到？答案是第一个，原因是
+^~ 的优先级比 ~* 高，所以，当任何一个URI请求以/doc打头将会影响到第一个location块，尽管
+请求的URI匹配第二个块的正则表达式
+
+# nginx怎样处理一个请求
+

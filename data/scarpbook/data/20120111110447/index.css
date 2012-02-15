@@ -1,0 +1,47 @@
+/* ::::: https://help.ubuntu.com/moin_static192/ubuntunew/css/common.css ::::: */
+
+a { color: rgb(217, 13, 25); }
+a:hover { color: rgb(128, 0, 0); }
+#pagelocation li { display: inline; }
+#pagelocation { margin: 0pt; padding: 0pt; color: rgb(109, 76, 7); font-size: 1.8em; font-weight: bold; line-height: 1.2em; border-bottom: 3px solid rgb(109, 76, 7); }
+#pagelocation a { text-decoration: none; color: rgb(109, 76, 7); }
+h1, h2, h3, h4, h5, h6 { margin: 0pt; padding: 2px 0pt; font-weight: normal; color: rgb(90, 51, 32); line-height: 1.2em; }
+h1 { font-size: 1.6em; border-bottom: 1px solid rgb(109, 76, 7); }
+h2 { font-size: 1.3em; }
+li p { margin: 0.25em 0pt; }
+a, img, img.drawing { border: 0pt none; }
+pre { border: 1px dashed rgb(193, 180, 150); background-color: rgb(240, 238, 230); padding: 4pt; font-family: courier,monospace; white-space: pre-wrap; word-wrap: break-word; }
+table { margin: 0.5em 0pt; border-collapse: collapse; }
+td { padding: 0.25em; border: 1pt solid rgb(193, 180, 150); }
+td p { margin: 0pt; padding: 0pt; }
+.info { font-size: 0.85em; color: rgb(193, 180, 150); }
+#pageinfo { margin-top: 2em; }
+#pagebottom { clear: both; }
+hr { height: 1pt; background-color: rgb(193, 180, 150); border: 0pt none; }
+/* ::::: https://help.ubuntu.com/moin_static192/ubuntunew/css/screen.css ::::: */
+
+body { background: url('bg-page.png') repeat-x scroll center top rgb(211, 202, 170); margin: 20px; font-size: 90%; font-family: "Helvetica Neue","Lucida Grande",Helvetica,Arial,Verdana,sans-serif; color: rgb(0, 0, 0); }
+#round { background: url('bg-content.png') repeat-y scroll center top rgb(255, 255, 255); width: 876px; margin: auto auto 50px; position: relative; }
+#topcap { position: absolute; top: 0pt; left: 0pt; }
+#bottomcap { position: absolute; bottom: 0pt; left: 0pt; }
+#header { padding-top: 12px; }
+#header h1 { display: inline; }
+#logo-floater { width: 225px; float: left; padding: 10px; }
+#sitename a { position: relative; top: 35px; float: right; font-size: 1.5em; padding-right: 20px; text-decoration: none; color: black; }
+#sitename span { padding-left: 5px; }
+#loginbar { position: absolute; right: 3px; top: 90px; margin: 0pt 10px; padding: 8px 0pt 0pt; text-align: right; font-size: 12px; white-space: nowrap; }
+#loginbar li { display: inline; padding: 0pt 2px; }
+#loginbar li a { color: rgb(60, 49, 8); }
+#loginbar li:before { content: "| "; color: black; }
+#loginbar li:first-child:before { content: ""; }
+a:hover { color: rgb(128, 0, 0); }
+h1 a:hover { color: rgb(128, 0, 0); }
+textarea, input[type="text"], input[type="password"] { font-size: 1em; font-family: Lucida Typewriter,courier,monospace; border: 1px solid rgb(193, 180, 150); background: none repeat scroll 0% 0% rgb(241, 241, 237); color: rgb(46, 32, 3); }
+#logo { text-indent: -10000px; float: left; margin: 0pt 10px 0pt 0pt; font-size: 2em; line-height: 1.2em; font-weight: bold; padding: 0pt; }
+#breadcrumbs { padding-bottom: 15px; }
+#cse-search-box { position: absolute; right: 3px; top: 3px; margin: 5px 10px; padding: 0pt; white-space: nowrap; font-size: 13px; }
+#ubuntulinks { text-align: center; }
+#page { clear: both; margin: 0pt; padding: 10px 30px; }
+#footer { margin: 0pt; font-size: 90%; color: rgb(68, 68, 68); }
+.pagelinks { margin: 0pt; padding: 0pt; font-size: 85%; white-space: nowrap; }
+.pagelinks li { display: inline; margin-right: 10px; }

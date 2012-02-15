@@ -1,0 +1,3 @@
+html * { -moz-user-select: none; }
+body, td, th { font: 12px Geneva,Arial,sans-serif; cursor: default; }
+body { margin: 0px; background-color: rgb(255, 255, 255); }

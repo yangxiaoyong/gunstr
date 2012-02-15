@@ -1,0 +1,31 @@
+RDBMS 指的是关系型数据库管理系统。
+RDBMS 是 SQL 的基础，同样也是所有现代数据库系统的基础，比如 MS SQL Server, IBM DB2,
+Oracle, mySQL 以及 Microsoft Access
+
+RDBMS 中的数据存储在被称为表（tables）的数据库对象中。
+表是相关的数据项的集合，它由列和行组成。
+
+可以把SQL分为二个部分： 数据操作语言（DML）和数据定义语言（DDL）
+
+SQL（结构化查询语言）是用于执行查询的语法。但是SQL语言也包含用于更新，插入和删除记录的
+语法。
+
+查询和更新指令构成了SQL的DML部分：
+- [[SELECT]]： 从数据表里获取数据
+- UPDATE： 更新数据库表中的数据
+- DELETE： 从数据表中删除数据
+- INSERT INTO： 向数据表中插入数据
+
+
+SQL的数据定义语言（DDL）部分使我们有能力创建或删除表格。我们也可以定义索引（键），规定
+表之间的链接以及施加表间的约束。
+
+SQL中最重要的DDL语句：
+- CREATE DATABASE : 创建数据库
+- ALTER DATABASE ： 修改数据库
+- CREATE TABLE ： 创建新表
+- ALTER TABLE ： 变更（修改）表
+- DROP TABLE ： 删除表
+- CREATE INDEX ： 创建索引（搜索键）
+- DROP INDEX ： 删除索引
+

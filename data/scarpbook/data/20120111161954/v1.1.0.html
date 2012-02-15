@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    
+    
+    <title>What’s new in Tornado 1.1 — Tornado v2.1.1 documentation</title>
+    
+    
+    
+    
+    
+    
+    <link rel="top" title="Tornado v2.1.1 documentation" href="http://www.tornadoweb.org/documentation/index.html">
+    <link rel="up" title="Release notes" href="http://www.tornadoweb.org/documentation/releases.html">
+    <link rel="next" title="What’s new in Tornado 1.0.1" href="http://www.tornadoweb.org/documentation/releases/v1.0.1.html">
+    <link rel="prev" title="What’s new in Tornado 1.1.1" href="http://www.tornadoweb.org/documentation/releases/v1.1.1.html"> 
+  
+<link rel="stylesheet" type="text/css" href="v1.1.0.css" media="all">
+</head>
+<body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index" accesskey="I">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="v1.0.1.html" title="What’s new in Tornado 1.0.1" accesskey="N">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="v1.1.1.html" title="What’s new in Tornado 1.1.1" accesskey="P">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="releases.html" accesskey="U">Release notes</a> »</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="what-s-new-in-tornado-1-1">
+<h1>What’s new in Tornado 1.1<a class="headerlink" href="#what-s-new-in-tornado-1-1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="sep-7-2010">
+<h2>Sep 7, 2010<a class="headerlink" href="#sep-7-2010" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-none"><div class="highlight"><pre>We are pleased to announce the release of Tornado 1.1, available from
+http://github.com/downloads/facebook/tornado/tornado-1.1.tar.gz
+
+Changes in this release:
+* RequestHandler.async_callback and related functions in other classes
+  are no longer needed in most cases (although it's harmless to continue
+  using them).  Uncaught exceptions will now cause the request to be closed
+  even in a callback.  If you're curious how this works, see the new
+  tornado.stack_context module.
+* The new tornado.testing module contains support for unit testing
+  asynchronous IOLoop-based code.
+* AsyncHTTPClient has been rewritten (the new implementation was
+  available as AsyncHTTPClient2 in Tornado 1.0; both names are
+  supported for backwards compatibility).
+* The tornado.auth module has had a number of updates, including support
+  for OAuth 2.0 and the Facebook Graph API, and upgrading Twitter and
+  Google support to OAuth 1.0a.
+* The websocket module is back and supports the latest version (76) of the
+  websocket protocol.  Note that this module's interface is different
+  from the websocket module that appeared in pre-1.0 versions of Tornado.
+* New method RequestHandler.initialize() can be overridden in subclasses
+  to simplify handling arguments from URLSpecs.  The sequence of methods
+  called during initialization is documented at
+  http://tornadoweb.org/documentation#overriding-requesthandler-methods
+* get_argument() and related methods now work on PUT requests in addition
+  to POST.
+* The httpclient module now supports HTTP proxies.
+* When HTTPServer is run in SSL mode, the SSL handshake is now non-blocking.
+* Many smaller bug fixes and documentation updates
+
+Backwards-compatibility notes:
+* While most users of Tornado should not have to deal with the stack_context
+  module directly, users of worker thread pools and similar constructs may
+  need to use stack_context.wrap and/or NullContext to avoid memory leaks.
+* The new AsyncHTTPClient still works with libcurl version 7.16.x, but it
+  performs better when both libcurl and pycurl are at least version 7.18.2.
+* OAuth transactions started under previous versions of the auth module
+  cannot be completed under the new module.  This applies only to the
+  initial authorization process; once an authorized token is issued that
+  token works with either version.
+
+Many thanks to everyone who contributed patches, bug reports, and feedback
+that went into this release!
+
+-Ben
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a indepth="true" href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">What’s new in Tornado 1.1</a><ul>
+<li><a class="reference internal" href="#sep-7-2010">Sep 7, 2010</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a indepth="true" href="v1.1.1.html" title="previous chapter">What’s new in Tornado 1.1.1</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a indepth="true" href="v1.0.1.html" title="next chapter">What’s new in Tornado 1.0.1</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="http://www.tornadoweb.org/documentation/_sources/releases/v1.1.0.txt" rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none;">
+  <h3>Quick search</h3>
+    <form class="search" action="http://www.tornadoweb.org/documentation/search.html" method="get">
+      <input value="" name="q" size="18" type="text">
+      <input value="Go" type="submit">
+      <input name="check_keywords" value="yes" type="hidden">
+      <input name="area" value="default" type="hidden">
+    </form>
+    <p class="searchtip" style="font-size: 90%;">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="v1.0.1.html" title="What’s new in Tornado 1.0.1">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="v1.1.1.html" title="What’s new in Tornado 1.1.1">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="releases.html">Release notes</a> »</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        © Copyright 2011, Facebook.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  
+
+
+</body></html>

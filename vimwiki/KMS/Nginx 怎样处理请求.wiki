@@ -1,0 +1,174 @@
+= Nginx 是如何处理请求的 =
+
+我这里将Name, server_name 翻译为域名
+
+=== 基于域名的虚拟服务器 ===
+nginx 第一会决定哪个服务会处理当前的请求。让我们来先看一段简单的配置，所有的三个虚拟主机
+都监听 `*:80` 端口
+
+{{{
+server {
+    listen 80;
+    server_name nginx.org www.nginx.org;
+    ...
+}
+
+server {
+    listen 80;
+    server_name nginx.net www.nginx.net;
+    ...
+}
+
+server {
+    listen 80;
+    server_name nginx.com www.nginx.com;
+    ...
+}
+}}}
+在上面这个配置里，nginx只测试请求头中的`"Host"`的值来决定请求该路由到哪个服务块里，如果
+`"Host"`头没有匹配到任何的服务名字，或者请求头消息中没有包含`"Host"`这行，那么nginx会
+将请求路由到默认的服务中，在上面的配置中，默认的服务是第一个，这是nginx的默认行为，如果
+你不想这么让第一个服务成为默认服务，你必须要明确的在`"listen"`指令段里设置
+`"default_server"`参数
+{{{
+server {
+    listen 80 default_server;
+    server_name nginx.net www.nginx.net;
+    ...
+}
+}}}
+
+`"default_server"`参数从0.8.21版本后就开始使用了，在早期的版本中使用`"default"`来代替
+记住默认的服务是监听端口(*listen port*)的属性不是服务名字(*server_name*)的属性
+
+=== 怎样防止处理一个没有定义服务名字的请求 ===
+如果你不想处理那些没有定义`"Host"`头的请求，你必须定义一个默认的服务来丢掉这些请求
+{{{
+server {
+    listen 80 default_server;
+    server_name _;
+    return 444;
+}
+}}}
+
+我们选择不存在的域名名字 `"_"` 作为服务名字并且返回nginx的特别非标准代码444来关闭当前的
+连接，记住，你必须设置为这个服务设置一个名字，否则nginx将会使用hostname
+
+=== 混合基于域名和基于IP的虚拟主机 ===
+让我们来看一个更复杂的配置文件，一些虚拟主机监听不同的地址
+
+{{{
+server {
+    listen 192.168.1.1:80;
+    server_name nginx.org www.nginx.org;
+    ...
+}
+
+server {
+    listen 192.168.1.1:80;
+    server_name nginx.net www.nginx.net;
+    ...
+}
+
+server {
+    listen 192.168.1.2:80;
+    server_name nginx.com www.nginx.com;
+    ...
+}
+}}}
+
+这在个配置里，Nginx首先会测试请求里的IP地址和端口与`"server"`块里的`"listen"`指令里定义的
+IP和端口,然后测试请求头里的`"Host"`头与匹配IP地址和端口的`"server"`块的`"server_name"`
+的条目，如果服务名字没有被找到，那么请求会被默认的服务处理，比如，一个来自
+`192.168.1.1:80`的端口接受到一个`www.nginx.com`的请求,它会被`192.168.1.1:80`端口上的
+第一个服务，也就是默认服务处理，因为在该端口上没有定义 `www.nginx.com`
+
+我们之前提到过，一个默认的服务是监听端口(`listen port`)的属性和不同的默认服务可能会为
+不同的监听端口定义
+
+{{{
+server {
+    listen 192.168.1.1:80;
+    server_name nginx.org www.nginx.org;
+    ...
+}
+server {
+    # 192.168.1.1 上 80 端口的默认服务
+    listen 192.168.1.1:80 default_server;
+    server_name nginx.net www.nginx.net;
+}
+
+server {
+    # 192.168.1.2 上 80 端口的默认服务
+    listen 192.168.1.2:80 default_server;
+    server_name nginx.com www.nginx.com;
+    ...
+}
+}}}
+
+=== 一个简单的php站点配置 ===
+现在让我们来看看nginx是怎样悬着一个location来处理请求，一个简单典型的php站点：
+
+{{{
+server {
+    listen 80;
+    server_name nginx.org www.nginx.org;
+    root /data/www;
+
+    location / {
+        index index.html index.php;
+    }
+
+    location ~* \.(gif|jpg|png)$ {
+        expires 30d;
+    }
+
+    location ~ \.php$ {
+        fastcgi_pass localhost:9000;
+        fastcgi_param SCRIPT_FILENAME
+                      $doucment_root$fastcgi_script_name;
+        include       fastcgi_params;
+    }
+}
+}}}
+
+nginx会首先搜索字面量字符配置的location而忽略掉列出的顺序。在上面的配置文件中只有一个字面
+量location `"/"` 而且它匹配任何请求所以它将会被用来做最后一个重排序(used as a last resort
+),然后nginx检查配置文件中顺序列出的正则表达式，第一个匹配的表达式会停止继续向下搜索，然后
+nginx将会使用该location。如果没有一个正则表达式匹配这个请求，nginx就会使用前面的字面量字
+符location
+
+记住所有类型的location只测试请求的不带查询字符的URI部分。这样做因为查询字符里的参数可能
+会有下面几种方式，比如：
+
+{{{
+/index.php?user=john&page=1
+/index.php?page=1&user=john
+}}}
+
+另外，任何人都可以在查询字符里请求任何东西
+
+{{{
+/index.php?page=1&something+else&user=john
+}}}
+
+现在，让我们看看上面配置是怎样处理一个请求的：
+- 一个请求 `"/logo.gif"` 被字面量 location `"/"` 和后来的正则表达式 `"\.(gif|jpg|png)$"`
+  同时匹配到，因此，它会后一个location处理。使用指令段 `"root /data/www"`，请求被映射到
+  一个文件 `"/data/www/logo.gif"`， 然后这个文件被发往客户端
+
+- 一个请求同样也被字面量location `"/"` 和正则表达式 `"\.(php)$"` 同时匹配。因此，它
+  也是被后一个location处理，该请求被传递到一个在监听`localhost：9000`上的`FastCGI`服务
+  "fastcgi_param" 指令设置 `FastCGI` 参数 SCRIPT_FILENAME 为 `"/data/www/index.php"`,
+  然后`FastCGI`服务执行该文件。变量`$document_root`等价于`root`指令段的值
+  变量$fastcgi_script_name等价于请求的URI，i.e `"/index.php"`
+
+- 一个请求`"/about.html"` 只被被字面量 `"/"` 匹配，因此，它被该location处理，使用指令
+  `"root /data/www"` 请求映射到文件`"/data/www/about.html"`，然后文件被发送到客户端
+
+- 处理请求 `"/"` 更复杂，它只被字面量 location `"/"` 匹配，因此，它被该location处理
+  然后`"index"`指令段根据它的指令段`"root /data/www"`参数测试"index.html"和"index.php"
+  是否存在，如果 "/data/www/index.php" 文件存在，那么这个指令会做一个内部的重定向到
+  "/index.php",然后nginx会跟客户端发起一个请求一样在搜索一遍所有的location，就像我们
+  看到的那样，最终重定向的请求将会被`FastCGI`服务处理
+

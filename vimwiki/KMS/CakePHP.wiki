@@ -1,0 +1,18 @@
+CRUD: 4个数据库基本函数, HTTP 方法
+
+| operation       | SQL    | HTTP/REST |
+|-----------------+--------+-----------|
+| Create          | INSERT | POST      |
+| Read(Retrieve)  | SELECT | GET       |
+| Update          | UPDATE | PUT       |
+| Delete(Destory) | DELETE | DELETE    |
+
+Scaffold: 一个构建基于数据库后端程序的元编程方法,在技术上也支持一些MVC的框架,程序员会写
+一个有关该程序如何使用数据库的配置，编译器会使用这个配置来生成让程序能创建，读取，更新
+和删除数据库条目的代码
+
+理解MVC：
+
+Model 表示程序数据
+View  渲染表现model的数据
+Controller 处理并路由来自客户端的请求

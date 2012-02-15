@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>An Overview of Common qdiscs</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.79"><link rel="HOME" title="A Practical Guide to Linux Traffic Control" href="http://blog.edseek.com/%7Ejasonb/articles/traffic_shaping/index.html"><link rel="PREVIOUS" title="Class Structure Revealed" href="http://blog.edseek.com/%7Ejasonb/articles/traffic_shaping/classes.html"><link rel="NEXT" title="
+Classifying Flows
+" href="http://blog.edseek.com/%7Ejasonb/articles/traffic_shaping/classflows.html"></head>
+<body class="sect1" bgcolor="#FFFFFF" link="#0000FF" text="#000000" vlink="#840084" alink="#0000FF"><div class="NAVHEADER"><table summary="Header navigation table" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><th colspan="3" align="center">A Practical Guide to Linux Traffic Control</th></tr><tr><td valign="bottom" width="10%" align="left"><a indepth="true" href="classes.html" accesskey="P">Prev</a></td><td valign="bottom" width="80%" align="center"></td><td valign="bottom" width="10%" align="right"><a indepth="true" href="classflows.html" accesskey="N">Next</a></td></tr></tbody></table><hr width="100%" align="LEFT"></div><div class="sect1"><h1 class="sect1"><a name="qdiscs">5. An Overview of Common qdiscs</a></h1><p>
+Linux traffic control affords you access to many different shapers and schedulers.  A brief overview of each and its capabilities is needed before you can employ them.
+</p><div class="sect2"><h2 class="sect2"><a name="qclassless">5.1. Classless qdiscs</a></h2><div class="sect3"><h3 class="sect3"><a name="qpfifo">5.1.1. pfifo / bfifo</a></h3><p>
+The most basic scheduler available, <b class="command">pfifo</b> is your standard first-in first-out queue.  <b class="command">pfifo</b> is the scheduler all leaf nodes of classful qdiscs are assigned by default if you choose not to override it with a different scheduler.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">Usage: ... [p|b]fifo [ limit NUMBER ]
+</pre></font></td></tr></tbody></table>
+<p></p><p>
+The only available option is a <code class="option">limit</code> on the queue size.  It is assumed to be packets if you are using <b class="command">pfifo</b> and bytes if you are using bfifo.
+</p><p>
+Additional information on the <b class="command">pfifo</b> qdisc:
+
+</p><p></p><ul compact="COMPACT"><li><p>
+<a href="http://linux-ip.net/articles/Traffic-Control-HOWTO/classless-qdiscs.html#qs-fifo" target="_top">http://linux-ip.net/articles/Traffic-Control-HOWTO/classless-qdiscs.html#qs-fifo</a>
+</p></li><li><p>
+<a href="http://www.opalsoft.net/qos/DS-22.htm" target="_top">http://www.opalsoft.net/qos/DS-22.htm</a>
+</p></li></ul>
+
+<p></p></div><div class="sect3"><h3 class="sect3"><a name="qsfq">5.1.2. sfq</a></h3><p>
+A scheduler designed to be CPU and flow friendly, <b class="command">sfq</b> employs a stochastic algorithm to ensure reasonable fairness amongst flows.  Stochastic is a fancy way of saying probabilities are employed instead of exacting precision.  In a nutshell, <b class="command">sfq</b> uses a constantly changing hashing algorithm over packets which it files into internal FIFOs which are pulled from round robin style.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">Usage: ... sfq [ perturb SECS ] [ quantum BYTES ]
+</pre></font></td></tr></tbody></table>
+<p></p><p>
+The <code class="option">perturb</code> parameter allows you to specify how often <b class="command">sfq</b> changes its hashing algorithm.  The <code class="option">quantum</code> parameter controls how many bytes are released from each internal FIFO in round robin fashion.  You cannot set this below your maximum transmission unit (MTU) size.
+</p><p>
+Additional information on the <b class="command">sfq</b> qdisc:
+
+</p><p></p><ul compact="COMPACT"><li><p>
+<a href="http://linux-ip.net/articles/Traffic-Control-HOWTO/classless-qdiscs.html#qs-sfq" target="_top">http://linux-ip.net/articles/Traffic-Control-HOWTO/classless-qdiscs.html#qs-sfq
+</a>
+</p></li><li><p>
+<a href="http://www.opalsoft.net/qos/DS-25.htm" target="_top">http://www.opalsoft.net/qos/DS-25.htm</a>
+</p></li><li><p>
+<a href="http://lartc.org/howto/lartc.qdisc.classless.html#LARTC.SFQ" target="_top">http://lartc.org/howto/lartc.qdisc.classless.html#LARTC.SFQ</a>
+</p></li><li><p>
+<a href="http://www.docum.org/docum.org/faq/cache/21.html" target="_top">http://www.docum.org/docum.org/faq/cache/21.html</a>
+</p></li></ul>
+
+<p></p></div><div class="sect3"><h3 class="sect3"><a name="qtbf">5.1.3. tbf</a></h3><p>
+An excellent scheduler for throttling traffic, the token bucket filter is just that, a bucket.  Each token corresponds to a byte.  Each byte is paired up with a token.  When a flow is less than the specified rate, these tokens add up, allowing for bursts if it exceeds the specified rate. When an excess of packets build up without matching tokens for each byte, new packets are dropped.
+</p><p>
+As of Linux 2.6.1, <b class="command">tbf</b> is now a classful qdisc.  By default it will behave as it did in prior versions of Linux.  The classful variant automatically creates a class with a minor node of 1.  The major node number will be what you assigned to the <b class="command">tbf</b> qdisc.  You can attach both classless and classful qdiscs to the new <b class="command">tbf</b> in 2.6.1 and later.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">Usage: ... tbf limit BYTES burst BYTES[/BYTES] rate KBPS [ mtu BYTES[/BYTES] ]
+[ peakrate KBPS ] [ latency TIME ]
+</pre></font></td></tr></tbody></table>
+<p></p><p>
+The <code class="option">rate</code> parameter allows you to specify the speed limit for this scheduler.  You must also specify the <code class="option">burst</code> parameter, which is essentially the size of your token bucket in bytes.  The <code class="option">limit</code> parameter is the number of bytes to queue before packets are tail dropped.  (In Linux 2.6.1 and later if you attach a qdisc to your <b class="command">tbf</b> class, the <code class="option">limit</code> is ignored in favor of your attached qdisc.)  A detailed explanation of using the <code class="option">peakrate</code> and <code class="option">latency</code> parameters is beyond the scope of this document.
+</p><p>
+Additional information for the <b class="command">tbf</b> qdisc:
+
+</p><p></p><ul compact="COMPACT"><li><p>
+<a href="http://linux-ip.net/articles/Traffic-Control-HOWTO/classless-qdiscs.html#qs-tbf" target="_top">http://linux-ip.net/articles/Traffic-Control-HOWTO/classless-qdiscs.html#qs-tbf</a>
+</p></li><li><p>
+<a href="http://www.opalsoft.net/qos/DS-24.htm" target="_top">http://www.opalsoft.net/qos/DS-24.htm</a>
+</p></li><li><p>
+<a href="http://lartc.org/howto/lartc.qdisc.classless.html#AEN691" target="_top">http://lartc.org/howto/lartc.qdisc.classless.html#AEN691</a>
+</p></li></ul>
+
+<p></p></div></div><div class="sect2"><h2 class="sect2"><a name="qclassful">5.2. Classful qdiscs</a></h2><div class="sect3"><h3 class="sect3"><a name="qprio">5.2.1. prio</a></h3><p>
+The <b class="command">prio</b> qdisc, a priority scheduler, is an interesting classful scheduler.  The <b class="command">prio</b> qdisc automatically creates three classes when used, with the first's minor node number starting at 1 and incrementing from there.  Each of these is queried in turn, starting with the first, and all available packets are sent.  It continues this until it runs out of classes or available bandwidth has been exhausted.  By default, traffic is assigned to each of the three priority classes based on type of service (TOS) bits set in each packet, but you can override this behavior.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">Usage: ... prio bands NUMBER priomap P1 P2...
+</pre></font></td></tr></tbody></table>
+<p></p><p>
+You can specify the number of bands using the <code class="option">bands</code> parameter.  The <code class="option">priomap</code> parameter is a bit more complicated.  The <code class="option">priomap</code> parameter takes sixteen integers as an argument, with each corresponding to a priority class.  While the <b class="command">prio</b> qdisc classes begin at 1, priorities begin at 0.  Each position in this map of numbers corresponds to a specific TOS bit.  The ordering is hardcoded.  In practice you likely will not need to change these assignments.
+</p><p>
+Traffic must be classified into one of the classes created automatically by <b class="command">prio</b> and not into any attached qdisc or the classification will silently fail to work as expected.
+</p><p>
+More detailed information on the <b class="command">prio</b> qdisc:
+
+</p><p></p><ul compact="COMPACT"><li><p>
+<a href="http://www.opalsoft.net/qos/DS-23.htm" target="_top">http://www.opalsoft.net/qos/DS-23.htm</a>
+</p></li><li><p>
+<a href="http://linux-ip.net/articles/Traffic-Control-HOWTO/classful-qdiscs.html#qc-prio" target="_top">http://linux-ip.net/articles/Traffic-Control-HOWTO/classful-qdiscs.html#qc-prio</a>
+</p></li><li><p>
+<a href="http://lartc.org/howto/lartc.qdisc.classful.html#AEN903" target="_top">http://lartc.org/howto/lartc.qdisc.classful.html#AEN903</a>
+</p></li></ul>
+
+<p></p></div><div class="sect3"><h3 class="sect3"><a name="qhtb">5.2.2. htb</a></h3><p>
+The <b class="command">htb</b> qdisc, or hierarchical token bucket, is a classful shaping qdisc.  It packs a lot of  flexibility and has numerous options available.  It calculates reasonable default values for anything you do not specify, which is generally fine.  A <b class="command">htb</b> qdisc accepts the <code class="option">default</code> parameter, which specifies which class to direct unclassified flows to.  All other options pertain to the actual classes.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">Usage:
+... qdisc add ... htb [default N] [r2q N]
+... class add ... htb rate R1 burst B1 [prio P] [slot S] [pslot PS]
+                      [ceil R2] [cburst B2] [mtu MTU] [quantum Q]
+</pre></font></td></tr></tbody></table>
+<p></p><p>
+Generally, a <b class="command">htb</b> parent class is given a <code class="option">rate</code> and a <code class="option">ceil</code> (ceiling) in bits per second.  This defines how much bandwidth is available.  If not specified, <code class="option">ceil</code> defaults to whatever you specified <code class="option">rate</code> to be.   The parent class serves as a container for its children and should have a <code class="option">rate</code> equal to the practical amount of bandwidth available.
+</p><p>
+If you choose a value as your <code class="option">rate</code> for a class that is less than your <code class="option">ceil</code>, that class can borrow up to your <code class="option">ceil</code> value.  For example, if your <code class="option">ceil</code> is 512Kbps and your <code class="option">rate</code> is 128Kbps, a total of 384Kbps could be borrowed.  Its important to note that unlike borrowing something in meat space, bandwidth borrowed amongst <b class="command">htb</b> classes is not returned.  Because <code class="option">rate</code> is the bandwidth guaranteed to the class, it cannot exceed the number specified for the outer most parent class.  If a particular class requests bandwidth greater than its specified <code class="option">rate</code>, it will borrow based on the proportion of its rate to its parent.
+</p><p>
+For example, if a parent class with 100Kbps <code class="option">rate</code> has two children with <code class="option">rate</code>s of 80Kbps and 20Kbps respectively, the the former can borrow bandwidth in a proportion of 4:1 with respect to the latter.  In other words, classes with a higher <code class="option">rate</code> in comparison to other siblings can borrow more.
+</p><p>
+The <code class="option">default</code> option specifies which class unclassified traffic should be associated with.  Any traffic not classified via one of the methods <a indepth="true" href="classflows.html">described later</a> will be assigned to this class.  If you do not specify the <code class="option">default</code> option at all, any unclassified traffic with not be subject to traffic control.  In otherwords, you probably want to specify a <code class="option">default</code>.
+</p><p>
+More detailed information is available on the <b class="command">htb</b> qdisc:
+
+</p><p></p><ul compact="COMPACT"><li><p>
+<a href="http://linux-ip.net/articles/Traffic-Control-HOWTO/classful-qdiscs.html#qc-htb" target="_top">http://linux-ip.net/articles/Traffic-Control-HOWTO/classful-qdiscs.html#qc-htb</a>
+</p></li><li><p>
+<a href="http://lartc.org/howto/lartc.qdisc.classful.html#AEN1072" target="_top">http://lartc.org/howto/lartc.qdisc.classful.html#AEN1072</a>
+</p></li><li><p>
+<a href="http://lartc.org/howto/lartc.qdisc.classful.html#AEN903" target="_top">http://lartc.org/howto/lartc.qdisc.classful.html#AEN903</a>
+</p></li><li><p>
+<a href="http://www.docum.org/docum.org/faq/cache/29.html" target="_top">http://www.docum.org/docum.org/faq/cache/29.html</a>
+</p></li></ul>
+
+<p></p></div></div></div><div class="NAVFOOTER"><hr width="100%" align="LEFT"><table summary="Footer navigation table" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td valign="top" width="33%" align="left"><a indepth="true" href="classes.html" accesskey="P">Prev</a></td><td valign="top" width="34%" align="center"><a href="http://blog.edseek.com/%7Ejasonb/articles/traffic_shaping/index.html" accesskey="H">Home</a></td><td valign="top" width="33%" align="right"><a indepth="true" href="classflows.html" accesskey="N">Next</a></td></tr><tr><td valign="top" width="33%" align="left">Class Structure Revealed</td><td valign="top" width="34%" align="center">&nbsp;</td><td valign="top" width="33%" align="right">Classifying Flows</td></tr></tbody></table></div>
+
+</body></html>

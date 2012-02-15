@@ -1,0 +1,81 @@
+怎样调试bash脚本
+
+=== 追踪脚本的执行情况 ===
+
+{{{
+#!/bin/bash
+echo "Hello $USER"
+echo "Today is ${date +'%Y-%m-%d'}"
+}}}
+
+为了跟踪脚本的执行情况，我们使用 `bash -x` 来运行它
+{{{
+$ bash -x example_script.sh
++ echo 'Hello ayman,'
+Hello ayman,
+++ date +%Y-%m-%d
++ echo 'Today is 2010-09-24'
+Today is 2010-09-24
+}}}
+在这个模式下，Bash会在执行每条命令前将它打印出来。`+`前缀的表示嵌套关系
+
+=== 在跟踪的输出行数前加上行数显示 ===
+在大的脚本里，通常加上行数，脚本名字，还有函数名字为前缀输出信息比较有用，我们可以通过
+设置`PS4`这个环境变量来达到我们的要求
+{{{
+export PS4='+${BASH_SOURCE}:${LINENO}:${FUNCNAME[0]}: '
+}}}
+
+让我们来看看我们的样列的输出吧
+{{{
+$ bash -x example_script.sh
++example_script.sh:2:: echo 'Hello ayman,'
+Hello ayman,
+++example_script.sh:3:: date +%Y-%m-%d
++example_script.sh:3:: echo 'Today is 2010-09-24'
+Today is 2010-09-24
+}}}
+
+=== 跟踪某一部分的脚本内容 ===
+有些时候，你只关心脚本中一部分的跟踪信息，这个也可以做。当你想开始跟踪时，调用`set -x`
+开始激活跟踪，然后调用`set +x`来禁止它。
+{{{
+#!/bin/bash
+set -x
+echo "Today is $(date %Y-%m-%d)"
+set +x
+}}}
+现在，让我们来运行下这个脚本:
+{{{
+$ ./example_script.sh
+Hello ayman,
+++example_script.sh:4:: date +%Y-%m-%d
++example_script.sh:4:: echo 'Today is 2011-09-24'
+Today is 2011-09-24
++example_script.sh:5:: set +x
+}}}
+
+=== 记录日志 ===
+我们可以通过写一个日志函数来记录日志，通过一个`_DEBUG`的环境变量来控制日志的输出
+{{{
+_log() {
+    if [ "$_DEBUG" == "true" ]; then
+        echo 1>&2 "$@"
+    fi
+}
+}}}
+在脚本里如何使用日志函数？
+{{{
+_log "Copying files ..."
+cp src/* dst/
+}}}
+我们来运行下
+{{{
+$ _DEBUG=true ./example_script.sh
+}}}
+
+=== 不要重复做轮子 ===
+- [http://bashdb.sourceforge.net/ bashdb ]: 一个调试bash脚本的工具，包含了断点，next
+  等功能
+- [http://sites.google.com/a/forestent.com/projects/log4sh log4sh]
+

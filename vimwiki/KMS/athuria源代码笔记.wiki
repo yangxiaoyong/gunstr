@@ -1,0 +1,60 @@
+=== 项目基本情况 ===
+使用开发语言: PHP
+使用框架: E_FW
+
+目标： 熟悉E_FW框架，项目代码
+
+=== 项目代码目录结构 ===
+{{{
+
+|~app/
+| |~Config/
+| | |-global.php
+| | |-lang.php
+| | `-global.php.bak
+| |+Controller/
+| |+Exception/
+| |+Model/
+| |+Plugin/
+| `+Tools/
+|~lib/
+| |+cache/
+| |+data/
+| |+db/
+| |+exception/
+| |+helper/
+| |+log/
+| |+templates/
+| |+writer/
+| `-e_fw.php
+`-index.php
+
+}}}
+===== 目录 =====
+app: 项目代码
+lib: E_FW框架
+index.php: 程序入口
+
+===== app =====
+{{{
+|+Config/
+|+Controller/
+|+Exception/
+|+Model/
+|+Plugin/
+`+Tools/
+}}}
+
+Config: 一些全局配置
+ - global.php:
+   返回一个包含DSN,CONTROLLER,CONTENT-TYPE,CACHE(memcached),CHARTSERVER,TOKEN-NAME,GIFTCARD等的多维数组
+ - lang.php:
+   全局变量Country(国家属性), Title(职业属性), Rest(重置后的提示)
+
+Exception: 异常处理类
+ - DB:
+ - Game:
+
+Controler: 控制器
+ -
+

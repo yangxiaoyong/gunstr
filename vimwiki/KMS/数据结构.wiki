@@ -1,0 +1,10 @@
+常见的数据结构
+
+阵列 Array
+[[堆栈 Stack]]
+[[队列 Queue]]
+链表 Linked List
+数 Tree
+图 Graph
+[[堆 Heap]]
+哈希 Hash

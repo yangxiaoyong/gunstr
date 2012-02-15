@@ -1,0 +1,8 @@
+#abg { color: rgb(0, 0, 0); font-family: arial,sans-serif; font-size: 12px; padding: 0px 1px; text-decoration: underline; white-space: nowrap; }
+#abg:hover { text-decoration: underline; }
+.sep { height: 2px; width: 100%; }
+.bb { overflow: hidden; padding: 0px 0px 3px; width: 160px; }
+.t { padding: 4px 0px 2px; }
+.al { font-family: arial,sans-serif; font-size: 14px; overflow: hidden; width: 160px; line-height: 16px; }
+.al .alt, .al a { color: rgb(0, 0, 0); font-weight: normal; text-decoration: underline; white-space: nowrap; }
+.al a:hover { text-decoration: underline; }

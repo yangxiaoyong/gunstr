@@ -1,0 +1,326 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  
+
+  <title>Linux Advanced Routing &amp; Traffic Control HOWTO</title>
+  <meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.7">
+  <link rel="NEXT" title="Dedication" href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.dedication.html">
+
+
+<link rel="stylesheet" type="text/css" href="default_001.css" media="all">
+</head>
+<body class="BOOK" bgcolor="#FFFFFF" link="#0000FF" text="#000000" vlink="#840084" alink="#0000FF">
+<div id="LinuxDocHead"><a href="http://www.linuxdoc.org/" title="LinuxDoc - Linux Howtos, Help and Community"><img src="linuxdoc-org-logo-new.png" alt="Linuxdoc Linux Questions" border="0"><br>Click here to ask our community of linux experts!</a></div>
+<div id="gsearchform"><div class="cse-branding-right" style="background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);"><div class="cse-branding-form"><form action="http://www.linuxdoc.org/HOWTO/search.html" id="cse-search-box"><div><input name="cx" value="partner-pub-1660455800231982:yz2e8rfmg8d" type="hidden"><input name="cof" value="FORID:10" type="hidden"><input name="ie" value="ISO-8859-1" type="hidden"><input value="" name="q" size="31" type="text"><input name="sa" value="Search" type="submit"></div></form></div><div class="cse-branding-logo"><img src="poweredby_ffffff.gif" alt="Google"></div><div class="cse-branding-text">Custom Search</div></div></div>
+  <div class="BOOK">
+    <a name="LARTC" id="LARTC"></a>
+
+    <div class="TITLEPAGE">
+      <h1 class="TITLE"><a name="AEN2" id="AEN2"></a>Linux Advanced Routing &amp; Traffic Control HOWTO</h1>
+
+      <h3 class="AUTHOR"><a name="AEN5" id="AEN5"></a>Bert Hubert</h3>
+
+      <div class="AFFILIATION">
+        <span class="ORGNAME">Netherlabs BV<br></span>
+
+        <div class="ADDRESS">
+          <p class="ADDRESS"><tt class="EMAIL">&lt;<a href="mailto:bert.hubert@netherlabs.nl">bert.hubert@netherlabs.nl</a>&gt;</tt></p>
+        </div>
+      </div><span class="COLLAB"><span class="COLLABNAME">Gregory Maxwell</span></span>
+
+      <div class="AFFILIATION">
+        <div class="ADDRESS">
+          <p class="ADDRESS"><tt class="EMAIL">&lt;<a href="mailto:greg@linuxpower.cx">greg@linuxpower.cx</a>&gt;</tt></p>
+        </div>
+      </div><br>
+      <span class="COLLAB"><span class="COLLABNAME">Remco van Mook</span></span>
+
+      <div class="AFFILIATION">
+        <div class="ADDRESS">
+          <p class="ADDRESS"><tt class="EMAIL">&lt;<a href="mailto:remco@virtu.nl">remco@virtu.nl</a>&gt;</tt></p>
+        </div>
+      </div><br>
+      <span class="COLLAB"><span class="COLLABNAME">Martijn van Oosterhout</span></span>
+
+      <div class="AFFILIATION">
+        <div class="ADDRESS">
+          <p class="ADDRESS"><tt class="EMAIL">&lt;<a href="mailto:kleptog@cupid.suninternet.com">kleptog@cupid.suninternet.com</a>&gt;</tt></p>
+        </div>
+      </div><br>
+      <span class="COLLAB"><span class="COLLABNAME">Paul B Schroeder</span></span>
+
+      <div class="AFFILIATION">
+        <div class="ADDRESS">
+          <p class="ADDRESS"><tt class="EMAIL">&lt;<a href="mailto:paulsch@us.ibm.com">paulsch@us.ibm.com</a>&gt;</tt></p>
+        </div>
+      </div><br>
+      <span class="COLLAB"><span class="COLLABNAME">Jasper Spaans</span></span>
+
+      <div class="AFFILIATION">
+        <div class="ADDRESS">
+          <p class="ADDRESS"><tt class="EMAIL">&lt;<a href="mailto:jasper@spaans.ds9a.nl">jasper@spaans.ds9a.nl</a>&gt;</tt></p>
+        </div>
+      </div><br>
+
+      <div class="REVHISTORY">
+        <table border="0" width="100%">
+          <tbody><tr>
+            <th colspan="3" valign="top" align="left"><b>Revision History</b></th>
+          </tr>
+
+          <tr>
+            <td align="left">Revision 1.1</td>
+
+            <td align="left">2002-07-22</td>
+
+            <td align="left"></td>
+          </tr>
+
+          <tr>
+            <td colspan="3" align="left">DocBook Edition</td>
+          </tr>
+        </tbody></table>
+      </div>
+
+      <div>
+        <div class="ABSTRACT">
+          <a name="AEN42" id="AEN42"></a>
+
+          <p>A very hands-on approach to <span class="APPLICATION">iproute2</span>, traffic shaping and a bit of <span class="APPLICATION">netfilter</span>.</p>
+        </div>
+      </div>
+      <hr>
+    </div>
+
+    <div class="TOC">
+      <dl>
+        <dt><b>Table of Contents</b></dt>
+
+        <dt>1. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.dedication.html">Dedication</a></dt>
+
+        <dt>2. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.intro.html">Introduction</a></dt>
+
+        <dd>
+          <dl>
+            <dt>2.1. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.intro.disclaimer.html">Disclaimer &amp; License</a></dt>
+
+            <dt>2.2. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.intro.prior.html">Prior knowledge</a></dt>
+
+            <dt>2.3. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.intro.linux.html">What Linux can do for you</a></dt>
+
+            <dt>2.4. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.intro.houskeeping.html">Housekeeping notes</a></dt>
+
+            <dt>2.5. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.intro.cvs.html">Access, CVS &amp; submitting updates</a></dt>
+
+            <dt>2.6. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.intro.mlist.html">Mailing list</a></dt>
+
+            <dt>2.7. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.intro.layout.html">Layout of this document</a></dt>
+          </dl>
+        </dd>
+
+        <dt>3. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.iproute2.html">Introduction to iproute2</a></dt>
+
+        <dd>
+          <dl>
+            <dt>3.1. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.iproute2.why.html">Why iproute2?</a></dt>
+
+            <dt>3.2. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.iproute2.tour.html">iproute2 tour</a></dt>
+
+            <dt>3.3. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.iproute2.package.html">Prerequisites</a></dt>
+
+            <dt>3.4. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.iproute2.explore.html">Exploring your current configuration</a></dt>
+
+            <dt>3.5. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.iproute2.arp.html">ARP</a></dt>
+          </dl>
+        </dd>
+
+        <dt>4. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.rpdb.html">Rules - routing policy database</a></dt>
+
+        <dd>
+          <dl>
+            <dt>4.1. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.rpdb.simple.html">Simple source policy routing</a></dt>
+
+            <dt>4.2. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.rpdb.multiple-links.html">Routing for multiple uplinks/providers</a></dt>
+          </dl>
+        </dd>
+
+        <dt>5. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.tunnel.html">GRE and other tunnels</a></dt>
+
+        <dd>
+          <dl>
+            <dt>5.1. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.tunnel.remarks.html">A few general remarks about tunnels:</a></dt>
+
+            <dt>5.2. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.tunnel.ip-ip.html">IP in IP tunneling</a></dt>
+
+            <dt>5.3. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.tunnel.gre.html">GRE tunneling</a></dt>
+
+            <dt>5.4. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.tunnel.userland.html">Userland tunnels</a></dt>
+          </dl>
+        </dd>
+
+        <dt>6. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.ipv6-tunnel.html">IPv6 tunneling with Cisco and/or 6bone</a></dt>
+
+        <dd>
+          <dl>
+            <dt>6.1. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.tunnel-ipv6.addressing.html">IPv6 Tunneling</a></dt>
+          </dl>
+        </dd>
+
+        <dt>7. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.ipsec.html">IPsec: secure IP over the Internet</a></dt>
+
+        <dt>8. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.multicast.html">Multicast routing</a></dt>
+
+        <dt>9. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.qdisc.html">Queueing Disciplines for Bandwidth Management</a></dt>
+
+        <dd>
+          <dl>
+            <dt>9.1. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.qdisc.explain.html">Queues and Queueing Disciplines explained</a></dt>
+
+            <dt>9.2. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.qdisc.classless.html">Simple, classless Queueing Disciplines</a></dt>
+
+            <dt>9.3. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.qdisc.advice.html">Advice for when to use which queue</a></dt>
+
+            <dt>9.4. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.qdisc.terminology.html">Terminology</a></dt>
+
+            <dt>9.5. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.qdisc.classful.html">Classful Queueing Disciplines</a></dt>
+
+            <dt>9.6. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.qdisc.filters.html">Classifying packets with filters</a></dt>
+
+            <dt>9.7. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.imq.html">The Intermediate queueing device (IMQ)</a></dt>
+          </dl>
+        </dd>
+
+        <dt>10. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.loadshare.html">Load sharing over multiple interfaces</a></dt>
+
+        <dd>
+          <dl>
+            <dt>10.1. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.loadshare.caveats.html">Caveats</a></dt>
+
+            <dt>10.2. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.loadshare.other.html">Other possibilities</a></dt>
+          </dl>
+        </dd>
+
+        <dt>11. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.netfilter.html">Netfilter &amp; iproute - marking packets</a></dt>
+
+        <dt>12. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.adv-filter.html">Advanced filters for (re-)classifying packets</a></dt>
+
+        <dd>
+          <dl>
+            <dt>12.1. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.adv-filter.u32.html">The <tt class="OPTION">u32</tt> classifier</a></dt>
+
+            <dt>12.2. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.adv-filter.route.html">The <tt class="OPTION">route</tt> classifier</a></dt>
+
+            <dt>12.3. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.adv-filter.policing.html">Policing filters</a></dt>
+
+            <dt>12.4. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.adv-filter.hashing.html">Hashing filters for very fast massive filtering</a></dt>
+          </dl>
+        </dd>
+
+        <dt>13. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.kernel.html">Kernel network parameters</a></dt>
+
+        <dd>
+          <dl>
+            <dt>13.1. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.kernel.rpf.html">Reverse Path Filtering</a></dt>
+
+            <dt>13.2. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.kernel.obscure.html">Obscure settings</a></dt>
+          </dl>
+        </dd>
+
+        <dt>14. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.adv-qdisc.html">Advanced &amp; less common queueing disciplines</a></dt>
+
+        <dd>
+          <dl>
+            <dt>14.1. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.adv-qdisc.bfifo-pfifo.html"><tt class="LITERAL">bfifo</tt>/<tt class="LITERAL">pfifo</tt></a></dt>
+
+            <dt>14.2. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.adv-qdisc.csz.html">Clark-Shenker-Zhang algorithm (CSZ)</a></dt>
+
+            <dt>14.3. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.adv-qdisc.dsmark.html">DSMARK</a></dt>
+
+            <dt>14.4. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.adv-qdisc.ingress.html">Ingress qdisc</a></dt>
+
+            <dt>14.5. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.adv-qdisc.red.html">Random Early Detection (RED)</a></dt>
+
+            <dt>14.6. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.adv-qdisc.gred.html">Generic Random Early Detection</a></dt>
+
+            <dt>14.7. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.adv-qdisc.vc-atm.html">VC/ATM emulation</a></dt>
+
+            <dt>14.8. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.adv-qdisc.wrr.html">Weighted Round Robin (WRR)</a></dt>
+          </dl>
+        </dd>
+
+        <dt>15. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.cookbook.html">Cookbook</a></dt>
+
+        <dd>
+          <dl>
+            <dt>15.1. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.cookbook.sla.html">Running multiple sites with different SLAs</a></dt>
+
+            <dt>15.2. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.cookbook.synflood-protect.html">Protecting your host from SYN floods</a></dt>
+
+            <dt>15.3. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.cookbook.icmp-ratelimit.html">Rate limit ICMP to prevent dDoS</a></dt>
+
+            <dt>15.4. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.cookbook.interactive-prio.html">Prioritizing interactive traffic</a></dt>
+
+            <dt>15.5. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.cookbook.squid.html">Transparent web-caching using <span class="APPLICATION">netfilter</span>, <span class="APPLICATION">iproute2</span>, <span class="APPLICATION">ipchains</span> and <span class="APPLICATION">squid</span></a></dt>
+
+            <dt>15.6. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.cookbook.mtu-discovery.html">Circumventing Path MTU Discovery issues with per route MTU settings</a></dt>
+
+            <dt>15.7. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.cookbook.mtu-mss.html">Circumventing Path MTU Discovery issues with MSS Clamping (for ADSL, cable, PPPoE &amp; PPtP users)</a></dt>
+
+            <dt>15.8. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.cookbook.ultimate-tc.html">The Ultimate Traffic Conditioner: Low Latency, Fast Up &amp; Downloads</a></dt>
+
+            <dt>15.9. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.ratelimit.single.html">Rate limiting a single host or netmask</a></dt>
+          </dl>
+        </dd>
+
+        <dt>16. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.bridging.html">Building bridges, and pseudo-bridges with Proxy ARP</a></dt>
+
+        <dd>
+          <dl>
+            <dt>16.1. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.bridging.iptables.html">State of bridging and iptables</a></dt>
+
+            <dt>16.2. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.bridging.shaping.html">Bridging and shaping</a></dt>
+
+            <dt>16.3. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.bridging.proxy-arp.html">Pseudo-bridges with Proxy-ARP</a></dt>
+          </dl>
+        </dd>
+
+        <dt>17. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.dynamic-routing.html">Dynamic routing - OSPF and BGP</a></dt>
+
+        <dt>18. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.other.html">Other possibilities</a></dt>
+
+        <dt>19. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.further.html">Further reading</a></dt>
+
+        <dt>20. <a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.ack.html">Acknowledgements</a></dt>
+      </dl>
+    </div>
+  </div>
+
+  <div class="NAVFOOTER">
+    <hr width="100%" align="left">
+
+    <table summary="Footer navigation table" border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tbody><tr>
+        <td valign="top" width="33%" align="left">&nbsp;</td>
+
+        <td valign="top" width="34%" align="center">&nbsp;</td>
+
+        <td valign="top" width="33%" align="right"><a href="http://www.linuxdoc.org/HOWTO/Adv-Routing-HOWTO/lartc.dedication.html" accesskey="N">Next</a></td>
+      </tr>
+
+      <tr>
+        <td valign="top" width="33%" align="left">&nbsp;</td>
+
+        <td valign="top" width="34%" align="center">&nbsp;</td>
+
+        <td valign="top" width="33%" align="right">Dedication</td>
+      </tr>
+    </tbody></table>
+  </div>
+
+
+
+</body>
+</html>

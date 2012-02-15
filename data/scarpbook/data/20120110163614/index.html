@@ -1,0 +1,714 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="zh-hans" xml:lang="zh-hans" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+ <title>系统引导管理器GRUB，为初学者指南 | LinuxSir.Org</title>
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body>
+ <div id="header">  <a href="http://www.linuxsir.org/main/" title="主页"><img src="logo.jpg" alt="主页"></a></div>
+ <div class="navlinks"><ul class="links" id="navlist"><li class="first menu-1-1-116"><a href="http://www.linuxsir.org/main/" title="首页" class="menu-1-1-116">首页</a></li>
+<li class="menu-1-2-116"><a href="http://www.linuxsir.org/main/taxonomy/term/34" class="menu-1-2-116">事件</a></li>
+<li class="menu-1-3-116"><a href="http://www.linuxsir.org/main/taxonomy/term/1/25/" title="文档" class="menu-1-3-116">文档</a></li>
+<li class="menu-1-4-116"><a href="http://www.linuxsir.org/main/taxonomy/term/35/48/" title="资源" class="menu-1-4-116">资源</a></li>
+<li class="menu-1-5-116"><a href="http://www.linuxsir.org/bbs" title="论坛" class="menu-1-5-116">论坛</a></li>
+<li class="menu-1-6-116"><a href="http://www.linuxsir.org/main/taxonomy/term/38" title="贡献者" class="menu-1-6-116">贡献者</a></li>
+<li class="menu-1-7-116"><a href="http://www.linuxsir.org/main/irc.html" title="IRC" class="menu-1-7-116">IRC</a></li>
+<li class="menu-1-8-116"><a href="http://www.linuxsir.org/main/about.html" title="关于" class="menu-1-8-116">关于</a></li>
+<li class="last menu-1-9-116"><a href="http://www.linuxsir.org/main/search.html" title="搜索" class="menu-1-9-116">搜索</a></li>
+</ul> </div>
+ <table id="content">
+  <tbody><tr>
+   <td id="sidebar-left"><div class="block block-block" id="block-block-3">
+ <h2 class="title">重要资讯</h2>
+ <div class="content"><ul>
+<li><a href="http://www.linuxsir.org/main/?q=taxonomy/term/36">本站公告</a>
+</li><li><a href="http://www.linuxsir.org/main/?q=taxonomy/term/34">新闻事件</a>
+</li><li><a href="http://www.linuxsir.org/bbs" target="_top">本站论坛</a>
+</li><li><a href="http://www.linuxsir.org/main/?q=taxonomy/term/38">贡 献 者</a>
+</li></ul></div>
+</div>
+<div class="block block-block" id="block-block-1">
+ <h2 class="title">子站索引</h2>
+ <div class="content"><ul>
+<li><a href="http://fedora.linuxsir.org/" target"_blank"="">Fedora中文</a>
+</li><li><a href="http://debian.linuxsir.org/" target"_blank"="">Debian中文</a>
+</li><li><a href="http://lfs.linuxsir.org/" target"_blank"="">LFS   中文</a>
+</li><li><a href="http://slack.linuxsir.org/">Slackware</a>
+</li><li><a href="http://gentoo.linuxsir.org/">Gentoo中文</a>
+</li><li><a href="http://arch.linuxsir.org/">Arch 中文</a>
+</li></ul>
+</div>
+</div>
+<div class="block block-block" id="block-block-7">
+ <h2 class="title">项目索引</h2>
+ <div class="content"><ul>
+<li><a href="http://www.fcitx.org/" target="_top">小企鹅输入法</a>
+</li><li><a href="http://lumaqq.linuxsir.org/" target="_top">LumaQQ</a>
+</li><li><a href="http://openq.linuxsir.org/" target="_top">OpenQ</a>
+</li><li><a href="http://www.relaxbsd.org/" target="_top">RelaxBSD</a>
+</li></ul>
+</div>
+</div>
+<div class="block block-user" id="block-user-1">
+ <h2 class="title">导航</h2>
+ <div class="content">
+<ul class="menu">
+<li class="leaf"><a href="http://www.linuxsir.org/main/blog" title="我的博客">我的博客</a></li>
+<li class="leaf"><a href="http://www.linuxsir.org/main/user" title="注册/登录">注册/登录</a></li>
+
+</ul>
+</div>
+</div>
+<div class="block block-aggregator" id="block-aggregator-feed-2">
+ <h2 class="title">论坛快讯</h2>
+ <div class="content"><div class="item-list"><ul><li><a href="http://www.linuxsir.org/bbs/showthread.php?t=335274&amp;goto=newpost">中文文件夹显示的问题</a>
+</li><li><a href="http://www.linuxsir.org/bbs/showthread.php?t=335273&amp;goto=newpost">网络管理软件</a>
+</li><li><a href="http://www.linuxsir.org/bbs/showthread.php?t=335272&amp;goto=newpost">[help]amule搜索出来的结果是乱码？</a>
+</li><li><a href="http://www.linuxsir.org/bbs/showthread.php?t=335271&amp;goto=newpost">各位大虾你们的use值是怎么设置的呀。</a>
+</li><li><a href="http://www.linuxsir.org/bbs/showthread.php?t=335270&amp;goto=newpost">請教etch 下mips的交叉編譯環境！！！！</a>
+</li></ul></div><div class="more-link"><a href="http://www.linuxsir.org/main/aggregator/sources/2" title="查看此feed的最新新闻。">更多</a></div></div>
+</div>
+<div class="block block-user" id="block-user-2">
+ <h2 class="title">新进会员</h2>
+ <div class="content"><div class="item-list"><ul><li>Captain.Crash</li><li>chenxiangan</li><li>huanzhen54</li><li>Wankino</li><li>qingriye</li></ul></div></div>
+</div>
+<div class="block block-user" id="block-user-3">
+ <h2 class="title">在线用户</h2>
+ <div class="content">目前共有 <em>0 位用户</em>和 <em>43 位游客</em>在线。</div>
+</div>
+</td>
+   <td id="main">
+<div class="breadcrumb"><a href="http://www.linuxsir.org/main/">主页</a></div><h2>系统引导管理器GRUB，为初学者指南</h2>
+<!-- begin content -->
+<div class="node">
+ <div class="content">
+<p><b>作者：</b>北南南北<br>
+<b>来自：</b>LinuxSir.Org<br>
+<b>摘要：</b> GRUB是多系统引导管理器，简单的说既能引导Linux，同时也能引导Windows；从LinuxSir.Org 讨论区近四年的观察来看，大多初学者并不能在短时间内掌握GRUB的用法，为了解决初学者在最短时间内掌握GRUB，重写GRUB入门文档还是有必要的；</p>
+<p>本文重点介绍了GRUB的menu.lst的写法，另外通过GRUB命令行引导系统也做了详述；这些无论是对Windows版本的WINGRUB还是Linux版本的GRUB都是适用的；</p>
+<p><font size="4"><b>目录索引</b></font></p>
+<p><a href="http://www.linuxsir.org/main/?q=node/129#1"><b>一、什么是多重操作系统引导管理器，什么是GRUB；</b></a></p>
+<ul>
+<a href="http://www.linuxsir.org/main/?q=node/129#1.1">1、什么是多重操作系统引导管理器及工作原理；</a><br>
+<a href="http://www.linuxsir.org/main/?q=node/129#1.2">2、什么是GRUB；为什么我要选择GRUB；</a><p></p>
+<ul>
+<a href="http://www.linuxsir.org/main/?q=node/129#1.21">1）什么是GRUB；</a><br>
+<a href="http://www.linuxsir.org/main/?q=node/129#1.22">2）“GRUB太不好用”──对GRUB的认识的误区；</a><br>
+<a href="http://www.linuxsir.org/main/?q=node/129#1.23">3）为什么要选择GRUB；</a>
+</ul>
+</ul>
+<p><a href="http://www.linuxsir.org/main/?q=node/129#2"><b>二、GRUB软件包版本选择和安装；</b></a></p>
+<ul>
+<a href="http://www.linuxsir.org/main/?q=node/129#2.1">1、Linux版本的GRUB及Windows版本的GRUB的说明；</a><br>
+<a href="http://www.linuxsir.org/main/?q=node/129#2.2">2、GRUB的Windows版本WINGRUB；</a><br>
+<a href="http://www.linuxsir.org/main/?q=node/129#2.3">3、GRUB的Linux版本软件包的安装；</a>
+</ul>
+<p><a href="http://www.linuxsir.org/main/?q=node/129#3"><b>三、在Linux中，GRUB的配置中的安装和写入硬盘的MBR；</b></a></p>
+<ul>
+<a href="http://www.linuxsir.org/main/?q=node/129#3.1">1、在Linux中，GRUB配置过程中的安装grub-install；</a><br>
+<a href="http://www.linuxsir.org/main/?q=node/129#3.2">2、设定GRUB的/boot分区并写入MBR；</a>
+</ul>
+<p><a href="http://www.linuxsir.org/main/?q=node/129#4"><b>四、GRUB的配置文件的menu.lst的写法；</b></a></p>
+<ul>
+<a href="http://www.linuxsir.org/main/?q=node/129#4.1">1、menu.lst的写法之一；</a><p></p>
+<ul>
+<a href="http://www.linuxsir.org/main/?q=node/129#4.11">1）在menu.lst中 ，通过 root (hd[0-n],y)来指定/boot 所在的分区；</a><br>
+<a href="http://www.linuxsir.org/main/?q=node/129#4.12">2）在menu.lst中，kernel 命令行的写法；</a><br>
+<a href="http://www.linuxsir.org/main/?q=node/129#4.13">3）initrd 命令行的写法；</a><br>
+<a href="http://www.linuxsir.org/main/?q=node/129#4.14">4）menu.lst第一种写法的总结和实践；</a><p></p>
+<ul>
+<a href="http://www.linuxsir.org/main/?q=node/129#4.141">1］用fdisk -l ；df -lh ；more /etc/fstab来确认分区情况；</a><br>
+<a href="http://www.linuxsir.org/main/?q=node/129#4.142">2］查看内核vmlinuz的和initrd文件名的全称；</a><br>
+<a href="http://www.linuxsir.org/main/?q=node/129#4.143">3］开始写menu.lst ；</a>
+</ul>
+</ul>
+<p><a href="http://www.linuxsir.org/main/?q=node/129#4.2">2、menu.lst的写法之二，精简型；</a></p>
+<ul>
+<a href="http://www.linuxsir.org/main/?q=node/129#4.21">1）第一种情况：/boot和Linux的/根分区在同一个分区；</a><br>
+<a href="http://www.linuxsir.org/main/?q=node/129#4.22">2）第二种情况：/boot独立一个分区，和Linux的根分区不位于同一分区；</a>
+</ul>
+</ul>
+<p><a href="http://www.linuxsir.org/main/?q=node/129#5"><b>五、通过GRUB命令行来启动Linux操作系统；</b></a></p>
+<ul>
+<a href="http://www.linuxsir.org/main/?q=node/129#5.1">1、为什么需要学习GRUB的命令行；</a><br>
+<a href="http://www.linuxsir.org/main/?q=node/129#5.2">2、用命令行来引导Linux操作系统的步骤；</a><p></p>
+<ul>
+<a href="http://www.linuxsir.org/main/?q=node/129#5.21">1）进入GRUB的命令行模式 grub&gt;</a><br>
+<a href="http://www.linuxsir.org/main/?q=node/129#5.22">2）获取帮助GRUB的 help </a><br>
+<a href="http://www.linuxsir.org/main/?q=node/129#5.23">3）cat的用法；</a><br>
+<a href="http://www.linuxsir.org/main/?q=node/129#5.24">4）root (hd[0-n,y) 指令来指定/boot所在的分区；</a><br>
+<a href="http://www.linuxsir.org/main/?q=node/129#5.25">5）kernel 指令，用来指定Linux的内核，及/所在的分区；</a><br>
+<a href="http://www.linuxsir.org/main/?q=node/129#5.26">6）initrd 命令行来指定initrd文件；</a><br>
+<a href="http://www.linuxsir.org/main/?q=node/129#5.27">7）boot 引导系统；</a><br>
+<a href="http://www.linuxsir.org/main/?q=node/129#5.28">8）引导Linux系统实例全程回放；</a>
+</ul>
+</ul>
+<p><a href="http://www.linuxsir.org/main/?q=node/129#6"><b>六、通过GRUB引导Windows操作系统；</b></a></p>
+<ul>
+<a href="http://www.linuxsir.org/main/?q=node/129#6.1">1、通过编辑 menu.lst 来引导Windows 系统；</a><br>
+<a href="http://www.linuxsir.org/main/?q=node/129#6.2">2、通过GRUB指令来引导Windows ；</a>
+</ul>
+<p><a href="http://www.linuxsir.org/main/?q=node/129#7"><b>七、GRUB丢失或损坏的应对策略；</b></a></p>
+<ul>
+<a href="http://www.linuxsir.org/main/?q=node/129#7.1">1、由于重新安装Windows或其它未知原因而导致GRUB的丢失；</a><br>
+<a href="http://www.linuxsir.org/main/?q=node/129#7.2">2、如果出现GRUB提示符，而不出现GRUB的菜单，如何引导系统；</a>
+</ul>
+<p><a href="http://www.linuxsir.org/main/?q=node/129#8"><b>八、关于GRUB的未尽事宜；</b></a><br>
+<a href="http://www.linuxsir.org/main/?q=node/129#9"><b>九、关于本文；</b></a><br>
+<a href="http://www.linuxsir.org/main/?q=node/129#10"><b>十、参考文档；</b></a><br>
+<a href="http://www.linuxsir.org/main/?q=node/129#11"><b>十一、相关文档；</b></a></p>
+<p><font color="blue"><b><br>
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++<br>
+正文<br>
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++<br>
+</b></font><br>
+<font id="1" size="4"><b><br>
+一、什么是多重操作系统引导管理器，什么是GRUB；<br>
+</b></font></p>
+<p><font id="1.1" size="3"><b><br>
+1、什么是多重操作系统引导管理器及工作原理；<br>
+</b></font></p>
+<p>系统启动引导管理器，是在计算机启动后运行的第一个程序，他是用来负责加载、传输控制到操作系统的内核，一旦把内核挂载，系统引导管理器的任务就算完成退出，系统引导的其它部份，比如系统的初始化及启动过程则完全由内核来控制完成；<br>
+<i><br>
+Briefly, boot loader is the first software program that runs when a computer starts. It is responsible for loading and transferring control to the operating system kernel software (such as the Hurd or the Linux). The kernel, in turn, initializes the rest of the operating system (e.g. GNU).<br>
+</i><br>
+在X86 架构的机器中，Linux、BSD 或其它Unix类的操作系统中GRUB、LILO 是大家最为常用，应该说是主流；</p>
+<p>Windows也有类似的工具NTLOADER；比如我们在机器中安装了Windows 98后，我们再安装一个Windows XP ，在机器启动的会有一个菜单让我们选择进入是进入Windows 98 还是进入Windows XP。NTLOADER就是一个多系统启动引导管理器，NTLOADER 同样也能引导Linux，只是极为麻烦罢了；</p>
+<p>在Powerpc 架构的机器中，如果安装了Linux的Powerpc 版本，大多是用yaboot 多重引导管理器，比如Apple机目前用的是IBM Powerpc处理器，所以在如果想在Apple机上，安装Macos 和Linux Powerpc 版本，大多是用yaboot来引导多个操作系统；</p>
+<p>因为目前X86架构的机器仍是主流， 所以目前GRUB和LILO 仍然是我们最常用的多重操作系统引导管理器；</p>
+<p><font id="1.2" size="3"><b><br>
+2、什么是GRUB；为什么我要选择GRUB；<br>
+</b></font><br>
+<font id="1.21" size="2"><b><br>
+1）什么是GRUB；<br>
+</b></font><br>
+GNU GRUB 是一个多重操作系统启动管理器。GNU GRUB 是由GRUB（GRand Unified Bootloader） 派生而来。GRUB 最初由Erich Stefan Boleyn 设计和应用；<br>
+<i><br>
+GNU GRUB is a Multiboot boot loader. It was derived from GRUB, GRand Unified Bootloader, which was originally designed and implemented by Erich Stefan Boleyn.<br>
+</i></p>
+<p><font id="1.22" size="2"><b><br>
+2）“GRUB太不好用”──对GRUB的认识的误区；<br>
+</b></font><br>
+GRUB真的不好用吗？不是的，通过LinuxSir.Org 社区近四年来的运行，我发现了大多新手弟兄还是不太了解GRUB；当然这也有中文Linux社区的责任，虽然也有GRUB的中文译本，初学Linux的弟兄可能有点看不懂；</p>
+<p>我们欣喜的看到LinuxSir.Org 社区的好多弟兄都曾经或正在写GRUB实践文档，也有的弟兄也总结了GRUB的一些基础知识，比如 probing兄弟的 《GRUB 学习笔记》；由于每个人的写文档时风格不同，可能同一份文档不同的人来写就有不同的风格；所以今天也抖胆也一篇入门级的教程，由于北南不会写高级教程，所以还得请高手弟兄指教，先谢过；</p>
+<p><font id="1.23" size="2"><b><br>
+3）为什么要选择GRUB；<br>
+</b></font></p>
+<p>基于在X86架构的CPU而开发操作系统，系统引导管理器不仅仅有GRUB ，而且也有LILO，但对于多重系统引导管理器，你只能选择其一而用；不能两个同时使用；</p>
+<p>目前这两个多重系统引导管理器是大家最常用的，也是主流Linux发行版而采用的；有的弟兄喜欢GRUB，比如我个人，有的弟兄喜欢LILO ，比如etony兄（谁是etony，请参见 <a href="http://debian.linuxsir.org/" target="_top">http://debian.linuxsir.org</a> ）；</p>
+<p>主流发行版 Fedora、Redhat、Centos等基于RPM包的系统，在最新版本中都默认GRUB引导；Slackware 目前仍采用LILO；而Debian发行版目前最新的版本也是采用GRUB；</p>
+<p>从目前看来，GRUB有逐渐取代LILO之势，GRUB 2.0正在开发之中；所以我们有理由用GRUB，我也有理由写GRUB使用教程；</p>
+<p><font id="2" size="4"><b><br>
+二、GRUB软件包版本选择和安装；<br>
+</b></font></p>
+<p><font id="2.1" size="3"><b><br>
+1、GRUB的版本选择，Linux版本的GRUB及Windows版本的GRUB的说明；<br>
+</b></font></p>
+<p>GRUB不但有Linux版本，也有Windows版本；现我们一一介绍；</p>
+<p>如前面所说，目前在在Unix类的操作系统中，大多是都有GRUB；GRUB几乎能引导所有X86架构的操作系统；功能之强，使用简单是GRUB最大的卖点；由于Windows 操作系统的先入为主的优势，使得大家对Windows的NTLOADER了解的比较多，而对开源社区的GRUB显得有点寞生，由此而带来使用上的“心理恐惧”；究其初学者对GRUB“恐惧”的主要原因还是对GRUB没有太多的了解和深入；无论是WINGRUB还是Linux版本的GRUB，最方便的还是对GRUB命令行的操作；一谈到命令行（Command）的操作，可能初学者对此恐惧；其实没有什么难的，象北南这样低级的写手，还能操作得起来，您也应该能行；</p>
+<p><font id="2.2" size="3"><b><br>
+2、GRUB的Windows版本WINGRUB；<br>
+</b></font></p>
+<p><b>请参考：</b><a href="http://www.linuxsir.org/main/?q=node/37">《以WINGRUB 引导安装Fedora 4.0 为例，详述用WINGRUB来引导Linux的安装》</a></p>
+<p><font id="2.3" size="3"><b><br>
+3、GRUB的Linux版本软件包的安装；<br>
+</b></font></p>
+<p>其实对于Linux的GRUB，几乎所有的Linux主流发行版都有打包，如果您安装了Linux，并且在开机后出现GRUB字样的，证明您已经安装了GRUB；而无需再次安装；Linux的GRUB软件包安装部份并不是本文的重点；</p>
+<p>如果您的Linux系统没有安装GRUB，或者采用的是LILO，而您想用GRUB，可以用系统安装盘自带GRUB软件包来安装，或者到相关发行版本的软件仓库下载后安装；</p>
+<p>GRUB 的Linux版本目前在各大发行版中都有打包；比如Fedora/Redhat/Centos/Mandrive/Mandriva/SuSE等以RPM包管理机制的系统，可以通过如下的命令来安装；</p>
+<p>请参考<a href="http://www.linuxsir.org/main/?q=node/63">《Fedora / Redhat 软件包管理指南》</a></p>
+<p></p><div class="codeblock"><code>[root@localhost ~]# rpm -ivh grub*.rpm</code></div><p></p>
+<p>如果是Slackware 您可以用如下的办法来安装；</p>
+<p></p><div class="codeblock"><code>[root@localhost ~]# installpkg grub*.tgz</code></div><p></p>
+<p>其它的发行版本请用其自己特色的软件包管理工具来安装；</p>
+<p>当然您也可以通过源码包，在任何Linux的发行版上安装；至于源码包的安装方法；</p>
+<p><b>请参考：</b><a href="http://www.linuxsir.org/main/?q=node/51">《如何编译安装源码包软件》</a></p>
+<p></p><div class="codeblock"><code>[root@localhost ~]#tar zxvf grub*.tar.gz<br>[root@localhost ~]#cd grub-xxx<br>[root@localhost ~]#./configure;make;make install</code></div><p></p>
+<p>确认您是否成功安装了GRUB，您可以测试是否有如下两个命令；</p>
+<p></p><div class="codeblock"><code>[root@localhost ~]# grub<br>[root@localhost ~]# grub-install</code></div><p></p>
+<p>如果您不能找到这两个命令，可能您的可执行程序的路径没有设置；</p>
+<p><b>请参考：</b><a href="http://www.linuxsir.org/main/?q=node/26">《设置可执行程序路径》</a>，当然您可以用绝对路径；比如下面的；</p>
+<p></p><div class="codeblock"><code>[root@localhost ~]# /usr/sbin/grub<br>[root@localhost ~]# /usr/sbin/grub-install</code></div><p></p>
+<p>如果您还是找不到GRUB软件包安装在哪了；您可以用下面的命令来解决和查找；</p>
+<p></p><div class="codeblock"><code>[root@localhost ~]# updatedb&nbsp; 注：这个要花很长时间；是索引slocate 的库，然后再通过locate来查找；<br>[root@localhost ~]# locate grub </code></div><p></p>
+<p>比如找到的是有类似如下的；<br>
+</p><div class="codeblock"><code>[root@localhost ~]# locate grub <br>/sbin/grub-md5-crypt<br>/sbin/grub<br>/sbin/grub-install<br>/sbin/grub-terminfo</code></div><p></p>
+<p>在一般情况下，在路径中带有bin或sbin中字样的，这些路径下都是可执行程序；sbin 是超级权限用户才能使用的管理命令；要使用这些命令一般的情况下得切换到root用户下才能使用；比如</p>
+<p></p><div class="codeblock"><code>[beinan@localhost ~]$ su -&nbsp; 注：切换到root用户，并且切换到其家目录；<br>Password:<br>[root@localhost ~]#/sbin/grub&nbsp; 注：用绝对路径来运行grub命令；</code></div><p></p>
+<p><font id="3" size="4"><b><br>
+三、在Linux中，GRUB的配置中的安装和写入硬盘的MBR；<br>
+</b></font></p>
+<p><font id="3.1" size="3"><b><br>
+1、在Linux中，GRUB配置过程中的安装grub-install；<br>
+</b></font></p>
+<p>grub-install 命令有何用呢？其实就是把我们前面已经安装的软件包中的一些文件复制到 /boot/grub中；对于新安装GRUB软件包后，也是一个必经的过程；我们前面所说的GRUB软件包的安装；而现在我们说的是GRUB配置的过程中的安装；虽然在洋文中都是install ，但表达的意思是不一样的；</p>
+<p>我们首先要运行 fdisk -l 来确认到底是硬盘的标识；</p>
+<p>这个过程主要是确认硬盘的标识是哪个调备，到底是/dev/hda还是/dev/hdb 还是其它的；</p>
+<p></p><div class="codeblock"><code>[root@localhost ~]# fdisk -l<br><br>Disk /dev/hda: 80.0 GB, 80026361856 bytes<br>255 heads, 63 sectors/track, 9729 cylinders<br>Units = cylinders of 16065 * 512 = 8225280 bytes<br><br>&nbsp;&nbsp; Device Boot&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Start&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; End&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Blocks&nbsp;&nbsp; Id&nbsp; System<br>/dev/hda1&nbsp;&nbsp; *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 970&nbsp;&nbsp;&nbsp;&nbsp; 7791493+&nbsp;&nbsp; 7&nbsp; HPFS/NTFS<br>/dev/hda2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 971&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 9729&nbsp;&nbsp;&nbsp; 70356667+&nbsp;&nbsp; 5&nbsp; Extended<br>/dev/hda5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 971&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2915&nbsp;&nbsp;&nbsp; 15623181&nbsp;&nbsp;&nbsp; b&nbsp; W95 FAT32<br>/dev/hda6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2916&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4131&nbsp;&nbsp;&nbsp;&nbsp; 9767488+&nbsp; 83&nbsp; Linux<br>/dev/hda7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4132&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5590&nbsp;&nbsp;&nbsp; 11719386&nbsp;&nbsp; 83&nbsp; Linux<br>/dev/hda8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5591&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6806&nbsp;&nbsp;&nbsp;&nbsp; 9767488+&nbsp; 83&nbsp; Linux<br>/dev/hda9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6807&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 9657&nbsp;&nbsp;&nbsp; 22900626&nbsp;&nbsp; 83&nbsp; Linux<br>/dev/hda10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 9658&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 9729&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 578308+&nbsp; 82&nbsp; Linux swap / Solaris</code></div><p></p>
+<p>如果通过fdisk -l 出现有/dev/hda字样的，我们就要用下面的命令来安装；</p>
+<p></p><div class="codeblock"><code>[root@localhost ~]# grub-install /dev/hda<br>Installation finished. No error reported.<br>This is the contents of the device map /boot/grub/device.map.<br>Check if this is correct or not. If any of the lines is incorrect,<br>fix it and re-run the script `grub-install'.<br><br>(fd0)&nbsp;&nbsp; /dev/fd0<br>(hd0)&nbsp;&nbsp; /dev/hda</code></div><p></p>
+<p>如果是您fdisk -l 出现的有/dev/hdb呢，那就如下运行；</p>
+<p></p><div class="codeblock"><code>[root@localhost ~]# grub-install /dev/hdb</code></div><p></p>
+<p>如果既有/dev/hda和/dev/hdb 就安装到/dev/hda中；</p>
+<p></p><div class="codeblock"><code>[root@localhost ~]# grub-install /dev/hda</code></div><p></p>
+<p>值得注意的是如果您有一个/boot分区，应该用如下的办法来安装； </p>
+<p></p><div class="codeblock"><code>[root@localhost ~]#grub-install --root-directory=/boot /dev/hda<br><br>[root@localhost ~]#grub-install --root-directory=/boot /dev/hdb</code></div><p></p>
+<p><b>注解：</b>具体是/dev/hda还是/dev/hdb，请以fdisk -l 为准；如果两个都有，就看您把/boot分区是放在第一块硬盘还是第二块硬盘上了，以实际情况为准；</p>
+<p><font id="3.2" size="3"><b><br>
+2、设定GRUB的/boot分区并写入MBR；；<br>
+</b></font><br>
+在Linux中，GRUB软件包的安装，及在配置过程中安装grub到 /boot中还是不够的， 还要把GRUB，写入MBR才行；有时我们重新安装了Windows，Windows会把MBR 重写，这样GRUB就消失了；如果您出现这样的情况，就要进行这个过程；</p>
+<p></p><div class="codeblock"><code>[root@localhost ~]# grub</code></div><p></p>
+<p>会出现<b>grub&gt;</b>提示符，这是grub命令行模式 ，如果能在开机中出现提示符，没有引导不起来的系统，除非您的系统破坏的极为严重。如果仅仅是GRUB被破坏了，GRUB命令行是能让操作系统引导起来的；</p>
+<p>接着看例子，我们要找到 /boot/grub/stage1的，在grub&gt;后面输入；</p>
+<p></p><div class="codeblock"><code>grub&gt; find&nbsp; /boot/grub/stage1<br> (hd0,6)&nbsp; <br> (fd0)&nbsp;&nbsp; 注：这个是软驱；现在很少用软驱了，如果您有这方面的需要，自己看GRUB的DOC吧；</code></div><p></p>
+<p><b>注解：</b></p>
+<p>(hd0,6)  这是/boot所在的分区；不要误解为是Linux 的/所在的分区，这是值得注意的；<br>
+(fd0)   注：这个是软驱；现在很少用软驱了，如果您有这方面的需要，自己看GRUB的DOC吧；</p>
+<p></p><div class="codeblock"><code>grub&gt;root (hd0,6)&nbsp;&nbsp;&nbsp; 注：这是/boot所在的分区；<br>grub&gt;setup (hd0)&nbsp;&nbsp; 注：把GRUB写到MBR上；</code></div><p></p>
+<p><b>注解：</b></p>
+<p>上面这步骤是根据 find /boot/stage1而来的，仔细看一下就明白了；现在我们一般安装很少会把/boot分区列为一个单独的分区；不过有的弟兄可能也喜欢这么做；所以还是有必要说一下为好；</p>
+<p><font id="3.1" size="4"><b><br>
+四、GRUB的配置文件的menu.lst的写法；<br>
+</b></font></p>
+<p>对于GRUB来说，如果没有配置menu.lst，无论是Linux版本的GRUB，还是WINGRUB，都会有命令行可用，通过命令行是一样能把操作系统引导起来的；有些弟兄总以为menu.lst 配置错了， 或者在机器启动后出现grub&gt;命令行模式就要重新安装系统，其实根本没有这个必要；只要学会GRUB的命令行的用法，根本没有必要重装系统；</p>
+<p>menu.lst 位于/boot/grub目录中，也就是/boot/grub/menu.lst 文件；您可以用vi或您喜欢的编辑器来编辑他；如果您不会用vi，还是去学习一下吧；简单的用法怎么也得会，对不对？毕竟这个文档不是讲vi的用法的；</p>
+<p>有的弟兄会说，我没有menu.lst怎么办？那就创建一个；用下面的命令；</p>
+<p></p><div class="codeblock"><code>[root@localhost ~]# touch&nbsp; /boot/grub/menu.lst</code></div><br>
+然后我们再做一个/boot/grub/menu.lst 的链接 /boot/grub/grub.conf<br>
+<div class="codeblock"><code>[root@localhost ~]# cd /boot/grub<br>[root@localhost ~]# ln -s menu.lst grub.conf </code></div><p></p>
+<p>现在我们来写GRUB的menu.lst了，因为/boot/grub/grub.conf是 /boot/grub/menu.lst的链接文件，改哪个都行。链接文件相当于Windows的快捷方式，这样可能能更好的理解；</p>
+<p><font id="4.1" size="3"><b><br>
+1、menu.lst的写法之一；<br>
+</b></font></p>
+<p>首先我们看一下我的Fedora 4.0 中的/boot/grub/menu.lst 的内容；</p>
+<p></p><div class="codeblock"><code>default=0 <br>timeout=5<br>#splashimage=(hd0,6)/boot/grub/splash.xpm.gz<br>hiddenmenu<br>title Fedora Core (2.6.11-1.1369_FC4)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; root (hd0,6)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kernel /boot/vmlinuz-2.6.11-1.1369_FC4 ro root=LABEL=/<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; initrd /boot/initrd-2.6.11-1.1369_FC4.img<br>title WinXp<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rootnoverify (hd0,0)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; chainloader +1</code></div><p></p>
+<p><b>注解：</b><br>
+</p><div class="codeblock"><code>default=0 </code></div><br>
+default=0 是默认启动哪个系统，从0开始；每个操作系统的启动的定义都从title开始的，第一个title 在GRUB的启动菜单上显示为0,第二个启动为1，以此类推；<br>
+<div class="codeblock"><code>timeout=5 </code></div><br>
+注：表示在开机后，GRUB画面出现几秒后开始以默认启动；如果在启动时，移动上下键，则解除这一规则；<br>
+#splashimage=(hd0,6)/boot/grub/splash.xpm.gz  注：GRUB的背景画面，这个是可选项；我不喜欢GRUB的背景画面，所以加#号注掉，也可以删除；<br>
+<div class="codeblock"><code>hiddenmenu </code></div><p></p>
+<p><b>注解：</b>隐藏GRUB的启动菜单，这项也是可选的，也可以用#号注掉；</p>
+<p>一般的情况下对Linux操作系统的启动，一般要包括四行；title 行；root行；kernel 行；initrd 行；</p>
+<p><font id="4.11" size="2"><b><br>
+1）在menu.lst中 ，通过 root (hd[0-n],y)来指定/boot 所在的分区；<br>
+</b></font></p>
+<p>title XXXXX 注：title 后面加一个空格，title 是小写的，后面可以自己定义；比如FC4，自己定义一个名字就行；<br>
+root (hd[0-n],y) ，在本例中，我们看到的是root (hd0,6) ,root (hd[0-n],y)表示的是/boot所在的分区；有时我们安装Linux的时候，大多是不设置/boot的，这时/boot和/所在的同一个分区； 这个root (hd[0-n],y)很重要，因为/boot目录中虽然有grub目录，最为重要的是还有kernel 和initrd文件，这是Linux能启动起来最为重要东西；</p>
+<p>有的弟兄会问，root (hd[0-n],y)是怎么来的？</p>
+<p><b>请参考：</b><a href="http://www.linuxsir.org/main/?q=node/127">《在Linux系统中存储设备的两种表示方法》</a><br>
+<font id="4.12" size="2"><b><br>
+2）在menu.lst中，kernel 命令行的写法；<br>
+</b></font></p>
+<p>kernel 一行，是通指定内核及Linux的/分区所在位置；</p>
+<p>比如例子中是；<br>
+</p><div class="codeblock"><code>kernel /boot/vmlinuz-2.6.11-1.1369_FC4 ro root=LABEL=/ </code></div><br>
+在这里以kernel 起始，指定Linux的内核的文件所处的绝对路径；因为内核是处在/boot目录中的， 如果/boot是独立的一个分区，则需要把boot省略；如果/boot是独立的分区，这行要写成:<br>
+<div class="codeblock"><code>kernel /vmlinuz-2.6.11-1.1369_FC4 ro root=LABEL=/&nbsp; </code></div><p></p>
+<p>因为/boot所处的分区已经在title 下一行root (hd[0-n],y)中指定了，所以就无需要再指明内核处在哪个分区了；另外Linux系统的硬盘分区的挂载配置文件在/etc/fstab ，原理是通过 mount /dev/hd[a-z]X  /boot 来进行的；您可以对照着来理解；</p>
+<p>ro 表示只读； root=LABEL=/ 来表示Linux的根所处的分区。LABEL=/ 这是硬盘分区格式化为相应文件系统后所加的标签；如果您不了解什么是标签，也可以直接以/dev/hd[a-z]X  或者/dev/sd[a-z]X来表示；就看您的Linux是根分区是在哪个分区了。比如我的是在/dev/hda7 ， 那这里就可以写成root=/dev/hda7；</p>
+<p>如果查看系统运行所挂载的分区，请用 df -lh 来查看，就能明白是不是/boot是独立的分区，或者查看/etc/fstab也能知道；</p>
+<p></p><div class="codeblock"><code>[root@localhost ~]# df -lh<br>Filesystem&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 容量&nbsp; 已用 可用 已用% 挂载点<br>/dev/hda7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 11G&nbsp; 9.2G&nbsp; 1.2G&nbsp; 90% /<br>/dev/shm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 236M&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp; 236M&nbsp;&nbsp; 0% /dev/shm</code></div><p></p>
+<p>在这个例子中，我们可以发现 /boot并没有出现只有/dev/hda7，这表示/boot并不是独立的一个分区；所有的东西都包含在/中；于是我们在/boot中查看内核版本；<br>
+</p><div class="codeblock"><code>[root@localhost ~]# ls /boot/vmlinuz*<br>/boot/vmlinuz-2.6.11-1.1369_FC4&nbsp;&nbsp; 注：看到内核vmlinuz所处的目录；</code></div> <p></p>
+<p>于是我们就可以这样kernel 这行了；</p>
+<p></p><div class="codeblock"><code>kernel /boot/vmlinuz-2.6.11-1.1369_FC4&nbsp; ro root=/dev/hda7</code></div><br>
+<font id="4.13" size="2"><b><br>
+3）initrd 命令行的写法；<br>
+</b></font><p></p>
+<p>如果是/boot独立一个分区，initrd 一行要把/boot中省略；如果/boot不是处于一个分区，而是和Linux的/分区处于同一分区，不应该省略；</p>
+<p>比如我们在2）中用的例子；现在拿到这里，我们应该首先查看 /boot中的initrd的文件名到底是什么；</p>
+<p></p><div class="codeblock"><code>[root@localhost ~]# ls /boot/initrd*<br>/boot/initrd-2.6.11-1.1369_FC4.img</code></div><p></p>
+<p>如果是通过df -lh 得知或查看/etc/fstab 也行， 得知/boot是独立的分区；这时initrd 应该写成；</p>
+<p></p><div class="codeblock"><code>initrd&nbsp; /initrd-2.6.11-1.1369_FC4.img</code></div><p></p>
+<p>如果是 /boot不是独处一个分区，而是在/同一处一个分区， 则要写成；</p>
+<p></p><div class="codeblock"><code>initrd&nbsp; /boot/initrd-2.6.11-1.1369_FC4.img</code></div><p></p>
+<p><font id="4.14" size="2"><b><br>
+4）menu.lst第一种写法的总结和实践；<br>
+</b></font></p>
+<p>在这里，我们只说重要的，不重要的就一带而过了；<br>
+<font id="4.141" color="green"><b><br>
+1］用fdisk -l ；df -lh ；more /etc/fstab来确认分区情况；<br>
+</b></font><br>
+我们过fdisk -l ；df -lh ; more /etc/fstab 来确认/boot所在的分区，及Linux的根分区所在位置；</p>
+<p>比如我们确认/boot和Linux的/分区同处一个分区；</p>
+<p></p><div class="codeblock"><code>[root@localhost ~]# df -lh<br>Filesystem&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 容量&nbsp; 已用 可用 已用% 挂载点<br>/dev/hda7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 11G&nbsp; 9.2G&nbsp; 1.2G&nbsp; 90% /<br>/dev/shm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 236M&nbsp;&nbsp;&nbsp;&nbsp; 0&nbsp; 236M&nbsp;&nbsp; 0% /dev/shm</code></div><p></p>
+<p>然后我们/etc/fstab 中,查看/分所在的分区或分区标签是什么；<br>
+</p><div class="codeblock"><code>[root@localhost ~]# more /etc/fstab<br># This file is edited by fstab-sync - see 'man fstab-sync' for details<br>LABEL=/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ext3&nbsp;&nbsp;&nbsp; defaults&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 1<br>/dev/devpts&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /dev/pts&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; devpts&nbsp; gid=5,mode=620&nbsp; 0 0<br>/dev/shm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /dev/shm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmpfs&nbsp;&nbsp; defaults&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0<br>/dev/proc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /proc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; proc&nbsp;&nbsp;&nbsp; defaults&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0<br>/dev/sys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /sys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sysfs&nbsp;&nbsp; defaults&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0<br>LABEL=SWAP-hda1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; swap&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; swap&nbsp;&nbsp;&nbsp; defaults&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0<br>/dev/hdc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /media/cdrecorder&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; auto&nbsp;&nbsp;&nbsp; pamconsole,exec,noauto,managed 0 0</code></div><p></p>
+<p>经过上面的df -lh 和more /etc/fstab 的对照中得知，/boot并是独处一个分区，而是和/在同一个分区；这个Linux系统安装在/dev/hda7上，文件系统（此分区）的标签为LABEL=/ ，/boot也是处于/dev/hda7 ，/dev/hda7也可以说是 root (hd0,6)；<br>
+<font id="4.142" color="green"><b><br>
+2]查看内核vmlinuz的和initrd文件名的全称；<br>
+</b></font></p>
+<p></p><div class="codeblock"><code>[root@localhost ~]# ls -lh /boot/vmlinuz*<br>-rw-r--r--&nbsp; 1 root root 1.6M 2005-06-03&nbsp; /boot/vmlinuz-2.6.11-1.1369_FC4<br>[root@localhost ~]# ls -lh /boot/initrd*<br>-rw-r--r--&nbsp; 1 root root 1.1M 11月 26 22:30 /boot/initrd-2.6.11-1.1369_FC4.img</code></div><p></p>
+<p><font id="4.143" color="green"><b><br>
+3]开始写menu.lst ；<br>
+</b></font></p>
+<p>我们根据上面所提到的，可以写成如下的样子；</p>
+<p></p><div class="codeblock"><code>default=0&nbsp; <br>timeout=5<br>title FC4<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; root (hd0,6)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kernel /boot/vmlinuz-2.6.11-1.1369_FC4 ro root=LABEL=/ <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; initrd /boot/initrd-2.6.11-1.1369_FC4.img</code></div><p></p>
+<p>也可以写成；</p>
+<p></p><div class="codeblock"><code>default=0&nbsp; <br>timeout=5<br>title FC4<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; root (hd0,6)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kernel /boot/vmlinuz-2.6.11-1.1369_FC4 ro root=/dev/hda7<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; initrd /boot/initrd-2.6.11-1.1369_FC4.img</code></div><p></p>
+<p><b>注解：</b>上面两个不同之处在于一指定Linux的根/所在的分区时，一个是用了文件系统的标签，另一个没有用标签；<br>
+<font id="4.2" size="3"><b><br>
+2、menu.lst的写法之二，精简型；<br>
+</b></font></p>
+<p>本写法主要是把指定/boot所位于的所分区直接写入kernel 指令行；这样就省略了通过root (hd[0-n],y)来指定/boot所位于的分区；</p>
+<p><font id="4.21" size="3"><b><br>
+1)第一种情况：/boot和Linux的/根分区在同一个分区；<br>
+</b></font></p>
+<p>有前面的那么多的讲解，menu.lst写法之二就好理解多了；也得分两种情况，咱们先把/boot并不是独处一个分区，而是和Linux的根分区处于同一个分区；我们以  4）menu.lst第一种方法的写法总结 的实例为例子；</p>
+<p></p><div class="codeblock"><code>default=0&nbsp; <br>timeout=5<br>title FC4x<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kernel (hd0,6)/boot/vmlinuz-2.6.11-1.1369_FC4 ro root=/dev/hda7<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; initrd (hd0,6)/boot/initrd-2.6.11-1.1369_FC4.img</code></div><p></p>
+<p><b>注解：</b></p>
+<p>title FC4x  注：自己为这个Linux 起个简单的名，以title开头，然后一个空格，后面就自己发挥吧，FC4或FC4x都行；</p>
+<p>kernel 空格  (hd0,6)/boot/vmlinuz-2.6.11-1.1369_FC4 空格 ro 空格  root=/dev/hda7</p>
+<p>kernel 这行这样理解  <b>kernel (boot所在的分区)/boot/内核文件件全称  ro root=Linux根所位于的分区或标签</b></p>
+<p>initrd  空格 (hd0,6)/boot/initrd-2.6.11-1.1369_FC4.img<br>
+initrd 这行可以这样理解<b> initrd (/boot所在的分区)/boot/内核文件名全称 </b></p>
+<p><font id="4.22" size="3"><b><br>
+2）第二种情况：/boot独立一个分区，和Linux的根分区不是同一个分区；<br>
+</b></font></p>
+<p>比如我们查看到df -lh 得到的是<br>
+</p><div class="codeblock"><code>[root@localhost ~]# df -lh<br>Filesystem&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 容量&nbsp; 已用 可用 已用% 挂载点 <br>/dev/hda6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 200M&nbsp; 120M&nbsp; 80M&nbsp; 60% /boot<br>/dev/hda7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 11G&nbsp; 9.2G&nbsp; 1.2G&nbsp; 90% /</code></div><p></p>
+<p>我们再进一行查看/etc/fstab 得知；<br>
+</p><div class="codeblock"><code>LABEL=/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ext3&nbsp;&nbsp;&nbsp; defaults&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 1<br>LABEL=/boot&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /boot&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ext3&nbsp;&nbsp;&nbsp; defaults&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 2</code></div><p></p>
+<p>所以我们应该写成如下的；</p>
+<p></p><div class="codeblock"><code>title FC4x<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kernel (hd0,5)/vmlinuz-2.6.11-1.1369_FC4 ro root=LABEL=/<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; initrd (hd0,5)/initrd-2.6.11-1.1369_FC4.img</code></div><p></p>
+<p>因为Linux的根分区是/dev/hda7，通过/etc/fstab和df -h的内容得知标签为 LABEL=/的分区就是/dev/hda7 ，所以有；</p>
+<p></p><div class="codeblock"><code>title FC4x<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kernel (hd0,5)/vmlinuz-2.6.11-1.1369_FC4 ro root=/dev/hda7<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; initrd (hd0,5)/initrd-2.6.11-1.1369_FC4.img</code></div><p></p>
+<p><font id="5" size="4"><b><br>
+五、通过GRUB命令行来启动Linux操作系统；<br>
+</b></font></p>
+<p>GRUB的命令行才是王道，如果知道怎么用命令行来启动操作系统，那理解menu.lst的写法也不难；也就是说在开机的时候，不用GRUB的菜单，通过GRUB的命令也是一样能把操作系统引导起来。</p>
+<p>因为menu.lst的内容就是GRUB的一个一个的指令集合；是不是Linux这玩意很神奇？<br>
+<font id="5.1" size="3"><b><br>
+1、为什么需要学习GRUB的命令行；<br>
+</b></font><br>
+当我们把GRUB的menu.lst写错的时候，或者丢掉了menu.lst的时，比如在开机的时候，GRUB会出现<b>grub&gt;</b>类似的命令提示符，这时需要我们用命令行启动系统；当然您可以不用定义GRUB的菜单 ，直接用命令行来启动系统，比如我现在就是，为了写GRUB的文档，就把menu.lst 删除了，直接用命令来启动系统；<br>
+<font id="5.2" size="3"><b><br>
+2、用命令行来引导Linux操作系统的步骤；<br>
+</b></font></p>
+<p>通过命令行来引导操作系统的流程，也没有什么难的；无非是把指令手工输入到grub&gt;提示符的后面；在这个过程中，tab键的命令补齐功能就显得很重要了。如果您不知道有哪些命令，可以输入help；</p>
+<p><font id="5.21" size="2"><b><br>
+1）进入GRUB的命令行模式 grub&gt;<br>
+</b></font><br>
+如果开机时，GRUB出现的是<b>grub&gt;</b>，说明你没有/etc/grub/menu.lst ，您需要自己写一个才会GRUB的菜单，让我们来选择进入哪个系统。如果有GRUB的菜单，您可以按<b>Ctrl+c</b>组合键进入GRUB的命令行模式，会出现<b>grub&gt;</b> 提示符；<br>
+</p><div class="codeblock"><code>grub&gt; </code></div><br>
+<font id="5.22" size="2"><b><br>
+2）获取帮助GRUB的 help<br>
+</b></font><p></p>
+<p>只要您在<b>grub&gt;</b>提示符的后面输入help 就能得到GRUB所有的命令提示；</p>
+<p></p><div class="codeblock"><code>grub&gt; help<br>blocklist FILE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; boot<br>cat FILE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; chainloader [--force] FILE<br>clear&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; color NORMAL [HIGHLIGHT]<br>configfile FILE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; device DRIVE DEVICE<br>displayapm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; displaymem<br>find FILENAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; geometry DRIVE [CYLINDER HEAD SECTOR [<br>halt [--no-apm]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; help [--all] [PATTERN ...]<br>hide PARTITION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; initrd FILE [ARG ...]<br>kernel [--no-mem-option] [--type=TYPE] makeactive<br>map TO_DRIVE FROM_DRIVE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; md5crypt<br>module FILE [ARG ...]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; modulenounzip FILE [ARG ...]<br>pager [FLAG]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; partnew PART TYPE START LEN<br>parttype PART TYPE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; quit<br>reboot&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; root [DEVICE [HDBIAS]]<br>rootnoverify [DEVICE [HDBIAS]]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; serial [--unit=UNIT] [--port=PORT] [--<br>setkey [TO_KEY FROM_KEY]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; setup [--prefix=DIR] [--stage2=STAGE2_<br>terminal [--dumb] [--no-echo] [--no-ed terminfo [--name=NAME --cursor-address<br>testvbe MODE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unhide PARTITION<br>uppermem KBYTES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vbeprobe [MODE]</code></div><p></p>
+<p>如果需要得到某个指令的帮助，就在 help 后面空一格，然后输入指令，比如；</p>
+<p></p><div class="codeblock"><code>grub&gt;help kernel&nbsp; </code></div><br>
+<font id="5.23" size="2"><b><br>
+3）cat的用法；<br>
+</b></font><p></p>
+<p>cat指令是用来查看文件内容的，有时我们不知道Linux的/boot分区，以及/根分区所在的位置，要查看/etc/fstab的内容来得知，这时，我们就要用到cat (hd[0-n],y)/etc/fstab 来获得这些内容；注意要学会用tab键命令补齐的功能；<br>
+</p><div class="codeblock"><code>grub&gt; cat (&nbsp;&nbsp;&nbsp;&nbsp; 按tab 键会出来hd0或hd1之类的；<br>grub&gt; cat (hd0, 注：输入hd0,然后再按tab键；会出来分区之类的；<br>grub&gt; cat (hd0,6)<br> Possible partitions are:<br>&nbsp;&nbsp; Partition num: 0,&nbsp; Filesystem type unknown, partition type 0x7<br>&nbsp;&nbsp; Partition num: 4,&nbsp; Filesystem type is fat, partition type 0xb<br>&nbsp;&nbsp; Partition num: 5,&nbsp; Filesystem type is reiserfs, partition type 0x83<br>&nbsp;&nbsp; Partition num: 6,&nbsp; Filesystem type is ext2fs, partition type 0x83<br>&nbsp;&nbsp; Partition num: 7,&nbsp; Filesystem type unknown, partition type 0x83<br>&nbsp;&nbsp; Partition num: 8,&nbsp; Filesystem type is reiserfs, partition type 0x83<br>&nbsp;&nbsp; Partition num: 9,&nbsp; Filesystem type unknown, partition type 0x82<br><br>grub&gt; cat (hd0,6)/etc/fstab 注：比如我想查看一下 (hd0,6)/etc/fstab的内容就这样输入；<br><br>LABEL=/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ext3&nbsp;&nbsp;&nbsp; defaults&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 1<br>/dev/devpts&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /dev/pts&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; devpts&nbsp; gid=5,mode=620&nbsp; 0 0<br>/dev/shm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /dev/shm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmpfs&nbsp;&nbsp; defaults&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0<br>/dev/proc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /proc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; proc&nbsp;&nbsp;&nbsp; defaults&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0<br>/dev/sys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /sys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sysfs&nbsp;&nbsp; defaults&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0<br>LABEL=SWAP-hda1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; swap&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; swap&nbsp;&nbsp;&nbsp; defaults&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0<br>/dev/hdc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /media/cdrecorder&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; auto&nbsp;&nbsp;&nbsp; pamconsole,exec,noauto,<br>managed 0 0</code></div><p></p>
+<p>有的弟兄可能会说，我不知道Linux安装在了哪个分区。那根据文件系统来判断一个一个的尝试总可以吧我；只要能cat出/etc/fstab就能为以后引导带来方便；</p>
+<p>主要查看/etc/fstab中的内容，主要是Linux的/分区及/boot是否是独立的分区；如果没有/boot类似的行，证明/boot和Linux的/处于同一个硬盘分区；比如上面的例子中LABEL=/ 这行是极为重要的；说明Linux系统就安在标签为LABEL=/的分区中；</p>
+<p>如果您的Linux系统/boot和/没有位于同一个分区，可能cat (hd[a-n],y) 查到的是类似下面的；</p>
+<p></p><div class="codeblock"><code>LABEL=/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ext3&nbsp;&nbsp;&nbsp; defaults&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 1<br>LABEL=/boot&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /boot&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ext3&nbsp;&nbsp;&nbsp; defaults&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 2</code></div><p></p>
+<p><font id="5.24" size="2"><b><br>
+4） root (hd[0-n,y) 指令来指定/boot所在的分区；<br>
+</b></font></p>
+<p>其实这个root (hd[0,n],y)是可以省略的，如果省略了，我们要在kerenl 命令中指定；我们前面已经说过 (hd[0-n],y) 硬盘分区的表示方法的用途；主要是用来指定 /boot所在的分区；</p>
+<p>比如我们确认/boot和 (hd0,6)，所以就可以这样来输入root (hd0,6)<br>
+</p><div class="codeblock"><code>grub&gt; root (hd0,6)</code></div> <p></p>
+<p>如果发现不对，可以重新来过；没有什么大不了的；</p>
+<p><font id="5.25" size="2"><b><br>
+5） kernel 指令，用来指定Linux的内核，及/所在的分区；<br>
+</b></font></p>
+<p>kernel 这个指令可能初学者有点怕，不知道内核在哪个分区，及内核文件名的全称是什么。不要忘记tab键的命令补齐的应用；<br>
+<b><br>
+如果我们已经通过root (hd[0-n],y) 指定了/boot所在的分区，语法有两个：<br>
+</b><br>
+如果/boot和Linux的/位于同一个分区，应该是下面的一种格式；<br>
+<b><br>
+kernel /boot/vmlinuz在这里按tab键来补齐，就看到内核全称了  ro root=/dev/hd[a-z]X<br>
+</b><br>
+如果/boot有自己独立的分区，应该是；<br>
+<b><br>
+kernel /vmlinuz在这里按tab键来补齐，就看到内核全称了 ro root=/dev/hd[a-z]X<br>
+</b></p>
+<p>在这里 root=/dev/hd[a-z]X 是Linux 的/根所位于的分区，如果不知道是哪个分区，就用tab出来的来计算，一个一个的尝试；或用cat (hd[0-n],y)/etc/fstab 中得到Linux的/所在的分区或分区的标签；</p>
+<p></p><div class="codeblock"><code>grub&gt; kernel /boot/在这里按tab键；这样就列出/boot中的文件了； <br> Possible files are: grub initrd-2.6.11-1.1369_FC4.img System.map-2.6.11-1.1369<br>_FC4 config-2.6.11-1.1369_FC4 vmlinuz-2.6.11-1.1369_FC4 grubBAK memtest86+-1.55<br>.1 xen-syms xen.gz<br><br>grub&gt; kernel /boot/vmlinuz-2.6.11-1.1369_FC4 ro root=LABEL=/&nbsp; <br>&nbsp;&nbsp; [Linux-bzImage, setup=0x1e00, size=0x18e473]<br> </code></div><p></p>
+<p><b>注解：</b> root=LABEL=/ 是Linux的/所在的分区的文件系统的标签；如果您知道Linux的/在哪个具体的分区，用root=/dev/hd[a-z]X来指定也行。比如下面的一行也是可以的；</p>
+<p></p><div class="codeblock"><code>grub&gt; kernel /boot/vmlinuz-2.6.11-1.1369_FC4 ro root=/dev/hda7</code></div><p></p>
+<p>也可以把/boot所在的分区的指定 root (hd[0-n],y)这行省掉，直接在kernel 中指定/boot所在的分区；所以就在下面的语法；</p>
+<p>如果是/boot和Linux的根同处一个分区；<br>
+</p><div class="codeblock"><code>kernel (hd[0-n],y)/boot/vmlinuz ro root=/dev/hd[a-z]X</code></div><p></p>
+<p>比如：<br>
+</p><div class="codeblock"><code>grub&gt;kernel </code></div><p></p>
+<p>如果是/boot和Linux所在的根不在一个分区；则是；<br>
+</p><div class="codeblock"><code>kernel (hd[0-n],y)/vmlinuz&nbsp; ro root=/dev/hd[a-z]X </code></div><p></p>
+<p></p><div class="codeblock"><code>grub&gt; kernel (hd0,6)/boot/vmlinuz-2.6.11-1.1369_FC4 ro root=/dev/hda7 <br>&nbsp;&nbsp; [Linux-bzImage, setup=0x1e00, size=0x18e473]</code></div><p></p>
+<p>或下面的输入，以cat 出/etc/fstab内容为准；</p>
+<p></p><div class="codeblock"><code>grub&gt; kernel (hd0,6)/boot/vmlinuz-2.6.11-1.1369_FC4 ro root=LABEL=/<br>&nbsp;&nbsp; [Linux-bzImage, setup=0x1e00, size=0x18e473]</code></div><p></p>
+<p><font id="5.26" size="2"><b><br>
+6）initrd 命令行来指定initrd文件；<br>
+</b></font></p>
+<p></p><div class="codeblock"><code>grub&gt; initrd /boot/initrd在这里tab 来补齐；<br>grub&gt; initrd /boot/initrd-2.6.11-1.1369_FC4.img<br>&nbsp;&nbsp; [Linux-initrd @ 0x2e1000, 0x10e685 bytes]</code></div> <p></p>
+<p>如果/boot是独立的一个分区，应该是如下样子的语法；比如下面的；</p>
+<p></p><div class="codeblock"><code>grub&gt; initrd /initrd在这里tab 来补齐；<br>grub&gt; initrd /initrd-2.6.11-1.1369_FC4.img<br>&nbsp;&nbsp; [Linux-initrd @ 0x2e1000, 0x10e685 bytes]</code></div><br>
+<font id="5.27" size="2"><b><br>
+7）boot 引导系统；<br>
+</b></font><p></p>
+<p></p><div class="codeblock"><code>grub&gt;boot </code></div><p></p>
+<p>前面的几个步骤都弄好 。就进入引导；尝试一下就知道了。。<br>
+<font id="5.28" size="2"><b><br>
+8）引导Linux系统实例全程回放；<br>
+</b></font></p>
+<p><b>实例：</b>/boot和Linux的/处于同一个硬盘分区；<br>
+</p><div class="codeblock"><code>grub&gt; cat (hd0,6)/etc/fstab<br># This file is edited by fstab-sync - see 'man fstab-sync' for details<br>LABEL=/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ext3&nbsp;&nbsp;&nbsp; defaults&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 1<br>/dev/devpts&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /dev/pts&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; devpts&nbsp; gid=5,mode=620&nbsp; 0 0<br>/dev/shm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /dev/shm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmpfs&nbsp;&nbsp; defaults&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0<br>/dev/proc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /proc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; proc&nbsp;&nbsp;&nbsp; defaults&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0<br>/dev/sys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /sys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sysfs&nbsp;&nbsp; defaults&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0<br>LABEL=SWAP-hda1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; swap&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; swap&nbsp;&nbsp;&nbsp; defaults&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0<br>/dev/hdc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /media/cdrecorder&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; auto&nbsp;&nbsp;&nbsp; pamconsole,exec,noauto,managed 0 0<br><br>grub&gt; root (hd0,6)<br> Filesystem type is ext2fs, partition type 0x83<br><br>grub&gt; kernel /boot/在这里按tab补齐，全列出/boot所有的文件；<br> Possible files are: grub initrd-2.6.11-1.1369_FC4.img System.map-2.6.11-1.1369_FC4 config-2.6.11-1.1369_FC4 vmlinuz-2.6.11-1.1369_FC4&nbsp; <br> memtest86+-1.55.1 xen-syms xen.gz<br><br>grub&gt; kernel /boot/vmlinuz-2.6.11-1.1369_FC4 ro root=/dev/hda7&nbsp; 注：输入<br>&nbsp;&nbsp; [Linux-bzImage, setup=0x1e00, size=0x18e473]<br><br>grub&gt; initrd /boot/在这里按tab补齐<br> Possible files are: grub initrd-2.6.11-1.1369_FC4.img System.map-2.6.11-1.1369_FC4 config-2.6.11-1.1369_FC4 vmlinuz-2.6.11-1.1369_FC4&nbsp; <br> memtest86+-1.55.1 xen-syms xen.gz<br><br>grub&gt; initrd /boot/initrd-2.6.11-1.1369_FC4.img 注;输入intrd文件名的全名；<br>&nbsp;&nbsp; [Linux-initrd @ 0x2e1000, 0x10e685 bytes]<br><br>grub&gt; boot</code></div><p></p>
+<p>我们指定Linux的根时，可以用cat出来的fstab的内容中Linux的/分区文件系统标签来替代；也就是kernel 那行中 root=/dev/hd[a-z]X； </p>
+<p></p><div class="codeblock"><code>grub&gt; cat (hd0,6)/etc/fstab<br># This file is edited by fstab-sync - see 'man fstab-sync' for details<br>LABEL=/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ext3&nbsp;&nbsp;&nbsp; defaults&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 1<br>/dev/devpts&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /dev/pts&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; devpts&nbsp; gid=5,mode=620&nbsp; 0 0<br>/dev/shm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /dev/shm&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tmpfs&nbsp;&nbsp; defaults&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0<br>/dev/proc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /proc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; proc&nbsp;&nbsp;&nbsp; defaults&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0<br>/dev/sys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /sys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sysfs&nbsp;&nbsp; defaults&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0<br>LABEL=SWAP-hda1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; swap&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; swap&nbsp;&nbsp;&nbsp; defaults&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 0<br><br>/dev/hdc&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /media/cdrecorder&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; auto&nbsp;&nbsp;&nbsp; pamconsole,exec,noauto,managed 0 0<br><br>grub&gt; root (hd0,6)<br> Filesystem type is ext2fs, partition type 0x83<br><br>grub&gt; kernel /boot/在这里按tab补齐，全列出/boot所有的文件；<br> Possible files are: grub initrd-2.6.11-1.1369_FC4.img System.map-2.6.11-1.1369_FC4 config-2.6.11-1.1369_FC4 vmlinuz-2.6.11-1.1369_FC4&nbsp; <br> memtest86+-1.55.1 xen-syms xen.gz<br><br>grub&gt; kernel /boot/vmlinuz-2.6.11-1.1369_FC4 ro root=LABEL=/&nbsp; <br>&nbsp;&nbsp; [Linux-bzImage, setup=0x1e00, size=0x18e473]<br><br>grub&gt; initrd /boot/在这里按tab补齐<br> Possible files are: grub initrd-2.6.11-1.1369_FC4.img System.map-2.6.11-1.1369_FC4 config-2.6.11-1.1369_FC4 vmlinuz-2.6.11-1.1369_FC4 grubBAK<br> memtest86+-1.55.1 xen-syms xen.gz<br><br>grub&gt; initrd /boot/initrd-2.6.11-1.1369_FC4.img 注;输入intrd文件名的全名；<br>&nbsp;&nbsp; [Linux-initrd @ 0x2e1000, 0x10e685 bytes]<br><br>grub&gt; boot</code></div><p></p>
+<p>如果是/boot和Linux的根分区不在同一个分区，要把kernel和initrd 指令中的/boot去掉，也就是/vmlinuzMMMMMM 或 /initrdNNNN</p>
+<p>也可以不用root (hd[0-n]来指定/boot所在分区，要在kernel 和initrd 中指定；比如Linux的/根所位于的分区和/boot所位于的分区都是(hd0,6)，并且我们cat出来的/etc/fstab是Linux的/根分区的文件系统的标签为LABEL=/，引导操作系统的例子如下；<br>
+</p><div class="codeblock"><code>grub&gt;kernel (hd0,6)/boot/vmlinuz-2.6.11-1.1369_FC4 ro root=LABEL=/<br>grub&gt;initrd (hd0,6)/boot/initrd-2.6.11-1.1369_FC4.img<br>grub&gt;boot </code></div><p></p>
+<p>或</p>
+<p></p><div class="codeblock"><code>grub&gt;kernel (hd0,6)/boot/vmlinuz-2.6.11-1.1369_FC4 ro root=/dev/hda7 <br>grub&gt;initrd (hd0,6)/boot/initrd-2.6.11-1.1369_FC4.img<br>grub&gt;boot </code></div><p></p>
+<p>如果/boot位于 /dev/hda6，也就是(hd0,5)，Linux的根/位于分区/dev/hda7，并且我们cat 出来的/etc/fstab 中/分区的标签为 LABEL=/。下面的两种方法都可以引导；</p>
+<p></p><div class="codeblock"><code>grub&gt;kernel (hd0,5)/vmlinuz-2.6.11-1.1369_FC4 ro root=LABEL=/<br>grub&gt;initrd (hd0,5)/initrd-2.6.11-1.1369_FC4.img<br>grub&gt;boot </code></div><p></p>
+<p>或</p>
+<p></p><div class="codeblock"><code>grub&gt;kernel (hd0,5)/vmlinuz-2.6.11-1.1369_FC4 ro root=/dev/hda7 <br>grub&gt;initrd (hd0,5)/initrd-2.6.11-1.1369_FC4.img<br>grub&gt;boot </code></div><br>
+<font id="6" size="4"><b><br>
+六、通过GRUB引导Windows操作系统；<br>
+</b></font><br>
+<font id="6.1" size="3"><b><br>
+1、通过编辑 menu.lst 来引导Windows 系统；<br>
+</b></font><p></p>
+<p>如果您的Windows所处于的分区在(hd0,0)，可以在menu.lst 加如下的一段就能引导起来了；<br>
+</p><div class="codeblock"><code>title WinXp<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rootnoverify (hd0,0)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; chainloader +1</code></div><p></p>
+<p>如果您的机器有两块硬盘，而Windows 位于第二个硬盘的第一个分区，也就是(hd1,0)</p>
+<p>您可以用grub的map来指令来操作把两块硬盘的序列对调，这样就不用在BIOS中设置了；在menu.lst中加如下的内容，比如下面的；</p>
+<p></p><div class="codeblock"><code>title WinXp<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; map (hd0) (hd1)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; map (hd1) (hd0)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rootnoverify (hd0,0)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; chainloader +1<br>	&nbsp; makeactive</code></div><p></p>
+<p>如果Windows的分区不位于硬盘的第一个分区怎么办呢？比如在(hd0,2)；</p>
+<p>这个也好办吧，把rootnoverify 这行的(hd0,0)改为 (hd0,2)</p>
+<p></p><div class="codeblock"><code>title WinXp<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rootnoverify (hd0,2)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; chainloader +1<br>	&nbsp; makeactive</code></div><p></p>
+<p>如果Windows的在第二个硬盘的某个分区，比如说是位于(hd1,2)，则要用到map指令；</p>
+<p></p><div class="codeblock"><code>title WinXp<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; map (hd0) (hd1)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; map (hd1) (hd0)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rootnoverify (hd1,2)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; chainloader +1<br>	&nbsp; makeactive</code></div><p></p>
+<p>如果有多个Windows 系统，怎么才能引导出来呢？应该用hide 和unhide指令操作；比如我们安装了两个Windows ，一个是位于(hd0,0)的windows 98 ，另一个是安装的是位于(hd0,1)的WindowsXP；这时我们就要用到hide指令了；</p>
+<p></p><div class="codeblock"><code>title Win98<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unhide (hd0,0)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hide (hd0,1)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rootnoverify (hd0,0)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; chainloader +1<br>	&nbsp; makeactive<br><br>title WinXP <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unhide (hd0,1)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; hide (hd0,0)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rootnoverify (hd0,1)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; chainloader +1<br>	&nbsp; makeactive</code></div><br>
+<font id="6.2" size="3"><b><br>
+2、通过GRUB指令来引导Windows ；<br>
+</b></font><p></p>
+<p>其实我们会写menu.lst了，在menu.lst中的除了title外，都是一条条指令；如果我们启动Windows ，只是输入指令就行了；</p>
+<p>比如	Windows的分区在 (hd0,0)，我们在开机后，按ctrl+c ，进入GRUB的命令模式；就可以用下面的</p>
+<p></p><div class="codeblock"><code>grub&gt; rootnoverify (hd0,0)<br>grub&gt; chainloader +1<br>grub&gt; boot </code></div><p></p>
+<p>其它同理... ...<br>
+<font id="7" size="4"><b><br>
+七、GRUB丢失或损坏的应对策略；<br>
+</b></font></p>
+<p>如果GRUB是Linux版本才出会这样的问题；WINGRUB可以不写在MBR上；所以不会出现这样的问题。WINGRUB用起来比较简单。menu.lst 和命令行的用法和Linux版本的GRUB是一样的；</p>
+<p><font id="7.1" size="3"><b><br>
+1、由于重新安装Windows或其它未知原因而导致GRUB的丢失；<br>
+</b></font><br>
+您可以通过系统安装盘、livecd进入修复模式；</p>
+<p><b>请参考：</b><a href="http://www.linuxsir.org/main/?q=node/110">《Linux 系统的单用户模式、修复模式、跨控制台登录在系统修复中的运用》</a></p>
+<p><b>首先：</b>您根据前面所说grub-install来安装GRUB到/boot所在的分区；要仔细看文档，/boot是不是处于一个独立的分区是重要的，执行的命令也不同；</p>
+<p><b>其次：</b>要执行grub ，然后通过 root (hd[0-n],y)来指定/boot所位于的分区，然后接着执行 setup (hd0)，这样就写入MBR了，比如下面的例子；<br>
+</p><div class="codeblock"><code>grub&gt;root (hd0,6)<br>grub&gt;setup (hd0)<br>grub&gt;quit</code></div><br>
+重新引导就会再次出现MBR的菜单了或命令行的提示符了；<p></p>
+<p><font id="7.2" size="3"><b><br>
+2、如果出现GRUB提示符，而不出现GRUB的菜单，如何引导系统；<br>
+</b></font></p>
+<p>存在的问题可能是/boot/grub/menu.lst丢失，要自己写一个才行；您可以用命令行来启动系统，进入系统后写一写menu.lst就OK了。前面已经谈过了；</p>
+<p>写好后还要建一个grub.conf的链接，如下：</p>
+<p></p><div class="codeblock"><code>[root@localhost ~]# cd /boot/grub<br>[root@localhost grub]# ln -s menu.lst grub.conf</code></div><p></p>
+<p><font id="8" size="4"><b><br>
+八、关于GRUB的未尽事宜；<br>
+</b></font></p>
+<p>GRUB有很多内容，比如对BSD的引导，还有一些其它指令的用法，我并没有在本文提到；主要我目前还未用到，如果您需要了解更多，请查看 <a href="http://www.linuxsir.org/main/?q=node/123">《GNU GRUB 手册和FAQ》</a></p>
+<p><font id="9" size="4"><b><br>
+九、关于本文；<br>
+</b></font></p>
+<p>本文前后写了三四天，中间发现并不能把Linux设备的两种表现形式说的清楚，于是被迫写了<a href="http://www.linuxsir.org/main/?q=node/127">《在Linux系统中存储设备的两种表示方法》</a>；由于没有BSD系统，所以没有写关于BSD的引导；如果正在用BSD的弟兄如果有时间不妨写一写；写的时候注意文档的结构，这样方便大家的阅读； </p>
+<p>GRUB有很多内容，需要大家慢慢的学习和研究；有的弟兄抑制GRUB，说不如NTLOADER，其实这是错误的；如果您想学习和使用Linux就得学习和适应Linux的操作；习惯成自然，如果您抵制学习Linux，那可能您永远会说“Linux不如Windows”；</p>
+<p><font id="10" size="4"><b><br>
+十、参考文档；<br>
+</b></font></p>
+<p><a href="http://www.linuxsir.org/main/?q=node/123">《GNU GRUB 手册和FAQ》</a></p>
+<p><font id="11" size="4"><b><br>
+十一、相关文档；<br>
+</b></font><br>
+<a href="http://www.linuxsir.org/main/?q=node/37">《以WINGRUB 引导安装Fedora 4.0 为例，详述用WINGRUB来引导Linux的安装》</a><br>
+<a href="http://www.linuxsir.org/main/?q=node/130">《系统引导管理器GRUB学习笔记》</a><br>
+<a href="http://www.linuxsir.org/main/?q=node/132">《如何为GRUB系统引导管理器加上密码》</a><br>
+<a href="http://www.linuxsir.org/main/?q=node/127">《在Linux系统中存储设备的两种表示方法》</a><br>
+<a href="http://www.linuxsir.org/main/?q=node/80">《合理规划您的硬盘分区》</a><br>
+<a href="http://www.linuxsir.org/main/?q=node/82">《系统引导过程及硬盘分区结构论述》</a><br>
+<a href="http://www.linuxsir.org/main/?q=node/41">《Linux 查看磁盘分区、文件系统、使用情况的命令和相关工具介绍》</a><br>
+<a href="http://www.linuxsir.org/main/?q=node/81">《实例解说 fdisk 使用方法》</a></p>
+ </div>
+<div class="links"><ul class="links inline"><li class="first node_submitted"><span class="node_submitted">由 北南南北 在 2005/12/16 - 00:29 发表</span></li>
+<li class="taxonomy_term_1"><a href="http://www.linuxsir.org/main/taxonomy/term/1" rel="tag" title="Linux 学习研究" class="taxonomy_term_1">Linux</a></li>
+<li class="taxonomy_term_25"><a href="http://www.linuxsir.org/main/taxonomy/term/25" rel="tag" title="基础知识" class="taxonomy_term_25">基础知识</a></li>
+<li class="last comment_forbidden"><span class="comment_forbidden">要发表评论，请先<a href="http://www.linuxsir.org/main/user/login?destination=comment/reply/129%2523comment-form">登录</a> 或 <a href="http://www.linuxsir.org/main/user/register?destination=comment/reply/129%2523comment-form">注册</a></span></li>
+</ul></div>
+</div>
+<div id="comments"><a id="comment-1872"></a>
+<div class="comment">
+ <h3 class="title"><a href="http://www.linuxsir.org/main/node/129#comment-1872" class="active">系统引导管理器GRUB，为初学者指南</a></h3>
+ <div class="content"><p>首先声明一下哈,,,我是新人,,,多多光照,,,谢过各位达人.</p>
+<p>北南南北兄讲得不错,,,浅显易懂.</p>
+<p>可是遇到LVM分区的情况,就不怎么管用了,不知是否可以补充.</p>
+</div>
+ <div class="links"><ul class="links"><li class="first comment_submitted"><span class="comment_submitted">由 huabo_linux 在 2008/03/23 - 14:38 发表</span></li>
+<li class="last comment_forbidden"><span class="comment_forbidden">要发表评论，请先<a href="http://www.linuxsir.org/main/user/login?destination=comment/reply/129%2523comment-form">登录</a> 或 <a href="http://www.linuxsir.org/main/user/register?destination=comment/reply/129%2523comment-form">注册</a></span></li>
+</ul></div>
+</div>
+<a id="comment-976"></a>
+<div class="comment">
+ <h3 class="title"><a href="http://www.linuxsir.org/main/node/129#comment-976" class="active">关于grub-install</a></h3>
+ <div class="content"><p>文章很好，我觉得文章中关于grub-install 有一点问题。</p>
+<p>当系统有独立的/boot分区的时候，应该这样安装：<br>
+grub-install /dev/hda<br>
+如果只有/ ，没有单独建立/boot分区，才应该这样安装：<br>
+grub-install --root-directory=/boot /dev/hda</p>
+</div>
+ <div class="links"><ul class="links"><li class="first comment_submitted"><span class="comment_submitted">由 LinuxSir 在 2007/01/26 - 10:57 发表</span></li>
+<li class="last comment_forbidden"><span class="comment_forbidden">要发表评论，请先<a href="http://www.linuxsir.org/main/user/login?destination=comment/reply/129%2523comment-form">登录</a> 或 <a href="http://www.linuxsir.org/main/user/register?destination=comment/reply/129%2523comment-form">注册</a></span></li>
+</ul></div>
+</div>
+<div class="indented"><a id="comment-1322"></a>
+<div class="comment">
+ <h3 class="title"><a href="http://www.linuxsir.org/main/node/129#comment-1322" class="active">不需要加参数--root-directory</a></h3>
+ <div class="content"><p>我从来都不划分单独的/boot分区<br>
+也从来不加参数--root-directory<br>
+没出过问题</p>
+</div>
+ <div class="links"><ul class="links"><li class="first comment_submitted"><span class="comment_submitted">由 LinuxSir 在 2007/06/01 - 15:24 发表</span></li>
+<li class="last comment_forbidden"><span class="comment_forbidden">要发表评论，请先<a href="http://www.linuxsir.org/main/user/login?destination=comment/reply/129%2523comment-form">登录</a> 或 <a href="http://www.linuxsir.org/main/user/register?destination=comment/reply/129%2523comment-form">注册</a></span></li>
+</ul></div>
+</div>
+<a id="comment-985"></a>
+<div class="comment">
+ <h3 class="title"><a href="http://www.linuxsir.org/main/node/129#comment-985" class="active">lz和一楼的达人，我初学不是很明白</a></h3>
+ <div class="content"><p>lz和一楼的达人，我初学不是很明白，你们说的两种说法到底哪种是正确的呢？谢谢了！</p>
+</div>
+ <div class="links"><ul class="links"><li class="first comment_submitted"><span class="comment_submitted">由 Anonymous (未验证) 在 2007/02/05 - 22:04 发表</span></li>
+<li class="last comment_forbidden"><span class="comment_forbidden">要发表评论，请先<a href="http://www.linuxsir.org/main/user/login?destination=comment/reply/129%2523comment-form">登录</a> 或 <a href="http://www.linuxsir.org/main/user/register?destination=comment/reply/129%2523comment-form">注册</a></span></li>
+</ul></div>
+</div>
+<div class="indented"><a id="comment-1756"></a>
+<div class="comment">
+ <h3 class="title"><a href="http://www.linuxsir.org/main/node/129#comment-1756" class="active">一楼其实说的很清楚</a></h3>
+ <div class="content"><p>一楼其实说的很清楚， 在/boot在其他分区的情况下需要加--root-directory参数。二楼没有尝试过也不应该如此肯定的说不需要。</p>
+<p>--root-directory=dir<br>
+Install GRUB images under the directory dir instead of the root directory. This option is useful when you want to install GRUB into a separate partition or a removable disk. Here is an example in which you have a separate boot partition which is mounted on /boot:<br>
+          grub-install --root-directory=/boot hd0</p>
+<p>更多信息可查看grub manual.</p>
+</div>
+ <div class="links"><ul class="links"><li class="first comment_submitted"><span class="comment_submitted">由 kekehuoshan 在 2008/02/01 - 11:55 发表</span></li>
+<li class="last comment_forbidden"><span class="comment_forbidden">要发表评论，请先<a href="http://www.linuxsir.org/main/user/login?destination=comment/reply/129%2523comment-form">登录</a> 或 <a href="http://www.linuxsir.org/main/user/register?destination=comment/reply/129%2523comment-form">注册</a></span></li>
+</ul></div>
+</div>
+<a id="comment-991"></a>
+<div class="comment">
+ <h3 class="title"><a href="http://www.linuxsir.org/main/node/129#comment-991" class="active">我在FreeBSD中用的方法和一楼这位兄弟一样。</a></h3>
+ <div class="content"><p>都可以。<br>
+我在FreeBSD中用的方法和一楼这位兄弟一样。</p>
+</div>
+ <div class="links"><ul class="links"><li class="first comment_submitted"><span class="comment_submitted">由 Anonymous (未验证) 在 2007/02/16 - 17:39 发表</span></li>
+<li class="last comment_forbidden"><span class="comment_forbidden">要发表评论，请先<a href="http://www.linuxsir.org/main/user/login?destination=comment/reply/129%2523comment-form">登录</a> 或 <a href="http://www.linuxsir.org/main/user/register?destination=comment/reply/129%2523comment-form">注册</a></span></li>
+</ul></div>
+</div>
+<div class="indented"><a id="comment-1827"></a>
+<div class="comment">
+ <h3 class="title"><a href="http://www.linuxsir.org/main/node/129#comment-1827" class="active">不错的技术地区
+这技</a></h3>
+ <div class="content"><p>不错的技术地区</p>
+<p>这技术很想学习好，文章应该是针对LINUX的吧~其实本人也安装过红帽子的，只是因为需要使用电脑的缘故没几耐就重装XP了，但系近来渴求不用光驱又不用GHOST的方法来重装系统，<br>
+也就是想通过调用硬盘里的ISO文件来重装系统，在网站上搜索过很多资料了，发现这方法是可行的，网络上也有一个小程序“超级DOS硬盘安装器”我下载来可是不行……</p>
+<p>而看了一些关于GRUB简介后发现通过GRUB加上一些其它的引导技术可以做出傻瓜式的安装方法，<br>
+而作者的文章也是极大部分是看得明白的，可就是安装这一步骤存在着一些问题，通过GRUB我应该也可以安装制作出GRUB硬盘来，可是重来没有安装过GRUB的而且用的是XP的我怎么安装GRUB呢？望兄台指点一下</p>
+<p>可以的话，请兄台联系一下小弟或者将教材发到我的邮箱里zhi-052@tom.com</p>
+</div>
+ <div class="links"><ul class="links"><li class="first comment_submitted"><span class="comment_submitted">由 xtihxtih 在 2008/02/19 - 03:04 发表</span></li>
+<li class="last comment_forbidden"><span class="comment_forbidden">要发表评论，请先<a href="http://www.linuxsir.org/main/user/login?destination=comment/reply/129%2523comment-form">登录</a> 或 <a href="http://www.linuxsir.org/main/user/register?destination=comment/reply/129%2523comment-form">注册</a></span></li>
+</ul></div>
+</div>
+<div class="indented"><a id="comment-1850"></a>
+<div class="comment">
+ <h3 class="title"><a href="http://www.linuxsir.org/main/node/129#comment-1850" class="active">可以安装grub for dos </a></h3>
+ <div class="content"><p>windows的版本。也可以用linux的安装盘来引导进入linux单用户或修复模式来安装grub ...</p>
+<p>&lt;-------------北南南北-----------------&gt;</p>
+<p>自由与梦想齐飞，欢迎光临LinuxSir.Org；<br>
+开源传万世，因有我参与；</p>
+</div>
+ <div class="links"><ul class="links"><li class="first comment_submitted"><span class="comment_submitted">由 beinan 在 2008/02/27 - 13:30 发表</span></li>
+<li class="last comment_forbidden"><span class="comment_forbidden">要发表评论，请先<a href="http://www.linuxsir.org/main/user/login?destination=comment/reply/129%2523comment-form">登录</a> 或 <a href="http://www.linuxsir.org/main/user/register?destination=comment/reply/129%2523comment-form">注册</a></span></li>
+</ul></div>
+</div>
+</div></div></div></div></div>
+<!-- end content -->
+ <div id="footer"><center>
+<a href="http://www.linuxsir.org/"><img src="logo.jpg"></a> <br>
+
+<a href="http://www.miibeian.gov.cn/" target="_top"><font color="blue" size="3"><b> 闽ICP备06025536号</b></font></a><br>
+
+<br>
+<a href="http://www.linuxsir.org/main/?q=node/78"><font color="blue" size="3"><b> © 2002-2011 LinuxSir.Org</b></font></a><br>
+</center></div>
+   </td>
+   <td id="sidebar-right"><div class="block block-block" id="block-block-2">
+ <h2 class="title">基础知识</h2>
+ <div class="content"><ul>
+<li><a href="http://www.linuxsir.org/main/?q=taxonomy/term/23">安装配置</a>
+</li><li><a href="http://www.linuxsir.org/main/?q=taxonomy/term/1/25/">基础入门</a>
+</li><li><a href="http://www.linuxsir.org/main/?q=taxonomy/term/22/">硬件解决</a>
+</li><li><a href="http://www.linuxsir.org/main/?q=taxonomy/term/21">软件管理</a>
+</li><li><a href="http://www.linuxsir.org/main/?q=taxonomy/term/35/48/">重要资源</a>
+</li></ul></div>
+</div>
+<div class="block block-block" id="block-block-4">
+ <h2 class="title">软件应用</h2>
+ <div class="content"><ul>
+<li><a href="http://www.linuxsir.org/main/?q=taxonomy/term/30">网络工具</a>
+</li><li><a href="http://www.linuxsir.org/main/?q=taxonomy/term/32">图形图像</a>
+</li><li><a href="http://www.linuxsir.org/main/?q=taxonomy/term/31">音乐视频</a>
+</li><li><a href="http://www.linuxsir.org/main/?q=taxonomy/term/49">字体中文</a>
+</li><li><a href="http://www.linuxsir.org/main/?q=taxonomy/term/33">软件其它</a>
+</li></ul>
+</div>
+</div>
+<div class="block block-block" id="block-block-5">
+ <h2 class="title">网络服务器</h2>
+ <div class="content"><ul>
+<li><a href="http://www.linuxsir.org/main/?q=taxonomy/term/27">文件服务器</a><a>
+</a></li><li><a href="http://www.linuxsir.org/main/?q=taxonomy/term/28">Web服务器</a>
+</li><li><a href="http://www.linuxsir.org/main/?q=taxonomy/term/29">邮件服务器</a>
+</li><li><a href="http://www.linuxsir.org/main/?q=taxonomy/term/37">数据库应用</a>
+</li><li><a href="http://www.linuxsir.org/main/?q=taxonomy/term/50">服务器其它</a>
+</li></ul>
+</div>
+</div>
+<div class="block block-comment" id="block-comment-0">
+ <h2 class="title">最新评论</h2>
+ <div class="content"><div class="item-list"><ul><li><a href="http://www.linuxsir.org/main/node/291#comment-1987">linux有迅雷吗？</a><br>3 年 1 周 前</li><li><a href="http://www.linuxsir.org/main/node/291#comment-1986">我下载32位的DVD，迅雷</a><br>3 年 1 周 前</li><li><a href="http://www.linuxsir.org/main/node/296#comment-1984">幸会幸会</a><br>3 年 2 周 前</li><li><a href="http://www.linuxsir.org/main/node/228#comment-1983">恭喜恭喜…………
+天</a><br>3 年 3 周 前</li><li><a href="http://www.linuxsir.org/main/node/228#comment-1981">恭喜~</a><br>3 年 3 周 前</li><li><a href="http://www.linuxsir.org/main/node/140#comment-1980">非常不错的一本书，</a><br>3 年 4 周 前</li><li><a href="http://www.linuxsir.org/main/node/285#comment-1979">配置后所有字体都没</a><br>3 年 4 周 前</li><li><a href="http://www.linuxsir.org/main/node/232#comment-1977">看不了啊！</a><br>3 年 6 周 前</li><li><a href="http://www.linuxsir.org/main/node/158#comment-1974">setuid,setgid,stickybit的三个权限的详细说明</a><br>3 年 7 周 前</li><li><a href="http://www.linuxsir.org/main/node/158#comment-1973">如何记录用户在samba服务器上读取和存放了那些文件？</a><br>3 年 7 周 前</li></ul></div></div>
+</div>
+</td>
+  </tr>
+ </tbody></table>
+ 
+
+</body>
+</html>

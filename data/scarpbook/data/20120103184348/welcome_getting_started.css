@@ -1,0 +1,170 @@
+/* ::::: http://docs.puppetlabs.com/files/stylesheets/style.css ::::: */
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, header, footer, section, article, aside, nav { margin: 0pt; padding: 0pt; border: 0pt none; outline: 0pt none; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline; }
+:focus { outline: 0pt none; }
+body { line-height: 1; color: black; background: none repeat scroll 0% 0% white; }
+code { font-family: 'Consolas','Monaco','DejaVu Sans Mono',monospace; }
+ul { list-style: none outside none; }
+header, footer, section, article, aside, nav { display: block; }
+body { font-family: "Lucida Grande",Lucida,Verdana,sans-serif; font-size: 0.85em; background: none repeat scroll 0% 0% rgb(204, 204, 204); }
+.screen-reader-content { display: none ! important; }
+.site-width { width: 90%; max-width: 1060px; min-width: 940px; margin: 0pt auto; position: relative; }
+.site-width:after { content: "."; display: block; clear: both; height: 0pt; visibility: hidden; }
+@font-face {
+	font-family: "CallunaRegular";
+	src: local("Calluna Regular"), local("Calluna-Regular"), url('calluna-regular.woff') format("woff"), url('calluna-regular.otf') format("opentype"), url('calluna-regular.svg') format("svg");
+}
+h1, h2, h3 { display: block; margin-bottom: 1em; line-height: 1.1em; }
+h1, h2 { font-family: "Lucida Grande",Lucida,Verdana,sans-serif; font-size: 1.75em; font-weight: bold; line-height: 1.125em; margin-top: 1em; margin-bottom: 0.5em; color: rgb(63, 61, 101); }
+h1 a, h2 a { border-bottom: 1px solid transparent; text-decoration: none; }
+h1 a:hover, h2 a:hover { border-color: rgb(160, 73, 0); text-decoration: none; }
+h3, h4 { line-height: 1.25em; font-weight: bold; margin-top: 1.5em; margin-bottom: 0.75em; color: rgb(63, 61, 101); }
+h3 { font-size: 1.25em; }
+h4 { font-size: 1.1em; font-style: italic; font-weight: bold; margin-top: 1em; margin-bottom: 0.5em; }
+strong { font-weight: bold; }
+em { font-style: italic; }
+p { margin-bottom: 1em; line-height: 1.75em; }
+p:last-child { margin-bottom: 0pt; }
+a { color: rgb(192, 95, 28); text-decoration: none; }
+a:hover { text-decoration: underline; }
+a[rel="external"] { background: url('external.png') no-repeat scroll right center transparent; padding-right: 20px; -moz-transition: all 0.25s linear 0s ; }
+a[rel="external"]:hover { background-image: url('external_50.png'); }
+a.gateway { padding: 0.5em 0.75em; line-height: 1em; display: inline-block; background: none repeat scroll 0% 0% rgb(227, 227, 227); border-radius: 4px 4px 4px 4px; margin-left: -0.1em; margin-right: 0.5em; }
+a.gateway:hover { background: none repeat scroll 0% 0% rgb(160, 86, 23); border-color: rgb(160, 73, 0); color: white; text-decoration: none; }
+p > ul, ol, dl { margin-bottom: 1.5em; }
+ol > li { position: relative; line-height: 1.25em; }
+li { line-height: 1.5em; margin-bottom: 0.5em; }
+li ul { padding-top: 0.25em; }
+.btn { font-family: "Lucida Grande",Lucida,Verdana,sans-serif; position: relative; display: inline-block; vertical-align: baseline; margin: 0pt 2px ! important; outline: medium none; cursor: pointer; text-align: center; text-decoration: none; font-size: 1.125em; font-weight: bold; padding: 0.5em 2em 0.55em; text-shadow: 0pt 1px 1px rgba(0, 0, 0, 0.3); border-radius: 0.5em 0.5em 0.5em 0.5em; box-shadow: 0pt 1px 2px rgba(0, 0, 0, 0.2); }
+.btn:hover { text-decoration: none; }
+.btn:active { position: relative; top: 1px; }
+.btn { color: rgb(255, 255, 255); border: 1px solid rgb(149, 71, 18); background: -moz-linear-gradient(center top , rgb(212, 123, 62), rgb(192, 95, 28)) repeat scroll 0% 0% transparent; }
+.btn:hover { border: 1px solid rgb(149, 71, 18); background: -moz-linear-gradient(center top , rgb(160, 86, 23), rgb(192, 95, 28)) repeat scroll 0% 0% transparent; }
+body { border-top: 1px solid rgb(160, 157, 196); }
+header#header { border-top: 4px solid rgb(81, 74, 107); background: url('matte-blue.png') repeat-x scroll center bottom rgb(64, 62, 86); color: white; white-space: nowrap; z-index: 1; }
+header#header .site-width { padding: 1.4em 0pt 0pt; }
+header#header a { text-decoration: none; display: block; }
+header#header h1, header#header ul, header#header ul li { margin: 0pt; -moz-transition: background 0.125s linear 0s; }
+header#header h1 { text-transform: uppercase; font-weight: bold; letter-spacing: 0.1em; display: block; height: 36px; width: 127px; float: left; }
+header#header h1 a { display: block; height: 100%; width: 100%; background: url('puppet-labs.png') no-repeat scroll left center transparent; position: relative; opacity: 0.5; -moz-transition: all 0.33s linear 0s ; border: medium none; }
+header#header h1 a:hover { opacity: 1; }
+header#header h1 a span { display: none; }
+header#header ul#global-navigation { margin-left: 180px; margin-top: 18px; background: none repeat scroll 0% 0% rgb(43, 37, 57); border-radius: 6px 6px 6px 6px; }
+header#header ul#global-navigation > li { margin: 0pt -0.2em; width: 17.5%; max-width: 180px; display: inline-block; }
+body#puppet header#header li#puppet-tab > a, body#services header#header li#services-tab > a, body#puppetlabsdocs header#header li#resources-tab > a, body#blog header#header li#community-tab > a, body.blog header#header li#community-tab > a, body.single header#header li#community-tab > a, body#company header#header li#company-tab > a { color: white; border-top-color: rgb(169, 101, 169); background: none repeat scroll 0% 0% rgb(46, 40, 60); }
+header#header ul#global-navigation > li:first-child a { border-left: medium none ! important; border-radius: 6px 6px 6px 6px; }
+header#header ul#global-navigation > li:last-child a { border-right: medium none ! important; }
+header#header ul#global-navigation > li > a { color: rgb(116, 115, 128); padding: 0.5em 20px 0.67em; font-weight: bold; border-right: 1px solid rgba(0, 0, 0, 0.1); border-left: 1px solid rgba(255, 255, 255, 0.05); }
+header#header ul#global-navigation > li > a:hover { background: none repeat scroll 0% 0% rgb(80, 53, 119) ! important; color: white; text-decoration: none; border-top-color: rgb(246, 208, 114); border-left-color: rgb(89, 63, 126); border-right-color: rgba(0, 0, 0, 0.33); }
+header#header ul#global-navigation > li > a:active { color: rgb(204, 204, 204); background-color: rgb(68, 45, 101); border-top-color: rgb(255, 203, 77); }
+header#header ul#global-navigation > li > a:active span.drop-down-trigger { opacity: 0.5; }
+header#header ul li.with-submenu > ul { background: none repeat scroll 0% 0% rgb(255, 246, 229); position: absolute; left: 0pt; z-index: 10; font-size: 0.85em; visibility: hidden; box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.25); width: 100%; white-space: normal; }
+header#header ul li.with-submenu > ul li ul { border-bottom: 1px solid rgb(235, 227, 211); display: block; padding-bottom: 0.125em; margin-bottom: 0.125em; border-radius: 0pt 0pt 0pt 0pt; }
+header#header ul li.with-submenu > ul li:last-child ul { border: medium none; margin: 0pt; padding: 0pt; }
+header#header ul ul:last-child, header#header ul ul:last-child li:last-child, header#header ul ul:last-child li:last-child a { border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; }
+header#header li.with-submenu ul li { display: block; border: medium none; }
+header#header ul li.with-submenu ul li a { padding: 0.5em 10px; color: rgb(101, 52, 19); background: none repeat scroll 0% 0% rgb(255, 246, 229); border: medium none; }
+header#header ul li.with-submenu ul li a:hover { background: none repeat scroll 0% 0% white; color: rgb(162, 90, 59); }
+header#header ul li.with-submenu { position: relative; }
+header#header ul li.with-submenu > a { padding-right: 30px ! important; position: relative; }
+header#header ul span.drop-down-trigger { display: block; width: 20px; height: 2.6em; background: url('dropdown_indicator.png') no-repeat scroll center 51%, -moz-linear-gradient(rgb(76, 50, 114), rgb(52, 45, 68)) repeat scroll 0% 0% transparent; position: absolute; top: 0pt; right: 0pt; border-left: 1px solid rgba(0, 0, 0, 0.03); opacity: 0; -moz-transition: opacity 0.125s linear 0s; }
+header#header ul li:hover span.drop-down-trigger { opacity: 1; visibility: visible; }
+header#header ul span.drop-down-trigger:hover { border-left: 1px solid rgba(0, 0, 0, 0.1); background: url('dropdown_indicator.png') no-repeat scroll center 51% rgb(103, 46, 159); }
+#header #misc-navigation { position: absolute; top: 0pt; right: 0pt; font-size: 0.85em; font-weight: bold; }
+#header #misc-navigation ul { padding: 3px 10px 5px; display: inline-block; white-space: nowrap; vertical-align: top; border-bottom-left-radius: 6px; border-bottom-right-radius: 6px; background: -moz-linear-gradient(rgb(81, 74, 107), rgb(82, 79, 116)) repeat scroll 0% 0% transparent; box-shadow: 2px 2px 0pt rgba(0, 0, 0, 0.05); }
+#header #misc-navigation ul li { display: inline-block; margin-right: 0.8em; }
+#header #misc-navigation ul li:last-child { margin-right: -0.67em; }
+#header #misc-navigation ul li a { color: rgb(156, 153, 179); }
+#header #misc-navigation ul li a:hover { text-decoration: underline; }
+#header #misc-navigation a.gateway { border: medium none; background: none repeat scroll 0% 0% rgb(186, 85, 0); color: white; padding: 0.25em 0.5em; line-height: 1.5em; }
+#header #misc-navigation a.gateway:hover { background-color: rgb(127, 103, 153); text-decoration: none; }
+#header #misc-navigation form { display: inline-block; padding: 5px 10px; }
+#header #misc-navigation form input { font-family: "Lucida Grande",Lucida,Verdana,sans-serif; display: inline-block; margin: 0pt 10px 0pt 0pt ! important; padding: 2px ! important; width: auto ! important; font-size: 1em ! important; }
+#header input.searchbtn { padding: 0.25em 0.5em; line-height: 1.5em; font-weight: bold; background: none repeat scroll 0% 0% rgb(127, 103, 153); color: rgb(255, 255, 255); border-radius: 6px 6px 6px 6px; border: medium none ! important; }
+#header input.searchbtn:hover { background-color: rgb(186, 85, 0); color: rgb(255, 255, 255); }
+section#masthead, section#masthead .site-width { color: rgb(51, 51, 51); }
+section#masthead { padding: 0.75em 0pt 0.9em; background: url('orange-argyle.png') repeat scroll 0% 0% rgb(173, 103, 56); border-top: 1px solid rgb(171, 91, 75); box-shadow: 0pt -2px 0pt rgba(0, 0, 0, 0.25); z-index: 2; }
+section#masthead h1 { display: inline; font-size: 3em; letter-spacing: -0.05em; font-weight: inherit; margin: 0pt; color: rgb(255, 215, 126); text-shadow: 2px 2px 0pt rgba(0, 0, 0, 0.125); }
+section#masthead a { color: rgb(255, 215, 126); }
+section#content { background: url('texture_fade.png') no-repeat scroll center top rgb(253, 253, 253); color: rgb(68, 68, 68); padding-top: 2em; padding-bottom: 2.5em; box-shadow: 0pt -4px 0pt rgba(0, 0, 0, 0.125), 0pt 4px 0pt rgba(0, 0, 0, 0.1); border-top: 1px solid white; z-index: 5; position: relative; }
+.secondary-content section { margin-bottom: 2em; }
+footer#footer { margin-bottom: 1em; background: url('argyle.png') repeat scroll 0% 0% rgb(238, 238, 238); color: rgb(85, 85, 85); padding: 30px 0pt 25px; min-height: 160px; overflow: hidden; }
+#footer h4 { margin-top: 0pt; margin-bottom: 0.75em; color: rgb(136, 136, 136); text-transform: none; letter-spacing: normal; -moz-transition: all 0.25s linear 0s ; font-size: 1.25em; }
+#footer:hover h4 { color: rgb(51, 51, 51); }
+footer#footer ul li { line-height: 1.33em; margin-bottom: 0.5em; }
+footer#footer ul li:nth-child(2n+2) { margin-right: 0pt; }
+footer#footer a { color: rgb(153, 153, 153); -moz-transition: all 0.25s linear 0s ; }
+footer#footer:hover a { color: rgb(160, 73, 0); }
+footer#footer div.primary-secondary-content { padding-right: 360px; padding-left: 300px; }
+footer#footer #elsewhere a[rel="external"]:after { display: none; }
+footer#footer ul li a:hover span { text-decoration: none; opacity: 1; }
+footer#footer ul li span.indicator { display: none ! important; }
+footer#footer ul li.chat span.indicator { background: url('aim.png') repeat scroll 0% 0% transparent; }
+footer#footer ul li.discussion span.indicator { background: url('google.png') repeat scroll 0% 0% transparent; }
+footer#footer #newsletter { position: absolute; left: 0pt; width: 300px; }
+footer#footer #newsletter label { display: none; }
+#footer ul.followus li { display: inline-block; margin: 0pt 0.25em 1.5em 0pt; }
+footer#footer #book-it { width: 200px; padding-right: 140px; position: absolute; right: 0pt; top: 0pt; }
+#book-it img { position: absolute; right: 0pt; top: 0pt; width: 120px; box-shadow: 0pt 2px 0pt rgba(0, 0, 0, 0.25); z-index: 3; }
+#footer input { display: inline-block; width: 160px; }
+#footer .btn { border-radius: 0.5em 0.5em 0.5em 0.5em; background: none repeat scroll 0% 0% rgb(85, 85, 85); color: rgb(221, 221, 221); border: 1px solid rgb(68, 68, 68); padding: 0.2em 5px 0.275em; position: relative; text-decoration: none; display: inline-block; font-size: 0.8125em; }
+#footer .fbtn { font-family: "Lucida Grande",Lucida,Verdana,sans-serif; position: relative; display: inline-block; vertical-align: baseline; margin: 0pt 2px ! important; outline: medium none; cursor: pointer; text-align: center; text-decoration: none; font-size: 1.125em; font-weight: bold; padding: 0.5em 2em 0.55em; text-shadow: 0pt 1px 1px rgba(0, 0, 0, 0.3); border-radius: 0.5em 0.5em 0.5em 0.5em; box-shadow: 0pt 1px 2px rgba(0, 0, 0, 0.2); }
+#footer .fbtn:hover { text-decoration: none; }
+#footer .fbtn:active { position: relative; top: 1px; }
+#footer .fbtn { color: rgb(255, 255, 255) ! important; border: 1px solid rgb(149, 71, 18); background: -moz-linear-gradient(center top , rgb(212, 123, 62), rgb(192, 95, 28)) repeat scroll 0% 0% transparent; }
+#footer .fbtn:hover { border: 1px solid rgb(149, 71, 18); background: -moz-linear-gradient(center top , rgb(160, 86, 23), rgb(192, 95, 28)) repeat scroll 0% 0% transparent; }
+body#puppetlabsdocs.docs section#content div.site-width div.primary-secondary-content { padding-left: 0pt; padding-right: 320px; }
+body#puppetlabsdocs.docs section#content div.site-width div.primary-secondary-content .primary-content { float: left; }
+body#puppetlabsdocs.docs section#content div.site-width div.primary-secondary-content .secondary-content { width: 250px; position: relative; margin: 0pt -280px 0pt 0pt; border-right: medium none; border-left: 2px solid rgb(238, 238, 238); padding-left: 20px; left: 40px; float: right ! important; }
+body#puppetlabsdocs.docs section#content div.site-width div.primary-secondary-content .primary-content ul { margin-left: 1em; }
+body#puppetlabsdocs.docs section#content div.site-width div.primary-secondary-content .primary-content ul li { margin-bottom: 0.67em; padding-left: 1.5em; position: relative; }
+body#puppetlabsdocs.docs section#content div.site-width div.primary-secondary-content .primary-content ul li:before { content: "♦"; font-size: 0.75em; padding-right: 0.85em; color: rgb(183, 208, 171); position: absolute; left: -1px; top: 0.125em; }
+ol.toc { padding: 1em; color: rgb(136, 136, 136); font-weight: bold; }
+ol.toc a { font-weight: normal; }
+ol.toc > li > ol.toc { padding-bottom: 0pt; padding-top: 0.25em; padding-left: 1.4em; margin-bottom: 0pt; font-size: 0.9em; list-style-type: decimal; color: rgb(170, 170, 170); }
+ol.toc > li { margin-bottom: 0pt; line-height: 1.5em; }
+ol.toc > li > ol.toc > li { line-height: 1.25em; padding-bottom: 0.25em; }
+div#subCol ul { font-weight: bold; }
+div#subCol ul > li > ol.toc { margin-bottom: 0pt; }
+div#subCol ul > li:before { content: "♦"; font-size: 0.75em; padding-right: 0.85em; color: rgb(136, 136, 136); left: -1px; top: 0.125em; }
+div#subCol ul > li { font-weight: normal; color: rgb(68, 68, 68); margin-bottom: 0pt; line-height: 1.5em; }
+div#subCol ul > li > ul { padding-bottom: 0pt; padding-top: 0.25em; padding-left: 1.4em; margin-bottom: 0pt; }
+li.currentsection { background-color: rgb(250, 245, 243); border-left: 2px solid rgb(192, 95, 28); margin-left: -22px; padding-left: 20px; }
+li.currentpage { border-bottom: 1px solid rgb(136, 136, 136); margin-bottom: 10px ! important; }
+li.currentpage > ol.toc { margin-left: -41px; padding-left: 76px; padding-top: 0pt; }
+li.currentpage > ol.toc a { color: rgb(136, 136, 136); }
+body#puppetlabsdocs.docs #masthead li.with-submenu > a { display: block; position: relative; background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.25); padding: 0.25em 32px 0.25em 10px; border-radius: 0.5em 0.5em 0.5em 0.5em; color: white; width: 118px; }
+body#puppetlabsdocs.docs #masthead li.with-submenu:hover > a { background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.5); }
+body#puppetlabsdocs.docs #masthead li { display: inline-block; color: white; margin: 0pt 1em 0pt 0pt; border-radius: 0.5em 0.5em 0.5em 0.5em; position: relative; }
+body#puppetlabsdocs.docs #masthead span.drop-down-trigger { display: block; width: 20px; height: 1.4em; background: url('dropdown_indicator.png') no-repeat scroll center 60% rgba(0, 0, 0, 0.5); position: absolute; top: 0.25em; right: 0.25em; border-radius: 0.4em 0.4em 0.4em 0.4em; padding: 0pt; }
+body#puppetlabsdocs.docs #masthead li.with-submenu dl { background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.85); left: 0pt; z-index: 10; font-size: 0.85em; width: 160px; padding: 0pt 0pt 10px; position: absolute; opacity: 0; visibility: hidden; }
+body#puppetlabsdocs.docs #masthead li.with-submenu dl:last-child { border-bottom-left-radius: 0.5em; border-bottom-right-radius: 0.5em; }
+body#puppetlabsdocs.docs #masthead li.with-submenu dl dt { padding: 0.75em 10px 0pt; }
+body#puppetlabsdocs.docs #masthead li.with-submenu dl a { padding: 0.25em 10px; display: block; line-height: 1.33em; margin-bottom: 0.25em; }
+body#puppetlabsdocs.docs #masthead li.with-submenu dl a:hover { background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.5); }
+section#masthead ul#doc-navigation { float: right; margin: 0pt; position: relative; top: 1.25em; }
+.secondary-content h4 { margin: 0pt; text-transform: none; letter-spacing: normal; font-size: inherit; }
+div.primary-secondary-content:after, div.primary-secondary-content .primary-content:after, div.primary-secondary-content .secondary-content:after { content: "."; display: block; clear: both; height: 0pt; visibility: hidden; }
+div.primary-secondary-content .primary-content, div.primary-secondary-content .secondary-content { width: 100%; float: left; }
+.primary-content h2:first-child, .primary-content h3:first-child { margin-top: 0pt; }
+div#copyright { color: rgb(85, 85, 85); font-size: 0.85em; padding: 1em 0pt; margin-bottom: 1em; }
+div#copyright a { color: inherit; }
+div#copyright .vcard span.org:after, div#copyright .vcard .adr:before, div#copyright .vcard .adr:after { content: "•"; padding-left: 0.8em; padding-right: 0.8em; }
+div#copyright .vcard span.org:after { padding-left: 1em; }
+form div { position: relative; }
+input, textarea { display: block; width: 100%; border: 2px solid rgb(204, 204, 204); padding: 0.35em; border-radius: 0.375em 0.375em 0.375em 0.375em; font: 1em/1.5em "CallunaRegular",Georgia,"Times New Roman",Times,serif; margin-bottom: 1.5em ! important; text-indent: 0.2em; }
+input { max-width: 200px; }
+input[type="hidden"] { display: none ! important; }
+label { text-transform: uppercase; font-size: 0.85em; letter-spacing: 0.275em; font-weight: bold; color: rgb(136, 136, 136); margin-bottom: 0.67em; display: block; }
+/* ::::: http://docs.puppetlabs.com/files/stylesheets/syntax.css ::::: */
+
+/* ::::: http://docs.puppetlabs.com/files/stylesheets/adbanner.css ::::: */
+
+#bannerImage { position: relative; }
+.btn { font-family: "Lucida Grande",Lucida,Verdana,sans-serif; position: relative; display: inline-block; vertical-align: baseline; margin: 0pt 2px ! important; outline: medium none; cursor: pointer; text-align: center; text-decoration: none; font-size: 1.125em; font-weight: bold; padding: 0.5em 2em 0.55em; text-shadow: 0pt 1px 1px rgba(0, 0, 0, 0.3); border-radius: 0.5em 0.5em 0.5em 0.5em; box-shadow: 0pt 1px 2px rgba(0, 0, 0, 0.2); }
+.btn:hover { text-decoration: none; }
+.btn:active { position: relative; top: 1px; }
+.btn { color: rgb(255, 255, 255); border: 1px solid rgb(149, 71, 18); background: -moz-linear-gradient(center top , rgb(212, 123, 62), rgb(192, 95, 28)) repeat scroll 0% 0% transparent; }
+.btn:hover { border: 1px solid rgb(149, 71, 18); background: -moz-linear-gradient(center top , rgb(160, 86, 23), rgb(192, 95, 28)) repeat scroll 0% 0% transparent; }
+h1, h2 { visibility: hidden; }
+h1, h2, .btn { visibility: visible; }

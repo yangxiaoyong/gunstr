@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Creating a logical volume</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.7"><link rel="HOME" title="LVM HOWTO" href="http://www.tldp.org/HOWTO/LVM-HOWTO/index.html"><link rel="UP" title="Common Tasks" href="http://www.tldp.org/HOWTO/LVM-HOWTO/commontask.html"><link rel="PREVIOUS" title="Removing physical volumes from a volume group" href="http://www.tldp.org/HOWTO/LVM-HOWTO/removepvsfromvg.html"><link rel="NEXT" title="Removing a logical volume" href="http://www.tldp.org/HOWTO/LVM-HOWTO/removelv.html"></head>
+<body class="sect1" alink="#0000FF" bgcolor="#FFFFFF" link="#0000FF" text="#000000" vlink="#840084"><div class="NAVHEADER"><table summary="Header navigation table" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><th colspan="3" align="center">LVM HOWTO</th></tr><tr><td align="left" valign="bottom" width="10%"><a indepth="true" href="removepvsfromvg.html" accesskey="P">Prev</a></td><td align="center" valign="bottom" width="80%">Chapter 11. Common Tasks</td><td align="right" valign="bottom" width="10%"><a indepth="true" href="removelv.html" accesskey="N">Next</a></td></tr></tbody></table><hr align="LEFT" width="100%"></div><div class="sect1"><h1 class="sect1"><a name="createlv"></a>11.7. Creating a logical volume</h1><p>
+        To create a 1500MB linear LV named 'testlv' and its block
+        device special '/dev/testvg/testlv':
+        <table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen"><b class="command"># lvcreate -L1500 -ntestlv testvg</b>
+        </pre></font></td></tr></tbody></table>
+      </p><p>
+        To create a 100 LE large logical volume with 2 stripes and
+        stripe size 4 KB.
+        <table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen"><b class="command"># lvcreate -i2 -I4 -l100 -nanothertestlv testvg</b>
+        </pre></font></td></tr></tbody></table>
+      </p><p>
+        If you want to create an LV that uses the entire VG, use vgdisplay
+        to find the <span class="QUOTE">"Total PE"</span> size, then use that when
+        running lvcreate.
+        <table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen"><b class="command"># vgdisplay testvg | grep "Total PE"</b>
+<tt class="computeroutput">Total PE              10230</tt>
+<b class="command"># lvcreate -l 10230 testvg -n mylv</b>
+        </pre></font></td></tr></tbody></table>
+        This will create an LV called 
+        <strong>mylv</strong> filling the
+        <strong>testvg</strong> VG.
+      </p><p>
+        If you want the logical volume to be allocated from a specific
+        physical volume in the volume group, specify the PV or PVs at
+        the end of the lvcreate command line.
+        <table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen"><b class="command"># lvcreate -L 1500 -ntestlv testvg /dev/sdg</b>
+        </pre></font></td></tr></tbody></table>
+      </p></div><div class="NAVFOOTER"><hr align="LEFT" width="100%"><table summary="Footer navigation table" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td align="left" valign="top" width="33%"><a indepth="true" href="removepvsfromvg.html" accesskey="P">Prev</a></td><td align="center" valign="top" width="34%"><a indepth="true" href="index.html" accesskey="H">Home</a></td><td align="right" valign="top" width="33%"><a indepth="true" href="removelv.html" accesskey="N">Next</a></td></tr><tr><td align="left" valign="top" width="33%">Removing physical volumes from a volume group</td><td align="center" valign="top" width="34%"><a indepth="true" href="commontask.html" accesskey="U">Up</a></td><td align="right" valign="top" width="33%">Removing a logical volume</td></tr></tbody></table></div>
+
+</body></html>

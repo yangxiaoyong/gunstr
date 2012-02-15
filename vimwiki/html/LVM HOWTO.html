@@ -1,0 +1,188 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>LVM HOWTO</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<h2 id="toc_0.1">介绍</h2>
+<h3 id="toc_0.1.1">1. 什么是LVM</h3>
+<p>
+LVM是Linux下的逻辑卷标管理器，目前有二个版本
+</p>
+
+<ul>
+<li>
+LVM2 - 最新也是最好的Linux 版本
+
+</ul>
+
+<p>
+  LVM2 是最完整向后兼容由LVM1创建的卷标，唯一的例外是快照（你在升级到LVM2前必须删除掉原先建立卷标）
+</p>
+
+<p>
+  LVM2 使用 device mapper 内核驱动， Device mapper 在2.6的内核已经被支持了，同时也有相应的2.4内核补丁
+</p>
+
+<ul>
+<li>
+LVM1 - 2.4 内核用的 LVM 版本
+
+</ul>
+
+<h3 id="toc_0.1.2">2. 什么是逻辑卷标管理</h3>
+<p>
+逻辑卷标管理(Logic Volume Management) 在计算机存储系统上提供了比传统磁盘和分区更高层的视角，让系统管理员更有弹性来分配存储给程序或用户。
+</p>
+
+<h3 id="toc_0.1.3">3. LVM的组成</h3>
+<ul>
+<li>
+卷组 volume group (VG)
+<pre>
+它将一系列的LV和PV合并为一个管理单元，它也是LVM使用的最高抽象层
+</pre>
+
+<li>
+物理卷 physical volume (PV)
+<pre>
+一个物理卷一般指的是一块硬盘，但也可能只是一块看起来像硬盘的设备（比如软raid设备）
+</pre>
+
+<li>
+逻辑卷 logical volume (LV)
+<pre>
+等价于非LVM系统的一个磁盘分区，LV看起来像一个块设备，同样它能包含文件系统
+</pre>
+
+<li>
+物理区段 physical extent (PE)
+<pre>
+每个物理卷被分成N个chunks的数据，这些chunk就是PE，PE的大小必须跟卷标组里的LE大小一致
+</pre>
+
+<li>
+逻辑区段 logical extent (LE)
+<pre>
+每一个逻辑卷被分成N个chunks的数据，这些chunk就是LE，在同一个卷标组里所有的逻辑卷的LE大小都是一样的
+</pre>
+
+<li>
+映射模式（线性Linear/条带striped）
+
+<ul>
+<li>
+Linear mapping: 连续分配一段范围的 PE 给 LV, 比如 LE 1-99 映射到 PV1 和 LE 100 - 347 将会映射到 PV2
+
+<li>
+Striped mapping: 分别交错将LE的块数据写入到一定数量的物理卷
+<pre>
+ LE[1] 第一块的数据    -&gt; PV1[1],
+ LE[1] 第二块的数据    -&gt; PV2[1],
+ LE[1] 第三块的数据    -&gt; PV3[1],
+ LE[1] 第四块的数据    -&gt; PV1[2],
+</pre>
+
+</ul>
+<li>
+快照
+
+</ul>
+
+<p>
+一个简单的关于 LVM 的图示
+</p>
+<pre>
+    hda1   hdc1      (PV:s on partitions or whole disks)
+       \   /
+        \ /
+       diskvg        (VG)
+       /  |  \
+      /   |   \
+  usrlv rootlv varlv (LV:s)
+    |      |     |
+ ext2  reiserfs  xfs (filesystems)
+
+</pre>
+
+<h3 id="toc_0.1.4">4. 在Ubuntu上安装LVM</h3>
+<p>
+在ubuntu只需要安装 lvm2 的用户层工具即可，内核的device mapper已经默认包含在2.6的内核里了
+</p>
+<pre>
+sudo apt-get install lvm2
+</pre>
+
+<h3 id="toc_0.1.5">5. 常见任务</h3>
+<h5 id="toc_0.1.5.0.1">5.1. 初始化一个磁盘或是磁盘分区</h5>
+<p>
+在开始使用一个磁盘或是磁盘分区作为物理卷时，你需要将它初始化
+</p>
+
+<p>
+使用整个硬盘
+</p>
+
+<ul>
+<li>
+调用命令 pvcreate
+<pre>
+# pvcreate /dev/hdb
+</pre>
+   这会在磁盘的开头创建一个卷标组描述符
+
+</ul>
+
+<p>
+使用分区
+</p>
+
+<ul>
+<li>
+调用命令
+<pre>
+# pvcreate /dev/hdb1
+</pre>
+   这会在磁盘的 `<code>/dev/hdb1</code>` 分区创建一个卷标组描述符
+
+</ul>
+
+<h5 id="toc_0.1.5.0.2">5.2. 创建一个卷标组</h5>
+<pre>
+创建名为 my_volume_group 的卷标组，包含 /dev/hda1 和 /dev/hdb1 二个设备
+# vgcreate my_volume_group /dev/hda1 /dev/hdb1
+</pre>
+<h5 id="toc_0.1.5.0.3">5.3. 激活一个卷标组</h5>
+<pre>
+当重启系统或调用命令 vgchange -an , 你将不能访问你的 VGs 和 LVs ，为了重新激活卷标组，运行
+# vgchange -a y my_volume_group
+</pre>
+<h5 id="toc_0.1.5.0.4">5.4. 移除一个卷标组</h5>
+<pre>
+不激活名为 my_volume_group 卷标组
+# vgchange -a n my_volume_group
+
+将卷标组移除
+# vgremove my_volume_group
+</pre>
+<h5 id="toc_0.1.5.0.5">5.5. 增加一个物理卷到一个卷标组</h5>
+<pre>
+增加一个 /dev/hdc1 的设备到 my_volume_group 的卷标组里
+# vgextend my_volume_group /dev/hdc1
+</pre>
+<h5 id="toc_0.1.5.0.6">5.6. 从一个卷标组里移除一个物理卷</h5>
+<h5 id="toc_0.1.5.0.7">5.7. 创建一个逻辑卷标</h5>
+<h5 id="toc_0.1.5.0.8">5.8. 移除一个逻辑卷标</h5>
+<h5 id="toc_0.1.5.0.9">5.9. 扩展一个逻辑卷标</h5>
+<h5 id="toc_0.1.5.0.10">5.10. 减少一个逻辑卷</h5>
+<h5 id="toc_0.1.5.0.11">5.11. 将数据从一个物理卷里迁移走</h5>
+
+<h3 id="toc_0.1.6">6. 磁盘分区</h3>
+<h3 id="toc_0.1.7">7. 菜谱</h3>
+<h3 id="toc_0.1.8">8. 参考资料</h3>
+
+</body>
+</html>

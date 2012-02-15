@@ -1,0 +1,78 @@
+/* ::::: http://www.gnu.org/combo.css ::::: */
+
+html { color: rgb(0, 0, 0); background: none repeat scroll 0% 0% rgb(255, 255, 255); }
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td { margin: 0pt; padding: 0pt; }
+fieldset, img { border: 0pt none; }
+address, caption, code, dfn, em, strong, th, var, optgroup { font-style: inherit; font-weight: inherit; }
+li { list-style: none outside none; }
+h1, h2, h3, h4, h5, h6 { font-size: 100%; font-weight: normal; }
+input, button, textarea, select, optgroup, option { font-family: inherit; font-size: inherit; font-style: inherit; font-weight: inherit; }
+input, button, textarea, select {  }
+body { font: 13px/1.231 arial,helvetica,clean,sans-serif; }
+select, input, button, textarea, button { font: 99% arial,helvetica,clean,sans-serif; }
+pre, code, kbd, samp, tt { font-family: monospace; line-height: 100%; }
+body { text-align: center; }
+#hd:after, #bd:after, #ft:after, .yui-g:after, .yui-gb:after, .yui-gc:after, .yui-gd:after, .yui-ge:after, .yui-gf:after { content: "."; display: block; height: 0pt; clear: both; visibility: hidden; }
+#hd, #bd, #ft, .yui-g, .yui-gb, .yui-gc, .yui-gd, .yui-ge, .yui-gf {  }
+body { margin: 10px; }
+h1 { font-size: 138.5%; }
+h2 { font-size: 123.1%; }
+h3 { font-size: 108%; }
+h1, h2, h3 { margin: 1em 0pt; }
+h1, h2, h3, h4, h5, h6, strong, dt { font-weight: bold; }
+em { font-style: italic; }
+blockquote, ul, ol, dl { margin: 1em; }
+ol, ul, dl { margin-left: 2em; }
+ul li { list-style: disc outside none; }
+p, fieldset, table, pre { margin-bottom: 1em; }
+button, input[type="checkbox"], input[type="radio"], input[type="reset"], input[type="submit"] { padding: 1px; }
+/* ::::: http://www.gnu.org/layout.css ::::: */
+
+html, body { padding: 0pt; margin: 0pt; background-color: rgb(255, 255, 255); color: rgb(53, 56, 42); text-align: inherit; font-size: 100%; }
+a[href] { color: blue; }
+a[href]:visited { color: purple; }
+a[href]:active, a[href]:hover { color: red; }
+a:hover { color: red; }
+.inner { margin: auto; width: 99%; max-width: 74.92em; }
+#logo { background: url('topbanner.png') no-repeat scroll 0% 0% transparent; border: 0pt none; float: left; margin: 0em; padding: 0pt; }
+#logo:lang(ar) { background: url('topbanner.ar.png') no-repeat scroll 0% 0% transparent; float: right; }
+#logo a { display: block; text-decoration: none; overflow: hidden; border: 0pt none; margin: 0pt; padding: 101px 0pt 0pt; height: 0px ! important; width: 550px; cursor: pointer; }
+#content { background-color: rgb(255, 255, 255); padding-bottom: 1.8em; margin-top: 0.5em; text-align: left; }
+#content:lang(ar), #content:lang(fa), #searcher:lang(he) { text-align: right; }
+#navigation { background-color: rgb(189, 0, 0); border-bottom: 5px solid rgb(51, 51, 51); clear: both; }
+#navigation:after { clear: both; content: ""; display: block; height: 0px; visibility: hidden; width: 0px; }
+#navigation ul { font-size: 0.8em; margin: 1.1em auto; padding-top: 1.1em; }
+#navigation li { display: inline; }
+#navigation li a { color: white; text-decoration: none; font-weight: bold; padding: 0.9em; }
+#navigation li a:hover { background-color: maroon; color: yellow; }
+#joinfsftab a { color: yellow ! important; }
+#content h2 { background-color: rgb(52, 101, 164); color: white; font-size: 2em; font-weight: bold; text-align: center; margin: 0pt 0pt 12px; }
+#content h3, #content h4, #content h5, #content h6 { line-height: 1.5em; }
+#content h3 { font-size: 1.6em; }
+#content h4 { font-size: 1.3em; }
+.netscape4 { display: none ! important; height: 0pt; }
+#translations { background-color: rgb(255, 255, 255); padding: 0pt; line-height: 1.6em; color: rgb(0, 0, 0); }
+#translations li { direction: ltr; display: inline-block; padding-left: 0.25em; padding-right: 0.25em; }
+#translations a { color: blue ! important; }
+#footer { background-color: rgb(255, 255, 255); border-top: 5px solid rgb(68, 68, 68); padding: 1em; color: rgb(0, 0, 0); margin-top: 1em; }
+#footer a { color: blue; }
+#footer p { margin-bottom: 0.7em; }
+#footer, #translations { font-size: 0.9em; }
+img { border: 0pt none; }
+#content ul, #fsf-campaigns ul { list-style: square outside url('bullet.gif'); margin-left: 1.4em; }
+#content li, #fsf-campaigns li, #content dd, #content p, #content pre, #content dt, #content code, #content address { line-height: 1.3em; }
+#backtotop { padding-bottom: 1em; background-color: rgb(255, 255, 255); }
+#toplinks { font-size: 80%; padding: 4px; z-index: 999; top: 0pt; left: 0pt; }
+#toplinks a { font-weight: bold; color: rgb(136, 136, 136); }
+#toplinks a:hover, #toplinks a:active { color: blue; }
+#searcher { float: right; margin-right: 1em; line-height: 3em; color: white; text-transform: uppercase; font-weight: bold; background-color: maroon; padding-left: 1em; padding-right: 1em; }
+#searcher:lang(ar), #searcher:lang(fa), #searcher:lang(he) { float: left; }
+#searcher, #searcher input { font-size: 0.8em; }
+#fssbox { text-align: center; float: right; font-size: 80%; }
+#fssbox:lang(ar) { float: left; }
+#fsf-links { margin: 1em auto; border: 1px solid rgb(204, 204, 204); padding: 5px; }
+#fsf-links li a { color: rgb(85, 85, 85); text-decoration: none; }
+#fsf-links ul li { list-style: none outside none; padding: 0.3em 0.7em; font-weight: bold; display: inline-block; }
+#fsf-links li { font-size: 13px; }
+#fsf-links li a:hover { color: rgb(0, 99, 220); }
+#fsf-links ul { padding: 0pt; margin: 0pt; text-align: center; }

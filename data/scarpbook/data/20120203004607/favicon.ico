@@ -1,0 +1,292 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+<head profile="http://gmpg.org/xfn/11">
+	<title>Jason&#039;s postings and stuff</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" type="text/css" href="http://blog.edseek.com/wp-content/themes/sandpress/style.css" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://blog.edseek.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://blog.edseek.com/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 2.6" />
+
+
+<!-- Bad Behavior 2.0.38 run time: 3.692 ms -->
+<script type="text/javascript">
+<!--
+function bb2_addLoadEvent(func) {
+	var oldonload = window.onload;
+	if (typeof window.onload != 'function') {
+		window.onload = func;
+	} else {
+		window.onload = function() {
+			oldonload();
+			func();
+		}
+	}
+}
+
+bb2_addLoadEvent(function() {
+	for ( i=0; i < document.forms.length; i++ ) {
+		if (document.forms[i].method == 'post') {
+			var myElement = document.createElement('input');
+			myElement.setAttribute('type', 'hidden');
+			myElement.name = 'bb2_screener_';
+			myElement.value = '1328201131 113.65.31.1';
+			document.forms[i].appendChild(myElement);
+		}
+	}
+});
+// --></script>
+		
+<!-- Protected by WP-SpamFree v2.1.1.0 :: JS BEGIN -->
+<script type="text/javascript" src="http://blog.edseek.com/wp-content/plugins/wp-spamfree/js/wpsf-js.php"></script> 
+<!-- Protected by WP-SpamFree v2.1.1.0 :: JS END -->
+
+
+<link rel="stylesheet" href="http://blog.edseek.com/wp-content/plugins/wp-syntax/wp-syntax.css" type="text/css" media="screen" />
+	<link rel="alternate" type="application/rss+xml" href="http://blog.edseek.com/feed/" title="Jason&#039;s postings and stuff latest posts" />
+	<link rel="alternate" type="application/rss+xml" href="http://blog.edseek.com/comments/feed/" title="Jason&#039;s postings and stuff latest comments" />
+	<link rel="pingback" href="http://blog.edseek.com/xmlrpc.php" />
+</head>
+
+<body class="wordpress y2012 m02 d02 h11 four04">
+
+<div id="wrapper" class="hfeed">
+
+	<div id="header">
+		<h1 id="blog-title"><span><a href="http://blog.edseek.com/" title="Jason&#039;s postings and stuff" rel="home">Jason&#8217;s postings and stuff</a></span></h1>
+		<div id="blog-description">Thursday next week is indeed time for a thorough insight into the swirling red debian vortex. &#8212; leeta</div>
+	</div><!--  #header -->
+
+	<div id="access">
+		<div class="skip-link"><a href="#content" title="Skip to content">Skip to content</a></div>
+		<div id="menu"><ul><li class="page_item page-item-257"><a href="http://blog.edseek.com/contact-information/" title="Contact">Contact</a></li><li class="page_item page-item-258"><a href="http://blog.edseek.com/software-ive-written/" title="Software">Software</a></li><li class="page_item page-item-276"><a href="http://blog.edseek.com/resume/" title="Resume">Resume</a></li></ul></div>
+	</div><!-- #access -->
+
+	<div id="container">
+		<div id="content">
+
+			<div id="post-0" class="post error404 not-found">
+				<h2 class="entry-title">Not Found</h2>
+				<div class="entry-content">
+					<p>Apologies, but we were unable to find what you were looking for. Perhaps  searching will help.</p>
+				</div>
+				<form id="searchform-404" class="blog-search" method="get" action="http://blog.edseek.com">
+					<div>
+						<input id="s-404" name="s" class="text" type="text" value="" size="40" />
+						<input class="button" type="submit" value="Find" />
+					</div>
+				</form>
+			</div><!-- .post -->
+
+		</div><!-- #content -->
+	</div><!-- #container -->
+
+	<div id="primary" class="sidebar">
+		<ul class="xoxo">
+
+			<li id="pages">
+				<h3>Pages</h3>
+				<ul>
+<li class="page_item page-item-257"><a href="http://blog.edseek.com/contact-information/" title="Contact">Contact</a></li>
+<li class="page_item page-item-258"><a href="http://blog.edseek.com/software-ive-written/" title="Software">Software</a></li>
+<li class="page_item page-item-276"><a href="http://blog.edseek.com/resume/" title="Resume">Resume</a></li>
+				</ul>
+			</li>
+
+			<li id="categories">
+				<h3>Categories</h3>
+				<ul>
+	<li class="cat-item cat-item-49"><a href="http://blog.edseek.com/archives/category/cloud-services/" title="Posts about stuff in the cloud.">Cloud Services</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="http://blog.edseek.com/archives/category/general/" title="The default category">General</a>
+</li>
+	<li class="cat-item cat-item-8"><a href="http://blog.edseek.com/archives/category/irc/" title="Various IRC ramblings">IRC</a>
+</li>
+	<li class="cat-item cat-item-16"><a href="http://blog.edseek.com/archives/category/javascript/" title="Some brief thoughts about JavaScript stuff">JavaScript</a>
+</li>
+	<li class="cat-item cat-item-17"><a href="http://blog.edseek.com/archives/category/links/" title="A bunch of links with annotations">Links</a>
+</li>
+	<li class="cat-item cat-item-14"><a href="http://blog.edseek.com/archives/category/money/" title="Posts pertaining to money matters.">Money</a>
+</li>
+	<li class="cat-item cat-item-47"><a href="http://blog.edseek.com/archives/category/pc-games/" title="The rare instance when I post anything about PC games">PC Games</a>
+</li>
+	<li class="cat-item cat-item-48"><a href="http://blog.edseek.com/archives/category/politics/" title="It is said the definition of insanity is doing the same thing perpetually while anticipating different results">Politics</a>
+</li>
+	<li class="cat-item cat-item-3"><a href="http://blog.edseek.com/archives/category/product-reviews/" title="My experiences with and opinions of various computer hardware and consumer electronics equipment">Product Reviews</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="http://blog.edseek.com/archives/category/quick-guides/" title="Short HOWTO style guides for Free Open Source Software stuff">Quick Guides</a>
+</li>
+	<li class="cat-item cat-item-15"><a href="http://blog.edseek.com/archives/category/rails/" title="Ruby on Rails">Rails</a>
+</li>
+	<li class="cat-item cat-item-10"><a href="http://blog.edseek.com/archives/category/rants/" title="Stuff that&#039;s just annoying">Rants</a>
+</li>
+	<li class="cat-item cat-item-7"><a href="http://blog.edseek.com/archives/category/restaurant-reviews/" title="Reviews of some restaurants">Restaurant Reviews</a>
+</li>
+	<li class="cat-item cat-item-11"><a href="http://blog.edseek.com/archives/category/software/" title="Minor software releases">Software</a>
+</li>
+	<li class="cat-item cat-item-4"><a href="http://blog.edseek.com/archives/category/my-lan/" title="Ramblings about my LAN setup">The LAN</a>
+</li>
+ 
+
+				</ul>
+			</li>
+
+			<li id="archives">
+				<h3>Archives</h3>
+				<ul>
+	<li><a href='http://blog.edseek.com/archives/2011/10/' title='October 2011'>October 2011</a></li>
+	<li><a href='http://blog.edseek.com/archives/2011/09/' title='September 2011'>September 2011</a></li>
+	<li><a href='http://blog.edseek.com/archives/2011/08/' title='August 2011'>August 2011</a></li>
+	<li><a href='http://blog.edseek.com/archives/2011/07/' title='July 2011'>July 2011</a></li>
+	<li><a href='http://blog.edseek.com/archives/2011/06/' title='June 2011'>June 2011</a></li>
+	<li><a href='http://blog.edseek.com/archives/2011/05/' title='May 2011'>May 2011</a></li>
+	<li><a href='http://blog.edseek.com/archives/2011/03/' title='March 2011'>March 2011</a></li>
+	<li><a href='http://blog.edseek.com/archives/2010/11/' title='November 2010'>November 2010</a></li>
+	<li><a href='http://blog.edseek.com/archives/2010/10/' title='October 2010'>October 2010</a></li>
+	<li><a href='http://blog.edseek.com/archives/2010/05/' title='May 2010'>May 2010</a></li>
+	<li><a href='http://blog.edseek.com/archives/2010/04/' title='April 2010'>April 2010</a></li>
+	<li><a href='http://blog.edseek.com/archives/2010/03/' title='March 2010'>March 2010</a></li>
+	<li><a href='http://blog.edseek.com/archives/2010/02/' title='February 2010'>February 2010</a></li>
+	<li><a href='http://blog.edseek.com/archives/2010/01/' title='January 2010'>January 2010</a></li>
+	<li><a href='http://blog.edseek.com/archives/2009/12/' title='December 2009'>December 2009</a></li>
+	<li><a href='http://blog.edseek.com/archives/2009/11/' title='November 2009'>November 2009</a></li>
+	<li><a href='http://blog.edseek.com/archives/2009/10/' title='October 2009'>October 2009</a></li>
+	<li><a href='http://blog.edseek.com/archives/2009/08/' title='August 2009'>August 2009</a></li>
+	<li><a href='http://blog.edseek.com/archives/2009/07/' title='July 2009'>July 2009</a></li>
+	<li><a href='http://blog.edseek.com/archives/2009/06/' title='June 2009'>June 2009</a></li>
+	<li><a href='http://blog.edseek.com/archives/2009/05/' title='May 2009'>May 2009</a></li>
+	<li><a href='http://blog.edseek.com/archives/2009/04/' title='April 2009'>April 2009</a></li>
+	<li><a href='http://blog.edseek.com/archives/2009/03/' title='March 2009'>March 2009</a></li>
+	<li><a href='http://blog.edseek.com/archives/2009/02/' title='February 2009'>February 2009</a></li>
+	<li><a href='http://blog.edseek.com/archives/2009/01/' title='January 2009'>January 2009</a></li>
+	<li><a href='http://blog.edseek.com/archives/2008/12/' title='December 2008'>December 2008</a></li>
+	<li><a href='http://blog.edseek.com/archives/2008/11/' title='November 2008'>November 2008</a></li>
+	<li><a href='http://blog.edseek.com/archives/2008/10/' title='October 2008'>October 2008</a></li>
+	<li><a href='http://blog.edseek.com/archives/2008/09/' title='September 2008'>September 2008</a></li>
+	<li><a href='http://blog.edseek.com/archives/2008/08/' title='August 2008'>August 2008</a></li>
+	<li><a href='http://blog.edseek.com/archives/2008/05/' title='May 2008'>May 2008</a></li>
+	<li><a href='http://blog.edseek.com/archives/2008/04/' title='April 2008'>April 2008</a></li>
+	<li><a href='http://blog.edseek.com/archives/2007/12/' title='December 2007'>December 2007</a></li>
+	<li><a href='http://blog.edseek.com/archives/2007/10/' title='October 2007'>October 2007</a></li>
+	<li><a href='http://blog.edseek.com/archives/2007/09/' title='September 2007'>September 2007</a></li>
+	<li><a href='http://blog.edseek.com/archives/2007/08/' title='August 2007'>August 2007</a></li>
+	<li><a href='http://blog.edseek.com/archives/2007/07/' title='July 2007'>July 2007</a></li>
+	<li><a href='http://blog.edseek.com/archives/2007/06/' title='June 2007'>June 2007</a></li>
+	<li><a href='http://blog.edseek.com/archives/2007/05/' title='May 2007'>May 2007</a></li>
+	<li><a href='http://blog.edseek.com/archives/2007/04/' title='April 2007'>April 2007</a></li>
+	<li><a href='http://blog.edseek.com/archives/2007/03/' title='March 2007'>March 2007</a></li>
+	<li><a href='http://blog.edseek.com/archives/2007/02/' title='February 2007'>February 2007</a></li>
+	<li><a href='http://blog.edseek.com/archives/2007/01/' title='January 2007'>January 2007</a></li>
+	<li><a href='http://blog.edseek.com/archives/2006/12/' title='December 2006'>December 2006</a></li>
+	<li><a href='http://blog.edseek.com/archives/2006/11/' title='November 2006'>November 2006</a></li>
+	<li><a href='http://blog.edseek.com/archives/2006/10/' title='October 2006'>October 2006</a></li>
+	<li><a href='http://blog.edseek.com/archives/2006/09/' title='September 2006'>September 2006</a></li>
+	<li><a href='http://blog.edseek.com/archives/2006/08/' title='August 2006'>August 2006</a></li>
+	<li><a href='http://blog.edseek.com/archives/2006/07/' title='July 2006'>July 2006</a></li>
+	<li><a href='http://blog.edseek.com/archives/2006/06/' title='June 2006'>June 2006</a></li>
+	<li><a href='http://blog.edseek.com/archives/2006/05/' title='May 2006'>May 2006</a></li>
+	<li><a href='http://blog.edseek.com/archives/2006/04/' title='April 2006'>April 2006</a></li>
+	<li><a href='http://blog.edseek.com/archives/2006/03/' title='March 2006'>March 2006</a></li>
+	<li><a href='http://blog.edseek.com/archives/2006/02/' title='February 2006'>February 2006</a></li>
+	<li><a href='http://blog.edseek.com/archives/2006/01/' title='January 2006'>January 2006</a></li>
+	<li><a href='http://blog.edseek.com/archives/2005/12/' title='December 2005'>December 2005</a></li>
+	<li><a href='http://blog.edseek.com/archives/2005/11/' title='November 2005'>November 2005</a></li>
+	<li><a href='http://blog.edseek.com/archives/2005/10/' title='October 2005'>October 2005</a></li>
+	<li><a href='http://blog.edseek.com/archives/2005/09/' title='September 2005'>September 2005</a></li>
+	<li><a href='http://blog.edseek.com/archives/2005/08/' title='August 2005'>August 2005</a></li>
+	<li><a href='http://blog.edseek.com/archives/2005/07/' title='July 2005'>July 2005</a></li>
+	<li><a href='http://blog.edseek.com/archives/2005/06/' title='June 2005'>June 2005</a></li>
+	<li><a href='http://blog.edseek.com/archives/2005/05/' title='May 2005'>May 2005</a></li>
+	<li><a href='http://blog.edseek.com/archives/2005/04/' title='April 2005'>April 2005</a></li>
+	<li><a href='http://blog.edseek.com/archives/2005/03/' title='March 2005'>March 2005</a></li>
+	<li><a href='http://blog.edseek.com/archives/2005/02/' title='February 2005'>February 2005</a></li>
+	<li><a href='http://blog.edseek.com/archives/2005/01/' title='January 2005'>January 2005</a></li>
+	<li><a href='http://blog.edseek.com/archives/2004/12/' title='December 2004'>December 2004</a></li>
+	<li><a href='http://blog.edseek.com/archives/2004/11/' title='November 2004'>November 2004</a></li>
+	<li><a href='http://blog.edseek.com/archives/2004/10/' title='October 2004'>October 2004</a></li>
+	<li><a href='http://blog.edseek.com/archives/2004/09/' title='September 2004'>September 2004</a></li>
+	<li><a href='http://blog.edseek.com/archives/2004/08/' title='August 2004'>August 2004</a></li>
+	<li><a href='http://blog.edseek.com/archives/2004/07/' title='July 2004'>July 2004</a></li>
+	<li><a href='http://blog.edseek.com/archives/2004/06/' title='June 2004'>June 2004</a></li>
+	<li><a href='http://blog.edseek.com/archives/2004/05/' title='May 2004'>May 2004</a></li>
+	<li><a href='http://blog.edseek.com/archives/2004/04/' title='April 2004'>April 2004</a></li>
+	<li><a href='http://blog.edseek.com/archives/2004/03/' title='March 2004'>March 2004</a></li>
+	<li><a href='http://blog.edseek.com/archives/2004/02/' title='February 2004'>February 2004</a></li>
+	<li><a href='http://blog.edseek.com/archives/2003/12/' title='December 2003'>December 2003</a></li>
+	<li><a href='http://blog.edseek.com/archives/2003/09/' title='September 2003'>September 2003</a></li>
+	<li><a href='http://blog.edseek.com/archives/2003/08/' title='August 2003'>August 2003</a></li>
+	<li><a href='http://blog.edseek.com/archives/2003/04/' title='April 2003'>April 2003</a></li>
+	<li><a href='http://blog.edseek.com/archives/2003/03/' title='March 2003'>March 2003</a></li>
+	<li><a href='http://blog.edseek.com/archives/2002/12/' title='December 2002'>December 2002</a></li>
+
+				</ul>
+			</li>
+		</ul>
+	</div><!-- #primary .sidebar -->
+
+	<div id="secondary" class="sidebar">
+		<ul class="xoxo">
+			<li id="search">
+				<h3><label for="s">Search</label></h3>
+				<form id="searchform" class="blog-search" method="get" action="http://blog.edseek.com">
+					<div>
+						<input id="s" name="s" type="text" class="text" value="" size="10" tabindex="1" />
+						<input type="submit" class="button" value="Find" tabindex="2" />
+					</div>
+				</form>
+			</li>
+
+<li id="linkcat-18" class="linkcat"><h3>guides</h3>
+	<ul class='xoxo blogroll'>
+<li><a href="http://wiki.edseek.com/howto:dirvish">Dirvish for Snapshot Backups</a></li>
+<li><a href="http://wiki.edseek.com/guide:mount_loopback">Disks and Linux&#8217;s loopback device</a></li>
+<li><a href="http://wiki.edseek.com/howto:exim4_courier">Exim4 and Courier IMAP</a></li>
+<li><a href="http://blog.edseek.com/~jasonb/articles/pbuilder_backports/">pbuilder backporting guide</a></li>
+<li><a href="http://wiki.edseek.com/howto:traffic_control">Practical Linux Traffic Control</a></li>
+<li><a href="http://blog.edseek.com/~jasonb/articles/dante_tunnel.shtml">SOCKS Proxy and Tunneling</a></li>
+<li><a href="http://blog.edseek.com/~jasonb/articles/vnc_ssh.shtml">VNC, SSH, and tunneling</a></li>
+
+	</ul>
+</li>
+
+			<li id="rss-links">
+				<h3>RSS Feeds</h3>
+				<ul>
+					<li><a href="http://blog.edseek.com/feed/" title="Jason&#039;s postings and stuff latest posts" rel="alternate" type="application/rss+xml">All posts</a></li>
+					<li><a href="http://blog.edseek.com/comments/feed/" title="Jason&#039;s postings and stuff latest comments" rel="alternate" type="application/rss+xml">All comments</a></li>
+				</ul>
+			</li>
+
+			<li id="meta">
+				<h3>Meta</h3>
+				<ul>
+					
+					<li><a href="http://blog.edseek.com/wp-login.php">Log in</a></li>
+					
+				</ul>
+			</li>
+		</ul>
+	</div><!-- #secondary .sidebar -->
+
+	<div id="footer">
+		<span id="generator-link"><a href="http://wordpress.org/" title="WordPress" rel="generator">WordPress</a></span>
+		<span class="meta-sep">|</span>
+		<span id="theme-link"><a href="http://www.plaintxt.org/themes/sandbox/" title="Sandbox theme for WordPress" rel="designer">Sandbox</a></span>
+	</div><!-- #footer -->
+
+</div><!-- #wrapper .hfeed -->
+
+
+<!-- tracker added by Ultimate Google Analytics plugin v1.6.0: http://www.oratransplant.nl/uga -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-1835855-3");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+
+</body>
+</html>

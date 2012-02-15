@@ -1,0 +1,164 @@
+/* ::::: http://help.moonbasa.com/style/header.css?id=40 ::::: */
+
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td { margin: 0pt; padding: 0pt; }
+body { color: rgb(85, 85, 85); font-size: 12px; font-family: "宋体"; line-height: 22px; }
+.clear { clear: both; }
+img { border: 0pt none; }
+a { color: rgb(121, 121, 121); text-decoration: none; font-size: 12px; }
+a:hover { color: rgb(171, 0, 54); text-decoration: none; }
+.header { margin: auto; width: 100%; }
+.topreg { float: right; margin-top: 48px; height: 32px; line-height: 32px; }
+.logo_pp { margin: auto; width: 980px; }
+.menu { float: left; width: 100%; background: url('head_menu_bg.jpg') repeat-x scroll 0% 0% transparent; position: relative; z-index: 999; }
+.menu ul { list-style: none outside none; width: 980px; margin: auto; }
+.menu li { float: left; height: 34px; background: url('head_menu_libg.jpg') no-repeat scroll right 0pt transparent; text-align: center; display: inline; }
+.menu li a { float: left; height: 34px; line-height: 29px; padding: 0pt 17px; color: rgb(255, 255, 255); font-size: 14px; text-decoration: none; font-family: "微软雅黑"; }
+.menu li a:hover { color: rgb(230, 41, 121); text-decoration: none; background: url('head_menu_onbg.jpg') repeat-x scroll 0% 0% transparent; }
+.topnav li { position: relative; z-index: 999; }
+.other_menu { float: right; width: 980px; }
+.other_menu li { float: left; list-style: none outside none; display: inline; }
+.other_menu li a { height: 43px; display: block; text-indent: -9999px; background: url('header_01.png') no-repeat scroll 0pt 0pt transparent; }
+.other_menu li a.hlogo1 { width: 63px; background-position: 0pt 0pt; }
+.other_menu li a.hlogo1:hover { background-position: left -43px; }
+.other_menu li a.hlogo2 { width: 93px; background-position: -63px top; }
+.other_menu li a.hlogo2:hover { background-position: -63px -43px; }
+.other_menu li a.hlogo3 { width: 91px; background-position: -156px top; }
+.other_menu li a.hlogo3:hover { background-position: -156px -43px; }
+.other_menu li a.hlogo4 { width: 92px; background-position: -247px top; }
+.other_menu li a.hlogo4:hover { background-position: -247px -43px; }
+.other_menu li a.hlogo5 { width: 96px; background-position: -339px top; }
+.other_menu li a.hlogo5:hover { background-position: -339px -43px; }
+.other_menu li a.hlogo6 { width: 99px; background-position: -435px top; }
+.other_menu li a.hlogo6:hover { background-position: -435px -43px; }
+.other_menu li a.hlogo7 { width: 108px; background-position: -534px top; }
+.other_menu li a.hlogo7:hover { background-position: -534px -43px; }
+.other_menu li a.hlogo8 { width: 66px; background-position: -642px top; }
+.other_menu li a.hlogo8:hover { background-position: -642px -43px; }
+.other_menu li a.hlogo9 { width: 89px; background-position: -708px top; }
+.other_menu li a.hlogo9:hover { background-position: -708px -43px; }
+.other_menu li a.hlogo10 { width: 86px; background-position: -797px top; }
+.other_menu li a.hlogo10:hover { background-position: -797px -43px; }
+.other_menu li a.hlogo11 { width: 97px; background-position: right top; }
+.other_menu li a.hlogo11:hover { background-position: right -43px; }
+#logininfo, .mbs_en { float: right; }
+.sizedh { position: relative; display: inline; float: right; z-index: 1; }
+.sizedh a.mapDroptit { width: 60px; display: inline-block; background: url('droptag.jpg') no-repeat scroll right 14px transparent; }
+.sizedh a.mapDroptit:hover { text-decoration: none; color: rgb(171, 0, 54); }
+.sizedh ul { background: none repeat scroll 0% 0% rgb(255, 255, 255); line-height: 16px; padding: 25px 0pt 5px; border: 1px solid rgb(220, 31, 95); width: 70px; top: 2px; left: -5px; z-index: -1; list-style: none outside none; position: absolute; display: none; }
+.sizedh li { padding: 0pt 0pt 3px 14px; background: url('point.jpg') no-repeat scroll 6px 7px transparent; }
+.cart { float: right; width: 65px; height: 36px; margin-top: -3px; padding-left: 40px; line-height: 16px; background: url('cart_bg_n.gif') no-repeat scroll 0pt 0pt transparent; }
+.cart span.cart_bg { float: right; margin-top: 2px; }
+.cart span.go_pay { float: left; width: 51px; height: 16px; margin-left: 12px; display: inline; text-align: center; background: url('cart_bg_n.gif') no-repeat scroll 0pt -36px transparent; }
+.cart span.go_pay a { color: rgb(30, 30, 30); text-decoration: none; }
+.cart span.go_pay a:hover { color: rgb(51, 51, 51); text-decoration: none; }
+#CartCount { color: rgb(227, 17, 108); }
+.logo { float: left; width: 140px; height: 106px; margin-bottom: 0px; }
+.tel { float: right; width: 180px; height: 31px; background: url('new_tel.jpg') no-repeat scroll 0pt 1px transparent; text-indent: -9999px; margin-left: 5px; }
+.footer { margin: auto; width: 980px; font-size: 12px; line-height: 22px; }
+.footmenu { float: left; width: 980px; background: none repeat scroll 0% 0% rgb(255, 255, 255); text-align: center; }
+.footmenu ul { list-style: none outside none; padding: 21px 0px 0px; height: 30px; float: left; width: 700px; }
+.footmenu li { margin: 0px 5px; float: left; display: inline; }
+.footmenu li a { color: rgb(81, 81, 81); }
+.footmenu a:hover { color: rgb(171, 0, 54); }
+.foothelp { float: left; width: 980px; padding: 10px 0px; background: url('foot_tbg.gif') repeat-x scroll center bottom rgb(255, 255, 255); color: rgb(86, 86, 86); }
+.foothelp ul { width: 120px; height: 130px; border-right: 1px dashed rgb(193, 192, 192); float: left; padding: 20px 15px 0px 32px; list-style: none outside none; }
+.foothelp ul.f { width: 100px; padding-left: 50px; }
+.foothelp ul.e { border-right: 0px none; width: 95px; }
+.foothelp .lititle { font-weight: bold; font-size: 14px; font-family: "微软黑体"; background: none repeat scroll 0% 0% transparent; text-indent: 0px; padding-bottom: 6px; color: rgb(41, 41, 41); }
+.foothelp a { color: rgb(102, 102, 102); font-size: 12px; text-decoration: none; }
+.foothelp a:hover { color: rgb(171, 0, 54); text-decoration: none; }
+.footcxpic { float: left; width: 980px; padding: 10px 0px 15px; background: url('footcxpic_bg.gif') no-repeat scroll center bottom rgb(255, 255, 255); color: rgb(86, 86, 86); }
+.footcxpic ul { list-style: none outside none; padding: 11px 0px 0px; }
+.footcxpic li { float: left; padding-left: 150px; }
+.footcxpic li.s { padding-left: 30px; }
+.hzlogo { width: 780px; margin: 0pt auto; padding: 5px 0px 40px; text-align: center; background: none repeat scroll 0% 0% rgb(255, 255, 255); }
+.hzlogo a, .hzlogo img { float: left; display: block; }
+.hzlogo a { margin-top: 3px; }
+.footsearch { float: left; width: 220px; padding: 21px 0px 0px; }
+.footsearch input { border: 0px none; background: none repeat scroll 0% 0% transparent; color: rgb(162, 162, 162); }
+.footsearch span.inp { width: 150px; height: 16px; float: left; padding: 3px 0px 0px 2px; border: 1px solid rgb(102, 102, 102); }
+.footsearch span.sub { float: left; padding-left: 3px; }
+.copyright { width: 980px; padding: 10px 0px; float: left; background: none repeat scroll 0% 0% rgb(255, 255, 255); text-align: center; color: rgb(153, 153, 153); font-family: Arial; }
+.hand { cursor: pointer; }
+.main { margin: auto; width: 980px; background: none repeat scroll 0% 0% rgb(255, 255, 255); overflow: hidden; }
+a { color: rgb(121, 121, 121); text-decoration: none; }
+a:hover { color: rgb(171, 0, 54); text-decoration: none; }
+#gotop { position: fixed; bottom: 10%; display: block; width: 24px; height: 80px; background: url('topback.jpg') no-repeat scroll 0pt 0pt transparent; text-indent: -9em; overflow: hidden; }
+.molapinpai { width: 978px; border: 1px solid rgb(199, 199, 199); margin-top: 5px; padding-bottom: 5px; float: left; }
+.molapp { width: 978px; float: left; }
+.molapp a { padding-top: 80px; color: rgb(161, 161, 161); }
+.molapp a:hover { color: rgb(171, 0, 54); }
+a.molapp1 { background: url('pp_1123_1.gif') no-repeat scroll center 0pt transparent; width: 161px; height: 302px; float: left; padding-top: 0pt; display: block; }
+.molapp2 { background: url('pp_1123_2.gif') no-repeat scroll center 0pt transparent; width: 165px; height: 302px; float: left; }
+.molapp2font { float: left; line-height: 19px; padding-left: 20px; padding-right: 15px; }
+.molapp3 { background: url('pp_1123_3.gif') no-repeat scroll center 0pt transparent; width: 165px; height: 302px; float: left; }
+.molapp3font { float: left; line-height: 19px; padding-left: 20px; padding-right: 15px; }
+.molapp4 { background: url('pp_1123_4.gif') no-repeat scroll center 0pt transparent; width: 164px; height: 302px; float: left; }
+.molapp4font { float: left; line-height: 19px; padding-left: 20px; padding-right: 15px; }
+.molapp5 { background: url('pp_1123_5.gif') no-repeat scroll center 0pt transparent; width: 165px; height: 302px; float: left; }
+.molapp5font { float: left; line-height: 19px; padding-left: 20px; padding-right: 15px; }
+.molapp6 { background: url('pp_1123_6.gif') no-repeat scroll center 0pt transparent; width: 158px; height: 302px; float: left; }
+.molapp6font { float: left; line-height: 19px; padding-left: 20px; padding-right: 15px; }
+.molapp7 { background: url('pp_1123_7.gif') no-repeat scroll center 0pt transparent; width: 161px; height: 272px; float: left; }
+.molapp7font { float: left; line-height: 19px; padding-left: 20px; padding-right: 15px; }
+.molapp8 { background: url('pp_1123_8.gif') no-repeat scroll center 0pt transparent; width: 165px; height: 272px; float: left; }
+.molapp8font { float: left; line-height: 19px; padding-left: 20px; padding-right: 15px; }
+.molapp9 { background: url('pp_1123_9.gif') no-repeat scroll center 0pt transparent; width: 165px; height: 272px; float: left; }
+.molapp9font { float: left; line-height: 19px; padding-left: 20px; padding-right: 15px; }
+.molapp10 { background: url('pp_1123_10.gif') no-repeat scroll center 0pt transparent; width: 164px; height: 272px; float: left; }
+.molapp10font { float: left; line-height: 19px; padding-left: 20px; padding-right: 15px; }
+.molapp11 { background: url('pp_1123_11.gif') no-repeat scroll center 0pt transparent; width: 165px; height: 272px; float: left; }
+.molapp11font { float: left; line-height: 19px; padding-left: 20px; padding-right: 15px; }
+.molapp12 { background: url('pp_1123_12.gif') no-repeat scroll center 0pt transparent; width: 158px; height: 272px; float: left; }
+.molapp12font { float: left; line-height: 19px; padding-left: 20px; padding-right: 15px; }
+/* ::::: http://help.moonbasa.com/style/help.css?id=4 ::::: */
+
+.main { margin: auto; width: 980px; background: none repeat scroll 0% 0% rgb(255, 255, 255); }
+/* ::::: http://help.moonbasa.com/style/jquery.autocomplete.css?id=2 ::::: */
+
+/* ::::: http://www.moonbasa.com/Style/ProdetailLogin.css?id=11 ::::: */
+
+input.input { border: 1px solid rgb(167, 166, 170); height: 17px; padding: 3px 2px 2px; width: 200px; background: none repeat scroll 0% 0% rgb(255, 255, 255); }
+.onFocus { background: url('onfocus.gif') no-repeat scroll 0% 0% transparent; padding-left: 25px; font-size: 12px; line-height: 22px; vertical-align: middle; width: 250px; margin-left: 130px; margin-top: 0px; }
+@media all and (min-width: 0px) {
+	.onFocus { margin-top: 0px; }
+}
+@media all and (min-width: 0px) {
+}
+@media all and (min-width: 0px) {
+}
+.LoadTip { display: block; margin: 0px; padding: 0px; width: 100%; overflow: hidden; background: none repeat scroll 0% 0% transparent; clear: both; }
+.section { width: 980px; float: left; background-color: rgb(173, 0, 0); padding-bottom: 30px; position: relative; }
+.section_lingqu, .section_area3, .section_lingqu_ad { width: 920px; height: auto; float: left; background: none repeat scroll 0% 0% transparent; padding: 0pt 30px; }
+.section_lingqu_T { width: 920px; float: left; background: url('m_2.jpg') no-repeat scroll left top transparent; }
+.section_lingqu_R { padding: 64px 0pt 0pt; float: right; width: 920px; }
+.section_brands, .section_brands_item { width: 920px; float: left; padding: 0pt 30px; }
+.section_brands_item { padding: 0pt; }
+.section_flash { width: 980px; height: auto; float: left; position: relative; }
+.lingqu_R_img { width: 920px; float: left; }
+.section_flash table { float: left; }
+.section_flash table td img { float: left; }
+.lingqu_R_img img { float: left; display: block; }
+.section_tc { position: absolute; border: 1px solid rgb(161, 0, 0); background: none repeat scroll 0% 0% rgb(255, 255, 255); display: block; z-index: 9999; width: 405px; height: 425px; }
+.section_Msg { width: 417px; z-index: 9999; height: auto; position: absolute; display: block; overflow: hidden; }
+.s_tc_bg { width: 417px; height: 203px; float: left; font-family: '微软雅黑'; background: url('tc_bg.jpg') no-repeat scroll 0% 0% transparent; font-size: 14px; }
+.s_tc_bg a.del { width: 416px; height: 26px; background: url('1.jpg') no-repeat scroll right 1px transparent; float: left; display: block; }
+span#clickthis { cursor: pointer; display: block; width: 137px; height: 35px; }
+.sectionp_img img { float: left; }
+#success { padding: 10px 20px 20px; text-align: center; float: left; width: 375px; }
+.ad_img { width: 980px; float: left; }
+.ad_img img { float: left; }
+table { background: none repeat scroll 0% 0% rgb(255, 255, 255); }
+#fullbg { background-color: rgb(0, 0, 0); display: none; position: absolute; left: 0px; top: 0px; width: 100%; height: 100%; z-index: 9998; opacity: 0.6; }
+#dialogLogin { position: absolute; width: 400px; height: 420px; border: 3px solid rgb(161, 0, 0); background: none repeat scroll 0% 0% rgb(255, 255, 255); display: block; }
+#dialogLogin a.dialog_close2 { position: absolute; top: 0px; right: 0px; width: 17px; height: 17px; display: block; background: url('round_close.gif') no-repeat scroll 0% 0% transparent; }
+#dialogLogin .login_tit { height: 36px; overflow: hidden; border-bottom: 1px solid rgb(204, 204, 204); }
+#dialogLogin .login_tit li { width: 85px; height: 35px; float: left; overflow: hidden; border-width: 1px 1px 0px; border-style: solid solid none; border-color: rgb(204, 204, 204) rgb(204, 204, 204) -moz-use-text-color; -moz-border-top-colors: none; -moz-border-right-colors: none; -moz-border-bottom-colors: none; -moz-border-left-colors: none; -moz-border-image: none; text-align: center; line-height: 35px; cursor: pointer; color: rgb(148, 149, 151); font-weight: bold; font-size: 16px; }
+#dialogLogin .login_tit li.hover { color: rgb(0, 0, 0); background-color: rgb(238, 238, 238); }
+#dialogLogin .login_box { width: 400px; padding-bottom: 20px; }
+ul, li, ol { list-style-type: none; }
+.login_box ul { padding-top: 20px; width: 400px; overflow: hidden; clear: both; }
+.login_box li { float: left; line-height: normal; margin-bottom: 10px; width: 400px; height: 40px; }
+.login_box li span.tit { float: left; padding-top: 5px; text-align: right; width: 130px; }
+input.input { background: none repeat scroll 0pt 0pt rgb(255, 255, 255); border: 1px solid rgb(0, 0, 0); height: 17px; padding: 3px 2px 2px; width: 200px; }
+.login_box li span.inp_bt { float: left; padding-left: 142px; padding-top: 10px; width: 100px; }

@@ -1,0 +1,209 @@
+== 介绍 ==
+=== 1. 什么是LVM ===
+LVM是Linux下的逻辑卷标管理器，目前有二个版本
+
+- LVM2 - 最新也是最好的Linux 版本
+
+  LVM2 是最完整向后兼容由LVM1创建的卷标，唯一的例外是快照（你在升级到LVM2前必须删除掉原先建立卷标）
+
+  LVM2 使用 device mapper 内核驱动， Device mapper 在2.6的内核已经被支持了，同时也有相应的2.4内核补丁
+
+- LVM1 - 2.4 内核用的 LVM 版本
+
+=== 2. 什么是逻辑卷标管理 ===
+逻辑卷标管理(Logic Volume Management) 在计算机存储系统上提供了比传统磁盘和分区更高层的视角，让系统管理员更有弹性来分配存储给程序或用户。
+
+=== 3. LVM的组成 ===
+- 卷组 volume group (VG)
+  {{{
+  它将一系列的LV和PV合并为一个管理单元，它也是LVM使用的最高抽象层
+  }}}
+- 物理卷 physical volume (PV)
+  {{{
+  一个物理卷一般指的是一块硬盘，但也可能只是一块看起来像硬盘的设备（比如软raid设备）
+  }}}
+- 逻辑卷 logical volume (LV)
+  {{{
+  等价于非LVM系统的一个磁盘分区，LV看起来像一个块设备，同样它能包含文件系统
+  }}}
+- 物理区段 physical extent (PE)
+  {{{
+  每个物理卷被分成N个chunks的数据，这些chunk就是PE，PE的大小必须跟卷标组里的LE大小一致
+  }}}
+- 逻辑区段 logical extent (LE)
+  {{{
+  每一个逻辑卷被分成N个chunks的数据，这些chunk就是LE，在同一个卷标组里所有的逻辑卷的LE大小都是一样的
+  }}}
+- 映射模式（线性Linear/条带striped）
+  * Linear mapping: 连续分配一段范围的 PE 给 LV, 比如 LE 1-99 映射到 PV1 和 LE 100 - 347 将会映射到 PV2
+  * Striped mapping: 分别交错将LE的块数据写入到一定数量的物理卷
+  {{{
+   LE[1] 第一块的数据    -> PV1[1],
+   LE[1] 第二块的数据    -> PV2[1],
+   LE[1] 第三块的数据    -> PV3[1],
+   LE[1] 第四块的数据    -> PV1[2],
+  }}}
+- 快照
+  TODO
+
+一个简单的关于 LVM 的图示
+{{{
+    hda1   hdc1      (PV:s on partitions or whole disks)
+       \   /
+        \ /
+       diskvg        (VG)
+       /  |  \
+      /   |   \
+  usrlv rootlv varlv (LV:s)
+    |      |     |
+ ext2  reiserfs  xfs (filesystems)
+
+}}}
+
+=== 4. 在Ubuntu上安装LVM ===
+在ubuntu只需要安装 lvm2 的用户层工具即可，内核的device mapper已经默认包含在2.6的内核里了
+{{{
+sudo apt-get install lvm2
+}}}
+
+=== 5. 常见任务 ===
+===== 5.1. 初始化一个磁盘或是磁盘分区 =====
+在开始使用一个磁盘或是磁盘分区作为物理卷时，你需要将它初始化
+
+使用整个硬盘
+
+ - 调用命令 pvcreate
+   {{{
+   # pvcreate /dev/hdb
+   }}}
+   这会在磁盘的开头创建一个卷标组描述符
+
+使用分区
+
+ - 调用命令
+   {{{
+   # pvcreate /dev/hdb1
+   }}}
+   这会在磁盘的 ``/dev/hdb1`` 分区创建一个卷标组描述符
+
+===== 5.2. 创建一个卷标组 =====
+{{{
+创建名为 my_volume_group 的卷标组，包含 /dev/hda1 和 /dev/hdb1 二个设备
+# vgcreate my_volume_group /dev/hda1 /dev/hdb1
+}}}
+===== 5.3. 激活一个卷标组 =====
+{{{
+当重启系统或调用命令 vgchange -an , 你将不能访问你的 VGs 和 LVs ，为了重新激活卷标组，运行
+# vgchange -a y my_volume_group
+}}}
+===== 5.4. 移除一个卷标组 =====
+{{{
+不激活名为 my_volume_group 卷标组
+# vgchange -a n my_volume_group
+
+将卷标组移除
+# vgremove my_volume_group
+}}}
+===== 5.5. 增加一个物理卷到一个卷标组 =====
+{{{
+增加一个 /dev/hdc1 的设备到 my_volume_group 的卷标组里
+# vgextend my_volume_group /dev/hdc1
+}}}
+===== 5.6. 从一个卷标组里移除一个物理卷 =====
+{{{
+使用命令 pvdisplay 确保要删除的物理卷没有被任何逻辑卷标使用
+# pvdisplay /dev/hda1
+
+--- Physical volume ---
+PV Name               /dev/hda1
+VG Name               myvg
+PV Size               1.95 GB / NOT usable 4 MB [LVM: 122 KB]
+PV#                   1
+PV Status             available
+Allocatable           yes (but full)
+Cur LV                1
+PE Size (KByte)       4096
+Total PE              499
+Free PE               0
+Allocated PE          499
+PV UUID               Sd44tK-9IRw-SrMC-MOkn-76iP-iftz-OVSen7
+
+如果物理卷仍然被使用，你将需要使用命令 pvmove 将里面的数据迁移到另一个物理卷
+然后使用 vgreduce 命令移除物理卷
+
+# vgreduce my_volume_group /dev/hda1
+
+}}}
+===== 5.7. 创建一个逻辑卷标 =====
+- 创建一个名为 testlv 大小 1500MB 的linear 的逻辑卷标，块设备的位置 '/dev/testvg/testlv'
+{{{
+# lvcreate -L1500 -ntestlv testvg
+}}}
+
+- 创建一个100个逻辑区大小的名为anothertestlv逻辑卷包含2个条带和条带大小为4KB
+{{{
+# lvcreate -i2 -I4 -l100 -nanothertestlv testvg
+}}}
+
+- 如果你想创建使用全部卷标组的逻辑卷标，使用命令 vgdisplay 找到 "Total PE" 的大小，使用下面的命令来创建一个逻辑卷
+{{{
+# vgdisplay testvg | grep "Total PE"
+Total PE               10230
+# lvcreate -l 10230 testcg -n mylv
+}}}
+这会创建一个使用整个 testvg 的卷标组名叫 mylv 的逻辑卷
+
+- 如果你想指定一个卷标组使用物理卷标组的某个物理卷作为存储，使用下面的命令
+{{{
+# lvcreate -L 1500 -ntestlv testvg /dev/sda
+}}}
+
+===== 5.8 移除一个逻辑卷标 =====
+一个逻辑卷标在移除之前必须先关闭
+{{{
+# umount /dev/myvg/homevol
+# lvremove /dev/myvg/homevol
+}}}
+
+===== 5.9 扩展一个逻辑卷标 =====
+将 /dev/myvg/homevol 的逻辑分区大小调整为 12G
+{{{
+# lvextend -L12G /dev/myvg/homevol
+}}}
+
+将 /dev/myvg/homevol 的逻辑分区大小增加 1G
+{{{
+# lvextend -L+1G /dev/myvg/homevol
+}}}
+
+然后必须将文件系统的大小也相应的匹配。怎样做这步取决于你使用的文件系统
+
+1. ext2/ext3
+{{{
+  # umount /dev/myvg/homevol
+  # resize2fs /dev/myvg/homevol
+  # mount /dev/myvg/homevol /home
+}}}
+
+===== 5.10 减少一个逻辑卷标的大小 =====
+1. ext2
+{{{
+# umount /home
+# resize2fs /dev/myvg/homevol
+# lvreduce -L-1G /dev/myvg/homevol
+# mount /dev/myvg/homevol /home
+}}}
+这会将 /dev/myvg/homevol 的逻辑卷大小减少1G
+
+===== 5.11 迁移一个物理卷标的数据 =====
+TODO
+
+=== 6. 菜谱 ===
+===== 1. 在三块SCSI硬盘上设置LVM =====
+===== 2. 在三块SCSI硬盘上使用striping模式设置LVM =====
+
+=== 7. 参考资料 ===
+- http://tldp.org/HOWTO/LVM-HOWTO
+- http://www.usenix.org/events/usenix01/freenix01/full_papers/teigland/teigland_html/index.html
+- http://www.ibm.com/developerworks/cn/linux/filesystem/lvm/lvm-1/
+- http://www.ibm.com/developerworks/cn/linux/filesystem/lvm/lvm-2/

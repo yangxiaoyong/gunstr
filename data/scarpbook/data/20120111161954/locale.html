@@ -1,0 +1,280 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    
+    
+    <title>tornado.locale — Internationalization support — Tornado v2.1.1 documentation</title>
+    
+    
+    
+    
+    
+    
+    <link rel="top" title="Tornado v2.1.1 documentation" href="http://www.tornadoweb.org/documentation/index.html">
+    <link rel="up" title="Core web framework" href="http://www.tornadoweb.org/documentation/webframework.html">
+    <link rel="next" title="Asynchronous networking" href="http://www.tornadoweb.org/documentation/networking.html">
+    <link rel="prev" title="tornado.escape — Escaping and string manipulation" href="http://www.tornadoweb.org/documentation/escape.html"> 
+  
+<link rel="stylesheet" type="text/css" href="locale.css" media="all">
+</head>
+<body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index" accesskey="I">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="networking.html" title="Asynchronous networking" accesskey="N">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="escape.html" title="tornado.escape — Escaping and string manipulation" accesskey="P">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="webframework.html" accesskey="U">Core web framework</a> »</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-tornado.locale">
+<span id="tornado-locale-internationalization-support"></span><h1><tt class="docutils literal"><span class="pre">tornado.locale</span></tt> — Internationalization support<a class="headerlink" href="#module-tornado.locale" title="Permalink to this headline">¶</a></h1>
+<p>Translation methods for generating localized strings.</p>
+<p>To load a locale and generate a translated string:</p>
+<div class="highlight-none"><div class="highlight"><pre>user_locale = locale.get("es_LA")
+print user_locale.translate("Sign out")
+</pre></div>
+</div>
+<p>locale.get() returns the closest matching locale, not necessarily the
+specific locale you requested. You can support pluralization with
+additional arguments to translate(), e.g.:</p>
+<div class="highlight-none"><div class="highlight"><pre>people = [...]
+message = user_locale.translate(
+    "%(list)s is online", "%(list)s are online", len(people))
+print message % {"list": user_locale.list(people)}
+</pre></div>
+</div>
+<p>The first string is chosen if len(people) == 1, otherwise the second
+string is chosen.</p>
+<p>Applications should call one of load_translations (which uses a simple
+CSV format) or load_gettext_translations (which uses the .mo format
+supported by gettext and related tools).  If neither method is called,
+the locale.translate method will simply return the original string.</p>
+<dl class="function">
+<dt id="tornado.locale.get">
+<tt class="descclassname">tornado.locale.</tt><tt class="descname">get</tt><big>(</big><em>*locale_codes</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/locale.html#get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.locale.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the closest match for the given locale codes.</p>
+<p>We iterate over all given locale codes in order. If we have a tight
+or a loose match for the code (e.g., “en” for “en_US”), we return
+the locale. Otherwise we move to the next code in the list.</p>
+<p>By default we return en_US if no translations are found for any of
+the specified locales. You can change the default locale with
+set_default_locale() below.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tornado.locale.set_default_locale">
+<tt class="descclassname">tornado.locale.</tt><tt class="descname">set_default_locale</tt><big>(</big><em>code</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/locale.html#set_default_locale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.locale.set_default_locale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the default locale, used in get_closest_locale().</p>
+<p>The default locale is assumed to be the language used for all strings
+in the system. The translations loaded from disk are mappings from
+the default locale to the destination locale. Consequently, you don’t
+need to create a translation file for the default locale.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tornado.locale.load_translations">
+<tt class="descclassname">tornado.locale.</tt><tt class="descname">load_translations</tt><big>(</big><em>directory</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/locale.html#load_translations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.locale.load_translations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads translations from CSV files in a directory.</p>
+<p>Translations are strings with optional Python-style named placeholders
+(e.g., “My name is %(name)s”) and their associated translations.</p>
+<p>The directory should have translation files of the form LOCALE.csv,
+e.g. es_GT.csv. The CSV files should have two or three columns: string,
+translation, and an optional plural indicator. Plural indicators should
+be one of “plural” or “singular”. A given string can have both singular
+and plural forms. For example “%(name)s liked this” may have a
+different verb conjugation depending on whether %(name)s is one
+name or a list of names. There should be two rows in the CSV file for
+that string, one with plural indicator “singular”, and one “plural”.
+For strings with no verbs that would change on translation, simply
+use “unknown” or the empty string (or don’t include the column at all).</p>
+<p>The file is read using the csv module in the default “excel” dialect.
+In this format there should not be spaces after the commas.</p>
+<p>Example translation es_LA.csv:</p>
+<blockquote>
+<div>“I love you”,”Te amo”
+“%(name)s liked this”,”A %(name)s les gustó esto”,”plural”
+“%(name)s liked this”,”A %(name)s le gustó esto”,”singular”</div></blockquote>
+</dd></dl>
+
+<dl class="function">
+<dt id="tornado.locale.load_gettext_translations">
+<tt class="descclassname">tornado.locale.</tt><tt class="descname">load_gettext_translations</tt><big>(</big><em>directory</em>, <em>domain</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/locale.html#load_gettext_translations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.locale.load_gettext_translations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads translations from gettext’s locale tree</p>
+<p>Locale tree is similar to system’s /usr/share/locale, like:</p>
+<p>{directory}/{lang}/LC_MESSAGES/{domain}.mo</p>
+<p>Three steps are required to have you app translated:</p>
+<ol class="arabic">
+<li><dl class="first docutils">
+<dt>Generate POT translation file</dt>
+<dd><p class="first last">xgettext –language=Python –keyword=_:1,2 -d cyclone file1.py file2.html etc</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Merge against existing POT file:</dt>
+<dd><p class="first last">msgmerge old.po cyclone.po &gt; new.po</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Compile:</dt>
+<dd><p class="first last">msgfmt cyclone.po -o {directory}/pt_BR/LC_MESSAGES/cyclone.mo</p>
+</dd>
+</dl>
+</li>
+</ol>
+</dd></dl>
+
+<dl class="function">
+<dt id="tornado.locale.get_supported_locales">
+<tt class="descclassname">tornado.locale.</tt><tt class="descname">get_supported_locales</tt><big>(</big><em>cls</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/locale.html#get_supported_locales"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.locale.get_supported_locales" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of all the supported locale codes.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="tornado.locale.Locale">
+<em class="property">class </em><tt class="descclassname">tornado.locale.</tt><tt class="descname">Locale</tt><big>(</big><em>code</em>, <em>translations</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/locale.html#Locale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.locale.Locale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Object representing a locale.</p>
+<p>After calling one of <a class="reference internal" href="#tornado.locale.load_translations" title="tornado.locale.load_translations"><tt class="xref py py-obj docutils literal"><span class="pre">load_translations</span></tt></a> or <a class="reference internal" href="#tornado.locale.load_gettext_translations" title="tornado.locale.load_gettext_translations"><tt class="xref py py-obj docutils literal"><span class="pre">load_gettext_translations</span></tt></a>,
+call <a class="reference internal" href="#tornado.locale.get" title="tornado.locale.get"><tt class="xref py py-obj docutils literal"><span class="pre">get</span></tt></a> or <a class="reference internal" href="#tornado.locale.Locale.get_closest" title="tornado.locale.Locale.get_closest"><tt class="xref py py-obj docutils literal"><span class="pre">get_closest</span></tt></a> to get a Locale object.</p>
+<dl class="classmethod">
+<dt id="tornado.locale.Locale.get_closest">
+<em class="property">classmethod </em><tt class="descname">get_closest</tt><big>(</big><em>*locale_codes</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/locale.html#Locale.get_closest"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.locale.Locale.get_closest" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the closest match for the given locale code.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="tornado.locale.Locale.get">
+<em class="property">classmethod </em><tt class="descname">get</tt><big>(</big><em>code</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/locale.html#Locale.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.locale.Locale.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the Locale for the given locale code.</p>
+<p>If it is not supported, we raise an exception.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.locale.Locale.translate">
+<tt class="descname">translate</tt><big>(</big><em>message</em>, <em>plural_message=None</em>, <em>count=None</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/locale.html#Locale.translate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.locale.Locale.translate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the translation for the given message for this locale.</p>
+<p>If plural_message is given, you must also provide count. We return
+plural_message when count != 1, and we return the singular form
+for the given message when count == 1.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.locale.Locale.format_date">
+<tt class="descname">format_date</tt><big>(</big><em>date</em>, <em>gmt_offset=0</em>, <em>relative=True</em>, <em>shorter=False</em>, <em>full_format=False</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/locale.html#Locale.format_date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.locale.Locale.format_date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats the given date (which should be GMT).</p>
+<p>By default, we return a relative time (e.g., “2 minutes ago”). You
+can return an absolute date string with relative=False.</p>
+<p>You can force a full format date (“July 10, 1980”) with
+full_format=True.</p>
+<p>This method is primarily intended for dates in the past.
+For dates in the future, we fall back to full format.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.locale.Locale.format_day">
+<tt class="descname">format_day</tt><big>(</big><em>date</em>, <em>gmt_offset=0</em>, <em>dow=True</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/locale.html#Locale.format_day"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.locale.Locale.format_day" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formats the given date as a day of week.</p>
+<p>Example: “Monday, January 22”. You can remove the day of week with
+dow=False.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.locale.Locale.list">
+<tt class="descname">list</tt><big>(</big><em>parts</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/locale.html#Locale.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.locale.Locale.list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a comma-separated list for the given list of parts.</p>
+<p>The format is, e.g., “A, B and C”, “A and B” or just “A” for lists
+of size 1.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="tornado.locale.Locale.friendly_number">
+<tt class="descname">friendly_number</tt><big>(</big><em>value</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/locale.html#Locale.friendly_number"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.locale.Locale.friendly_number" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a comma-separated number for the given integer.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="tornado.locale.CSVLocale">
+<em class="property">class </em><tt class="descclassname">tornado.locale.</tt><tt class="descname">CSVLocale</tt><big>(</big><em>code</em>, <em>translations</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/locale.html#CSVLocale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.locale.CSVLocale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Locale implementation using tornado’s CSV translation format.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="tornado.locale.GettextLocale">
+<em class="property">class </em><tt class="descclassname">tornado.locale.</tt><tt class="descname">GettextLocale</tt><big>(</big><em>code</em>, <em>translations</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/locale.html#GettextLocale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.locale.GettextLocale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Locale implementation using the gettext module.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a indepth="true" href="escape.html" title="previous chapter"><tt class="docutils literal docutils literal"><span class="pre">tornado.escape</span></tt> — Escaping and string manipulation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a indepth="true" href="networking.html" title="next chapter">Asynchronous networking</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="http://www.tornadoweb.org/documentation/_sources/locale.txt" rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none;">
+  <h3>Quick search</h3>
+    <form class="search" action="http://www.tornadoweb.org/documentation/search.html" method="get">
+      <input value="" name="q" size="18" type="text">
+      <input value="Go" type="submit">
+      <input name="check_keywords" value="yes" type="hidden">
+      <input name="area" value="default" type="hidden">
+    </form>
+    <p class="searchtip" style="font-size: 90%;">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="networking.html" title="Asynchronous networking">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="escape.html" title="tornado.escape — Escaping and string manipulation">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="webframework.html">Core web framework</a> »</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        © Copyright 2011, Facebook.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  
+
+
+</body></html>

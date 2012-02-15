@@ -1,0 +1,1927 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en-US" dir="ltr" xmlns="http://www.w3.org/1999/xhtml">
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+<title>Linux Crontab: 15 Awesome Cron Job Examples</title>
+<meta name="robots" content="noodp, noydir">
+
+
+<!--[if lte IE 8]><link rel="stylesheet" href="http://static.thegeekstuff.com/wp-content/themes/thesis_18/lib/css/ie.css?122710-193752" type="text/css" media="screen, projection" /><![endif]-->
+
+<link rel="canonical" href="http://www.thegeekstuff.com/2009/06/15-practical-crontab-examples/">
+<link rel="alternate" type="application/rss+xml" title="The Geek Stuff RSS Feed" href="http://feedproxy.google.com/TheGeekStuff">
+<link rel="pingback" href="http://www.thegeekstuff.com/xmlrpc.php">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.thegeekstuff.com/xmlrpc.php?rsd">
+<link href="favicon.ico" rel="icon" type="image/x-icon">
+
+<link rel="alternate" type="application/rss+xml" title="The Geek Stuff » Linux Crontab: 15 Awesome Cron Job Examples Comments Feed" href="http://www.thegeekstuff.com/2009/06/15-practical-crontab-examples/feed/">
+
+<!-- All in One SEO Pack 1.6.13.8 by Michael Torbert of Semper Fi Web Design[287,337] -->
+<meta name="description" content="An experienced Linux sysadmin knows the importance of running the routine maintenance jobs in the background automatically. Linux Cron utility is an">
+<link rel="canonical" href="http://www.thegeekstuff.com/2009/06/15-practical-crontab-examples/">
+<!-- /all in one seo pack -->
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body class="custom"><div id="_atssh" style="visibility: hidden; height: 1px; width: 1px; position: absolute; z-index: 100000;"><iframe src="index_1.html" style="height: 1px; width: 1px; position: absolute; z-index: 100000; border: 0pt none; left: 0pt; top: 0pt;" title="AddThis utility frame" id="_atssh132"></iframe></div>
+<div id="container">
+<div id="page">
+	<div id="header">
+<p id="logo"><a href="http://www.thegeekstuff.com/"><img src="thegeekstuff.gif" alt="The Geek Stuff"></a></p><div id="header_ad"><div id="header_ad1">
+
+<ins style="display: inline-table; border: medium none; height: 90px; margin: 0pt; padding: 0pt; position: relative; visibility: visible; width: 728px;"><ins id="aswift_0_anchor" style="display: block; border: medium none; height: 90px; margin: 0pt; padding: 0pt; position: relative; visibility: visible; width: 728px;"><iframe src="index_3.html" allowtransparency="true" hspace="0" marginwidth="0" marginheight="0" vspace="0" id="aswift_0" name="aswift_0" style="left: 0pt; position: absolute; top: 0pt;" frameborder="0" height="90" scrolling="no" width="728"></iframe></ins></ins>
+</div></div>
+	</div>
+<ul class="menu">
+<li class="tab tab-home"><a href="http://www.thegeekstuff.com/">Home</a></li>
+<li class="tab tab-1"><a href="http://www.thegeekstuff.com/about/" title="">About</a></li>
+<li class="tab tab-2"><a href="http://www.thegeekstuff.com/linux-101-hacks-ebook/" title="Linux 101 Hacks eBook, by Ramesh Natarajan">Free eBook</a></li>
+<li class="tab tab-3"><a href="http://www.thegeekstuff.com/archives-2/" title="Archives">Archives</a></li>
+<li class="tab tab-4"><a href="http://www.thegeekstuff.com/best-of-the-blog/" title="Best of the Blog">Best of the Blog</a></li>
+<li class="tab tab-5"><a href="http://www.thegeekstuff.com/contact/" title="Contact">Contact</a></li>
+</ul>
+<div id="top-ad-menu">
+&nbsp;
+
+<ins style="display: inline-table; border: medium none; height: 15px; margin: 0pt; padding: 0pt; position: relative; visibility: visible; width: 728px;"><ins id="aswift_1_anchor" style="display: block; border: medium none; height: 15px; margin: 0pt; padding: 0pt; position: relative; visibility: visible; width: 728px;"><iframe src="index_5.html" allowtransparency="true" hspace="0" marginwidth="0" marginheight="0" vspace="0" id="aswift_1" name="aswift_1" style="left: 0pt; position: absolute; top: 0pt;" frameborder="0" height="15" scrolling="no" width="728"></iframe></ins></ins>
+</div>
+	<div id="content_box">
+		<div id="content" class="hfeed">
+
+			<div class="post-534 post type-post status-publish format-standard hentry category-linux tag-etccronallow tag-etccrond tag-etccrontab tag-varspoolcron tag-cron-examples tag-crontab-php tag-crontab-script tag-crontab-tutorial tag-learn-crontab tag-linux-crond-daemon tag-practical-cron-example tag-productivity-tips-for-geeks tag-schedule-job-in-linux post_box top" id="post-534">
+				<div class="headline_area">
+					<h1 class="entry-title">Linux Crontab: 15 Awesome Cron Job Examples</h1>
+					<p class="headline_meta">by <span class="author vcard fn">SathiyaMoorthy</span> on <abbr class="published" title="2009-06-11">June 11, 2009</abbr></p>
+				</div>
+				<div class="format_text entry-content">
+<div style="margin: 7px 0px 6px; padding: 5px;"> 
+
+<div style="float: left;">
+<div style="height: 20px; width: 90px; display: inline-block; text-indent: 0pt; margin: 0pt; padding: 0pt; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline;" id="___plusone_0"><iframe allowtransparency="true" hspace="0" id="I1_1326090688080" marginheight="0" marginwidth="0" name="I1_1326090688080" src="index_6.html" style="position: static; left: 0pt; top: 0pt; width: 90px; margin: 0px; border-style: none; height: 20px; visibility: visible;" tabindex="-1" vspace="0" title="+1" frameborder="0" scrolling="no" width="100%"></iframe></div>
+</div>
+
+<div style="float: left; padding: 2px; width: 90px;"><iframe src="index_7.html" style="border: medium none; overflow: hidden; width: 450px; height: 21px;" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
+</div>
+
+<div style="">
+<a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal">Tweet</a>
+</div>
+
+</div>
+<p><img class="alignright alignnone size-medium wp-image-537" style="float: right;" src="linux-crontab-300x270.jpg" alt="Linux Crontab Guide" height="270" width="300"><br>
+An experienced Linux sysadmin knows the importance of running the routine maintenance jobs in the background automatically.<br>
+<code> </code><br>
+Linux Cron utility is an effective way to schedule a routine background job at a specific time and/or day on an on-going basis.<br>
+<code> </code><br>
+This article is part of the on-going <a href="http://www.thegeekstuff.com/tag/productivity-tips-for-geeks/">Productivity Tips For Geeks</a> series.  In this article, let us review 15 awesome examples of crontab job scheduling.<br>
+<code> </code><br>
+<span id="more-534"></span></p>
+<h3>Linux Crontab Format</h3>
+<pre>MIN HOUR DOM MON DOW CMD</pre>
+<table summary="Cron fields table" align="center" border="1" cellpadding="0" cellspacing="0">
+<caption>Table: Crontab Fields and Allowed Ranges (Linux Crontab Syntax)</caption>
+<tbody>
+<tr>
+<th>Field</th>
+<th>Description</th>
+<th>Allowed Value</th>
+</tr>
+<tr>
+<td>MIN</td>
+<td>Minute field</td>
+<td>0 to 59</td>
+</tr>
+<tr>
+<td>HOUR</td>
+<td>Hour field</td>
+<td>0 to 23</td>
+</tr>
+<tr>
+<td>DOM</td>
+<td>Day of Month</td>
+<td>1-31</td>
+</tr>
+<tr>
+<td>MON</td>
+<td>Month field</td>
+<td>1-12</td>
+</tr>
+<tr>
+<td>DOW</td>
+<td>Day Of Week</td>
+<td>0-6</td>
+</tr>
+<tr>
+<td>CMD</td>
+<td>Command</td>
+<td>Any command to be executed.</td>
+</tr>
+</tbody>
+</table>
+<h3>1. Scheduling a Job For a Specific Time Every Day</h3>
+<p>The basic usage of cron is to execute a job in a specific time as shown below. This will execute the Full backup shell script (full-backup) on <strong>10th June 08:30 AM</strong>.<br>
+<code> </code><br>
+Please note that the time field uses 24 hours format. So, for 8 AM use 8, and for 8 PM use 20.</p>
+<pre>30 08 10 06 * /home/ramesh/full-backup</pre>
+<ul>
+<li><strong>30</strong> – 30th Minute</li>
+<li><strong>08</strong> – 08 AM</li>
+<li><strong>10</strong> – 10th Day</li>
+<li><strong>06</strong> – 6th Month (June)</li>
+<li><strong>*</strong> – Every day of the week</li>
+</ul>
+<h3>2. Schedule a Job For More Than One Instance (e.g. Twice a Day)</h3>
+<p>The following script take a incremental backup twice a day every day.<br>
+<code> </code><br>
+This example executes the specified incremental backup shell script (incremental-backup) at 11:00 and 16:00 on every day. The comma separated value in a field specifies that the command needs to be executed in all the mentioned time.</p>
+<pre>00 11,16 * * * /home/ramesh/bin/incremental-backup</pre>
+<ul>
+<li><strong>00</strong> – 0th Minute (Top of the hour)</li>
+<li><strong>11,16</strong> – 11 AM and 4 PM</li>
+<li><strong>*</strong> – Every day</li>
+<li><strong>*</strong> – Every month</li>
+<li><strong>*</strong> – Every day of the week</li>
+</ul>
+<h3>3. Schedule a Job for Specific Range of Time (e.g. Only on Weekdays)</h3>
+<p>If you wanted a job to be scheduled for every hour with in a specific range of time then use the following.</p>
+<h4>Cron Job everyday during working hours</h4>
+<p>This example checks the status of the database everyday (including weekends) during the working hours 9 a.m – 6 p.m</p>
+<pre>00 09-18 * * * /home/ramesh/bin/check-db-status</pre>
+<ul>
+<li><strong>00</strong> – 0th Minute (Top of the hour)</li>
+<li><strong>09-18</strong> – 9 am, 10 am,11 am, 12 am, 1 pm, 2 pm, 3 pm, 4 pm, 5 pm, 6 pm</li>
+<li><strong>*</strong> – Every day</li>
+<li><strong>*</strong> – Every month</li>
+<li><strong>*</strong> – Every day of the week</li>
+</ul>
+<h4>Cron Job every weekday during working hours</h4>
+<p>This example checks the status of the database every weekday (i.e excluding Sat and Sun) during the working hours 9 a.m – 6 p.m.</p>
+<pre>00 09-18 * * 1-5 /home/ramesh/bin/check-db-status</pre>
+<ul>
+<li><strong>00</strong> – 0th Minute (Top of the hour)</li>
+<li><strong>09-18</strong> – 9 am, 10 am,11 am, 12 am, 1 pm, 2 pm, 3 pm, 4 pm, 5 pm, 6 pm</li>
+<li><strong>*</strong> – Every day</li>
+<li><strong>*</strong> – Every month</li>
+<li><strong>1-5</strong> -Mon, Tue, Wed, Thu and Fri (Every Weekday)</li>
+</ul>
+<h3>4. How to View Crontab Entries?</h3>
+<h4>View Current Logged-In User’s Crontab entries</h4>
+<p>To view your crontab entries type crontab -l from your unix account as shown below.</p>
+    <center>
+      <div style="margin-left: 2px; margin-top: 10px; margin-bottom: 10px;">
+
+        <!-- AD BLOCK -->
+		
+
+<ins style="display: inline-table; border: medium none; height: 280px; margin: 0pt; padding: 0pt; position: relative; visibility: visible; width: 336px;"><ins id="aswift_2_anchor" style="display: block; border: medium none; height: 280px; margin: 0pt; padding: 0pt; position: relative; visibility: visible; width: 336px;"><iframe src="index_10.html" allowtransparency="true" hspace="0" marginwidth="0" marginheight="0" vspace="0" id="aswift_2" name="aswift_2" style="left: 0pt; position: absolute; top: 0pt;" frameborder="0" height="280" scrolling="no" width="336"></iframe></ins></ins>
+
+        <!-- END AD BLOCK -->
+
+	  </div>
+    </center>
+
+
+<pre>ramesh@dev-db$ <strong>crontab -l</strong>
+@yearly /home/ramesh/annual-maintenance
+*/10 * * * * /home/ramesh/check-disk-space
+
+[<strong>Note:</strong> This displays crontab of the current logged in user]</pre>
+<h4>View Root Crontab entries</h4>
+<p>Login as root user (su – root) and do crontab -l as shown below.</p>
+<pre>root@dev-db# crontab -l
+no crontab for root</pre>
+<h4>Crontab HowTo: View Other Linux User’s Crontabs entries</h4>
+<p>To view crontab entries of other Linux users, login to root and use <strong>-u {username} -l</strong> as shown below.</p>
+<pre>root@dev-db# <strong>crontab -u sathiya -l</strong>
+@monthly /home/sathiya/monthly-backup
+00 09-18 * * * /home/sathiya/check-db-status</pre>
+<h3>5. How to Edit Crontab Entries?</h3>
+<h4>Edit Current Logged-In User’s Crontab entries</h4>
+<p>To edit a crontab entries, use crontab -e as shown below. By default this will edit the current logged-in users crontab.</p>
+<pre>ramesh@dev-db$ <strong>crontab -e</strong>
+@yearly /home/ramesh/centos/bin/annual-maintenance
+*/10 * * * * /home/ramesh/debian/bin/check-disk-space
+~
+"/tmp/crontab.XXXXyjWkHw" 2L, 83C
+
+[<strong>Note:</strong> This will open the crontab file in Vim editor for editing.
+Please note cron created a temporary /tmp/crontab.XX... ]</pre>
+<p>When you save the above temporary file with :wq, it will save the crontab and display the following message indicating the crontab is successfully modified.</p>
+<pre>~
+"crontab.XXXXyjWkHw" 2L, 83C written
+crontab: installing new crontab</pre>
+<h4>Edit Root Crontab entries</h4>
+<p>Login as root user (su – root) and do crontab -e as shown below.</p>
+<pre>root@dev-db# crontab -e</pre>
+<h4>Edit Other Linux User’s Crontab File entries</h4>
+<p>To edit crontab entries of other Linux users, login to root and use <strong>-u {username} -e</strong> as shown below.</p>
+<pre>root@dev-db# <strong>crontab -u sathiya -e</strong>
+@monthly /home/sathiya/fedora/bin/monthly-backup
+00 09-18 * * * /home/sathiya/ubuntu/bin/check-db-status
+~
+~
+~
+"/tmp/crontab.XXXXyjWkHw" 2L, 83C</pre>
+<h3>6. Schedule a Job for Every Minute Using Cron.</h3>
+<p>Ideally you may not have a requirement to schedule a job every minute.  But understanding this example will will help you understand the other examples mentioned below in this article.</p>
+<pre>* * * * * CMD</pre>
+<p>The * means all the possible unit — i.e every minute of every hour through out the year. More than using this * directly, you will find it very useful in the following cases.</p>
+<ul>
+<li>When you specify */5 in minute field means every 5 minutes.</li>
+<li>When you specify 0-10/2 in minute field mean every 2 minutes in the first 10 minute.</li>
+<li>Thus the above convention can be used for all the other 4 fields.</li>
+</ul>
+<h3>7. Schedule a Background Cron Job For Every 10 Minutes.</h3>
+<p>Use the following, if you want to check the disk space every 10 minutes.</p>
+<pre>*/10 * * * * /home/ramesh/check-disk-space</pre>
+<p>It executes the specified command check-disk-space every 10 minutes through out the year. But you may have a requirement of executing the command only during office hours or vice versa. The above examples shows how to do those things.<br>
+<code> </code><br>
+Instead of specifying values in the 5 fields, we can specify it using a single keyword as mentioned below.<br>
+<code> </code><br>
+There are special cases in which instead of the above 5 fields you can use @ followed by a keyword — such as reboot, midnight, yearly, hourly.</p>
+<table style="" summary="Cron special keywords" align="center" border="1" cellpadding="0" cellspacing="0" width="173">
+<caption>Table: Cron special keywords and its meaning</caption>
+<tbody>
+<tr>
+<th>Keyword</th>
+<th>Equivalent</th>
+</tr>
+<tr>
+<td>@yearly</td>
+<td>0 0 1 1 *</td>
+</tr>
+<tr>
+<td>@daily</td>
+<td>0 0 * * *</td>
+</tr>
+<tr>
+<td>@hourly</td>
+<td>0 * * * *</td>
+</tr>
+<tr>
+<td>@reboot</td>
+<td>Run at startup.</td>
+</tr>
+</tbody>
+</table>
+<h3>8. Schedule a Job For First Minute of Every Year using @yearly</h3>
+<p>If you want a job to be executed on the first minute of every year, then you can use the <strong>@yearly</strong> cron keyword as shown below.<br>
+<code> </code><br>
+This will execute the system annual maintenance using annual-maintenance shell script at 00:00 on Jan 1st for every year.</p>
+<pre>@yearly /home/ramesh/red-hat/bin/annual-maintenance</pre>
+<h3>9. Schedule a Cron Job Beginning of Every Month using @monthly</h3>
+<p>It is as similar as the @yearly as above. But executes the command monthly once using <strong>@monthly</strong> cron keyword.<br>
+<code> </code><br>
+This will execute the shell script tape-backup at 00:00 on 1st of every month.</p>
+<pre>@monthly /home/ramesh/suse/bin/tape-backup</pre>
+<h3>10. Schedule a Background Job Every Day using @daily</h3>
+<p>Using the <strong>@daily</strong> cron keyword, this will do a daily log file cleanup using cleanup-logs shell scriptat 00:00 on every day.</p>
+<pre>@daily /home/ramesh/arch-linux/bin/cleanup-logs "day started"</pre>
+<h3>11. How to Execute a Linux Command After Every Reboot using @reboot?</h3>
+<p>Using the <strong>@reboot</strong> cron keyword, this will execute the specified command once after the machine got booted every time.</p>
+<pre>@reboot CMD</pre>
+<h3>12. How to Disable/Redirect the Crontab Mail Output using MAIL keyword?</h3>
+<p>By default crontab sends the job output to the user who scheduled the job. If you want to redirect the output to a specific user, add or update the MAIL variable in the crontab as shown below.</p>
+<pre>ramesh@dev-db$ crontab -l
+MAIL="ramesh"
+
+@yearly /home/ramesh/annual-maintenance
+*/10 * * * * /home/ramesh/check-disk-space
+
+[<strong>Note:</strong> Crontab of the current logged in user with MAIL variable]</pre>
+<p><code> </code><br>
+If you wanted the mail not to be sent to anywhere, i.e to stop the crontab output to be emailed, add or update the MAIL variable in the crontab as shown below.</p>
+<pre>MAIL=""</pre>
+<h3>13. How to Execute a Linux Cron Jobs Every Second Using Crontab.</h3>
+<p>You cannot schedule a every-second cronjob. Because in cron the minimum unit you can specify is minute.  In a typical scenario, there is no reason for most of us to run any job every second in the system.</p>
+<div id="example14">
+</div>
+<h3>14. Specify PATH Variable in the Crontab</h3>
+<p>All the above examples we specified absolute path of the Linux command or the shell-script that needs to be executed.<br>
+<code> </code><br>
+For example, instead of specifying /home/ramesh/tape-backup, if you want to just specify tape-backup, then add the path /home/ramesh to the PATH variable in the crontab as shown below.</p>
+<pre>ramesh@dev-db$ crontab -l
+
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/home/ramesh
+
+@yearly annual-maintenance
+*/10 * * * * check-disk-space
+
+[<strong>Note:</strong> Crontab of the current logged in user with PATH variable]</pre>
+<h3>15. Installing Crontab From a Cron File</h3>
+<p>Instead of directly editing the crontab file, you can also add all the entries to a cron-file first. Once you have all thoese entries in the file, you can upload or install them to the cron as shown below.</p>
+<pre>ramesh@dev-db$ crontab -l
+no crontab for ramesh
+
+$ cat cron-file.txt
+@yearly /home/ramesh/annual-maintenance
+*/10 * * * * /home/ramesh/check-disk-space
+
+ramesh@dev-db$ <strong>crontab cron-file.txt</strong>
+
+ramesh@dev-db$ crontab -l
+@yearly /home/ramesh/annual-maintenance
+*/10 * * * * /home/ramesh/check-disk-space</pre>
+<p><strong>Note:</strong> This will install the cron-file.txt to your crontab, which will also remove your old cron entries. So, please be careful while uploading cron entries from a cron-file.txt.</p>
+<h3>Awesome Linux Articles</h3>
+<p>Following are few awesome <strong>15 examples</strong> articles that you might find helpful.</p>
+<ul>
+<li><a href="http://www.thegeekstuff.com/2009/03/15-practical-linux-find-command-examples/">Mommy, I found it! — 15 Practical Linux Find Command Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2008/08/15-examples-to-master-linux-command-line-history/">15 Examples To Master Linux Command Line History</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/07/linux-ls-command-examples/">Unix LS Command: 15 Practical Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/03/15-practical-unix-grep-command-examples/">Get a Grip on the Grep! – 15 Practical Grep Command Examples</a></li>
+</ul>
+<center>
+
+<ins style="display: inline-table; border: medium none; height: 280px; margin: 0pt; padding: 0pt; position: relative; visibility: visible; width: 336px;"><ins id="aswift_3_anchor" style="display: block; border: medium none; height: 280px; margin: 0pt; padding: 0pt; position: relative; visibility: visible; width: 336px;"><iframe src="index_12.html" allowtransparency="true" hspace="0" marginwidth="0" marginheight="0" vspace="0" id="aswift_3" name="aswift_3" style="left: 0pt; position: absolute; top: 0pt;" frameborder="0" height="280" scrolling="no" width="336"></iframe></ins></ins>
+</center>
+<br>
+<div style="margin: 7px 0px 3px; padding: 5px; background: none repeat scroll 0% 0% rgb(242, 240, 232);">
+
+<div style="float: left;">
+<div style="height: 20px; width: 90px; display: inline-block; text-indent: 0pt; margin: 0pt; padding: 0pt; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline;" id="___plusone_1"><iframe allowtransparency="true" hspace="0" id="I2_1326091059677" marginheight="0" marginwidth="0" name="I2_1326091059677" src="index_13.html" style="position: static; left: 0pt; top: 0pt; width: 90px; margin: 0px; border-style: none; height: 20px; visibility: visible;" tabindex="-1" vspace="0" title="+1" frameborder="0" scrolling="no" width="100%"></iframe></div>
+</div>
+
+<div style="float: left;">
+<a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal">Tweet</a>
+</div>
+
+<div style="float: left; padding: 2px; width: 90px;"><iframe src="index_14.html" style="border: medium none; overflow: hidden; width: 450px; height: 21px;" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
+</div>
+
+<div style="float: left; padding: 2px; width: 70px;">
+<img src="bookmark-icon16.png">
+<!-- AddThis Button BEGIN --> 
+ 
+<a class="addthis_button" href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ac6c0d77fc11b75" rel="nofollow"> 
+Share
+</a> 
+ 
+<!-- AddThis Button END --> 
+</div>
+
+<div style="padding: 1px;">
+<img src="comment-icon16.png">&nbsp;<a href="#respond">Comment</a> 
+</div>
+
+</div>
+<h3>If you enjoyed this article, you might also like..</h3>
+<table>
+<tbody><tr>
+<td valign="top">
+<ol>
+<li><a href="http://www.thegeekstuff.com/2010/12/50-unix-linux-sysadmin-tutorials/">50 Linux Sysadmin Tutorials</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/11/50-linux-commands/">50 Most Frequently Used Linux Commands (With Examples)</a></li>
+<li><a href="http://www.thegeekstuff.com/2011/12/linux-performance-monitoring-tools/">Top 25 Best Linux Performance Monitoring and Debugging Tools</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/03/15-practical-linux-find-command-examples/">Mommy, I found it! – 15 Practical Linux Find Command Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/linux-101-hacks-ebook/">Linux 101 Hacks 2nd Edition eBook</a>&nbsp;<img title="Linux 101 Hacks Book" src="free-small.png" alt="Linux 101 Hacks Book"></li>
+</ol>
+</td>
+<td>
+<ul>
+<li><a href="http://www.thegeekstuff.com/2010/01/awk-introduction-tutorial-7-awk-print-examples/">Awk Introduction – 7 Awk Print Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/10/unix-sed-tutorial-advanced-sed-substitution-examples/">Advanced Sed Substitution Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/03/8-essential-vim-editor-navigation-fundamentals/">8 Essential Vim Editor Navigation Fundamentals</a></li>
+<li><a href="http://www.thegeekstuff.com/2011/06/iptables-rules-examples/">25 Most Frequently Used Linux IPTables Rules Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2008/08/turbocharge-putty-with-12-powerful-add-ons-software-for-geeks-3/">Turbocharge PuTTY with 12 Powerful Add-Ons</a></li>
+</ul>
+</td>
+</tr>
+</tbody></table>
+<br>
+<center> 
+<table border="0" cellspacing="10"> 
+<tbody><tr> 
+<td> 
+<a rel="nofollow" href="http://www.thegeekstuff.com/bash-101-hacks-ebook/"><img title="Bash 101 Hacks Book" src="bash-132.png" alt="Bash 101 Hacks Book"></a> 
+</td> 
+<td> 
+<a rel="nofollow" href="http://www.thegeekstuff.com/sed-awk-101-hacks-ebook/"><img title="Sed and Awk 101 Hacks Book" src="sed-and-awk-132.png" alt="Sed and Awk 101 Hacks Book"></a> 
+</td> 
+<td> 
+<a rel="nofollow" href="http://www.thegeekstuff.com/nagios-core-ebook/"><img title="Nagios Core 3 Book" src="nagios-core-132.png" alt="Nagios Core 3 Book"></a> 
+</td> 
+<td> 
+<a rel="nofollow" href="http://www.thegeekstuff.com/vim-101-hacks-ebook/"><img title="Vim 101 Hacks Book" src="vim-101-hacks-132.png" alt="Vim 101 Hacks Book"></a> 
+</td> 
+</tr> 
+</tbody></table> 
+</center>
+<br>
+<div id="tgs-tags">
+Tags: <a href="http://www.thegeekstuff.com/tag/etccronallow/" rel="tag">/etc/cron.allow</a>, <a href="http://www.thegeekstuff.com/tag/etccrond/" rel="tag">/etc/cron.d</a>, <a href="http://www.thegeekstuff.com/tag/etccrontab/" rel="tag">/etc/crontab</a>, <a href="http://www.thegeekstuff.com/tag/varspoolcron/" rel="tag">/var/spool/cron</a>, <a href="http://www.thegeekstuff.com/tag/cron-examples/" rel="tag">Cron examples</a>, <a href="http://www.thegeekstuff.com/tag/crontab-php/" rel="tag">Crontab PHP</a>, <a href="http://www.thegeekstuff.com/tag/crontab-script/" rel="tag">Crontab Script</a>, <a href="http://www.thegeekstuff.com/tag/crontab-tutorial/" rel="tag">Crontab Tutorial</a>, <a href="http://www.thegeekstuff.com/tag/learn-crontab/" rel="tag">Learn crontab</a>, <a href="http://www.thegeekstuff.com/tag/linux-crond-daemon/" rel="tag">Linux Crond Daemon</a>, <a href="http://www.thegeekstuff.com/tag/practical-cron-example/" rel="tag">Practical Cron example</a>, <a href="http://www.thegeekstuff.com/tag/productivity-tips-for-geeks/" rel="tag">Productivity Tips For Geeks</a>, <a href="http://www.thegeekstuff.com/tag/schedule-job-in-linux/" rel="tag">Schedule job in Linux</a></div>
+				</div>
+			</div>
+
+			<div id="comments">
+				<div id="comments_intro" class="comments_intro">
+					<p><span class="bracket">{</span> <span>88</span> comments… read them below or <a href="#respond" rel="nofollow">add one</a> <span class="bracket">}</span></p>
+				</div>
+
+				<dl id="comment_list">
+					<dt class="comment even thread-even depth-1" id="comment-11378">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-11378" title="Permalink to this comment" rel="nofollow">1</a></span>
+<span class="comment_author">Mahesh</span>
+<span class="comment_time">June 11, 2009 at 10:26 am</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-11378">
+<p>Another great post. Thank you.</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-11379">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-11379" title="Permalink to this comment" rel="nofollow">2</a></span>
+<span class="comment_author">Mihir.G.Joshi</span>
+<span class="comment_time">June 11, 2009 at 11:47 am</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-11379">
+<p>Good One ……</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-11388">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-11388" title="Permalink to this comment" rel="nofollow">3</a></span>
+<span class="comment_author">anil beniwal</span>
+<span class="comment_time">June 11, 2009 at 1:59 pm</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-11388">
+<p>gud job dude</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-11403">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-11403" title="Permalink to this comment" rel="nofollow">4</a></span>
+<span class="comment_author">shashank</span>
+<span class="comment_time">June 11, 2009 at 11:38 pm</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-11403">
+<p>Thanks </p>
+<p>It’s very use full.</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-11416">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-11416" title="Permalink to this comment" rel="nofollow">5</a></span>
+<span class="comment_author">RAJESH</span>
+<span class="comment_time">June 12, 2009 at 4:44 am</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-11416">
+<p>NICE &amp; HELP FULL tips…!! I appreciate your effort for posting such a informational daily LINUX activity</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-11420">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-11420" title="Permalink to this comment" rel="nofollow">6</a></span>
+<span class="comment_author">BalaC</span>
+<span class="comment_time">June 12, 2009 at 5:54 am</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-11420">
+<p>Just came up at the right time</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-11424">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-11424" title="Permalink to this comment" rel="nofollow">7</a></span>
+<span class="comment_author">ray</span>
+<span class="comment_time">June 12, 2009 at 8:35 am</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-11424">
+<p>great tutorial, keep up good work</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-11427">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-11427" title="Permalink to this comment" rel="nofollow">8</a></span>
+<span class="comment_author">Jeroen</span>
+<span class="comment_time">June 12, 2009 at 9:13 am</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-11427">
+<p>Thanks Ramesh.<br>
+Concise and yet very useful, I especially like examples 7, 11 and 14.</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-11429">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-11429" title="Permalink to this comment" rel="nofollow">9</a></span>
+<span class="comment_author">Denny</span>
+<span class="comment_time">June 12, 2009 at 9:55 am</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-11429">
+<p>Man, it just came in handy. Thank you very much.</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-11456">
+<span class="avatar"><a href="http://lindesk.com/" rel="nofollow"></a></span>
+<span class="comment_num"><a href="#comment-11456" title="Permalink to this comment" rel="nofollow">10</a></span>
+<span class="comment_author"><a href="http://lindesk.com/" rel="external nofollow" class="url">Binny V A</a></span>
+<span class="comment_time">June 13, 2009 at 4:24 am</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-11456">
+<p>Shameless plug: I have created a GUI <a href="http://www.openjs.com/scripts/jslibrary/demos/crontab.php" rel="nofollow">web interface to create crontab command</a>. I hope someone will find this useful.</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-11493">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-11493" title="Permalink to this comment" rel="nofollow">11</a></span>
+<span class="comment_author">Leslie Satenstein</span>
+<span class="comment_time">June 14, 2009 at 9:57 pm</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-11493">
+<p>One can use the English abbreviated day of the week in place of the numbers</p>
+<p>0=Sun<br>
+1=Mon<br>
+2=Tue<br>
+3=Wed<br>
+4=Thu<br>
+5=Fri<br>
+6=Sat</p>
+<p>so  </p>
+<p>30 1 * * Mon-Fri   /sbin/poweroff</p>
+<p>is equivalent to</p>
+<p>30 1 * * 1-5       /sbin/poweroff</p>
+<p>Will do a system shutdown at 1:30 AM on weekdays.  Which is easier to read?</p>
+</div>
+					</dd>
+					<dt class="comment byuser comment-author-admin odd alt thread-odd thread-alt depth-1" id="comment-11497">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-11497" title="Permalink to this comment" rel="nofollow">12</a></span>
+<span class="comment_author">Ramesh Natarajan</span>
+<span class="comment_time">June 14, 2009 at 11:45 pm</span>
+
+					</dt>
+					<dd class="comment byuser comment-author-admin odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-11497">
+<p><strong>@Mahesh, Mihir, Anil, Shashank, Rajesh, Balac, Ray, Denny,</strong></p>
+<p>Thanks a lot for your comment. I’m very glad you found this tutorial helpful.</p>
+<p><code>&nbsp;</code><br>
+<strong>@Jeroen,</strong></p>
+<p>Yeah. “#7 – Running a job every x minutes” is something you may use it frequently. Regarding #14, is very convenient when you have lot of entries in your crontab, where you don’t need to give the full path.</p>
+<p><code>&nbsp;</code><br>
+<strong>@Binny,</strong></p>
+<p>Your crontab code generator looks great. You just need to add the keyword option there. (i.e @yearly, @daily, @hourly, @reboot etc.,)</p>
+<p><code>&nbsp;</code><br>
+<strong>@Leslie,</strong></p>
+<p>Thanks for pointing that out. You are so right. There is no doubt that Sun is much easier to read then 0. I’ve seen few sysadmins making the following mistakes:</p>
+<p>1. Starting their 0-6 count with Monday. So, this makes 6 as sunday, which is wrong.<br>
+2. Entering 7 for Sunday, thinking 1-7 is valid, which is wrong.</p>
+<p><code>&nbsp;</code><br>
+Your suggestion would help to avoid the above two mistakes. Thank you.</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-11932">
+<span class="avatar"><a href="http://florida-medicare-insurance.com/" rel="nofollow"></a></span>
+<span class="comment_num"><a href="#comment-11932" title="Permalink to this comment" rel="nofollow">13</a></span>
+<span class="comment_author"><a href="http://florida-medicare-insurance.com/" rel="external nofollow" class="url">Paul Mooney</a></span>
+<span class="comment_time">June 25, 2009 at 2:14 pm</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-11932">
+<p>Hello Ramesh,</p>
+<p>i am trying to add a cronjob to the root file in my cron directory. so far my added cronjob: crmphonescript  is not working. Please see the last entry in the source code provided. any help will be great!</p>
+<p>Filepath: var/spool/cron/root</p>
+<p>Filename: root </p>
+<p>source code:</p>
+<pre>5,20,35,50 * * * * /usr/local/cpanel/whostmgr/bin/dnsqueue &gt; /dev/null 2&gt;&amp;1
+2,58 * * * * /usr/local/bandmin/bandmin
+0 0 * * * /usr/local/bandmin/ipaddrmap
+15 3 * * * /usr/local/cpanel/whostmgr/docroot/cgi/cpaddons_report.pl --notify
+*/5 * * * * /usr/local/cpanel/bin/dcpumon &gt;/dev/null 2&gt;&amp;1
+3 0 * * * /scripts/upcp
+0 1 * * * /scripts/cpbackup
+35 * * * * /usr/bin/test -x /usr/local/cpanel/bin/tail-check &amp;&amp; /usr/local/cpanel/bin/tail-check
+0 6 * * * /scripts/exim_tidydb &gt; /dev/null 2&gt;&amp;1
+*/1 * * * * /scripts/crmphonescript
+</pre>
+<p>Filepath: scripts/crmphonescript</p>
+<p>Filename: crmphonescript </p>
+<p>source code:</p>
+<pre>#!/usr/bin/perl
+$host="localhost";
+$username="florida_florida";
+$admin_password="*****";
+$db_name="florida_joomla"; 
+
+mysql_connect("$host", "$username", "$admin_password")or die("cannot connect");
+mysql_select_db("$db_name")or die("cannot select DB");
+
+$sql="update jos_holder set id = 4 where id = 3";
+$result=mysql_query($sql);
+exit;
+</pre>
+</div>
+					</dd>
+					<dt class="comment byuser comment-author-admin odd alt thread-odd thread-alt depth-1" id="comment-11944">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-11944" title="Permalink to this comment" rel="nofollow">14</a></span>
+<span class="comment_author">Ramesh Natarajan</span>
+<span class="comment_time">June 25, 2009 at 9:56 pm</span>
+
+					</dt>
+					<dd class="comment byuser comment-author-admin odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-11944">
+<p><strong>@Paul,</strong><br>
+Check the following:<br>
+<code>&nbsp;</code><br>
+- /var/log/cron file for any error messages.<br>
+- put a debug message inside your shell script to see whether it really gets executed.<br>
+- Put &gt; /tmp/script.log at the end of the cron entry for this script and debug it.<br>
+- Put 2&gt; /tmp/error-script.log at the end of the cron entry for this script to see whether it writes any error message to the log file.</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-11961">
+<span class="avatar"><a href="http://florida-medicare-insurance.com/" rel="nofollow"></a></span>
+<span class="comment_num"><a href="#comment-11961" title="Permalink to this comment" rel="nofollow">15</a></span>
+<span class="comment_author"><a href="http://florida-medicare-insurance.com/" rel="external nofollow" class="url">Paul Mooney</a></span>
+<span class="comment_time">June 26, 2009 at 5:45 am</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-11961">
+<p>Ramesh,</p>
+<p>ok. i added the following to my command:</p>
+<p>*/1 * * * * /scripts/crmphonescript &gt; /tmp/script.log</p>
+<p>and added the following to my shell script:</p>
+<p>$sql=”update jos_holder set id = 4 where id = 3″;<br>
+$result=mysql_query($sql);<br>
+if (!$result) {<br>
+echo “could not execute script”<br>
+}<br>
+exit;</p>
+<p>how do i now check for any error messages?</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-11979">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-11979" title="Permalink to this comment" rel="nofollow">16</a></span>
+<span class="comment_author">Leslie Satenstein</span>
+<span class="comment_time">June 26, 2009 at 11:27 am</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-11979">
+<p>Is there a command in linux to display a message in Gnome or KDE (and include the terminal).</p>
+<p>Suppose I have a scheduled Cron job to do maintenance every Sunday night,</p>
+<p>I would like to send out warning messages to display on Gnome, or KDE, as an alert that they may have to acknowledge.  (Example.  “System going off-line at 01:30am for maintenance, Please log off by then” )</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-11980">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-11980" title="Permalink to this comment" rel="nofollow">17</a></span>
+<span class="comment_author">Leslie Satenstein</span>
+<span class="comment_time">June 26, 2009 at 11:32 am</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-11980">
+<p>I would have a crontab entry as follows</p>
+<p>5,10,15,20,25,26,27,28,29 1 * * 0  Command to send warning messages to users on GNOME OR KDE</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-12101">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-12101" title="Permalink to this comment" rel="nofollow">18</a></span>
+<span class="comment_author">shankar</span>
+<span class="comment_time">June 30, 2009 at 12:37 am</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-12101">
+<p>good</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-12696">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-12696" title="Permalink to this comment" rel="nofollow">19</a></span>
+<span class="comment_author">vanraj</span>
+<span class="comment_time">July 14, 2009 at 5:35 am</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-12696">
+<p>this is really good effort and easy to understand.<br>
+thank you.</p>
+</div>
+					</dd>
+					<dt class="comment byuser comment-author-admin odd alt thread-odd thread-alt depth-1" id="comment-12715">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-12715" title="Permalink to this comment" rel="nofollow">20</a></span>
+<span class="comment_author">Ramesh Natarajan</span>
+<span class="comment_time">July 14, 2009 at 9:46 pm</span>
+
+					</dt>
+					<dd class="comment byuser comment-author-admin odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-12715">
+<p><strong>@Paul,</strong> As we discussed over email, following are few suggestions.</p>
+<p>- Check the content of the /tmp/script.log<br>
+- The mysql commands you’ve given are php related. But you had #!/usr/bin/perl as the 1st line in your script. Try changing it to php (or) change the php-mysql functions to perl-mysql functions.</p>
+<p><strong>@Leslie,</strong> Following are some suggestions, which you can explore further.</p>
+<p>1. Use notify-send “title” “body” to display pop-up in gnome desktop</p>
+<pre>Example Usage:
+# full-backup.sh ; notify-send "Backup completed"
+</pre>
+<p>2. You can also use xmessage to display pop-up on desktop. </p>
+<pre># xmessage -file /path/of/file/name/message.txt
+</pre>
+<p><strong>@Shankar, @Vanraj,</strong> Thanks for your kind words. I’m very glad that you found this article helpful.</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-12970">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-12970" title="Permalink to this comment" rel="nofollow">21</a></span>
+<span class="comment_author">PaulM</span>
+<span class="comment_time">July 21, 2009 at 1:16 pm</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-12970">
+<p>Great Cron tutorial. One request about this website though….how about a “Printer Friendly” link at the bottom of these tutorials? Im an old school sysadmin and I keep an “Oh Crap” book…..a hard copy of important info and tips and tricks that I can refer to when the excrement hits the oscillating ventilation device if you know what I mean.<br>
+Printer Friendly pages would be a nice touch.</p>
+</div>
+					</dd>
+					<dt class="comment byuser comment-author-admin odd alt thread-odd thread-alt depth-1" id="comment-13167">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-13167" title="Permalink to this comment" rel="nofollow">22</a></span>
+<span class="comment_author">Ramesh Natarajan</span>
+<span class="comment_time">July 25, 2009 at 12:34 am</span>
+
+					</dt>
+					<dd class="comment byuser comment-author-admin odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-13167">
+<p>@PaulM,</p>
+<p>I’ve added your request about “Printer Friendly” link in my list of to-dos. Thanks a lot for bringing that to my attention. It’s definitely a good idea.</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-13752">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-13752" title="Permalink to this comment" rel="nofollow">23</a></span>
+<span class="comment_author">mittu</span>
+<span class="comment_time">August 5, 2009 at 5:21 am</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-13752">
+<p>thank u</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-15880">
+<span class="avatar"><a href="http://www.planetmy.com/" rel="nofollow"></a></span>
+<span class="comment_num"><a href="#comment-15880" title="Permalink to this comment" rel="nofollow">24</a></span>
+<span class="comment_author"><a href="http://www.planetmy.com/" rel="external nofollow" class="url">Planet Malaysia</a></span>
+<span class="comment_time">August 26, 2009 at 3:44 am</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-15880">
+<p>You can specific different time zone for different cronjob.</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-18383">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-18383" title="Permalink to this comment" rel="nofollow">25</a></span>
+<span class="comment_author">Praveen</span>
+<span class="comment_time">October 2, 2009 at 8:12 am</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-18383">
+<p>Hey Ramesh,</p>
+<p>I have a question for you. As a sys-admin, I am sure you will have bunch of things in cron. Do you use any apps to visualize these entries? It would be really helpful to see Cron entries on a calendar. </p>
+<p>Do you know of any such OSS tool?</p>
+<p>Praveen</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-18801">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-18801" title="Permalink to this comment" rel="nofollow">26</a></span>
+<span class="comment_author">Don</span>
+<span class="comment_time">October 6, 2009 at 2:55 pm</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-18801">
+<p>Hi,</p>
+<p>Great article. Is it possible to schedule a job for the first Saturday of the month (every month)? If there is I’m having trouble figuring out how to do it.</p>
+<p>Thanks<br>
+Don</p>
+</div>
+					</dd>
+					<dt class="comment byuser comment-author-sathiya bypostauthor even thread-even depth-1" id="comment-18833">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-18833" title="Permalink to this comment" rel="nofollow">27</a></span>
+<span class="comment_author">SathiyaMoorthy</span>
+<span class="comment_time">October 7, 2009 at 12:48 am</span>
+
+					</dt>
+					<dd class="comment byuser comment-author-sathiya bypostauthor even thread-even depth-1">
+<div class="format_text" id="comment-body-18833">
+<p>@Don</p>
+<p>1 1 1-7 * 6 CMD</p>
+<p>Above should do the hack, but not tested [ let us know the results ].</p>
+<p>Explanation: At 1st minute of 1st hour, of 1-7th day of month, at every month. And only on 6th day of week which is Saturday. </p>
+<p>On 1-7th of every month, only one Saturday can come.</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-18916">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-18916" title="Permalink to this comment" rel="nofollow">28</a></span>
+<span class="comment_author">Don</span>
+<span class="comment_time">October 7, 2009 at 11:23 pm</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-18916">
+<p>@SathiyaMoorthy</p>
+<p>Thanks, I’ll give it a try. I’ll play with the settings so I can try it for this weekend so we won’t have to wait till next month to see if it works.</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-19031">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-19031" title="Permalink to this comment" rel="nofollow">29</a></span>
+<span class="comment_author">Don</span>
+<span class="comment_time">October 9, 2009 at 10:22 am</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-19031">
+<p>@SathiyaMoorthy</p>
+<p>It didn’t work <img src="icon_sad.gif" alt=":-(" class="wp-smiley"> </p>
+<p>I set it to 0 12 1-11 * 4 cmd and it lauched yesterday (Thursday) which it was supposed to do but it also launched today (Friday) which it was not supposed to do.</p>
+<p>I guess I could schedule it to run every Saturday and in the script check to see if the day-of-month is less that 8. If so run, if not exit.</p>
+<p>Thanks<br>
+Don</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-19519">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-19519" title="Permalink to this comment" rel="nofollow">30</a></span>
+<span class="comment_author">Kunal</span>
+<span class="comment_time">October 14, 2009 at 9:06 pm</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-19519">
+<p>Very nicely explained . Thanks for explaining all major usage patterns in a single article. </p>
+<p>Rgds</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-19860">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-19860" title="Permalink to this comment" rel="nofollow">31</a></span>
+<span class="comment_author">vks</span>
+<span class="comment_time">October 19, 2009 at 7:14 pm</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-19860">
+<p>can any body explain how to run cron jobs in /etc/crontab</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-23055">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-23055" title="Permalink to this comment" rel="nofollow">32</a></span>
+<span class="comment_author">ACE</span>
+<span class="comment_time">November 20, 2009 at 1:37 pm</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-23055">
+<p>Does anybody knows how to setup a cron job to run every other week on any of the week days.</p>
+<p>For example: I need to run a job at 10 AM on Monday but every other Monday.</p>
+<p>I tried this and did not work:</p>
+<p>00 10 */14 * 1 /my command</p>
+<p>Thanks,</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-23350">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-23350" title="Permalink to this comment" rel="nofollow">33</a></span>
+<span class="comment_author">Sharad</span>
+<span class="comment_time">November 23, 2009 at 6:37 am</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-23350">
+<p>Very informative…and superb way to demonstrate daily usages…</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-25245">
+<span class="avatar"><a href="http://www.spiderlinks.info/forum" rel="nofollow"></a></span>
+<span class="comment_num"><a href="#comment-25245" title="Permalink to this comment" rel="nofollow">34</a></span>
+<span class="comment_author"><a href="http://www.spiderlinks.info/forum" rel="external nofollow" class="url">Salsan Jose E</a></span>
+<span class="comment_time">December 7, 2009 at 10:33 pm</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-25245">
+<p>How to set up one time Cron Job ?</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-25638">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-25638" title="Permalink to this comment" rel="nofollow">35</a></span>
+<span class="comment_author">Leslie Satenstein</span>
+<span class="comment_time">December 10, 2009 at 8:37 pm</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-25638">
+<p>Just fill out the line with </p>
+<p>mm  hh  dayofmonth  monthyear  dayofweek       command</p>
+<p>it will work on that day, </p>
+<p>30 1     31      5        Mon         echo  “Do this command in a year where May 31 is a Monday”</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-28184">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-28184" title="Permalink to this comment" rel="nofollow">36</a></span>
+<span class="comment_author">siegfried</span>
+<span class="comment_time">January 3, 2010 at 6:10 am</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-28184">
+<p>for one off jobs use the ‘at’ command. cron actually runs both ‘at’ and ‘cron’ jobs ( the ‘c’ and ‘a’ in the log file ). at is very flexible wrt scheduling, and at copies your current environment before running the job so no more anooying erros with your profile, path, etc. also you don’t have to remember to remove your one off job from your crontab, or take that extra small risk of making a mistake each time you edit your crontab. btw, to reduce the chance of making a mistake while edting your crontab, consider doing something like : </p>
+<p>crontab -l &gt; crontab.old<br>
+cp crontab.old crontab.new<br>
+vi crontab.new<br>
+diff crontab.old crontab.new<br>
+crontab crontab.new</p>
+<p>a good habit to get into esp. if you want to minimise the chance of an error in a production environment.</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-28555">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-28555" title="Permalink to this comment" rel="nofollow">37</a></span>
+<span class="comment_author">guntis</span>
+<span class="comment_time">January 6, 2010 at 1:18 pm</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-28555">
+<p>excellent!!!<br>
+have never seen better manual</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-36442">
+<span class="avatar"><a href="http://www.comit.ch/" rel="nofollow"></a></span>
+<span class="comment_num"><a href="#comment-36442" title="Permalink to this comment" rel="nofollow">38</a></span>
+<span class="comment_author"><a href="http://www.comit.ch/" rel="external nofollow" class="url">sofasurfer</a></span>
+<span class="comment_time">February 25, 2010 at 7:09 am</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-36442">
+<p>@Don<br>
+@SathiyaMoorthy</p>
+<p>To execute a script on some days of a week and only between some days of a month you can do it this way:</p>
+<p># Nur am Montag (1) oder am Donnerstag (4)<br>
+10 19 2-27 * *  if [ "$(date +\%u)" = "1" ] || [ "$(date +\%u)" = "4" ] ; then ./yourscript.sh ; fi</p>
+<p>This here will not work !!!<br>
+10 19 2-27 * 1,4</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-37882">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-37882" title="Permalink to this comment" rel="nofollow">39</a></span>
+<span class="comment_author">Ashwin Raj</span>
+<span class="comment_time">March 5, 2010 at 11:31 am</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-37882">
+<p>Really nice manual. Is there any way to set up a cron job to run a script Monday through Friday, every 1 minute starting at 7:00AM and ending at 6:30PM? I am wondering if this is possible just with the minute/hour/date/month/day specifiers. I saw an example in one of the comment posts which used a if-then conditional execution of a script. Is that the only way to go.</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-37960">
+<span class="avatar"><a href="http://www.comit.ch/" rel="nofollow"></a></span>
+<span class="comment_num"><a href="#comment-37960" title="Permalink to this comment" rel="nofollow">40</a></span>
+<span class="comment_author"><a href="http://www.comit.ch/" rel="external nofollow" class="url">sofasurfer</a></span>
+<span class="comment_time">March 6, 2010 at 1:07 am</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-37960">
+<p>@Ashwin Raj<br>
+Monday through Friday, every 1 minute starting at 7:00AM and ending at 6:30PM?</p>
+<p>Try this one with two entries, but with no guarantee.<br>
+*/1 7-17 * * 1-5 yourscript.sh<br>
+0-30/1 18 * * 1-5 yourscript.sh<br>
+Combination of day of month and day of week parameter is treaten as OR condition by crontab and therefor I used an if statement to solve this situation.</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-44451">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-44451" title="Permalink to this comment" rel="nofollow">41</a></span>
+<span class="comment_author">Bhanu</span>
+<span class="comment_time">April 26, 2010 at 12:49 am</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-44451">
+<p>Hi Ramesh,<br>
+This is Bhanu new for the Linux platform planning to give certification.<br>
+I read your module.Its excellent ,I want to know about the monthly cron job u have just mentioned about that but u didnt mnetion aboout the syntax is this right </p>
+<p>0 0 1 *  * cmd.<br>
+is this right?<br>
+Thnx</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-46507">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-46507" title="Permalink to this comment" rel="nofollow">42</a></span>
+<span class="comment_author">bucu</span>
+<span class="comment_time">May 10, 2010 at 10:14 am</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-46507">
+<p>* * * * * history &gt; ~/Desctop/file<br>
+I tryied to make a backup of history, but this way is not working.<br>
+Cron is creating a file, but the date isn’t getting there.<br>
+Help me, thanks and cheers</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-46547">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-46547" title="Permalink to this comment" rel="nofollow">43</a></span>
+<span class="comment_author">Kate</span>
+<span class="comment_time">May 10, 2010 at 6:59 pm</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-46547">
+<p>I can set a cron to run every 5 minutes from 8pm – 11pm (20-23), but what I can’t do is set one to run every 5 minutes from 11:pm-midnight. (23-00)</p>
+<p>How do you set a cron to run every 5 minutes the last hour of the day?<br>
+Any help would be appreciated.</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-50013">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-50013" title="Permalink to this comment" rel="nofollow">44</a></span>
+<span class="comment_author">Amit Dixit</span>
+<span class="comment_time">June 14, 2010 at 1:33 pm</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-50013">
+<p>How do you set a cron to run every 5 minutes the last hour of the day?</p>
+<p>Try this:- */5 23-00 * * * command</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-53778">
+<span class="avatar"><a href="http://linuxcrontab/" rel="nofollow"></a></span>
+<span class="comment_num"><a href="#comment-53778" title="Permalink to this comment" rel="nofollow">45</a></span>
+<span class="comment_author"><a href="http://linuxcrontab/" rel="external nofollow" class="url">kamalesh</a></span>
+<span class="comment_time">July 13, 2010 at 7:01 am</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-53778">
+<p>very very helpful to freshers good job</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-57535">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-57535" title="Permalink to this comment" rel="nofollow">46</a></span>
+<span class="comment_author">radha</span>
+<span class="comment_time">August 4, 2010 at 8:11 am</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-57535">
+<p>How to set a crontab a specific one year i.e. from 2010 Aug 5th to 2011 Aug 4th?</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-59288">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-59288" title="Permalink to this comment" rel="nofollow">47</a></span>
+<span class="comment_author">Elgin</span>
+<span class="comment_time">August 15, 2010 at 11:22 am</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-59288">
+<p>How do I write a shell script to automate logging user login activity to detect unauthorized remote access attempts.</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-62189">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-62189" title="Permalink to this comment" rel="nofollow">48</a></span>
+<span class="comment_author">Anonymous</span>
+<span class="comment_time">September 6, 2010 at 7:25 am</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-62189">
+<p>very useful information about cron.thanks…</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-62568">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-62568" title="Permalink to this comment" rel="nofollow">49</a></span>
+<span class="comment_author">g</span>
+<span class="comment_time">September 9, 2010 at 1:02 am</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-62568">
+<p>hey, Ramesh…</p>
+<p>I got some trouble for doing crontab…<br>
+It seems my cron successfully schedule but the command didnt run.</p>
+<p>what’s the possibility my schedule didnt work eh?</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-62762">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-62762" title="Permalink to this comment" rel="nofollow">50</a></span>
+<span class="comment_author">Graham</span>
+<span class="comment_time">September 10, 2010 at 6:34 am</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-62762">
+<p>Hi. Thank you for your article, but I really hope you can help with a problem I’m having. I have the following in my crontab : */1 * * * * DISPLAY=:0.0 fbsetbg -r /home/graham/Pictures/Wallpapers<br>
+But that also changes the login background. Is there a way to stop cron from starting until AFTER I login?</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-62787">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-62787" title="Permalink to this comment" rel="nofollow">51</a></span>
+<span class="comment_author">g</span>
+<span class="comment_time">September 10, 2010 at 12:08 pm</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-62787">
+<p>hey graham,</p>
+<p>Try to execute this one to stop cron</p>
+<p>[quote]<br>
+$&gt; crontab -u userName -r<br>
+[/quote]</p>
+<p>good luck!</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-62805">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-62805" title="Permalink to this comment" rel="nofollow">52</a></span>
+<span class="comment_author">Graham</span>
+<span class="comment_time">September 10, 2010 at 2:57 pm</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-62805">
+<p>Hi g. Sorry, but i thought i should let you know i’ve discovered that i don’t get same problem with KDM (while using lucid) but on the other hand, i FINALLY managed to downgrade gdm to 2.20 and theres no problems, so it might be a plymouth problem?</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-62874">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-62874" title="Permalink to this comment" rel="nofollow">53</a></span>
+<span class="comment_author">g</span>
+<span class="comment_time">September 11, 2010 at 3:59 am</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-62874">
+<p>not sure. probably yes. <img src="icon_biggrin.gif" alt=":D" class="wp-smiley"> </p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-64019">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-64019" title="Permalink to this comment" rel="nofollow">54</a></span>
+<span class="comment_author">p</span>
+<span class="comment_time">September 22, 2010 at 5:49 am</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-64019">
+<p>Hi,</p>
+<p>in my environment i use crontab file to import cron’s table. it’s working great, but sometimes file has some syntax errors. is there any possibility to check file before importing it (of course, done automatically, not by hand). </p>
+<p>regards,<br>
+p.</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-64035">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-64035" title="Permalink to this comment" rel="nofollow">55</a></span>
+<span class="comment_author">g</span>
+<span class="comment_time">September 22, 2010 at 8:54 am</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-64035">
+<p>never heard for it.<br>
+Syntax error is human made mistake.<br>
+Means all are in manual.</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-64848">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-64848" title="Permalink to this comment" rel="nofollow">56</a></span>
+<span class="comment_author">Jerry</span>
+<span class="comment_time">September 30, 2010 at 9:06 pm</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-64848">
+<p>I just wanted to mention that Linux (well at least the RH based versions, not sure about Deb.) has 3 different cron methods.  They can get confusing to someone who comes over from Unix (like me).</p>
+<p>1) user defined cronjobs. This is the one you can use the crontab -l, crontab -e, etc. for.  The crontab files with crontab formatted entries are stored in /var/spool/cron.<br>
+2) For root cron jobs, there’s the file /etc/crontab.  Another with crontab formatted entries.  When you use the crontab commands when you are root, like crontab -l, you will NOT see the entries in this file, you will see the entries in /var/spool/cron/root.<br>
+3)  The last is another for root only. If you look in the file /etc/crontab, you’ll it has crontab formatted entries pointing to these directories in /etc:<br>
+   cron.hourly<br>
+   cron.daily<br>
+   cron.monthly<br>
+   cron.weekly<br>
+- each of those directories contain regular script files.  Drop a script in one of those, and it will get executed when /etc/crontab call it.<br>
+Thanks&gt;</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-69343">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-69343" title="Permalink to this comment" rel="nofollow">57</a></span>
+<span class="comment_author">manish</span>
+<span class="comment_time">November 10, 2010 at 7:38 am</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-69343">
+<p>these are very helpful for me for my project.<br>
+sir could u give me suggesion how to use it with shared memory<br>
+thank u sir/mam.</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-70026">
+<span class="avatar"><a href="http://www.thegeekstuff.com/dev/null" rel="nofollow"></a></span>
+<span class="comment_num"><a href="#comment-70026" title="Permalink to this comment" rel="nofollow">58</a></span>
+<span class="comment_author"><a href="http://www.thegeekstuff.com/dev/null" rel="external nofollow" class="url">Wuzzy</a></span>
+<span class="comment_time">November 16, 2010 at 5:25 pm</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-70026">
+<p>htop is a good alternative to top. It is quite easier to use, allows to scroll the process list horizontally and vertically and also a tree-view of the processes.</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-74529">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-74529" title="Permalink to this comment" rel="nofollow">59</a></span>
+<span class="comment_author">pradeep</span>
+<span class="comment_time">December 22, 2010 at 4:49 am</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-74529">
+<p>Very nice.. easy to understand 4 begginers….</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-75203">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-75203" title="Permalink to this comment" rel="nofollow">60</a></span>
+<span class="comment_author">Sudhir Sinha</span>
+<span class="comment_time">December 25, 2010 at 5:14 pm</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-75203">
+<p>cron Job for every 2nd sunday</p>
+<p>* * 8-14 * * if [ `date +\%a` = "Sat" ]; then /apps/scripts/test.ksh; fi &gt;&gt; testlog</p>
+<p>These will not work:-<br>
+* * 8-14 * 0 if [ `date +\%a` = "Sat" ]; then /apps/scripts/test.ksh; fi &gt;&gt; testlog<br>
+or<br>
+* * 8-14 * 0 /apps/scripts/test.ksh &gt;&gt; testlog</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-76705">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-76705" title="Permalink to this comment" rel="nofollow">61</a></span>
+<span class="comment_author">karthik</span>
+<span class="comment_time">January 1, 2011 at 9:03 am</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-76705">
+<p>It helped me alot..</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-80028">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-80028" title="Permalink to this comment" rel="nofollow">62</a></span>
+<span class="comment_author">Spektator</span>
+<span class="comment_time">January 19, 2011 at 11:14 am</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-80028">
+<p>I came to a situation where the same user needs to run scripts for 2 environment settings.<br>
+Can I just set PATH twice in the cron file, first at the beginning for the first environment and then in the middle for the rest of the scripts belonging to the second environment?<br>
+Something like this:<br>
+PATH=path1…<br>
+0 * * * 0 sunday_script<br>
+0 0 * * 1 monday_midnight command<br>
+PATH=path2…<br>
+30 12 * * * noon_script every day (second environment)</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-83707">
+<span class="avatar"><a href="http://yahoo/" rel="nofollow"></a></span>
+<span class="comment_num"><a href="#comment-83707" title="Permalink to this comment" rel="nofollow">63</a></span>
+<span class="comment_author"><a href="http://yahoo/" rel="external nofollow" class="url">Roshan Munavar syed</a></span>
+<span class="comment_time">February 3, 2011 at 9:25 pm</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-83707">
+<p>hai ramesh<br>
+I have a doubt about how to send e-mail for particular user for process completed,if a process completed 35% or 45% we need to send a mail for a root user or other user<br>
+please explain this critical situation,i want clarification about this as soon as possible<br>
+i want explain about this sending e-mail &amp; checking process percentage[%] give command to find that<br>
+i hope soon you will reply for me<br>
+RMS</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-83887">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-83887" title="Permalink to this comment" rel="nofollow">64</a></span>
+<span class="comment_author">Marcelo</span>
+<span class="comment_time">February 4, 2011 at 11:56 am</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-83887">
+<p>Thanks, very useful tips</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-92827">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-92827" title="Permalink to this comment" rel="nofollow">65</a></span>
+<span class="comment_author">Ziad</span>
+<span class="comment_time">March 16, 2011 at 8:14 pm</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-92827">
+<p>Great examples</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-96280">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-96280" title="Permalink to this comment" rel="nofollow">66</a></span>
+<span class="comment_author">Gowtham</span>
+<span class="comment_time">April 5, 2011 at 10:44 am</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-96280">
+<p>How to schedule a Cron job twice in a day ? I need to schedule the job every day exactly at 3:45 AM and 6:30 AM. Do I need to Create two cronjob’s or single cronjob will be enough for this?</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-116211">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-116211" title="Permalink to this comment" rel="nofollow">67</a></span>
+<span class="comment_author">Javier</span>
+<span class="comment_time">July 5, 2011 at 11:14 am</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-116211">
+<p>I need to know how to run a one time specific date Cron Job.<br>
+say I needed to remove or move a directory on 6/14/2012. How do you tell it to run in 2012 or any other specified date &amp; year?</p>
+<p>thanks.</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-116352">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-116352" title="Permalink to this comment" rel="nofollow">68</a></span>
+<span class="comment_author">Leslie Satenstein</span>
+<span class="comment_time">July 6, 2011 at 7:09 am</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-116352">
+<p>Please review the crontab table. Therein you will find<br>
+Field 	Description 	Allowed Value<br>
+MIN 	Minute field 	0 to 59<br>
+HOUR 	Hour field 	0 to 23<br>
+DOM 	Day of Month 	1-31<br>
+MON 	Month field 	1-12<br>
+DOW 	Day Of Week 	0-6<br>
+CMD 	Command 	Any command to be executed.</p>
+<p>Using the combination of dow, and combination of month and day of month and day of week, you can specifiy annual events, with quite precision.<br>
+The nth day of the month falls on a different day every year. Make use of that information</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-116560">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-116560" title="Permalink to this comment" rel="nofollow">69</a></span>
+<span class="comment_author">Javier</span>
+<span class="comment_time">July 7, 2011 at 5:08 pm</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-116560">
+<p>O.K.<br>
+This is the command that I am trying to run.</p>
+<p>rm -r public_html/file_name<br>
+I need to know exactly how to set it up say to run at this exact date of June 4, 2012</p>
+<p>can someone please set it up so that I can visually see it.</p>
+<p>thanks for all of your time &amp; help</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-116853">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-116853" title="Permalink to this comment" rel="nofollow">70</a></span>
+<span class="comment_author">Leslie Satenstein</span>
+<span class="comment_time">July 9, 2011 at 6:48 pm</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-116853">
+<p>june 4th is a Monday<br>
+Setup the crontab to recognize  the day as Monday, the month as June, and set the time that you want it to run,  June4 on a Monday only occurs once in about 7 years.</p>
+<p>If you cannot do this, then ask someone in a college or programming school.</p>
+<p>Read the table above about programming the crontab.</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-119612">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-119612" title="Permalink to this comment" rel="nofollow">71</a></span>
+<span class="comment_author">Aneesh Hamza</span>
+<span class="comment_time">July 27, 2011 at 12:52 pm</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-119612">
+<p>Hi Javier,<br>
+Looks like you want to run a job only one time and instead of cron you can use the at command to run any job at a scheduled time.  However, at will only run the job once, unless the job reschedules itself.  at is invoked from the command line or from within a shell script.  The basic command is:<br>
+at  &lt; FILE<br>
+where FILE is a shell script of some sort and<br>
+ can be in several forms, such as 12 or 24 hour clock time, a date and time, an offset to the current time (e.g., now + 5 minutes) or similar.</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-119742">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-119742" title="Permalink to this comment" rel="nofollow">72</a></span>
+<span class="comment_author">Javier Cazares</span>
+<span class="comment_time">July 28, 2011 at 9:08 am</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-119742">
+<p>Thanks for your time &amp; help.<br>
+@ Aneesh.</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-120426">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-120426" title="Permalink to this comment" rel="nofollow">73</a></span>
+<span class="comment_author">Anonymous</span>
+<span class="comment_time">August 2, 2011 at 3:41 am</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-120426">
+<p>Based on the manual here, it’s called MAILTO, not just MAIL.</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-122480">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-122480" title="Permalink to this comment" rel="nofollow">74</a></span>
+<span class="comment_author">TK Nallappan</span>
+<span class="comment_time">August 17, 2011 at 8:50 am</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-122480">
+<p>Hi All,</p>
+<p>You can edit the user jobs from back end. But you should have the root user privilege. The user cronjobs will be located at /var/spool/cron/username</p>
+<p># cat /var/spool/cron/tknalla<br>
+* * * * * /usr/local/bin/php /home/tknalla/test.php</p>
+<p># vi /var/spool/cron/tknalla</p>
+<p>Instead of running the command “crontab -u tknalla -e”, you can straight away edit this file and can save it.</p>
+<p># crontab -u tknalla -l<br>
+0 0 * * * /usr/local/bin/php /home/tknalla/test.php</p>
+<p>Thank you guys</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-123053">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-123053" title="Permalink to this comment" rel="nofollow">75</a></span>
+<span class="comment_author">Pratk</span>
+<span class="comment_time">August 20, 2011 at 10:00 am</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-123053">
+<p>Its very useful….osm work…</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-125821">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-125821" title="Permalink to this comment" rel="nofollow">76</a></span>
+<span class="comment_author">Tim</span>
+<span class="comment_time">September 5, 2011 at 6:39 am</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-125821">
+<p>There is a typo on number 14, you have crontab -l to edit the crontab file. It should be crontab -e</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-125986">
+<span class="avatar"><a href="http://www.itbms.biz/" rel="nofollow"></a></span>
+<span class="comment_num"><a href="#comment-125986" title="Permalink to this comment" rel="nofollow">77</a></span>
+<span class="comment_author"><a href="http://www.itbms.biz/" rel="external nofollow" class="url">Leslie Satenstein</a></span>
+<span class="comment_time">September 6, 2011 at 9:17 am</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-125986">
+<p>The example in paragraph 14 is correct as is.  The author is not trying to edit the crontab, he/she is using the -l to show you the contents of the crontab. And you are correct,  -e would be used if you wanted to edit it.</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-125988">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-125988" title="Permalink to this comment" rel="nofollow">78</a></span>
+<span class="comment_author">Tim</span>
+<span class="comment_time">September 6, 2011 at 10:58 am</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-125988">
+<p>Oops, my bad.</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-126429">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-126429" title="Permalink to this comment" rel="nofollow">79</a></span>
+<span class="comment_author">S.Senthil kumar</span>
+<span class="comment_time">September 9, 2011 at 10:21 pm</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-126429">
+<p>How do we schedule a job running for every 45 mins all day?</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-126822">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-126822" title="Permalink to this comment" rel="nofollow">80</a></span>
+<span class="comment_author">Leslie Satenstein</span>
+<span class="comment_time">September 11, 2011 at 7:00 am</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-126822">
+<p>S.Senthil</p>
+<p>Please look at posting number 5</p>
+<p>*/10 * * * * /home/ramesh/debian/bin/check-disk-space<br>
+Change the /10 to /45<br>
+and change the path to your job.</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-135809">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-135809" title="Permalink to this comment" rel="nofollow">81</a></span>
+<span class="comment_author">Amit Singh</span>
+<span class="comment_time">October 29, 2011 at 6:50 am</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-135809">
+<p>liked the article.</p>
+<p>Mail example didnt work. It works fine if i make it MAILTO instead of MAIL as mentioned in the example.</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-137708">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-137708" title="Permalink to this comment" rel="nofollow">82</a></span>
+<span class="comment_author">kuldeep</span>
+<span class="comment_time">November 8, 2011 at 3:00 am</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-137708">
+<p>really a gud job .. every point understandable….</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-147313">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-147313" title="Permalink to this comment" rel="nofollow">83</a></span>
+<span class="comment_author">Arul</span>
+<span class="comment_time">November 29, 2011 at 1:43 am</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-147313">
+<p>We need to schedule our script with crontab. Our script contains our own env file to initialize some env variables. We got error while running the crontab. Error is “Variable not initialised from .env file”. Could u please let me know how to use the env variables in the crontab?</p>
+<p>Thanks in advance for your assistance…</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-154008">
+<span class="avatar"><a href="http://www.gmail.com/" rel="nofollow"></a></span>
+<span class="comment_num"><a href="#comment-154008" title="Permalink to this comment" rel="nofollow">84</a></span>
+<span class="comment_author"><a href="http://www.gmail.com/" rel="external nofollow" class="url">umesh</a></span>
+<span class="comment_time">December 12, 2011 at 2:20 am</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-154008">
+<p>Thank you so much..</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-160136">
+<span class="avatar"><a href="http://www.herecare.com/" rel="nofollow"></a></span>
+<span class="comment_num"><a href="#comment-160136" title="Permalink to this comment" rel="nofollow">85</a></span>
+<span class="comment_author"><a href="http://www.herecare.com/" rel="external nofollow" class="url">Soni Peterson</a></span>
+<span class="comment_time">December 22, 2011 at 9:37 pm</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-160136">
+<p>There were few cron jobs that were rnning on my machine and i was cheking them by using<br>
+crontab -l<br>
+command and was getting no cron job mesage<br>
+this articles help me and give me understanding of cron jobs and also I have ffind them<br>
+Thanx very much</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-173246">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-173246" title="Permalink to this comment" rel="nofollow">86</a></span>
+<span class="comment_author">Jamie</span>
+<span class="comment_time">January 5, 2012 at 4:28 am</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-173246">
+<p>Great article – I’ve come back to it a few times since you published it.</p>
+<p>I’m trying to schedule a cron job to run when it is a particular day of the week AND a particular day of the month. (e.g. every Friday 25th).</p>
+<p>If I specify both the day of week and date of month in crontab then it seems to take the OR of these two criteria, rather than the AND. (so would run every friday, and every 25th)</p>
+<p>Is there another way I can do this? It seems wrong that it would OR the commands rather than AND them – if I wanted to OR them I could just add them as two separate lines in crontab.</p>
+<p>Grateful for any tips.</p>
+</div>
+					</dd>
+					<dt class="comment even thread-even depth-1" id="comment-173855">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-173855" title="Permalink to this comment" rel="nofollow">87</a></span>
+<span class="comment_author">Leslie Satenstein</span>
+<span class="comment_time">January 6, 2012 at 8:34 am</span>
+
+					</dt>
+					<dd class="comment even thread-even depth-1">
+<div class="format_text" id="comment-body-173855">
+<p>Jamie,  You are right, it is an or situation.  However, you may use a bash shell command with date to determine if the day is a Friday,  Set up the crontab entry to execute every 25th of the month, and in the bash shell test for Friday.<br>
+date %a  gives 3 letter day of week,  date %u tells you the day number of the week.<br>
+I would use the day number with an if, or if you want different actions based on the day of the week, I would use date %u with the day number as an entry to a switch statement.</p>
+</div>
+					</dd>
+					<dt class="comment odd alt thread-odd thread-alt depth-1" id="comment-174343">
+<span class="avatar"></span>
+<span class="comment_num"><a href="#comment-174343" title="Permalink to this comment" rel="nofollow">88</a></span>
+<span class="comment_author">Jamie</span>
+<span class="comment_time">January 7, 2012 at 7:30 am</span>
+
+					</dt>
+					<dd class="comment odd alt thread-odd thread-alt depth-1">
+<div class="format_text" id="comment-body-174343">
+<p>Thanks for the tip Leslie. I ended up installing fcron, which when given two criteria, takes the AND of them as you might expect.</p>
+</div>
+					</dd>
+				</dl>
+				<div id="respond">
+					<div id="respond_intro">
+						<p>Leave a Comment</p>
+					</div>
+					<form action="http://www.thegeekstuff.com/wp-comments-post.php" method="post" id="commentform">
+						<p><input class="text_input" name="author" id="author" value="" tabindex="1" type="text"><label for="author">Name</label></p>
+						<p><input class="text_input" name="email" id="email" value="" tabindex="2" type="text"><label for="email">E-mail</label></p>
+						<p><input class="text_input" name="url" id="url" value="" tabindex="3" type="text"><label for="url">Website</label></p>
+						<p class="comment_box">
+							<textarea name="comment" id="comment" tabindex="4" cols="40" rows="8"></textarea><img style="cursor: pointer ! important; display: none ! important; position: absolute ! important; padding: 0pt ! important; margin: 0pt ! important; border: medium none ! important; width: 28px ! important; height: 14px ! important; opacity: 0.0152174 ! important; left: 690px ! important; top: 26565px ! important;" title="It's All Text!" src="chrome://itsalltext/locale/gumdrop.png">
+						</p>
+
+
+	<p style="clear: both;" class="subscribe-to-comments">
+	<input name="subscribe" id="subscribe" value="subscribe" style="width: auto;" type="checkbox">
+	<label for="subscribe">Notify me of followup comments via e-mail</label>
+	</p>
+
+
+						<p class="remove_bottom_margin">
+							<input name="submit" class="form_submit" id="submit" tabindex="5" value="Submit" type="submit">
+<input name="comment_post_ID" value="534" id="comment_post_ID" type="hidden">
+<input name="comment_parent" id="comment_parent" value="0" type="hidden">
+						</p>
+<p style="display: none;"><input id="akismet_comment_nonce" name="akismet_comment_nonce" value="4351c8889c" type="hidden"></p>					</form>
+				</div>
+			</div>
+					<div class="prev_next post_nav">
+						<p class="previous">Previous post: <a href="http://www.thegeekstuff.com/2009/06/how-to-upgrade-linksys-wireless-router-firmware/" rel="prev">4 Easy Steps To Upgrade Linksys Wireless Router Firmware</a></p>
+						<p>Next post: <a href="http://www.thegeekstuff.com/2009/06/ppm-install-error-no-suitable-installation-target-found-for-package/" rel="next">PPM Install Error: no suitable installation target found for package</a></p>
+					</div>
+		</div>
+
+		<div id="sidebars">
+			<div id="sidebar_1" class="sidebar">
+				<ul class="sidebar_list">
+<li class="widget widget_text" id="text-3">			<div class="textwidget"><div class="fancy-widget">
+ <form action="http://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open('http://feedburner.google.com/fb/a/mailverify?uri=thegeekstuff', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true">
+        <p>Sign up for our free email newsletter
+			<input style="background-color: rgb(255, 254, 238);" value="you@address.com" name="email" onclick="if (this.value=='you@address.com') {this.value=''};" onblur="if (this.value=='') {this.value='you@address.com';}" type="text">
+			<input value="thegeekstuff" name="uri" type="hidden">
+			<input name="loc" value="en_US" type="hidden">
+            &nbsp;&nbsp;&nbsp; <input style="border-color: rgb(204, 204, 204) rgb(153, 153, 153) rgb(153, 153, 153) rgb(204, 204, 204); border-style: double; border-width: 3px; font-weight: bold; overflow: visible;" value="Sign Up" type="submit">
+         </p>
+    </form>
+
+<p>
+<a title="RSS Feed" href="http://www.thegeekstuff.com/feed" rel="nofollow"><img src="thegeekstuff" style="border: 0pt none;" alt="" height="26" width="88"></a> &nbsp; &nbsp; <img src="feed14.png"> <a title="Subscribe via RSS" href="http://www.thegeekstuff.com/feed" rel="nofollow">RSS</a> <img src="twitter16.png">   <a title="Follow us on Twitter" href="http://twitter.com/thegeekstuff" rel="nofollow">Twitter</a>   <img src="facebook16.png">   <a title="Become a fan" href="http://www.facebook.com/thegeekstuff" rel="nofollow">Facebook</a> 
+</p>
+</div>
+<br>
+<form action="http://www.thegeekstuff.com/the-geek-stuff-search-powered-by-google" id="cse-search-box">
+  <div>
+    <input name="cx" value="005666763606120661560:zkmegbt_djm" type="hidden">
+    <input name="cof" value="FORID:10" type="hidden">
+    <input name="ie" value="UTF-8" type="hidden">
+    <input value="" style="background: url('google_custom_search_watermark.gif') no-repeat scroll left center rgb(255, 255, 255);" name="q" size="30" type="text">
+    <input style="border-color: rgb(204, 204, 204) rgb(153, 153, 153) rgb(153, 153, 153) rgb(204, 204, 204); border-style: double; border-width: 1px; overflow: visible;" name="sa" value="Search" type="submit">
+  </div>
+<input value="www.thegeekstuff.com/2009/06/15-practical-crontab-examples/" name="siteurl" type="hidden"></form>
+
+
+
+</div>
+		</li><li class="widget widget_text" id="text-12">			<div class="textwidget"><div id="adssidebar1"><div id="load-adssidebar1">
+<!-- begin ad tag (tile=2) -->
+<iframe src="index_16.html" marginwidth="0" marginheight="0" frameborder="0" height="250" scrolling="no" width="300"></iframe><img src="01" height="1" width="1">
+<!-- End ad tag -->
+</div></div></div>
+		</li><li class="widget widget_text" id="text-4"><h3>EBOOKS</h3>			<div class="textwidget"><a href="http://www.thegeekstuff.com/linux-101-hacks-ebook/"><img title="Linux 101 Hacks Book" src="linux-101-hacks-300x115.png" alt="Bash 101 Hacks Book"></a>
+<br>
+<br>
+<br>
+<a href="http://www.thegeekstuff.com/bash-101-hacks-ebook/"><img title="Bash 101 Hacks Book" src="bash-300x115.png" alt="Bash 101 Hacks Book"></a>
+<br>
+<br>
+<br>
+<a href="http://www.thegeekstuff.com/sed-awk-101-hacks-ebook/"><img title="Sed and Awk 101 Hacks Book" src="sed-and-awk-300x115.png" alt="Sed and Awk 101 Hacks Book"></a>
+<br>
+<br>
+<br>
+<a href="http://www.thegeekstuff.com/vim-101-hacks-ebook/"><img title="Vim 101 Hacks Book" src="vim-101-hacks-300x115.png" alt="Vim 101 Hacks Book"></a>
+<br>
+<br>
+<br>
+<a href="http://www.thegeekstuff.com/nagios-core-ebook/"><img title="Nagios Core 3 Book" src="nagios-core-300x115.png" alt="Nagios Core 3 Book"></a></div>
+		</li><li class="widget widget_text" id="text-15">			<div class="textwidget"><div id="adssidebar2"><div id="load-adssidebar2">
+<!-- begin ad tag (tile=3) -->
+
+<ins style="display: inline-table; border: medium none; height: 250px; margin: 0pt; padding: 0pt; position: relative; visibility: visible; width: 300px;"><ins id="aswift_4_anchor" style="display: block; border: medium none; height: 250px; margin: 0pt; padding: 0pt; position: relative; visibility: visible; width: 300px;"><iframe src="index_19.html" allowtransparency="true" hspace="0" marginwidth="0" marginheight="0" vspace="0" id="aswift_4" name="aswift_4" style="left: 0pt; position: absolute; top: 0pt;" frameborder="0" height="250" scrolling="no" width="300"></iframe></ins></ins><img src="set" height="1" width="1">
+<!-- End ad tag -->
+</div></div></div>
+		</li><li class="widget widget_text" id="text-17"><h3>POPULAR POSTS</h3>			<div class="textwidget"><ul>
+<li><a href="http://www.thegeekstuff.com/2009/01/12-amazing-and-essential-linux-books-to-enrich-your-brain-and-library/">12 Amazing and Essential Linux Books To Enrich Your Brain and Library</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/12/50-unix-linux-sysadmin-tutorials/">50 UNIX / Linux Sysadmin Tutorials</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/11/50-linux-commands/">50 Most Frequently Used UNIX / Linux Commands (With Examples)</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/08/gtd-getting-things-done/">How To Be Productive and Get Things Done Using GTD</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/03/30-things-to-do-when-you-are-bored-and-have-a-computer/">30 Things To Do When you are Bored and have a Computer</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/09/linux-file-system-structure/">Linux Directory Structure (File System Structure) Explained with Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/06/15-practical-crontab-examples/">Linux Crontab: 15 Awesome Cron Job Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/03/15-practical-unix-grep-command-examples/">Get a Grip on the Grep! – 15 Practical Grep Command Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/07/linux-ls-command-examples/">Unix LS Command: 15 Practical Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2008/08/15-examples-to-master-linux-command-line-history/">15 Examples To Master Linux Command Line History</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/08/bug-tracking-system/">Top 10 Open Source Bug Tracking System</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/01/vi-and-vim-macro-tutorial-how-to-record-and-play/">Vi and Vim Macro Tutorial: How To Record and Play</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/03/15-practical-linux-find-command-examples/">Mommy, I found it! -- 15 Practical Linux Find Command Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/07/best-gmail-tips-and-tricks/">15 Awesome Gmail Tips and Tricks</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/06/expertise-in-google-search/">15 Awesome Google Search Tips and Tricks</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/08/raid-levels-tutorial/">RAID 0, RAID 1, RAID 5, RAID 10 Explained with Diagrams</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/01/15-practical-unix-linux-top-command-examples/">Can You Top This? 15 Practical Linux Top Command Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/09/top-5-best-network-monitoring-tools/">Top 5 Best System Monitoring Tools</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/06/top-5-best-linux-os-distributions/">Top 5 Best Linux OS Distributions</a></li>
+<li><a href="http://www.thegeekstuff.com/2008/06/how-to-monitor-remote-linux-host-using-nagios-30/">How To Monitor Remote Linux Host using Nagios 3.0</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/01/awk-introduction-tutorial-7-awk-print-examples/">Awk Introduction Tutorial – 7 Awk Print Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/09/rsync-command-examples/">How to Backup Linux? 15 rsync Command Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/09/the-ultimate-wget-download-guide-with-15-awesome-examples/">The Ultimate Wget Download Guide With 15 Awesome Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/07/top-5-best-linux-text-editors/">Top 5 Best Linux Text Editors</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/08/tcpdump-command-examples/">Packet Analyzer: 15 TCPDUMP Command Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/06/bash-array-tutorial/">The Ultimate Bash Array Tutorial with 15 Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2008/11/3-steps-to-perform-ssh-login-without-password-using-ssh-keygen-ssh-copy-id/">3 Steps to Perform SSH Login Without Password Using ssh-keygen &amp; ssh-copy-id</a></li>
+<li><a href="http://www.thegeekstuff.com/2009/10/unix-sed-tutorial-advanced-sed-substitution-examples/">Unix Sed Tutorial: Advanced Sed Substitution Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2010/03/netstat-command-examples/">UNIX / Linux: 10 Netstat Command Examples</a></li>
+<li><a href="http://www.thegeekstuff.com/2008/06/the-ultimate-guide-for-creating-strong-passwords/">The Ultimate Guide for Creating Strong Passwords</a></li>
+<li><a href="http://www.thegeekstuff.com/2008/08/6-steps-to-secure-your-home-wireless-network/">6 Steps to Secure Your Home Wireless Network</a></li>
+<li><a href="http://www.thegeekstuff.com/2008/08/turbocharge-putty-with-12-powerful-add-ons-software-for-geeks-3/">Turbocharge PuTTY with 12 Powerful Add-Ons</a></li>
+</ul></div>
+		</li><li class="widget widget_text" id="text-16">			<div class="textwidget"><div id="adssidebar3"><div id="load-adssidebar3">
+<!-- begin ad tag (tile=3) -->
+<iframe src="index_22.html" marginwidth="0" marginheight="0" frameborder="0" height="600" scrolling="no" width="160"></iframe><img src="bd" height="1" width="1">
+<!-- End ad tag -->
+</div></div>
+</div>
+		</li>				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="footer">
+<div class="col_footer1">
+	<ul class="sidebar_list">
+<li id="text-7" class="widget widget_text"><h3>About The Geek Stuff</h3>			<div class="textwidget"><br>
+<img class="float" title="Ramesh Natarajan" src="ramesh-small.gif" alt="Linux 101 Hacks Book">
+My name is <strong>Ramesh Natarajan</strong>. I will be posting instruction guides, how-to, troubleshooting tips and tricks on Linux, database, hardware, security and web. My focus is to write articles that will either teach you or help you resolve a problem. Read more about <a href="http://www.thegeekstuff.com/about/">Ramesh Natarajan</a> and the blog.</div>
+		</li>
+<li id="text-8" class="widget widget_text"><h3>Support Us</h3>			<div class="textwidget"><br>
+Support this blog by purchasing one of my ebooks.
+<br><br>
+<a rel="nofollow" href="http://www.thegeekstuff.com/bash-101-hacks-ebook/">Bash 101 Hacks eBook</a>
+<br><br>
+<a rel="nofollow" href="http://www.thegeekstuff.com/sed-awk-101-hacks-ebook/">Sed and Awk 101 Hacks eBook</a>
+<br><br>
+<a rel="nofollow" href="http://www.thegeekstuff.com/vim-101-hacks-ebook/">Vim 101 Hacks eBook</a>
+<br><br>
+<a rel="nofollow" href="http://www.thegeekstuff.com/nagios-core-ebook/">Nagios Core 3 eBook</a></div>
+		</li>
+<li id="text-9" class="widget widget_text"><h3>Contact Us</h3>			<div class="textwidget"><br>
+<strong>Email Me :</strong>
+Use this <a href="http://www.thegeekstuff.com/contact" rel="nofollow">Contact Form</a> to get in touch me with your comments, questions or suggestions about this site. You can also simply drop me a line to say hello!.
+<br><br>
+<a title="Follow us on Twitter" href="http://twitter.com/thegeekstuff" rel="nofollow">Follow us on Twitter</a>
+<br><br>
+<a href="http://www.facebook.com/thegeekstuff" rel="nofollow">Become a fan on Facebook</a>&nbsp;&nbsp;</div>
+		</li>
+	</ul>
+</div>
+
+<div class="cb"></div>
+	<p>Copyright © 2008–2012 Ramesh Natarajan. All rights reserved  | 
+<a href="http://www.thegeekstuff.com/copyright">Terms of Service</a> | 
+<a href="http://www.thegeekstuff.com/advertise" title="Advertise on TheGeekStuff">Advertise</a> </p>	</div>
+<center>
+<div id="footer-ad"><div id="adsfooter"><div id="load-adsfooter">
+<!-- begin ad tag (tile=6) -->
+<iframe src="index_23.html" marginwidth="0" marginheight="0" frameborder="0" height="90" scrolling="no" width="728"></iframe><img src="img" height="1" width="1">
+<!-- End ad tag -->
+</div></div></div>
+</center>
+</div>
+</div>
+<!--[if lte IE 8]>
+<div id="ie_clear"></div>
+<![endif]-->
+
+
+
+<div style="display: none;">
+
+</div>
+
+
+<div style="display: none;">
+
+</div>
+
+
+<div style="display: none;">
+
+</div>
+
+
+<div style="display: none;">
+
+</div>
+
+
+<div id="BAP-holder"><div id="trigger-container-4816" style="position: static ! important;"><span id="trigger-box-4816" class="bap-trigger" style="position: absolute; opacity: 0.7; width: 19px; height: 15px; top: 443.5px; left: 1072px;"><img id="trigger-box-image-4816" src="box_19_top-right.png"></span><span id="trigger-4816" style="position: absolute; top: 443.5px; left: 1072px;" class="bap-trigger" onclick="BAP.action('4816', 'S'); BAP.action('4816', 'M'); _w.open(BAP.moreInfoHref(4816), '_newtab');"><img src="ci.png"></span></div><div id="trigger-container-27099" style="position: static ! important;"><span id="trigger-box-27099" class="bap-trigger" style="position: absolute; opacity: 0.7; width: 19px; height: 15px; top: 1539.5px; left: 1072px;"><img id="trigger-box-image-27099" src="box_19_top-right.png"></span><span id="trigger-27099" style="position: absolute; top: 1539.5px; left: 1072px;" class="bap-trigger" onclick="BAP.action('27099', 'S'); BAP.action('27099', 'M'); _w.open(BAP.moreInfoHref(27099), '_newtab');"><img src="ci.png"></span></div><div id="trigger-container-71025" style="position: static ! important;"><span id="trigger-box-71025" class="bap-trigger" style="position: absolute; opacity: 0.7; width: 19px; height: 15px; top: 2965px; left: 932px;"><img id="trigger-box-image-71025" src="box_19_top-right.png"></span><span id="trigger-71025" style="position: absolute; top: 2965px; left: 932px;" class="bap-trigger" onclick="BAP.action('71025', 'S'); BAP.action('71025', 'M'); _w.open(BAP.moreInfoHref(71025), '_newtab');"><img src="ci.png"></span></div><div id="trigger-container-81948" style="position: static ! important;"><span id="trigger-box-81948" class="bap-trigger" style="position: absolute; opacity: 0.7; width: 19px; height: 15px; top: 27105px; left: 978px;"><img id="trigger-box-image-81948" src="box_19_top-right.png"></span><span id="trigger-81948" style="position: absolute; top: 27105px; left: 978px;" class="bap-trigger" onclick="BAP.action('81948', 'S'); BAP.action('81948', 'M'); _w.open(BAP.moreInfoHref(81948), '_newtab');"><img src="ci.png"></span></div></div><img src="pixel.gif" height="0" width="0"><img src="pixel_001.gif" height="0" width="0"><img src="pixel_002.gif" height="0" width="0"><img src="pixel_003.gif" height="0" width="0">
+
+
+
+
+
+</body>
+</html>

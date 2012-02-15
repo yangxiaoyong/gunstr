@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    
+    
+    <title>tornado.escape — Escaping and string manipulation — Tornado v2.1.1 documentation</title>
+    
+    
+    
+    
+    
+    
+    <link rel="top" title="Tornado v2.1.1 documentation" href="http://www.tornadoweb.org/documentation/index.html">
+    <link rel="up" title="Core web framework" href="http://www.tornadoweb.org/documentation/webframework.html">
+    <link rel="next" title="tornado.locale — Internationalization support" href="http://www.tornadoweb.org/documentation/locale.html">
+    <link rel="prev" title="tornado.template — Flexible output generation" href="http://www.tornadoweb.org/documentation/template.html"> 
+  
+<link rel="stylesheet" type="text/css" href="escape.css" media="all">
+</head>
+<body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index" accesskey="I">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="locale.html" title="tornado.locale — Internationalization support" accesskey="N">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="template.html" title="tornado.template — Flexible output generation" accesskey="P">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="webframework.html" accesskey="U">Core web framework</a> »</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-tornado.escape">
+<span id="tornado-escape-escaping-and-string-manipulation"></span><h1><tt class="docutils literal"><span class="pre">tornado.escape</span></tt> — Escaping and string manipulation<a class="headerlink" href="#module-tornado.escape" title="Permalink to this headline">¶</a></h1>
+<p>Escaping/unescaping methods for HTML, JSON, URLs, and others.</p>
+<p>Also includes a few other miscellaneous string manipulation functions that
+have crept in over time.</p>
+<div class="section" id="escaping-functions">
+<h2>Escaping functions<a class="headerlink" href="#escaping-functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="tornado.escape.xhtml_escape">
+<tt class="descclassname">tornado.escape.</tt><tt class="descname">xhtml_escape</tt><big>(</big><em>value</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/escape.html#xhtml_escape"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.escape.xhtml_escape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Escapes a string so it is valid within XML or XHTML.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tornado.escape.xhtml_unescape">
+<tt class="descclassname">tornado.escape.</tt><tt class="descname">xhtml_unescape</tt><big>(</big><em>value</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/escape.html#xhtml_unescape"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.escape.xhtml_unescape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Un-escapes an XML-escaped string.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tornado.escape.url_escape">
+<tt class="descclassname">tornado.escape.</tt><tt class="descname">url_escape</tt><big>(</big><em>value</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/escape.html#url_escape"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.escape.url_escape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a valid URL-encoded version of the given value.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tornado.escape.url_unescape">
+<tt class="descclassname">tornado.escape.</tt><tt class="descname">url_unescape</tt><big>(</big><em>value</em>, <em>encoding='utf-8'</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/escape.html#url_unescape"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.escape.url_unescape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decodes the given value from a URL.</p>
+<p>The argument may be either a byte or unicode string.</p>
+<p>If encoding is None, the result will be a byte string.  Otherwise,
+the result is a unicode string in the specified encoding.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tornado.escape.json_encode">
+<tt class="descclassname">tornado.escape.</tt><tt class="descname">json_encode</tt><big>(</big><em>value</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/escape.html#json_encode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.escape.json_encode" title="Permalink to this definition">¶</a></dt>
+<dd><p>JSON-encodes the given Python object.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tornado.escape.json_decode">
+<tt class="descclassname">tornado.escape.</tt><tt class="descname">json_decode</tt><big>(</big><em>value</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/escape.html#json_decode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.escape.json_decode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns Python objects for the given JSON string.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="byte-unicode-conversions">
+<h2>Byte/unicode conversions<a class="headerlink" href="#byte-unicode-conversions" title="Permalink to this headline">¶</a></h2>
+<p>These functions are used extensively within Tornado itself,
+but should not be directly needed by most applications.  Note that
+much of the complexity of these functions comes from the fact that
+Tornado supports both Python 2 and Python 3.</p>
+<dl class="function">
+<dt id="tornado.escape.utf8">
+<tt class="descclassname">tornado.escape.</tt><tt class="descname">utf8</tt><big>(</big><em>value</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/escape.html#utf8"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.escape.utf8" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a string argument to a byte string.</p>
+<p>If the argument is already a byte string or None, it is returned unchanged.
+Otherwise it must be a unicode string and is encoded as utf8.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tornado.escape.to_unicode">
+<tt class="descclassname">tornado.escape.</tt><tt class="descname">to_unicode</tt><big>(</big><em>value</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/escape.html#to_unicode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.escape.to_unicode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a string argument to a unicode string.</p>
+<p>If the argument is already a unicode string or None, it is returned
+unchanged.  Otherwise it must be a byte string and is decoded as utf8.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tornado.escape.native_str">
+<tt class="descclassname">tornado.escape.</tt><tt class="descname">native_str</tt><big>(</big><big>)</big><a class="headerlink" href="#tornado.escape.native_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a byte or unicode string into type <tt class="xref py py-obj docutils literal"><span class="pre">str</span></tt>.  Equivalent to
+<a class="reference internal" href="#tornado.escape.utf8" title="tornado.escape.utf8"><tt class="xref py py-obj docutils literal"><span class="pre">utf8</span></tt></a> on Python 2 and <a class="reference internal" href="#tornado.escape.to_unicode" title="tornado.escape.to_unicode"><tt class="xref py py-obj docutils literal"><span class="pre">to_unicode</span></tt></a> on Python 3.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tornado.escape.to_basestring">
+<tt class="descclassname">tornado.escape.</tt><tt class="descname">to_basestring</tt><big>(</big><em>value</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/escape.html#to_basestring"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.escape.to_basestring" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a string argument to a subclass of basestring.</p>
+<p>In python2, byte and unicode strings are mostly interchangeable,
+so functions that deal with a user-supplied argument in combination
+with ascii string constants can use either and should return the type
+the user supplied.  In python3, the two types are not interchangeable,
+so this method is needed to convert byte strings to unicode.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="tornado.escape.recursive_unicode">
+<tt class="descclassname">tornado.escape.</tt><tt class="descname">recursive_unicode</tt><big>(</big><em>obj</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/escape.html#recursive_unicode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.escape.recursive_unicode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Walks a simple data structure, converting byte strings to unicode.</p>
+<p>Supports lists, tuples, and dictionaries.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="miscellaneous-functions">
+<h2>Miscellaneous functions<a class="headerlink" href="#miscellaneous-functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="tornado.escape.linkify">
+<tt class="descclassname">tornado.escape.</tt><tt class="descname">linkify</tt><big>(</big><em>text, shorten=False, extra_params='', require_protocol=False, permitted_protocols=['http', 'https']</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/escape.html#linkify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.escape.linkify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts plain text into HTML with links.</p>
+<p>For example: <tt class="docutils literal"><span class="pre">linkify("Hello</span> <span class="pre">http://tornadoweb.org!")</span></tt> would return
+<tt class="docutils literal"><span class="pre">Hello</span> <span class="pre">&lt;a</span> <span class="pre">href="http://tornadoweb.org"&gt;http://tornadoweb.org&lt;/a&gt;!</span></tt></p>
+<p>Parameters:</p>
+<p>shorten: Long urls will be shortened for display.</p>
+<dl class="docutils">
+<dt>extra_params: Extra text to include in the link tag,</dt>
+<dd>e.g. linkify(text, extra_params=’rel=”nofollow” class=”external”’)</dd>
+<dt>require_protocol: Only linkify urls which include a protocol. If this is</dt>
+<dd>False, urls such as www.facebook.com will also be linkified.</dd>
+<dt>permitted_protocols: List (or set) of protocols which should be linkified,</dt>
+<dd>e.g. linkify(text, permitted_protocols=[“http”, “ftp”, “mailto”]).
+It is very unsafe to include protocols such as “javascript”.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="tornado.escape.squeeze">
+<tt class="descclassname">tornado.escape.</tt><tt class="descname">squeeze</tt><big>(</big><em>value</em><big>)</big><a class="reference internal" href="http://www.tornadoweb.org/documentation/_modules/tornado/escape.html#squeeze"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#tornado.escape.squeeze" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replace all sequences of whitespace chars with a single space.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a indepth="true" href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><tt class="docutils literal"><span class="pre">tornado.escape</span></tt> — Escaping and string manipulation</a><ul>
+<li><a class="reference internal" href="#escaping-functions">Escaping functions</a></li>
+<li><a class="reference internal" href="#byte-unicode-conversions">Byte/unicode conversions</a></li>
+<li><a class="reference internal" href="#miscellaneous-functions">Miscellaneous functions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a indepth="true" href="template.html" title="previous chapter"><tt class="docutils literal"><span class="pre">tornado.template</span></tt> — Flexible output generation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a indepth="true" href="locale.html" title="next chapter"><tt class="docutils literal"><span class="pre">tornado.locale</span></tt> — Internationalization support</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="http://www.tornadoweb.org/documentation/_sources/escape.txt" rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none;">
+  <h3>Quick search</h3>
+    <form class="search" action="http://www.tornadoweb.org/documentation/search.html" method="get">
+      <input value="" name="q" size="18" type="text">
+      <input value="Go" type="submit">
+      <input name="check_keywords" value="yes" type="hidden">
+      <input name="area" value="default" type="hidden">
+    </form>
+    <p class="searchtip" style="font-size: 90%;">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="locale.html" title="tornado.locale — Internationalization support">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="template.html" title="tornado.template — Flexible output generation">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="webframework.html">Core web framework</a> »</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        © Copyright 2011, Facebook.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  
+
+
+</body></html>

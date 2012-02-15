@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    
+    
+    <title>What’s new in Tornado 1.1.1 — Tornado v2.1.1 documentation</title>
+    
+    
+    
+    
+    
+    
+    <link rel="top" title="Tornado v2.1.1 documentation" href="http://www.tornadoweb.org/documentation/index.html">
+    <link rel="up" title="Release notes" href="http://www.tornadoweb.org/documentation/releases.html">
+    <link rel="next" title="What’s new in Tornado 1.1" href="http://www.tornadoweb.org/documentation/releases/v1.1.0.html">
+    <link rel="prev" title="What’s new in Tornado 1.2" href="http://www.tornadoweb.org/documentation/releases/v1.2.0.html"> 
+  
+<link rel="stylesheet" type="text/css" href="v1.1.1.css" media="all">
+</head>
+<body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index" accesskey="I">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="v1.1.0.html" title="What’s new in Tornado 1.1" accesskey="N">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="v1.2.0.html" title="What’s new in Tornado 1.2" accesskey="P">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="releases.html" accesskey="U">Release notes</a> »</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="what-s-new-in-tornado-1-1-1">
+<h1>What’s new in Tornado 1.1.1<a class="headerlink" href="#what-s-new-in-tornado-1-1-1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="feb-8-2011">
+<h2>Feb 8, 2011<a class="headerlink" href="#feb-8-2011" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-none"><div class="highlight"><pre>Tornado 1.1.1 is a BACKWARDS-INCOMPATIBLE security update that fixes an
+XSRF vulnerability.  It is available at
+http://github.com/downloads/facebook/tornado/tornado-1.1.1.tar.gz
+
+This is a backwards-incompatible change.  Applications that previously
+relied on a blanket exception for XMLHTTPRequest may need to be modified
+to explicitly include the XSRF token when making ajax requests.
+
+The tornado chat demo application demonstrates one way of adding this
+token (specifically the function postJSON in demos/chat/static/chat.js).
+
+More information about this change and its justification can be found at
+http://www.djangoproject.com/weblog/2011/feb/08/security/
+http://weblog.rubyonrails.org/2011/2/8/csrf-protection-bypass-in-ruby-on-rails
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a indepth="true" href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">What’s new in Tornado 1.1.1</a><ul>
+<li><a class="reference internal" href="#feb-8-2011">Feb 8, 2011</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a indepth="true" href="v1.2.0.html" title="previous chapter">What’s new in Tornado 1.2</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a indepth="true" href="v1.1.0.html" title="next chapter">What’s new in Tornado 1.1</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="http://www.tornadoweb.org/documentation/_sources/releases/v1.1.1.txt" rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none;">
+  <h3>Quick search</h3>
+    <form class="search" action="http://www.tornadoweb.org/documentation/search.html" method="get">
+      <input value="" name="q" size="18" type="text">
+      <input value="Go" type="submit">
+      <input name="check_keywords" value="yes" type="hidden">
+      <input name="area" value="default" type="hidden">
+    </form>
+    <p class="searchtip" style="font-size: 90%;">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px;">
+          <a indepth="true" href="genindex.html" title="General Index">index</a></li>
+        <li class="right">
+          <a indepth="true" href="py-modindex.html" title="Python Module Index">modules</a> |</li>
+        <li class="right">
+          <a indepth="true" href="v1.1.0.html" title="What’s new in Tornado 1.1">next</a> |</li>
+        <li class="right">
+          <a indepth="true" href="v1.2.0.html" title="What’s new in Tornado 1.2">previous</a> |</li>
+        <li><a indepth="true" href="index.html">Tornado v2.1.1 documentation</a> »</li>
+          <li><a indepth="true" href="releases.html">Release notes</a> »</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        © Copyright 2011, Facebook.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  
+
+
+</body></html>

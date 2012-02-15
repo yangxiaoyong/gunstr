@@ -1,0 +1,8 @@
+p {
+  color: black;
+}
+
+#navigation p {
+  color: blue;
+  font-weight: bold
+}

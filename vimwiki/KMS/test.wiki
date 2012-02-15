@@ -1,0 +1,16 @@
+{{{class="brush: python"
+class TestHelloWorld(object):
+  """Hello world python."""
+    def __init__(self, name):
+        self.name = name
+
+  def say(self):
+      print("hello {0}".format(self.name))
+}}}
+
+[[wiki Item]]
+[[wiki item|description]]
+[http://a.com a.com]
+[images/hello.jpg]
+[[images/hello.jpg]]
+

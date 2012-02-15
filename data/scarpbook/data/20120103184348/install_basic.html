@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  	
+  	<title>Documentation | Puppet Labs - PE 2.0 » Installing » Basic Installation</title>
+  	<meta name="description" content="The open source leader in data center automation">
+  	<link rel="alternate" type="text/xml" title="Puppet Labs RSS 0.92 Feed" href="http://puppetlabs.com/feed/rss/">
+  	<link rel="alternate" type="application/atom+xml" title="Puppet Labs Atom Feed" href="http://puppetlabs.com/feed/atom/">
+  	<link rel="alternate" type="application/rss+xml" title="Puppet Labs RSS 2.0 Feed" href="http://puppetlabs.com/feed/">
+  	<link rel="pingback" href="http://puppetlabs.com/xmlrpc.php">
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://puppetlabs.com/xmlrpc.php?rsd">
+    <link rel="index" title="Puppet Labs" href="http://docs.puppetlabs.com/">
+
+<!-- Google stats -->
+
+
+<!-- End Google stats -->
+
+
+    <!-- FIXME: absolute paths -->
+
+    
+    
+    
+    
+    
+    
+
+     <!--Add rotation jQuery Script -->
+	 	
+    
+
+    <!-- All in One SEO Pack 1.6.10.1 by Michael Torbert of Semper Fi Web Design[127,146] -->
+    <meta name="keywords" content="Puppet, puppet labs, reductive labs, open source, system administrator, ruby, data center, automation, support">
+    <link rel="canonical" href="http://docs.puppetlabs.com/">
+    <!-- /all in one seo pack -->
+	
+    <!-- FIXME: absolute paths -->
+
+     
+     <!-- index -->
+    
+
+    <!--[if IE 7]>
+	  <link rel="stylesheet" type="text/css" href="/files/stylesheets/ie_7.css" media="screen"> <!-- index -->
+    <!--[endif]---->
+  
+    <!--[if IE 8]>
+	    <link rel="stylesheet" type="text/css" href="/files/stylesheets/ie_8.css" media="screen"> <!-- index -->
+    <!--[endif]---->		
+
+  	
+
+<link rel="stylesheet" type="text/css" href="install_basic.css" media="all">
+</head>
+<body id="puppetlabsdocs" class="docs">
+  		
+  <!--[if IE 8]>
+    <style type="text/css">h1, h2{ visibility : visible }</style>
+  <![endif]-->		
+
+  	<header id="header">
+      <div class="site-width">
+    		<h1><a href="http://puppetlabs.com/"><span>Puppet Labs</span></a></h1>
+        <a class="screen-reader-content" href="#content">Skip navigation</a>
+        <nav>
+    		<ul id="global-navigation">
+          <li id="puppet-tab" class="with-submenu">
+            <a href="http://www.puppetlabs.com/puppet/">
+              <span>Products</span>
+
+              <span class="drop-down-trigger"></span>
+            </a>
+            <ul>            
+              <li>
+                <ul>
+<li class="page_item page-item-769"><a href="http://www.puppetlabs.com/puppet/puppet-enterprise/" title="Puppet Enterprise">Puppet Enterprise</a></li>
+<li class="page_item page-item-757"><a href="http://www.puppetlabs.com/puppet/introduction/" title="Puppet">Puppet</a></li>
+<li class="page_item page-item-956"><a href="http://www.puppetlabs.com/puppet/how-to-buy/" title="How to Buy">How to Buy</a></li>
+<li class="page_item page-item-1159"><a href="http://forge.puppetlabs.com/" title="Module Forge">Module Forge</a></li>
+
+<li class="page_item page-item-2415"><a href="http://www.puppetlabs.com/mcollective/introduction/" title="MCollective">MCollective</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li id="services-tab" class="with-submenu">
+            <a href="http://www.puppetlabs.com/services/">
+              <span>Services</span>
+              <span class="drop-down-trigger"></span>
+
+            </a>
+            <ul>
+              <li class="page_item page-item-783"><a href="http://www.puppetlabs.com/services/overview/" title="Overview">Overview</a></li>
+<li class="page_item page-item-839"><a href="http://www.puppetlabs.com/services/support/" title="Enterprise Support">Enterprise Support</a></li>
+<li class="page_item page-item-845"><a href="http://www.puppetlabs.com/services/training-workshops/" title="On-Site Training &amp; Consulting">On-Site Training &amp; Consulting</a></li>
+<li class="page_item page-item-849"><a href="http://docs.puppetlabs.com/category/events/upcoming/" title="Events &amp; Public Training">Events &amp; Public Training</a></li>
+<li class="page_item page-item-851"><a href="http://www.puppetlabs.com/services/partners/" title="Partners">Partners</a></li>
+<li class="page_item page-item-1037"><a href="http://docs.puppetlabs.com/resources/customer-support" title="Customer Support">Customer Support</a></li>
+            </ul>
+          </li>
+          <li id="resources-tab" class="with-submenu">
+            <a href="http://www.puppetlabs.com/resources/">
+              <span>Resources</span>
+
+              <span class="drop-down-trigger"></span>
+            </a>
+            <ul>
+              <li class="page_item page-item-1048"><a href="http://www.puppetlabs.com/resources/overview-2/" title="Overview">Overview</a></li>
+<li class="page_item page-item-1052"><a href="http://www.puppetlabs.com/resources/customer-support/" title="Customer Support">Customer Support</a></li>
+<li class="page_item page-item-1040"><a href="http://docs.puppetlabs.com/" title="Documentation">Documentation</a></li>
+<li class="page_item page-item-872"><a href="http://info.puppetlabs.com/register-download" title="Downloads">Downloads</a></li>
+<li class="page_item page-item-1961"><a href="http://forge.puppetlabs.com/" title="Module Forge">Module Forge</a></li>
+<li class="page_item page-item-835"><a href="http://info.puppetlabs.com/request-whitepapers.html" title="White Papers">White Papers</a></li>
+<li class="page_item page-item-1967"><a href="http://projects.puppetlabs.com/projects/puppet/wiki" title="Wiki">Wiki</a></li>
+            </ul>
+
+          </li>
+
+<li id="customer-tab" class="with-submenu">
+            <a href="http://www.puppetlabs.com/customers/companies/">
+              <span>Customers</span>
+
+              <span class="drop-down-trigger"></span>
+            </a>
+            <ul>
+              <li class="page_item page-item-1048"><a href="http://www.puppetlabs.com/customers/companies/" title="Overview">Companies</a></li>
+<li class="page_item page-item-1052"><a href="http://www.puppetlabs.com/customers/case-studies/" title="Case Studies">Case Studies</a></li>
+<li class="page_item page-item-1040"><a href="http://www.puppetlabs.com/customers/product-testimonials/" title="Product Testimonials">Product Testimonials</a></li>
+<li class="page_item page-item-872"><a href="http://www.puppetlabs.com/customers/what-customers-are-saying/" title="ervice Testimonials">Service Testimonials</a></li>
+	</ul>
+          </li>
+         <li id="community-tab" class="with-submenu">
+            <a href="http://www.puppetlabs.com/community/">
+              <span>Community</span>
+
+              <span class="drop-down-trigger"></span>
+            </a>
+            <ul>
+              <li class="page_item page-item-2195"><a href="http://www.puppetlabs.com/community/overview/" title="Overview">Overview</a></li>
+<li class="page_item page-item-2195"><a href="http://www.puppetlabs.com/blog" title="Blog">Blog</a></li>
+<li class="page_item page-item-2264"><a href="http://www.puppetlabs.com/community/puppet-camp/" title="Puppet Camp">Puppet Camp</a></li>
+<li class="page_item page-item-2249"><a href="http://www.puppetlabs.com/community/user-groups-and-devops-groups/" title="User Groups &amp; DevOps Groups">User Groups &amp; DevOps Groups</a></li>
+<li class="page_item page-item-2215"><a href="http://www.puppetlabs.com/community/presentations/" title="Presentations">Presentations</a></li>
+
+<li class="page_item page-item-2217"><a href="http://www.puppetlabs.com/community/videos/" title="Videos">Videos</a></li>
+<li class="page_item page-item-2217"><a href="http://www.puppetlabs.com/community/badges/" title="Badges">Badges</a></li>
+            </ul>
+          </li>
+
+          <li id="company-tab" class="with-submenu">
+            <a href="http://www.puppetlabs.com/company/">
+              <span>Company</span>
+              <span class="drop-down-trigger"></span>
+            </a>
+
+            <ul>
+              <li class="page_item page-item-2316"><a href="http://www.puppetlabs.com/company/overview/" title="Overview">Overview</a></li>
+<li class="page_item page-item-2179"><a href="http://www.puppetlabs.com/company/news/" title="News">News</a></li>
+<li class="page_item page-item-1571"><a href="http://www.puppetlabs.com/company/jobs/" title="Jobs">Jobs</a></li>
+<li class="page_item page-item-2313"><a href="http://www.puppetlabs.com/company/contact-us/" title="Contact Us">Contact Us</a></li>
+            </ul>
+          </li>
+    		</ul>	   
+          <div id="misc-navigation">
+
+			  <ul>
+				<li><a href="http://puppetlabs.com/security/">Security</a></li>
+				<li><a href="http://docs.puppetlabs.com/">Documentation</a></li>
+				<li><a href="http://puppetlabs.com/resources/customer-support/">Support</a></li>
+				<li><a href="http://projects.puppetlabs.com/">Bug Tracker</a></li>
+				<li><a href="http://puppetlabs.com/company/#contact">Contact Us</a></li>
+				<li><a href="http://info.puppetlabs.com/download-pe2.html" class="gateway">Download</a></li>
+			  </ul>
+			<form action="http://www.google.com/cse" id="cse-search-box">
+
+			  <div>
+				<input name="cx" value="017884045025332504017:1mnj-dlgfcc" type="hidden">
+				<input name="ie" value="UTF-8" type="hidden">
+				<input value="" name="q" size="31" type="text">
+				<input name="sa" class="searchbtn" value="Search" type="submit">
+			  </div>
+			</form>
+			
+
+          </div>
+      </nav>
+    	</div>
+    </header>  
+
+      <section id="masthead">
+        <div class="site-width">
+          <h1>Docs: <span class="section-name">PE 2.0 » Installing » Basic Installation</span></h1>
+          <ul id="doc-navigation">
+            <li><a href="http://docs.puppetlabs.com/">Docs Home</a></li>
+            <li class="with-submenu">
+              <a href="#">
+                <span>Quick Nav</span>
+                <span class="drop-down-trigger"></span>
+              </a>
+               <!-- the following links can't be relative, unfortunately -->
+               <!-- future: add some JS to disable this if running from file:// -->
+               	            <dl>
+	              <dt>Puppet Guides</dt>
+                      <dd><a href="http://docs.puppetlabs.com/index.html">Index</a></dd>
+                  <dt>Puppet References</dt>
+                      <dd><a href="http://docs.puppetlabs.com/references/stable/type.html">Resource Types</a></dd>
+                      <dd><a href="http://docs.puppetlabs.com/references/stable/function.html">Functions</a></dd>
+                      <dd><a href="http://docs.puppetlabs.com/references/stable/metaparameter.html">Metaparameters</a></dd>
+                      <dd><a href="http://docs.puppetlabs.com/references/stable/configuration.html">Configuration</a></dd>
+                      <dt>References By Version</dt>
+                      <dd><a href="http://docs.puppetlabs.com/references/2.7.9/">2.7.9</a></dd>
+                      <dd><a href="http://docs.puppetlabs.com/references/2.6.13/">2.6.13</a></dd>
+                      <dd><a href="http://docs.puppetlabs.com/references/0.25.5/">0.25.5</a></dd>
+                      <dd><a href="http://docs.puppetlabs.com/references/0.24.8/">0.24.8</a></dd>
+                      <dd><a href="http://docs.puppetlabs.com/references/">Other Versions</a></dd>
+                  <dt>MCollective</dt>
+                      <dd><a href="http://docs.puppetlabs.com/mcollective/index.html">Index</a></dd>
+                      <dd><a href="http://docs.puppetlabs.com/mcollective/simplerpc/index.html">SimpleRPC</a></dd>
+                      <dd><a href="http://docs.puppetlabs.com/mcollective/roadmap/index.html">Roadmap</a></dd>
+                      <dd><a href="http://docs.puppetlabs.com/mcollective/releasenotes.html">Release Notes</a></dd>
+                      <dd><a href="http://docs.puppetlabs.com/mcollective/reference/index.html">References</a></dd>
+	            </dl>
+
+            </li>
+            <li><a href="http://docs.puppetlabs.com/contribute.html">Contribute</a></li>
+          </ul>
+        </div>
+      </section>
+    
+      <section id="content">
+        <div class="site-width">
+          <div class="primary-secondary-content">
+            <div class="primary-content">
+              <h1 id="basic-installation">Basic Installation</h1>
+
+<h2 id="starting-the-installer">Starting the Installer</h2>
+
+<p>To install PE:</p>
+
+<ul>
+  <li>Unarchive the installer tarball, usually with <code>tar -xzf &lt;INSTALLER TARBALL&gt;</code>.</li>
+  <li>Navigate to the resulting directory in your shell.</li>
+  <li>
+    <p>Run the <code>puppet-enterprise-installer</code> script with root privileges:</p>
+
+    <pre><code>  # sudo ./puppet-enterprise-installer
+</code></pre>
+  </li>
+  <li>Answer the interview questions to <a href="#customizing-your-installation">customize your installation</a>. </li>
+  <li>Log into the puppet master server and <a href="#signing-agent-certificates">sign the new node’s certificate</a>.</li>
+  <li>If you have purchased PE and are installing the puppet master, <a href="#verifying-your-license">copy your license key into place</a>.</li>
+</ul>
+
+<p>The installer can also be run non-interactively; <a indepth="true" href="install_automated.html">see the chapter on automated installation</a> for details.</p>
+
+<p>Note that after the installer has finished installing and configuring PE, it will save your interview answers to a file called <code>answers.lastrun</code>.</p>
+
+<h3 id="installer-options">Installer Options</h3>
+
+<p>The installer will accept the following command-line flags:</p>
+
+<ul>
+  <li><code>-h</code> – Display a brief help message.</li>
+  <li><code>-s &lt;ANSWER FILE&gt;</code> – Save answers to file and quit without installing.</li>
+  <li><code>-a &lt;ANSWER FILE&gt;</code> – Read answers from file and fail if an answer is missing.</li>
+  <li><code>-A &lt;ANSWER FILE&gt;</code> – Read answers from file and prompt for input if an answer is missing.</li>
+  <li><code>-D</code> – Display debugging information.</li>
+  <li><code>-l &lt;LOG FILE&gt;</code> – Log commands and results to file.</li>
+  <li><code>-n</code> – Run in ‘noop’ mode; show commands that would have been run during installation without running them.</li>
+</ul>
+
+<h2 id="customizing-your-installation">Customizing Your Installation</h2>
+
+<p>The PE installer configures Puppet by asking a series of questions. Most questions have a default answer (displayed in brackets), which you can accept by pressing enter without typing a replacement. For questions with a yes or no answer, the default answer is capitalized (e.g. “<code>[y/N]</code>”).</p>
+
+<h3 id="roles">Roles</h3>
+
+<p>First, the installer will ask which of PE’s <a indepth="true" href="welcome_roles.html">roles</a> (puppet master, console, cloud provisioner, and puppet agent) to install. The roles you apply will determine which other questions the installer will ask. </p>
+
+<p>If you choose the puppet master or console roles, the puppet agent role will be installed automatically.</p>
+
+<p>The puppet master and console roles should each be installed on <strong>only one</strong> system.</p>
+
+<h3 id="puppet-master-options">Puppet Master Options</h3>
+
+<h4 id="certname">Certname</h4>
+
+<p>The certname is the puppet master’s unique identifier. This defaults to its fully-qualified domain name, which is usually the best choice, but any arbitrary string can be used.</p>
+
+<h4 id="valid-dns-names">Valid DNS Names</h4>
+
+<p>The master’s certificate contains a static list of valid DNS names, and agents won’t trust the master if they contact it at an unlisted address. You should make sure that this list contains the DNS name or alias you’ll be configuring your agents to contact.</p>
+
+<p>The valid DNS names setting should be a comma-separated list of hostnames. The default set of DNS names will be derived from the certname you chose, and will include the default puppet master name of “puppet.”</p>
+
+<h4 id="location-of-the-console-server">Location of the Console Server</h4>
+
+<p>If you are splitting the puppet master and console roles across different machines, the installer will ask you for the hostname and port of the console server.</p>
+
+<h3 id="console-options">Console Options</h3>
+
+<p>The console is usually run on the same server as the puppet master, but can also be installed on a separate machine. <strong>If you are splitting the console and puppet master roles, install the console <em>after</em> the puppet master.</strong></p>
+
+<h4 id="port">Port</h4>
+
+<p>You must choose a port on which to serve the console’s web interface. If you aren’t already serving web content from this machine, it will default to <strong>port 443,</strong> so you can reach it at <code>https://yourconsoleserver</code> without specifying a port.</p>
+
+<p>If the installer detects another web server on the node, it will suggest the first open port at or above 3000.</p>
+
+<h4 id="user-name-and-password">User Name and Password</h4>
+
+<p>As the console’s web interface is a major point of control for your infrastructure, access is restricted with a user name and password. Additional users and passwords can be added later with Apache’s standard authentication tools. </p>
+
+<h4 id="inventory-certname-and-dns-names-optional">Inventory Certname and DNS Names (Optional)</h4>
+
+<p>If you are splitting the master and the console roles, the console will maintain an inventory service to collect facts from the puppet master. Like the master, the inventory service needs a unique certname and a list of valid DNS names. </p>
+
+<h4 id="database">Database</h4>
+
+<p>The console needs a MySQL database and user in order to operate. If a MySQL server isn’t already present on this server, the installer can automatically configure everything the console needs; just confirm that you want to install a new database server, and configure the following settings:</p>
+
+<ul>
+  <li>A password for MySQL’s root user</li>
+  <li>A name for the console’s database</li>
+  <li>A MySQL user name for the console</li>
+  <li>A password for the console’s user</li>
+</ul>
+
+<p>If you don’t install a new database server, you must manually create a database and MySQL user for the console and configure the settings above with the correct information.</p>
+
+<p>You can create the necessary MySQL resources in a secondary shell session while the installer is waiting for input. The SQL commands you need will resemble the following:</p>
+
+<pre><code>CREATE DATABASE console CHARACTER SET utf8;
+CREATE USER 'console'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON console.* TO 'console'@'localhost';
+</code></pre>
+
+<p>Consult the MySQL documentation for more info.</p>
+
+<p>A local database is best, but you can also create a database on a remote server. If you do, you’ll need to answer <code>Y</code> when asked if your MySQL server is remote, and provide:</p>
+
+<ul>
+  <li>The database server’s hostname</li>
+  <li>The database server’s port (default: 3306)</li>
+</ul>
+
+<h3 id="puppet-agent-options">Puppet Agent Options</h3>
+
+<h4 id="certname-1">Certname</h4>
+
+<p>The certname is the agent node’s unique identifier.</p>
+
+<p>This defaults to the node’s fully-qualified domain name, but any arbitrary string can be used. If hostnames change frequently at your site or are otherwise unreliable, you may wish to use UUIDs or hashed firmware attributes for your agent certnames.</p>
+
+<h4 id="puppet-master-hostname">Puppet Master Hostname</h4>
+
+<p>Agent nodes need the hostname of a puppet master server. This must be one of the valid DNS names you chose when installing the puppet master.</p>
+
+<p>This setting defaults to <code>puppet</code>.</p>
+
+<h3 id="vendor-packages">Vendor Packages</h3>
+
+<p>Puppet Enterprise may need some extra system software from your OS vendor’s package repositories. If any of this software isn’t yet installed, the installer will list the packages it needs and offer to automatically install them. If you decline, it will exit so you can install the necessary packages manually before installing.</p>
+
+<p><strong>A note about Java and MySQL under Enterprise Linux variants:</strong> Java and MySQL packages provided by Oracle can satisfy the puppet master and console roles’ Java and MySQL dependencies, but the installer can’t make that decision automatically and will default to using the OS’s packages. If you wish to use Oracle’s packages instead of the OS’s, you must first use RPM to manually install the <code>pe-virtual-java</code> and/or <code>pe-virtual-mysql</code> packages included with Puppet Enterprise: </p>
+
+<pre><code># sudo rpm -ivh packages/pe-virtual-java-1.0-1.pe.el5.noarch.rpm
+</code></pre>
+
+<p>Find these in the installer’s <code>packages/</code> directory. Note that these packages may have additional ramifications if you later install other software that depends on OS MySQL or Java packages. </p>
+
+<h3 id="convenience-links">Convenience Links</h3>
+
+<p>PE installs its binaries in <code>/opt/puppet/bin</code> and <code>/opt/puppet/sbin</code>, which aren’t included in your default <code>$PATH</code>. If you want to make the Puppet tools more visible to all users, the installer can make symlinks in <code>/usr/local/bin</code> for the <code>facter, puppet, puppet-module, pe-man</code>, and <code>mco</code> binaries. </p>
+
+<h2 id="finishing-up">Finishing Up</h2>
+
+<h3 id="signing-agent-certificates">Signing Agent Certificates</h3>
+
+<p>Before nodes with the puppet agent role can fetch configurations or appear in the console, an administrator has to sign their certificate requests. This helps prevent unauthorized nodes from intercepting sensitive configuration data.</p>
+
+<p>During installation, PE will automatically submit a certificate request to the puppet master. Before the agent can retrieve any configurations, a user will have to sign a certificate for it.</p>
+
+<p><strong>Certificate signing is done on the puppet master node.</strong> To view the list of pending certificate requests, run:</p>
+
+<pre><code>$ sudo puppet cert list
+</code></pre>
+
+<p>To sign one of the pending requests, run:</p>
+
+<pre><code>$ sudo puppet cert sign &lt;name&gt;
+</code></pre>
+
+<p>After signing a new node’s certificate, it may take up to 30 minutes before that node appears in the console and begins retrieving configurations. </p>
+
+<h3 id="verifying-your-license">Verifying Your License</h3>
+
+<p>When you purchased Puppet Enterprise, you should have been sent a <code>license.key</code> file that lists how many nodes you can deploy. For PE to run without logging license warnings, <strong>you should copy this file to the puppet master node as <code>/etc/puppetlabs/license.key</code>.</strong> If you don’t have your license key file, please email <a href="mailto:sales@puppetlabs.com">sales@puppetlabs.com</a> and we’ll re-send it.</p>
+
+
+            </div>
+            <div class="secondary-content">
+                  <div id="subCol">
+                  
+                  
+                      <!-- 
+<h3 class="chapter">Contents</h3>
+                      
+<ol class="toc">
+  <li class="toc-lv2"><a href="#starting-the-installer">Starting the Installer</a>
+<ol class="toc">
+   <li class="toc-lv3"><a href="#installer-options">Installer Options</a></li>
+</ol></li>
+  <li class="toc-lv2"><a href="#customizing-your-installation">Customizing Your Installation</a>
+<ol class="toc">
+   <li class="toc-lv3"><a href="#roles">Roles</a></li>
+   <li class="toc-lv3"><a href="#puppet-master-options">Puppet Master Options</a></li>
+   <li class="toc-lv3"><a href="#console-options">Console Options</a></li>
+   <li class="toc-lv3"><a href="#puppet-agent-options">Puppet Agent Options</a></li>
+   <li class="toc-lv3"><a href="#vendor-packages">Vendor Packages</a></li>
+   <li class="toc-lv3"><a href="#convenience-links">Convenience Links</a></li>
+</ol></li>
+  <li class="toc-lv2"><a href="#finishing-up">Finishing Up</a>
+<ol class="toc">
+   <li class="toc-lv3"><a href="#signing-agent-certificates">Signing Agent Certificates</a></li>
+   <li class="toc-lv3"><a href="#verifying-your-license">Verifying Your License</a></li>
+</ol></li>
+</ol>
+ --> 
+
+<ul>
+  <li><strong><a indepth="true" href="welcome_getting_started.html">Welcome to Puppet Enterprise</a></strong><ul style="display: none;">
+      <li><a indepth="true" href="welcome_getting_started.html">Getting Started</a></li>
+      <li><a indepth="true" href="welcome_roles.html">Components and Roles</a></li>
+      <li><a indepth="true" href="welcome_whats_new.html">What’s New</a></li>
+      <li><a indepth="true" href="welcome_known_issues.html">Known Issues</a></li>
+      <li><a indepth="true" href="welcome_getting_support.html">Getting Support</a></li>
+    </ul>
+  </li>
+  <li class="currentsection"><strong>Installing Puppet Enterprise</strong><ul>
+      <li><a indepth="true" href="install_system_requirements.html">System Requirements</a></li>
+      <li><a indepth="true" href="install_preparing.html">Preparing to Install</a></li>
+      <li class="currentpage"><strong><em>Basic Installation:</em></strong>
+<ol class="toc">
+  <li class="toc-lv2"><a href="#starting-the-installer">Starting the Installer</a>
+<ol class="toc">
+   <li class="toc-lv3"><a href="#installer-options">Installer Options</a></li>
+</ol></li>
+  <li class="toc-lv2"><a href="#customizing-your-installation">Customizing Your Installation</a>
+<ol class="toc">
+   <li class="toc-lv3"><a href="#roles">Roles</a></li>
+   <li class="toc-lv3"><a href="#puppet-master-options">Puppet Master Options</a></li>
+   <li class="toc-lv3"><a href="#console-options">Console Options</a></li>
+   <li class="toc-lv3"><a href="#puppet-agent-options">Puppet Agent Options</a></li>
+   <li class="toc-lv3"><a href="#vendor-packages">Vendor Packages</a></li>
+   <li class="toc-lv3"><a href="#convenience-links">Convenience Links</a></li>
+</ol></li>
+  <li class="toc-lv2"><a href="#finishing-up">Finishing Up</a>
+<ol class="toc">
+   <li class="toc-lv3"><a href="#signing-agent-certificates">Signing Agent Certificates</a></li>
+   <li class="toc-lv3"><a href="#verifying-your-license">Verifying Your License</a></li>
+</ol></li>
+</ol></li>
+      <li><a indepth="true" href="install_upgrading.html">Upgrading</a></li>
+      <li><a indepth="true" href="install_automated.html">Automated Installation</a></li>
+      <li><a indepth="true" href="install_answer_file_reference.html">Answer File Reference</a></li>
+      <li><a indepth="true" href="install_what_and_where.html">What gets installed where?</a></li>
+    </ul>
+  </li>
+  <li><strong><a indepth="true" href="console_accessing.html">The Console</a></strong><ul style="display: none;">
+      <li><a indepth="true" href="console_accessing.html">Accessing the Console</a></li>
+      <li><a indepth="true" href="console_navigating.html">Navigating the Console</a></li>
+      <li><a indepth="true" href="console_reports.html">Viewing Reports and Inventory Data</a></li>
+      <li><a indepth="true" href="console_classes_groups.html">Grouping and Classifying Nodes</a></li>
+      <li><a indepth="true" href="console_live.html">Live Management</a></li>
+      <li><a indepth="true" href="console_live_resources.html">Live Management: Managing Resources</a></li>
+      <li><a indepth="true" href="console_live_puppet.html">Live Management: Controlling Puppet</a></li>
+      <li><a indepth="true" href="console_live_advanced.html">Live Management: Advanced Tasks</a></li>
+    </ul>
+  </li>
+  <li><strong><a indepth="true" href="puppet_overview.html">Puppet For New PE Users</a></strong><ul style="display: none;">
+      <li><a indepth="true" href="puppet_overview.html">Overview</a></li>
+      <li><a indepth="true" href="puppet_first_module.html">Your First Module</a></li>
+      <li><a indepth="true" href="puppet_classifying.html">Assigning a Class to a Node</a></li>
+      <li><a indepth="true" href="puppet_next_steps.html">Next Steps</a></li>
+    </ul>
+  </li>
+  <li><strong><a indepth="true" href="orchestration_overview.html">Orchestration For New PE Users</a></strong><ul style="display: none;">
+      <li><a indepth="true" href="orchestration_overview.html">Overview</a></li>
+      <li><a indepth="true" href="orchestration_usage.html">Usage and Examples</a></li>
+    </ul>
+  </li>
+  <li><strong><a indepth="true" href="cloudprovisioner_overview.html">Cloud Provisioning</a></strong><ul style="display: none;">
+      <li><a indepth="true" href="cloudprovisioner_overview.html">Overview</a></li>
+      <li><a indepth="true" href="cloudprovisioner_configuring.html">Configuring and Troubleshooting</a></li>
+      <li><a indepth="true" href="cloudprovisioner_vmware.html">Provisioning with VMware</a></li>
+      <li><a indepth="true" href="cloudprovisioner_aws.html">Provisioning with AWS</a></li>
+      <li><a indepth="true" href="cloudprovisioner_classifying_installing.html">Classifying Nodes and Remotely Installing PE</a></li>
+      <li><a indepth="true" href="cloudprovisioner_man_node_vmware.html">Man Page: node_vmware</a></li>
+      <li><a indepth="true" href="cloudprovisioner_man_node_aws.html">Man Page: node_aws</a></li>
+      <li><a indepth="true" href="cloudprovisioner_man_node.html">Man Page: node</a></li>
+    </ul>
+  </li>
+  <li><strong><a indepth="true" href="compliance_basics.html">The Compliance Workflow</a></strong><ul style="display: none;">
+      <li><a indepth="true" href="compliance_basics.html">Basics and UI</a></li>
+      <li><a indepth="true" href="compliance_using.html">Using the Compliance Workflow</a></li>
+      <li><a indepth="true" href="compliance_tutorial.html">Tutorial</a></li>
+    </ul>
+  </li>
+  <li><strong><a indepth="true" href="accounts_user_type.html">The PE Accounts Module</a></strong><ul style="display: none;">
+      <li><a indepth="true" href="accounts_user_type.html">The <code>pe_accounts::user</code> Type</a></li>
+      <li><a indepth="true" href="accounts_class.html">The <code>pe_accounts</code> Class</a></li>
+    </ul>
+  </li>
+  <li><strong><a indepth="true" href="maint_common_config_errors.html">Maintenance and Troubleshooting</a></strong><ul style="display: none;">
+      <li><a indepth="true" href="maint_common_config_errors.html">Common Configuration Errors</a></li>
+      <li><a indepth="true" href="maint_maintaining_console.html">Console Maintenance Tasks</a></li>
+      <li><a indepth="true" href="maint_installing_additional.html">Installing Additional Components</a></li>
+      <li><a indepth="true" href="maint_reconfiguring.html">Reconfiguring Complex Settings</a></li>
+    </ul>
+  </li>
+</ul>
+
+                  
+                                        <!-- New Ads are inserted here -->
+		  			<div id="bannerImage" style="display: block;">&nbsp;</div>
+                  </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+		<footer id="footer">
+      <div class="site-width">
+
+        <div class="primary-secondary-content">
+          <div class="primary-content">
+            <section id="newsletter">
+                 <h4>Puppet Labs is Hiring</h4>
+                 <p><a href="http://www.puppetlabs.com/company/jobs/">Engineers, developers &amp; consultants</a>
+                  </p><p>  
+		</p><h4>Newsletter</h4>
+
+              <p>Stay up to date on all things puppet</p>
+              
+				<form class="lpeRegForm formNotEmpty" method="post" enctype="application/x-www-form-urlencoded" action="http://info.puppetlabs.com/index.php/leadCapture/save" ;="" id="mktForm_1013" name="mktForm_1013">
+				
+				<label>Email Address:</label><span class="mktInput"><input class="mktFormText mktFormEmail" name="Email" id="Email" value="" maxlength="255" type="text"><span class="mktFormMsg"></span></span>
+				
+				<input id="mktFrmSubmit" class="btn" style="width: auto; overflow: visible; padding-left: 0.25em; padding-right: 0.25em;" value="Subscribe" name="submitButton" onclick='formSubmit(document.getElementById("mktForm_1013")); return false;' type="submit">
+				
+				<input style="display: none;" id="mktFrmReset" value="Clear" name="resetButton" onclick='formReset(document.getElementById("mktForm_1013")); return false;' type="reset">
+	
+				<span style="display: none;"><input name="_marketo_comments" value="" type="text"></span>
+				<input name="lpId" value="-1" type="hidden">
+				<input name="subId" value="100" type="hidden">
+
+				<input name="kw" value="" type="hidden">
+				<input name="cr" value="" type="hidden">
+				
+				<input name="searchstr" value="" type="hidden">
+				<input name="lpurl" value="http://info.puppetlabs.com/testsubscription.html?cr={creative}&amp;kw={keyword}" ;="" type="hidden">
+				<input name="formid" value="1013" type="hidden">
+				<input name="returnURL" value="http://www.puppetlabs.com/misc/subscription-thank-you/" ;="" type="hidden">
+				<input name="retURL" value="http://www.puppetlabs.com/misc/subscription-thank-you/" ;="" type="hidden">
+				<input name="_mkt_disp" value="return" type="hidden">
+				<input name="_mkt_trk" value="" type="hidden">
+
+				</form>
+				
+				
+				
+              
+<a indepth="true" href="puppet-enterprise.html" class="fbtn">Try Puppet Enterprise FREE</a>
+
+            </section>
+            <section id="elsewhere">
+              <h4>Get Involved</h4>
+              <ul>
+
+                <li class="chat"><a indepth="true" href="default.html" rel="external"><span class="indicator"></span><span>Chat with us on IRC</span></a></li>
+		<li class="discussion"><a href="http://groups.google.com/group/puppet-dev" rel="external"><span class="indicator"></span><span>Join the Puppet Developer List</span></a></li>
+                <li class="discussion"><a href="http://groups.google.com/group/puppet-users?pli=1" rel="external"><span class="indicator"></span><span>Join the Puppet User List</span></a></li>
+                
+                <li class="linkedin"><a href="http://www.linkedin.com/groups?about=&amp;gid=696467&amp;trk=anet_ug_grppro" rel="external"><span class="indicator"></span><span>Join the Puppet Users LinkedIn group</span></a></li>	
+
+              </ul>
+		<p>
+		              		</p><h4>Follow us…</h4>
+
+              		<ul class="followus">
+
+					
+			<li><a href="http://feeds.feedburner.com/PuppetLabs" target="_top"><img src="rss.png" border="0"></a></li>
+			<li><a href="http://www.facebook.com/pages/Puppet-Labs/219089920711" target="_top"><img src="facebook.png" border="0"></a></li>
+			<li><a href="http://www.twitter.com/puppetlabs" target="_top"><img src="twitter.png" border="0"></a></li>
+			<li><a href="http://www.linkedin.com/groups?about=&amp;gid=696467&amp;trk=anet_ug_grppro" target="_top"><img src="linkedin_in_icon_32px.png" border="0"></a></li>    <li><a href="https://github.com/puppetlabs" target="_top"><img src="github_icon.png" border="0"></a></li>
+					</ul>
+
+              	<p></p>
+
+            </section>
+          </div>
+          <div class="secondary-content">
+            <section id="book-it">
+              <h4>Get the book!</h4>
+
+              <p>Written by James Turnbull and Jeff McCune, <a href="http://www.apress.com/9781430230571" rel="nofollow">Pro Puppet</a> is a comprehensive and up-to-date look at Puppet and MCollective. </p>
+              <a href="http://www.apress.com/9781430230571" rel="nofollow"><img src="propuppetthumb.png"></a>
+            </section>
+          </div>
+        </div>
+      </div>
+		</footer>
+
+    <div id="copyright">
+      <div class="site-width">
+        © 2011 <a href="http://www.puppetlabs.com/" title="Puppet Labs">Puppet Labs</a>
+        <span class="vcard">
+         <span class="org"></span>
+         <a class="email" href="mailto:info@puppetlabs.com">info@puppetlabs.com</a>
+
+          <span class="adr">
+           <span class="street-address">411 NW Park Avenue</span>
+           /
+           <span class="locality">Portland</span>, 
+           <span class="region">OR</span>
+           <span class="postal-code">97209</span>
+
+          </span>
+
+         <span class="tel">1-877-575-9775</span>
+        </span>          
+      </div>
+    </div>
+      
+    
+  	
+  	
+
+	
+        
+
+
+</body></html>

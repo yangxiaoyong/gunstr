@@ -1,0 +1,92 @@
+<html>
+  <link rel="stylesheet" type="text/css" href="static/bootstrap.css">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<script type="text/javascript" src="static/jquery-1.7.1.js"></script>
+<script type="text/javascript" src="static/jquery.tablesorter.js"></script>
+  <body>
+    <h1>H1. Heading<small>sub heading</small></h1>
+    <h2>H2. Heading</h1>
+    <h5>H5. Heading</h1>
+    <h6>H6. Heading</h1>
+    <blockquote>
+      <p>
+        Lorem
+      </p>
+      <p>
+        我我我我我
+      </p>
+      <small>
+        small 服务阿服务阿峰
+      </small>
+    </blockquote>
+    <div class="span4">
+      <h4>Unstyled</h4>
+      <ul class="unstyled">
+        <li>aaaaa</li>
+        <li>bbbbb</li>
+        <li>
+          <ul>
+
+          <li>11111</li>
+          <li>22222</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <code>dl</code>
+    <dl>
+      <dt>Description lists</dt>
+      <dd>A description list is perfect for defining terms.</dd>
+      <dt>Euismod</dt>
+      <dd>Vertibulum</dd>
+    </dl>
+    <pre class="prettyprint">
+    pre here
+fwefwef
+fwef
+    </pre>
+    <span class="label">默认</span>
+    <span class="label success">添加新的成功</span>
+    <span class="label warning">WARNING</span>
+    <span class="label important">IMPORTANT</span>
+    <span class="label notice">NOTICE</span>
+
+    <table cellspacing="0" class="bordered-table zebra-striped" id="sortTableExamle">
+      <thead>
+        <tr>
+          <th class="header">#</th>
+          <th class="yellow header headerSortUp">First Name</th>
+          <th class="blue header">Last Name</th>
+          <th class="green header">Language</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Some</td>
+          <td>One</td>
+          <td>English</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>S1</td>
+          <td>S2</td>
+          <td>German</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>S3</td>
+          <td>S3</td>
+          <td>Russion</td>
+        </tr>
+      </tbody>
+    </table>
+    <script type="text/javascript">
+      $(function() {
+          $("table#sortTableExamle").tablesorter({ sortList: [[1,0]] });
+      });
+    </script>
+
+  </body>
+</html>

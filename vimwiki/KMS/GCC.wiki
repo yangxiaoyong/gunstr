@@ -1,0 +1,8 @@
+CFLAGS: 编译时选项, -Iinclude_path
+LFLAGS:
+LD_LIBRARY_PATH: 搜索库文件路径环境变量
+
+static libray: '.a' 结尾
+shared libraiy: 使执行文件更小, '.so'为扩展名
+
+

@@ -1,0 +1,5 @@
+时间戳转datetime对象
+  {{{class="brush: python"
+  datetime.date.fromtimestamp(time.time())
+  datetime.datetime.fromtimestamp(time.time())
+  }}}

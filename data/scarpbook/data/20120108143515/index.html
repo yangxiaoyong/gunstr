@@ -1,0 +1,1420 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    
+    <title>Get last n lines of a file with Python, similar to tail - Stack Overflow</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="apple-touch-icon" href="http://cdn.sstatic.net/stackoverflow/img/apple-touch-icon.png">
+    <link rel="search" type="application/opensearchdescription+xml" title="Stack Overflow" href="http://stackoverflow.com/opensearch.xml">
+    
+    
+    
+    
+    <link rel="canonical" href="http://stackoverflow.com/questions/136168/get-last-n-lines-of-a-file-with-python-similar-to-tail">
+    <link rel="alternate" type="application/atom+xml" title="Feed for question 'Get last n lines of a file with Python, similar to tail'" href="http://stackoverflow.com/feeds/question/136168">
+    <meta name="title" content="Get last n lines of a file with Python, similar to tail - Stack Overflow">
+    <link rel="image_src" href="http://sstatic.net/stackoverflow/img/apple-touch-icon.png">
+    
+
+
+    
+
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body style="margin-top: 2.5em;" class="question-page">
+    
+    <div id="notify-container"><div id="notify--1" style=""><span class="notify-close"><a title="dismiss this notification">×</a></span><span class="notify-text">Welcome to Q&amp;A for professional and enthusiast programmers — check out the <a onclick="StackExchange.notify.closeFirstTime(); return false;" href="http://stackoverflow.com/faq">FAQ</a>!</span></div></div>
+    <div id="overlay-header"></div>
+    <div id="custom-header"></div>
+
+    <div class="container">
+        <div id="header">
+            <div id="portalLink">
+                <a class="genu" onclick="StackExchange.ready(function(){genuwine.click();});return false;">Stack Exchange</a>
+            </div>
+            <div id="topbar">
+                <div id="hlinks">
+                    <span id="hlinks-user">
+                  
+                  </span>
+                  <span id="hlinks-nav">
+                  <a href="http://stackoverflow.com/users/login?returnurl=%2fquestions%2f136168%2fget-last-n-lines-of-a-file-with-python-similar-to-tail">log in</a>
+ <span class="lsep">|</span>
+<a href="http://careers.stackoverflow.com/">careers</a>
+ <span class="lsep">|</span>
+
+                  </span>
+                  <span id="hlinks-custom">
+                  <a href="http://chat.stackoverflow.com/">chat</a>
+ <span class="lsep">|</span>
+<a href="http://meta.stackoverflow.com/">meta</a>
+ <span class="lsep">|</span>
+<a href="http://stackoverflow.com/about">about</a>
+ <span class="lsep">|</span>
+<a href="http://stackoverflow.com/faq">faq</a>
+                  </span>
+                </div>
+                <div id="hsearch">
+                    <form id="search" action="http://stackoverflow.com/search" method="get" autocomplete="off">
+                    <div>
+                        <input autocomplete="off" name="q" class="textbox" placeholder="search" tabindex="1" maxlength="140" size="28" value="" type="text">
+                    </div>
+                    </form>
+                </div>
+            </div>
+            <br class="cbt">
+            <div id="hlogo">
+                <a href="http://stackoverflow.com/">Stack Overflow</a>
+            </div>
+            <div id="hmenus">
+                <div class="nav mainnavs">
+                    <ul>
+                        <li class="youarehere"><a id="nav-questions" href="http://stackoverflow.com/questions">Questions</a></li>
+                        <li><a id="nav-tags" href="http://stackoverflow.com/tags">Tags</a></li>
+                        <li><a id="nav-users" href="http://stackoverflow.com/users">Users</a></li>
+                        <li><a id="nav-badges" href="http://stackoverflow.com/badges">Badges</a></li>
+                        <li><a id="nav-unanswered" href="http://stackoverflow.com/unanswered">Unanswered</a></li>
+                    </ul>
+                </div>
+                <div class="nav askquestion">
+                    <ul>
+                        <li>
+                            <a id="nav-askquestion" href="http://stackoverflow.com/questions/ask">Ask Question</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        
+
+
+        <div id="content">
+            
+
+
+
+<div id="question-header">
+    <h1><a href="http://stackoverflow.com/questions/136168/get-last-n-lines-of-a-file-with-python-similar-to-tail" class="question-hyperlink">Get last n lines of a file with Python, similar to tail</a></h1>
+</div>
+<div id="mainbar">
+
+
+<div class="question" id="question">
+
+    <div class="everyonelovesstackoverflow" id="adzerk1"><a href="http://engine.adzerk.net/redirect/0/5916/2444/8277/57af54d060a04d57a18dace1f556fd01/43/1178/8802/634616011810333210?keywords=python%2cfile%2cfile-io%2ctail%2clogfiles" rel="nofollow" target="_top" title=""><img src="d31c8d7d3cf640a6b29d9ad71788dd4a.png" title="" alt="" height="90" border="0" width="728"></a></div>
+
+    
+    <table>
+    <tbody><tr>
+    <td class="votecell">
+        
+<div class="vote">
+    <input value="136168" type="hidden">
+    <a class="vote-up-off" title="This question shows research effort; it is useful and clear (click again to undo)">up vote</a>
+    <span class="vote-count-post">33</span>
+    <a class="vote-down-off" title="This question does not show any research effort; it is unclear or not useful (click again to undo)">down vote</a>
+
+    <a class="star-off" href="#" title="This is a favorite question (click again to undo)">favorite</a>
+    <div class="favoritecount"><b>18</b></div>    
+
+    
+    <a id="fb-share-136168" class="fb-share" title="share link to this question on Facebook">share [fb]</a>
+    <a id="twitter-share-136168" class="twitter-share" title="share link to this question on Twitter">share [tw]</a>    
+
+</div>
+
+    </td>
+<td class="postcell">
+<div>          
+    <div class="post-text">
+        <p>I'm writing a log file viewer for a web application and for that I want to paginate through the lines of the log file.  The items in the file are line based with the newest item on the bottom.</p>
+
+<p>So I need a <code>tail()</code> method that can read <code>n</code> lines from the bottom and supports an offset.  What I came up with looks like this:</p>
+
+<pre class="default prettyprint"><code><span class="kwd">def</span><span class="pln"> tail</span><span class="pun">(</span><span class="pln">f</span><span class="pun">,</span><span class="pln"> n</span><span class="pun">,</span><span class="pln"> offset</span><span class="pun">=</span><span class="lit">0</span><span class="pun">):</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"""Reads a n lines from f with an offset of offset lines."""</span><span class="pln"><br>&nbsp; &nbsp; avg_line_length </span><span class="pun">=</span><span class="pln"> </span><span class="lit">74</span><span class="pln"><br>&nbsp; &nbsp; to_read </span><span class="pun">=</span><span class="pln"> n </span><span class="pun">+</span><span class="pln"> offset<br>&nbsp; &nbsp; </span><span class="kwd">while</span><span class="pln"> </span><span class="lit">1</span><span class="pun">:</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">try</span><span class="pun">:</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; f</span><span class="pun">.</span><span class="pln">seek</span><span class="pun">(-(</span><span class="pln">avg_line_length </span><span class="pun">*</span><span class="pln"> to_read</span><span class="pun">),</span><span class="pln"> </span><span class="lit">2</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">except</span><span class="pln"> </span><span class="typ">IOError</span><span class="pun">:</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># woops. &nbsp;apparently file is smaller than what we want</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># to step back, go to the beginning instead</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; f</span><span class="pun">.</span><span class="pln">seek</span><span class="pun">(</span><span class="lit">0</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; pos </span><span class="pun">=</span><span class="pln"> f</span><span class="pun">.</span><span class="pln">tell</span><span class="pun">()</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; lines </span><span class="pun">=</span><span class="pln"> f</span><span class="pun">.</span><span class="pln">read</span><span class="pun">().</span><span class="pln">splitlines</span><span class="pun">()</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">if</span><span class="pln"> len</span><span class="pun">(</span><span class="pln">lines</span><span class="pun">)</span><span class="pln"> </span><span class="pun">&gt;=</span><span class="pln"> to_read </span><span class="kwd">or</span><span class="pln"> pos </span><span class="pun">==</span><span class="pln"> </span><span class="lit">0</span><span class="pun">:</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">return</span><span class="pln"> lines</span><span class="pun">[-</span><span class="pln">to_read</span><span class="pun">:</span><span class="pln">offset </span><span class="kwd">and</span><span class="pln"> </span><span class="pun">-</span><span class="pln">offset </span><span class="kwd">or</span><span class="pln"> </span><span class="kwd">None</span><span class="pun">]</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; avg_line_length </span><span class="pun">*=</span><span class="pln"> </span><span class="lit">1.3</span><span class="pln"><br></span></code></pre>
+
+<p>Is this a reasonable approach?  What is the recommended way to tail log files with offsets?</p>
+
+    </div>            
+    <div class="post-taglist">
+        <a href="http://stackoverflow.com/questions/tagged/python" class="post-tag" title="show questions tagged 'python'" rel="tag">python</a> <a href="http://stackoverflow.com/questions/tagged/file" class="post-tag" title="show questions tagged 'file'" rel="tag">file</a> <a href="http://stackoverflow.com/questions/tagged/file-io" class="post-tag" title="show questions tagged 'file-io'" rel="tag">file-io</a> <a href="http://stackoverflow.com/questions/tagged/tail" class="post-tag" title="show questions tagged 'tail'" rel="tag">tail</a> <a href="http://stackoverflow.com/questions/tagged/logfiles" class="post-tag" title="show questions tagged 'logfiles'" rel="tag">logfiles</a> 
+    </div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+        <div class="post-menu"><a href="http://stackoverflow.com/q/136168" title="short permalink to this question" id="link-post-136168">link</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/136168/edit">improve this question</a></div>
+    </td>
+    <td class="post-signature" align="right">
+<div class="user-info user-hover"><div class="user-action-time">edited <a href="http://stackoverflow.com/posts/136168/revisions" title="show all edits to this post"><span title="2009-11-09 21:39:48Z" class="relativetime">Nov 9 '09 at 21:39</span></a></div><div class="user-gravatar32"><a href="http://stackoverflow.com/users/745/dbr"><div class=""><img src="edf857d71f672d8f411ef6b8376316b8" alt=""></div></a></div><div class="user-details"><a href="http://stackoverflow.com/users/745/dbr">dbr</a><br><span class="reputation-score" title="reputation score 29044" dir="ltr">29k</span><span title="11 gold badges"><span class="badge1"></span><span class="badgecount">11</span></span><span title="77 silver badges"><span class="badge2"></span><span class="badgecount">77</span></span><span title="162 bronze badges"><span class="badge3"></span><span class="badgecount">162</span></span></div></div>    </td>
+    <td class="post-signature owner">
+    <div class="user-info"><div class="user-action-time">asked <span title="2008-09-25 21:11:11Z" class="relativetime">Sep 25 '08 at 21:11</span></div><div class="user-gravatar32"><a href="http://stackoverflow.com/users/19990/armin-ronacher"><div class=""><img src="181de1fb11dffe39774f3e2e23cda3b6" alt=""></div></a></div><div class="user-details"><a href="http://stackoverflow.com/users/19990/armin-ronacher">Armin Ronacher</a><br><span class="reputation-score" title="reputation score" dir="ltr">7,682</span><span title="3 gold badges"><span class="badge1"></span><span class="badgecount">3</span></span><span title="22 silver badges"><span class="badge2"></span><span class="badgecount">22</span></span><span title="46 bronze badges"><span class="badge3"></span><span class="badgecount">46</span></span></div></div>
+        <br class="cbt">
+        <div class="accept-rate cool" title="this user has accepted an answer for 4 of 10 eligible questions">40% accept rate</div>
+    </td>
+    </tr>
+    </tbody></table>
+</div>
+</td>    </tr>
+
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-136168" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+    
+    <div style="color: rgb(0, 0, 0);" class="was-this-helpful">Was this post useful to you? &nbsp;&nbsp;<input style="" class="anon-vote" value="Yes" type="button"> &nbsp;<input style="" class="anon-vote" value="No" type="button"></div>
+    
+</td>
+</tr>    </tbody></table>    
+</div>
+
+
+
+<div id="answers">
+
+    <a name="tab-top"></a>
+    <div id="answers-header">
+        <div class="subheader answers-subheader">
+            <h2>12 Answers</h2>
+            <div id="tabs">
+                <a href="http://stackoverflow.com/questions/136168/get-last-n-lines-of-a-file-with-python-similar-to-tail?answertab=active#tab-top" title="Answers with the latest activity first">active</a>
+<a href="http://stackoverflow.com/questions/136168/get-last-n-lines-of-a-file-with-python-similar-to-tail?answertab=oldest#tab-top" title="Answers in the order they were provided">oldest</a>
+<a class="youarehere" href="http://stackoverflow.com/questions/136168/get-last-n-lines-of-a-file-with-python-similar-to-tail?answertab=votes#tab-top" title="Answers with the highest score first">votes</a>
+
+            </div>
+        </div>    
+    </div>    
+
+
+  
+    <a name="136368"></a>
+    <div id="answer-136368" class="answer">
+        <table>
+        <tbody><tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input value="136368" type="hidden">
+    <a class="vote-up-off" title="This answer is useful (click again to undo)">up vote</a>
+    <span class="vote-count-post">31</span>
+    <a class="vote-down-off" title="This answer is not useful (click again to undo)">down vote</a>
+
+</div>
+
+        </td>
+
+
+<td class="answercell">
+    <div class="post-text"><p>This may be quicker than yours.  Makes no assumptions about line length.  Backs through the file one block at a time till it's found the right number of '\n' characters.</p>
+
+<pre class="default prettyprint"><code><span class="kwd">def</span><span class="pln"> tail</span><span class="pun">(</span><span class="pln"> f</span><span class="pun">,</span><span class="pln"> window</span><span class="pun">=</span><span class="lit">20</span><span class="pln"> </span><span class="pun">):</span><span class="pln"><br>&nbsp; &nbsp; BUFSIZ </span><span class="pun">=</span><span class="pln"> </span><span class="lit">1024</span><span class="pln"><br>&nbsp; &nbsp; f</span><span class="pun">.</span><span class="pln">seek</span><span class="pun">(</span><span class="lit">0</span><span class="pun">,</span><span class="pln"> </span><span class="lit">2</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; bytes </span><span class="pun">=</span><span class="pln"> f</span><span class="pun">.</span><span class="pln">tell</span><span class="pun">()</span><span class="pln"><br>&nbsp; &nbsp; size </span><span class="pun">=</span><span class="pln"> window<br>&nbsp; &nbsp; block </span><span class="pun">=</span><span class="pln"> </span><span class="pun">-</span><span class="lit">1</span><span class="pln"><br>&nbsp; &nbsp; data </span><span class="pun">=</span><span class="pln"> </span><span class="pun">[]</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="kwd">while</span><span class="pln"> size </span><span class="pun">&gt;</span><span class="pln"> </span><span class="lit">0</span><span class="pln"> </span><span class="kwd">and</span><span class="pln"> bytes </span><span class="pun">&gt;</span><span class="pln"> </span><span class="lit">0</span><span class="pun">:</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">bytes </span><span class="pun">-</span><span class="pln"> BUFSIZ </span><span class="pun">&gt;</span><span class="pln"> </span><span class="lit">0</span><span class="pun">):</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># Seek back one whole BUFSIZ</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; f</span><span class="pun">.</span><span class="pln">seek</span><span class="pun">(</span><span class="pln">block</span><span class="pun">*</span><span class="pln">BUFSIZ</span><span class="pun">,</span><span class="pln"> </span><span class="lit">2</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># read BUFFER</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; data</span><span class="pun">.</span><span class="pln">append</span><span class="pun">(</span><span class="pln">f</span><span class="pun">.</span><span class="pln">read</span><span class="pun">(</span><span class="pln">BUFSIZ</span><span class="pun">))</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">else</span><span class="pun">:</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># file too small, start from begining</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; f</span><span class="pun">.</span><span class="pln">seek</span><span class="pun">(</span><span class="lit">0</span><span class="pun">,</span><span class="lit">0</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># only read what was not read</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; data</span><span class="pun">.</span><span class="pln">append</span><span class="pun">(</span><span class="pln">f</span><span class="pun">.</span><span class="pln">read</span><span class="pun">(</span><span class="pln">bytes</span><span class="pun">))</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; linesFound </span><span class="pun">=</span><span class="pln"> data</span><span class="pun">[-</span><span class="lit">1</span><span class="pun">].</span><span class="pln">count</span><span class="pun">(</span><span class="str">'\n'</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; size </span><span class="pun">-=</span><span class="pln"> linesFound<br>&nbsp; &nbsp; &nbsp; &nbsp; bytes </span><span class="pun">-=</span><span class="pln"> BUFSIZ<br>&nbsp; &nbsp; &nbsp; &nbsp; block </span><span class="pun">-=</span><span class="pln"> </span><span class="lit">1</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="kwd">return</span><span class="pln"> </span><span class="str">'\n'</span><span class="pun">.</span><span class="pln">join</span><span class="pun">(</span><span class="str">''</span><span class="pun">.</span><span class="pln">join</span><span class="pun">(</span><span class="pln">data</span><span class="pun">).</span><span class="pln">splitlines</span><span class="pun">()[-</span><span class="pln">window</span><span class="pun">:])</span><span class="pln"><br></span></code></pre>
+
+<p>I don't like tricky assumptions about line length when -- as a practical matter -- you can never know things like that.</p>
+
+<p>Generally, this will locate the last 20 lines on the first or second pass through the loop.  If your 74 character thing is actually accurate, you make the block size 2048 and you'll tail 20 lines almost immediately.</p>
+
+<p>Also, I don't burn a lot of brain calories trying to finesse alignment with physical OS blocks.  Using these high-level I/O packages, I doubt you'll see any performance consequence of trying to align on OS block boundaries.  If you use lower-level I/O, then you might see a speedup.</p>
+</div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+        <div class="post-menu"><a href="http://stackoverflow.com/a/136368" title="short permalink to this answer" id="link-post-136368">link</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/136368/edit">improve this answer</a></div>
+    </td>
+    <td class="post-signature" align="right">
+<div class="user-info"><div class="user-action-time">edited <a href="http://stackoverflow.com/posts/136368/revisions" title="show all edits to this post"><span title="2011-05-16 18:25:24Z" class="relativetime">May 16 '11 at 18:25</span></a></div><div class="user-gravatar32"><a href="http://stackoverflow.com/users/742390/pykler"><div class=""><img src="88dcd9a1b56c02e905ac3a352e43ba81" alt=""></div></a></div><div class="user-details"><a href="http://stackoverflow.com/users/742390/pykler">Pykler</a><br><span class="reputation-score" title="reputation score" dir="ltr">66</span><span title="8 bronze badges"><span class="badge3"></span><span class="badgecount">8</span></span></div></div>    </td>
+            
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info user-hover"><div class="user-action-time">answered <span title="2008-09-25 21:43:18Z" class="relativetime">Sep 25 '08 at 21:43</span></div><div class="user-gravatar32"><a href="http://stackoverflow.com/users/10661/s-lott"><div class=""><img src="c2c732bbf13dc96670b210b3c0c1ead5" alt=""></div></a></div><div class="user-details"><a href="http://stackoverflow.com/users/10661/s-lott">S.Lott</a><br><span class="reputation-score" title="reputation score 138733" dir="ltr">139k</span><span title="14 gold badges"><span class="badge1"></span><span class="badgecount">14</span></span><span title="147 silver badges"><span class="badge2"></span><span class="badgecount">147</span></span><span title="358 bronze badges"><span class="badge3"></span><span class="badgecount">358</span></span></div></div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>        </tr>
+
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-136368" class="comments">
+        <table>
+        <tbody>
+                    
+    <tr id="comment-35165" class="comment">
+        <td></td>
+        <td class="comment-text"><div><span class="comment-copy">Nice.  At least one poster that read the question and the code in there :)</span> –&nbsp;<a href="http://stackoverflow.com/users/19990/armin-ronacher" title="7682 reputation" class="comment-user owner">Armin Ronacher</a> <span class="comment-date" dir="ltr"><span title="2008-09-25 21:55:54Z">Sep 25 '08 at 21:55</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-953427" class="comment">
+        <td></td>
+        <td class="comment-text"><div><span class="comment-copy">This works really well.  I just pulled it into a script to read the last 4000 lines of a log file before I parse them.  It works quickly and makes sense.  Thanks!</span> –&nbsp;<a href="http://stackoverflow.com/users/84301/jeff-hellman" title="993 reputation" class="comment-user">Jeff Hellman</a> <span class="comment-date" dir="ltr"><span title="2009-07-16 05:26:16Z">Jul 16 '09 at 5:26</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-1740016" class="comment">
+        <td class="comment-actions"><table><tbody><tr>
+<td class="comment-score">
+<span title="number of 'great comment' votes received" class="warm">7</span>
+</td>
+<td>
+&nbsp;
+</td></tr>
+</tbody></table></td>
+        <td class="comment-text"><div><span class="comment-copy">This fails on small logfiles -- IOError: invalid argument -- f.seek( block*1024, 2 )</span> –&nbsp;<a href="http://stackoverflow.com/users/53330/ohnoes" title="1267 reputation" class="comment-user">ohnoes</a> <span class="comment-date" dir="ltr"><span title="2009-12-04 11:19:49Z">Dec 4 '09 at 11:19</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-9296808" class="comment">
+        <td></td>
+        <td class="comment-text"><div><span class="comment-copy">I re-edited this solution a while back, it is yet to be peer reviewed (again). The <code>data</code> lines need to be reversed before the join since the file is read backwards.</span> –&nbsp;<a href="http://stackoverflow.com/users/742390/pykler" title="66 reputation" class="comment-user">Pykler</a> <span class="comment-date" dir="ltr"><span title="2011-10-04 18:21:43Z">Oct 4 '11 at 18:21</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-9430964" class="comment">
+        <td></td>
+        <td class="comment-text"><div><span class="comment-copy">A corner case: last line is larger than <code>BUFSIZ</code> and <code>window == 1</code>. Perhaps <code>linesFound</code> should be something like <code>data[-1].count('\n') - 1</code>?</span> –&nbsp;<a href="http://stackoverflow.com/users/338803/sje397" title="15280 reputation" class="comment-user">sje397</a> <span class="comment-date" dir="ltr"><span title="2011-10-13 01:52:09Z">Oct 13 '11 at 1:52</span></span><span class="edited-yes" title="this comment was edited"></span></div></td>
+    </tr>
+
+        </tbody>
+    
+        </table>
+    </div>
+    <a id="comments-link-136368" class="comments-link" title="expand to show all comments on this post">show <b>1</b> more comment</a>
+    
+    <div class="was-this-helpful">
+        feedback
+    </div>
+    
+</td>
+</tr>    </tbody></table>
+</div>
+
+    <div class="everyonelovesstackoverflow" id="adzerk3"><a href="http://engine.adzerk.net/redirect/0/2565/2444/8277/4a763cf1960f4bec856c64e97bfff5d6/44/1178/4215/634616011810645680?keywords=python%2cfile%2cfile-io%2ctail%2clogfiles" rel="nofollow" target="_top" title=""><img src="2565.png" title="" alt="" height="90" border="0" width="728"></a></div>
+
+    
+  
+    <a name="692616"></a>
+    <div id="answer-692616" class="answer">
+        <table>
+        <tbody><tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input value="692616" type="hidden">
+    <a class="vote-up-off" title="This answer is useful (click again to undo)">up vote</a>
+    <span class="vote-count-post">10</span>
+    <a class="vote-down-off" title="This answer is not useful (click again to undo)">down vote</a>
+<span class="vote-accepted-on" title="The question owner accepted this as the best answer Mar 28 '09 at 11:13">accepted</span>
+</div>
+
+        </td>
+
+
+<td class="answercell">
+    <div class="post-text"><p>The code I ended up using.  I think this is the best so far:</p>
+
+<pre class="default prettyprint"><code><span class="kwd">def</span><span class="pln"> tail</span><span class="pun">(</span><span class="pln">f</span><span class="pun">,</span><span class="pln"> n</span><span class="pun">,</span><span class="pln"> offset</span><span class="pun">=</span><span class="kwd">None</span><span class="pun">):</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"""Reads a n lines from f with an offset of offset lines. &nbsp;The return<br>&nbsp; &nbsp; value is a tuple in the form ``(lines, has_more)`` where `has_more` is<br>&nbsp; &nbsp; an indicator that is `True` if there are more lines in the file.<br>&nbsp; &nbsp; """</span><span class="pln"><br>&nbsp; &nbsp; avg_line_length </span><span class="pun">=</span><span class="pln"> </span><span class="lit">74</span><span class="pln"><br>&nbsp; &nbsp; to_read </span><span class="pun">=</span><span class="pln"> n </span><span class="pun">+</span><span class="pln"> </span><span class="pun">(</span><span class="pln">offset </span><span class="kwd">or</span><span class="pln"> </span><span class="lit">0</span><span class="pun">)</span><span class="pln"><br><br>&nbsp; &nbsp; </span><span class="kwd">while</span><span class="pln"> </span><span class="lit">1</span><span class="pun">:</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">try</span><span class="pun">:</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; f</span><span class="pun">.</span><span class="pln">seek</span><span class="pun">(-(</span><span class="pln">avg_line_length </span><span class="pun">*</span><span class="pln"> to_read</span><span class="pun">),</span><span class="pln"> </span><span class="lit">2</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">except</span><span class="pln"> </span><span class="typ">IOError</span><span class="pun">:</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># woops. &nbsp;apparently file is smaller than what we want</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># to step back, go to the beginning instead</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; f</span><span class="pun">.</span><span class="pln">seek</span><span class="pun">(</span><span class="lit">0</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; pos </span><span class="pun">=</span><span class="pln"> f</span><span class="pun">.</span><span class="pln">tell</span><span class="pun">()</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; lines </span><span class="pun">=</span><span class="pln"> f</span><span class="pun">.</span><span class="pln">read</span><span class="pun">().</span><span class="pln">splitlines</span><span class="pun">()</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">if</span><span class="pln"> len</span><span class="pun">(</span><span class="pln">lines</span><span class="pun">)</span><span class="pln"> </span><span class="pun">&gt;=</span><span class="pln"> to_read </span><span class="kwd">or</span><span class="pln"> pos </span><span class="pun">==</span><span class="pln"> </span><span class="lit">0</span><span class="pun">:</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">return</span><span class="pln"> lines</span><span class="pun">[-</span><span class="pln">to_read</span><span class="pun">:</span><span class="pln">offset </span><span class="kwd">and</span><span class="pln"> </span><span class="pun">-</span><span class="pln">offset </span><span class="kwd">or</span><span class="pln"> </span><span class="kwd">None</span><span class="pun">],</span><span class="pln"> </span><span class="pun">\</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;len</span><span class="pun">(</span><span class="pln">lines</span><span class="pun">)</span><span class="pln"> </span><span class="pun">&gt;</span><span class="pln"> to_read </span><span class="kwd">or</span><span class="pln"> pos </span><span class="pun">&gt;</span><span class="pln"> </span><span class="lit">0</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; avg_line_length </span><span class="pun">*=</span><span class="pln"> </span><span class="lit">1.3</span><span class="pln"><br></span></code></pre>
+</div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+        <div class="post-menu"><a href="http://stackoverflow.com/a/692616" title="short permalink to this answer" id="link-post-692616">link</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/692616/edit">improve this answer</a></div>
+    </td>
+            
+
+    <td class="post-signature owner" align="right">   
+       
+
+    <div class="user-info"><div class="user-action-time">answered <span title="2009-03-28 11:13:44Z" class="relativetime">Mar 28 '09 at 11:13</span></div><div class="user-gravatar32"><a href="http://stackoverflow.com/users/19990/armin-ronacher"><div class=""><img src="181de1fb11dffe39774f3e2e23cda3b6" alt=""></div></a></div><div class="user-details"><a href="http://stackoverflow.com/users/19990/armin-ronacher">Armin Ronacher</a><br><span class="reputation-score" title="reputation score" dir="ltr">7,682</span><span title="3 gold badges"><span class="badge1"></span><span class="badgecount">3</span></span><span title="22 silver badges"><span class="badge2"></span><span class="badgecount">22</span></span><span title="46 bronze badges"><span class="badge3"></span><span class="badgecount">46</span></span></div></div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>        </tr>
+
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-692616" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+    
+    <div class="was-this-helpful">
+        feedback
+    </div>
+    
+</td>
+</tr>    </tbody></table>
+</div>
+
+  
+    <a name="136280"></a>
+    <div id="answer-136280" class="answer">
+        <table>
+        <tbody><tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input value="136280" type="hidden">
+    <a class="vote-up-off" title="This answer is useful (click again to undo)">up vote</a>
+    <span class="vote-count-post">7</span>
+    <a class="vote-down-off" title="This answer is not useful (click again to undo)">down vote</a>
+
+</div>
+
+        </td>
+
+
+<td class="answercell">
+    <div class="post-text"><p>Assumes a unix-like system.</p>
+
+<pre class="default prettyprint"><code><span class="kwd">import</span><span class="pln"> os<br></span><span class="kwd">def</span><span class="pln"> tail</span><span class="pun">(</span><span class="pln">f</span><span class="pun">,</span><span class="pln"> n</span><span class="pun">,</span><span class="pln"> offset</span><span class="pun">=</span><span class="lit">0</span><span class="pun">):</span><span class="pln"><br>&nbsp; stdin</span><span class="pun">,</span><span class="pln">stdout </span><span class="pun">=</span><span class="pln"> os</span><span class="pun">.</span><span class="pln">popen2</span><span class="pun">(</span><span class="str">"tail -n "</span><span class="pun">+</span><span class="pln">n</span><span class="pun">+</span><span class="pln">offset</span><span class="pun">+</span><span class="str">" "</span><span class="pun">+</span><span class="pln">f</span><span class="pun">)</span><span class="pln"><br>&nbsp; stdin</span><span class="pun">.</span><span class="pln">close</span><span class="pun">()</span><span class="pln"><br>&nbsp; lines </span><span class="pun">=</span><span class="pln"> stdout</span><span class="pun">.</span><span class="pln">readlines</span><span class="pun">();</span><span class="pln"> stdout</span><span class="pun">.</span><span class="pln">close</span><span class="pun">()</span><span class="pln"><br>&nbsp; </span><span class="kwd">return</span><span class="pln"> lines</span><span class="pun">[:,-</span><span class="pln">offset</span><span class="pun">]</span><span class="pln"><br></span></code></pre>
+</div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+        <div class="post-menu"><a href="http://stackoverflow.com/a/136280" title="short permalink to this answer" id="link-post-136280">link</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/136280/edit">improve this answer</a></div>
+    </td>
+            
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info"><div class="user-action-time">answered <span title="2008-09-25 21:30:14Z" class="relativetime">Sep 25 '08 at 21:30</span></div><div class="user-gravatar32"><a href="http://stackoverflow.com/users/16363/mark"><div class=""><img src="cbdd329e048c3c8a721f054e750d8737" alt=""></div></a></div><div class="user-details"><a href="http://stackoverflow.com/users/16363/mark">Mark</a><br><span class="reputation-score" title="reputation score 10263" dir="ltr">10.3k</span><span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="10 silver badges"><span class="badge2"></span><span class="badgecount">10</span></span><span title="24 bronze badges"><span class="badge3"></span><span class="badgecount">24</span></span></div></div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>        </tr>
+
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-136280" class="comments">
+        <table>
+        <tbody>
+                    
+    <tr id="comment-35175" class="comment">
+        <td></td>
+        <td class="comment-text"><div><span class="comment-copy">Should be platform independent.  Besides, if you read the question you will see that f is a file like object.</span> –&nbsp;<a href="http://stackoverflow.com/users/19990/armin-ronacher" title="7682 reputation" class="comment-user owner">Armin Ronacher</a> <span class="comment-date" dir="ltr"><span title="2008-09-25 21:57:58Z">Sep 25 '08 at 21:57</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-751198" class="comment">
+        <td class="comment-actions"><table><tbody><tr>
+<td class="comment-score">
+<span title="number of 'great comment' votes received" class="warm">6</span>
+</td>
+<td>
+&nbsp;
+</td></tr>
+</tbody></table></td>
+        <td class="comment-text"><div><span class="comment-copy">the question doesn't say platform dependence is unacceptable. i fail to see why this deserves two downvotes when it provides a very unixy (may be what you're looking for... certainly was for me) way of doing exactly what the question asks.</span> –&nbsp;<a href="http://stackoverflow.com/users/15004/shabbyrobe" title="2073 reputation" class="comment-user">Shabbyrobe</a> <span class="comment-date" dir="ltr"><span title="2009-06-03 04:27:06Z">Jun 3 '09 at 4:27</span></span></div></td>
+    </tr>
+
+        </tbody>
+    
+        </table>
+    </div>
+    
+    
+    <div class="was-this-helpful">
+        feedback
+    </div>
+    
+</td>
+</tr>    </tbody></table>
+</div>
+
+  
+    <a name="280083"></a>
+    <div id="answer-280083" class="answer">
+        <table>
+        <tbody><tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input value="280083" type="hidden">
+    <a class="vote-up-off" title="This answer is useful (click again to undo)">up vote</a>
+    <span class="vote-count-post">3</span>
+    <a class="vote-down-off" title="This answer is not useful (click again to undo)">down vote</a>
+
+</div>
+
+        </td>
+
+
+<td class="answercell">
+    <div class="post-text"><p>If reading the whole file is acceptable then use a deque.</p>
+
+<pre class="default prettyprint"><code><span class="kwd">from</span><span class="pln"> collections </span><span class="kwd">import</span><span class="pln"> deque<br>deque</span><span class="pun">(</span><span class="pln">f</span><span class="pun">,</span><span class="pln"> maxlen</span><span class="pun">=</span><span class="pln">n</span><span class="pun">)</span><span class="pln"><br></span></code></pre>
+
+<p>Prior to 2.6, deques didn't have a maxlen option, but it's easy enough to implement.</p>
+
+<pre class="default prettyprint"><code><span class="kwd">import</span><span class="pln"> itertools<br></span><span class="kwd">def</span><span class="pln"> maxque</span><span class="pun">(</span><span class="pln">items</span><span class="pun">,</span><span class="pln"> size</span><span class="pun">):</span><span class="pln"><br>&nbsp; &nbsp; items </span><span class="pun">=</span><span class="pln"> iter</span><span class="pun">(</span><span class="pln">items</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; q </span><span class="pun">=</span><span class="pln"> deque</span><span class="pun">(</span><span class="pln">itertools</span><span class="pun">.</span><span class="pln">islice</span><span class="pun">(</span><span class="pln">items</span><span class="pun">,</span><span class="pln"> size</span><span class="pun">))</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="kwd">for</span><span class="pln"> item </span><span class="kwd">in</span><span class="pln"> items</span><span class="pun">:</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">del</span><span class="pln"> q</span><span class="pun">[</span><span class="lit">0</span><span class="pun">]</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; q</span><span class="pun">.</span><span class="pln">append</span><span class="pun">(</span><span class="pln">item</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="kwd">return</span><span class="pln"> q<br></span></code></pre>
+
+<p>If it's a requirement to read the file from the end, then use a gallop (a.k.a exponential) search.</p>
+
+<pre class="default prettyprint"><code><span class="kwd">def</span><span class="pln"> tail</span><span class="pun">(</span><span class="pln">f</span><span class="pun">,</span><span class="pln"> n</span><span class="pun">):</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="kwd">assert</span><span class="pln"> n </span><span class="pun">&gt;=</span><span class="pln"> </span><span class="lit">0</span><span class="pln"><br>&nbsp; &nbsp; pos</span><span class="pun">,</span><span class="pln"> lines </span><span class="pun">=</span><span class="pln"> n</span><span class="pun">+</span><span class="lit">1</span><span class="pun">,</span><span class="pln"> </span><span class="pun">[]</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="kwd">while</span><span class="pln"> len</span><span class="pun">(</span><span class="pln">lines</span><span class="pun">)</span><span class="pln"> </span><span class="pun">&lt;=</span><span class="pln"> n</span><span class="pun">:</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">try</span><span class="pun">:</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; f</span><span class="pun">.</span><span class="pln">seek</span><span class="pun">(-</span><span class="pln">pos</span><span class="pun">,</span><span class="pln"> </span><span class="lit">2</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">except</span><span class="pln"> </span><span class="typ">IOError</span><span class="pun">:</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; f</span><span class="pun">.</span><span class="pln">seek</span><span class="pun">(</span><span class="lit">0</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">break</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">finally</span><span class="pun">:</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lines </span><span class="pun">=</span><span class="pln"> list</span><span class="pun">(</span><span class="pln">f</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; pos </span><span class="pun">*=</span><span class="pln"> </span><span class="lit">2</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="kwd">return</span><span class="pln"> lines</span><span class="pun">[-</span><span class="pln">n</span><span class="pun">:]</span><span class="pln"><br></span></code></pre>
+</div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+        <div class="post-menu"><a href="http://stackoverflow.com/a/280083" title="short permalink to this answer" id="link-post-280083">link</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/280083/edit">improve this answer</a></div>
+    </td>
+            
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info"><div class="user-action-time">answered <span title="2008-11-11 05:17:18Z" class="relativetime">Nov 11 '08 at 5:17</span></div><div class="user-gravatar32"><a href="http://stackoverflow.com/users/36433/coady"><div class=""><img src="cfd315482372bc7a6123e865b785f9cd" alt=""></div></a></div><div class="user-details"><a href="http://stackoverflow.com/users/36433/coady">Coady</a><br><span class="reputation-score" title="reputation score" dir="ltr">3,905</span><span title="1 gold badge"><span class="badge1"></span><span class="badgecount">1</span></span><span title="5 silver badges"><span class="badge2"></span><span class="badgecount">5</span></span><span title="12 bronze badges"><span class="badge3"></span><span class="badgecount">12</span></span></div></div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>        </tr>
+
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-280083" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+    
+    <div class="was-this-helpful">
+        feedback
+    </div>
+    
+</td>
+</tr>    </tbody></table>
+</div>
+
+  
+    <a name="3018671"></a>
+    <div id="answer-3018671" class="answer">
+        <table>
+        <tbody><tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input value="3018671" type="hidden">
+    <a class="vote-up-off" title="This answer is useful (click again to undo)">up vote</a>
+    <span class="vote-count-post">2</span>
+    <a class="vote-down-off" title="This answer is not useful (click again to undo)">down vote</a>
+
+</div>
+
+        </td>
+
+
+<td class="answercell">
+    <div class="post-text"><p>based on S.Lott's top voted answer (Sep 25 '08 at 21:43), but fixed for small files.</p>
+
+<pre class="default prettyprint"><code><span class="kwd">def</span><span class="pln"> tail</span><span class="pun">(</span><span class="pln">the_file</span><span class="pun">,</span><span class="pln"> lines_2find</span><span class="pun">=</span><span class="lit">20</span><span class="pun">):</span><span class="pln"> &nbsp;<br>&nbsp; &nbsp; the_file</span><span class="pun">.</span><span class="pln">seek</span><span class="pun">(</span><span class="lit">0</span><span class="pun">,</span><span class="pln"> </span><span class="lit">2</span><span class="pun">)</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">#go to end of file</span><span class="pln"><br>&nbsp; &nbsp; bytes_in_file </span><span class="pun">=</span><span class="pln"> the_file</span><span class="pun">.</span><span class="pln">tell</span><span class="pun">()</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br>&nbsp; &nbsp; lines_found</span><span class="pun">,</span><span class="pln"> total_bytes_scanned </span><span class="pun">=</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="kwd">while</span><span class="pln"> lines_2find</span><span class="pun">+</span><span class="lit">1</span><span class="pln"> </span><span class="pun">&gt;</span><span class="pln"> lines_found </span><span class="kwd">and</span><span class="pln"> bytes_in_file </span><span class="pun">&gt;</span><span class="pln"> total_bytes_scanned</span><span class="pun">:</span><span class="pln"> <br>&nbsp; &nbsp; &nbsp; &nbsp; byte_block </span><span class="pun">=</span><span class="pln"> min</span><span class="pun">(</span><span class="lit">1024</span><span class="pun">,</span><span class="pln"> bytes_in_file</span><span class="pun">-</span><span class="pln">total_bytes_scanned</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; the_file</span><span class="pun">.</span><span class="pln">seek</span><span class="pun">(-(</span><span class="pln">byte_block</span><span class="pun">+</span><span class="pln">total_bytes_scanned</span><span class="pun">),</span><span class="pln"> </span><span class="lit">2</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; total_bytes_scanned </span><span class="pun">+=</span><span class="pln"> byte_block<br>&nbsp; &nbsp; &nbsp; &nbsp; lines_found </span><span class="pun">+=</span><span class="pln"> the_file</span><span class="pun">.</span><span class="pln">read</span><span class="pun">(</span><span class="lit">1024</span><span class="pun">).</span><span class="pln">count</span><span class="pun">(</span><span class="str">'\n'</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; the_file</span><span class="pun">.</span><span class="pln">seek</span><span class="pun">(-</span><span class="pln">total_bytes_scanned</span><span class="pun">,</span><span class="pln"> </span><span class="lit">2</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; line_list </span><span class="pun">=</span><span class="pln"> list</span><span class="pun">(</span><span class="pln">the_file</span><span class="pun">.</span><span class="pln">readlines</span><span class="pun">())</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="kwd">return</span><span class="pln"> line_list</span><span class="pun">[-</span><span class="pln">lines_2find</span><span class="pun">:]</span><span class="pln"><br><br>&nbsp; &nbsp; </span><span class="com">#we read at least 21 line breaks from the bottom, block by block for speed</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="com">#21 to ensure we don't get a half line</span><span class="pln"><br></span></code></pre>
+
+<p>Hope this is useful.</p>
+</div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+        <div class="post-menu"><a href="http://stackoverflow.com/a/3018671" title="short permalink to this answer" id="link-post-3018671">link</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/3018671/edit">improve this answer</a></div>
+    </td>
+    <td class="post-signature" align="right">
+<div class="user-info"><div class="user-action-time">edited <a href="http://stackoverflow.com/posts/3018671/revisions" title="show all edits to this post"><span title="2010-06-10 21:39:02Z" class="relativetime">Jun 10 '10 at 21:39</span></a></div><div class="user-gravatar32"></div><div class="user-details"><br></div></div>    </td>
+            
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info"><div class="user-action-time">answered <span title="2010-06-10 21:28:20Z" class="relativetime">Jun 10 '10 at 21:28</span></div><div class="user-gravatar32"><a href="http://stackoverflow.com/users/359868/eyecue"><div class=""><img src="a419429d495c83fd3e2da44523ffdf08" alt=""></div></a></div><div class="user-details"><a href="http://stackoverflow.com/users/359868/eyecue">Eyecue</a><br><span class="reputation-score" title="reputation score" dir="ltr">21</span><span title="2 bronze badges"><span class="badge3"></span><span class="badgecount">2</span></span></div></div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>        </tr>
+
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-3018671" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+    
+    <div class="was-this-helpful">
+        feedback
+    </div>
+    
+</td>
+</tr>    </tbody></table>
+</div>
+
+  
+    <a name="136354"></a>
+    <div id="answer-136354" class="answer">
+        <table>
+        <tbody><tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input value="136354" type="hidden">
+    <a class="vote-up-off" title="This answer is useful (click again to undo)">up vote</a>
+    <span class="vote-count-post">1</span>
+    <a class="vote-down-off" title="This answer is not useful (click again to undo)">down vote</a>
+
+</div>
+
+        </td>
+
+
+<td class="answercell">
+    <div class="post-text"><p>For efficiency with very large files (common in logfile situations where you may want to use tail), you generally want to avoid reading the whole file (even if you do do it without reading the whole file into memory at once)  However, you do need to somehow work out the offset in lines rather than characters.  One possibility is reading backwards with seek() char by char, but this is very slow.  Instead, its better to process in larger blocks.</p>
+
+<p>I've a utility function I wrote a while ago to read files backwards that can be used here.</p>
+
+<pre class="default prettyprint"><code><span class="kwd">import</span><span class="pln"> os</span><span class="pun">,</span><span class="pln"> itertools<br><br></span><span class="kwd">def</span><span class="pln"> rblocks</span><span class="pun">(</span><span class="pln">f</span><span class="pun">,</span><span class="pln"> blocksize</span><span class="pun">=</span><span class="lit">4096</span><span class="pun">):</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"""Read file as series of blocks from end of file to start.<br><br>&nbsp; &nbsp; The data itself is in normal order, only the order of the blocks is reversed.<br>&nbsp; &nbsp; ie. "</span><span class="pln">hello world</span><span class="str">" -&gt; ["</span><span class="pln">ld</span><span class="str">","</span><span class="pln">wor</span><span class="str">", "</span><span class="pln">lo </span><span class="str">", "</span><span class="pln">hel</span><span class="str">"]<br>&nbsp; &nbsp; Note that the file must be opened in binary mode.<br>&nbsp; &nbsp; """</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="kwd">if</span><span class="pln"> </span><span class="str">'b'</span><span class="pln"> </span><span class="kwd">not</span><span class="pln"> </span><span class="kwd">in</span><span class="pln"> f</span><span class="pun">.</span><span class="pln">mode</span><span class="pun">.</span><span class="pln">lower</span><span class="pun">():</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">raise</span><span class="pln"> </span><span class="typ">Exception</span><span class="pun">(</span><span class="str">"File must be opened using binary mode."</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; size </span><span class="pun">=</span><span class="pln"> os</span><span class="pun">.</span><span class="pln">stat</span><span class="pun">(</span><span class="pln">f</span><span class="pun">.</span><span class="pln">name</span><span class="pun">).</span><span class="pln">st_size<br>&nbsp; &nbsp; fullblocks</span><span class="pun">,</span><span class="pln"> lastblock </span><span class="pun">=</span><span class="pln"> divmod</span><span class="pun">(</span><span class="pln">size</span><span class="pun">,</span><span class="pln"> blocksize</span><span class="pun">)</span><span class="pln"><br><br>&nbsp; &nbsp; </span><span class="com"># The first(end of file) block will be short, since this leaves </span><span class="pln"><br>&nbsp; &nbsp; </span><span class="com"># the rest aligned on a blocksize boundary. &nbsp;This may be more </span><span class="pln"><br>&nbsp; &nbsp; </span><span class="com"># efficient than having the last (first in file) block be short</span><span class="pln"><br>&nbsp; &nbsp; f</span><span class="pun">.</span><span class="pln">seek</span><span class="pun">(-</span><span class="pln">lastblock</span><span class="pun">,</span><span class="lit">2</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="kwd">yield</span><span class="pln"> f</span><span class="pun">.</span><span class="pln">read</span><span class="pun">(</span><span class="pln">lastblock</span><span class="pun">)</span><span class="pln"><br><br>&nbsp; &nbsp; </span><span class="kwd">for</span><span class="pln"> i </span><span class="kwd">in</span><span class="pln"> range</span><span class="pun">(</span><span class="pln">fullblocks</span><span class="pun">-</span><span class="lit">1</span><span class="pun">,-</span><span class="lit">1</span><span class="pun">,</span><span class="pln"> </span><span class="pun">-</span><span class="lit">1</span><span class="pun">):</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; f</span><span class="pun">.</span><span class="pln">seek</span><span class="pun">(</span><span class="pln">i </span><span class="pun">*</span><span class="pln"> blocksize</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">yield</span><span class="pln"> f</span><span class="pun">.</span><span class="pln">read</span><span class="pun">(</span><span class="pln">blocksize</span><span class="pun">)</span><span class="pln"><br><br></span><span class="kwd">def</span><span class="pln"> tail</span><span class="pun">(</span><span class="pln">f</span><span class="pun">,</span><span class="pln"> nlines</span><span class="pun">):</span><span class="pln"><br>&nbsp; &nbsp; buf </span><span class="pun">=</span><span class="pln"> </span><span class="str">''</span><span class="pln"><br>&nbsp; &nbsp; result </span><span class="pun">=</span><span class="pln"> </span><span class="pun">[]</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="kwd">for</span><span class="pln"> block </span><span class="kwd">in</span><span class="pln"> rblocks</span><span class="pun">(</span><span class="pln">f</span><span class="pun">):</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; buf </span><span class="pun">=</span><span class="pln"> block </span><span class="pun">+</span><span class="pln"> buf<br>&nbsp; &nbsp; &nbsp; &nbsp; lines </span><span class="pun">=</span><span class="pln"> buf</span><span class="pun">.</span><span class="pln">splitlines</span><span class="pun">()</span><span class="pln"><br><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># Return all lines except the first (since may be partial)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">if</span><span class="pln"> lines</span><span class="pun">:</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; result</span><span class="pun">.</span><span class="pln">extend</span><span class="pun">(</span><span class="pln">lines</span><span class="pun">[</span><span class="lit">1</span><span class="pun">:])</span><span class="pln"> </span><span class="com"># First line may not be complete</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">if</span><span class="pun">(</span><span class="pln">len</span><span class="pun">(</span><span class="pln">result</span><span class="pun">)</span><span class="pln"> </span><span class="pun">&gt;=</span><span class="pln"> nlines</span><span class="pun">):</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">return</span><span class="pln"> result</span><span class="pun">[-</span><span class="pln">nlines</span><span class="pun">:]</span><span class="pln"><br><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; buf </span><span class="pun">=</span><span class="pln"> lines</span><span class="pun">[</span><span class="lit">0</span><span class="pun">]</span><span class="pln"><br><br>&nbsp; &nbsp; </span><span class="kwd">return</span><span class="pln"> </span><span class="pun">([</span><span class="pln">buf</span><span class="pun">]+</span><span class="pln">result</span><span class="pun">)[-</span><span class="pln">nlines</span><span class="pun">:]</span><span class="pln"><br><br><br>f</span><span class="pun">=</span><span class="pln">open</span><span class="pun">(</span><span class="str">'file_to_tail.txt'</span><span class="pun">,</span><span class="str">'rb'</span><span class="pun">)</span><span class="pln"><br></span><span class="kwd">for</span><span class="pln"> line </span><span class="kwd">in</span><span class="pln"> tail</span><span class="pun">(</span><span class="pln">f</span><span class="pun">,</span><span class="pln"> </span><span class="lit">20</span><span class="pun">):</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="kwd">print</span><span class="pln"> line<br></span></code></pre>
+
+<p>[Edit] Added more specific version (avoids need to reverse twice)</p>
+</div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+        <div class="post-menu"><a href="http://stackoverflow.com/a/136354" title="short permalink to this answer" id="link-post-136354">link</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/136354/edit">improve this answer</a></div>
+    </td>
+    <td class="post-signature" align="right">
+<div class="user-info"><div class="user-action-time">edited <a href="http://stackoverflow.com/posts/136354/revisions" title="show all edits to this post"><span title="2008-09-25 21:51:53Z" class="relativetime">Sep 25 '08 at 21:51</span></a></div><div class="user-gravatar32"></div><div class="user-details"><br></div></div>    </td>
+            
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info user-hover"><div class="user-action-time">answered <span title="2008-09-25 21:40:32Z" class="relativetime">Sep 25 '08 at 21:40</span></div><div class="user-gravatar32"><a href="http://stackoverflow.com/users/9493/brian"><div class=""><img src="7895e5fdbabe3fc5e09272bb602257d7" alt=""></div></a></div><div class="user-details"><a href="http://stackoverflow.com/users/9493/brian">Brian</a><br><span class="reputation-score" title="reputation score 20074" dir="ltr">20.1k</span><span title="5 gold badges"><span class="badge1"></span><span class="badgecount">5</span></span><span title="35 silver badges"><span class="badge2"></span><span class="badgecount">35</span></span><span title="59 bronze badges"><span class="badge3"></span><span class="badgecount">59</span></span></div></div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>        </tr>
+
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-136354" class="comments">
+        <table>
+        <tbody>
+                    
+    <tr id="comment-35186" class="comment">
+        <td></td>
+        <td class="comment-text"><div><span class="comment-copy">A quick tests shows that this performs a lot worse than my version from above.  Probably because of your buffering.</span> –&nbsp;<a href="http://stackoverflow.com/users/19990/armin-ronacher" title="7682 reputation" class="comment-user owner">Armin Ronacher</a> <span class="comment-date" dir="ltr"><span title="2008-09-25 22:00:28Z">Sep 25 '08 at 22:00</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-35238" class="comment">
+        <td></td>
+        <td class="comment-text"><div><span class="comment-copy">I suspect it's because I'm doing multiple seeks backwards, so aren't getting as good use of the readahead buffer.  However, I think it may do better when your guess at the line length isn't accurate (eg. very large lines), as it avoids having to re-read data in this case.</span> –&nbsp;<a href="http://stackoverflow.com/users/9493/brian" title="20074 reputation" class="comment-user">Brian</a> <span class="comment-date" dir="ltr"><span title="2008-09-25 22:23:41Z">Sep 25 '08 at 22:23</span></span></div></td>
+    </tr>
+
+        </tbody>
+    
+        </table>
+    </div>
+    
+    
+    <div class="was-this-helpful">
+        feedback
+    </div>
+    
+</td>
+</tr>    </tbody></table>
+</div>
+
+  
+    <a name="4751601"></a>
+    <div id="answer-4751601" class="answer">
+        <table>
+        <tbody><tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input value="4751601" type="hidden">
+    <a class="vote-up-off" title="This answer is useful (click again to undo)">up vote</a>
+    <span class="vote-count-post">1</span>
+    <a class="vote-down-off" title="This answer is not useful (click again to undo)">down vote</a>
+
+</div>
+
+        </td>
+
+
+<td class="answercell">
+    <div class="post-text"><p>Based on Eyecue answer (Jun 10 '10 at 21:28): this class add head() and tail() method to file object.</p>
+
+<pre class="default prettyprint"><code><span class="kwd">class</span><span class="pln"> </span><span class="typ">File</span><span class="pun">(</span><span class="pln">file</span><span class="pun">):</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="kwd">def</span><span class="pln"> head</span><span class="pun">(</span><span class="kwd">self</span><span class="pun">,</span><span class="pln"> lines_2find</span><span class="pun">=</span><span class="lit">1</span><span class="pun">):</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">self</span><span class="pun">.</span><span class="pln">seek</span><span class="pun">(</span><span class="lit">0</span><span class="pun">)</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span class="com">#Rewind file</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">return</span><span class="pln"> </span><span class="pun">[</span><span class="kwd">self</span><span class="pun">.</span><span class="kwd">next</span><span class="pun">()</span><span class="pln"> </span><span class="kwd">for</span><span class="pln"> x </span><span class="kwd">in</span><span class="pln"> xrange</span><span class="pun">(</span><span class="pln">lines_2find</span><span class="pun">)]</span><span class="pln"><br><br>&nbsp; &nbsp; </span><span class="kwd">def</span><span class="pln"> tail</span><span class="pun">(</span><span class="kwd">self</span><span class="pun">,</span><span class="pln"> lines_2find</span><span class="pun">=</span><span class="lit">1</span><span class="pun">):</span><span class="pln"> &nbsp;<br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">self</span><span class="pun">.</span><span class="pln">seek</span><span class="pun">(</span><span class="lit">0</span><span class="pun">,</span><span class="pln"> </span><span class="lit">2</span><span class="pun">)</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com">#go to end of file</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; bytes_in_file </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">self</span><span class="pun">.</span><span class="pln">tell</span><span class="pun">()</span><span class="pln"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <br>&nbsp; &nbsp; &nbsp; &nbsp; lines_found</span><span class="pun">,</span><span class="pln"> total_bytes_scanned </span><span class="pun">=</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">while</span><span class="pln"> </span><span class="pun">(</span><span class="pln">lines_2find</span><span class="pun">+</span><span class="lit">1</span><span class="pln"> </span><span class="pun">&gt;</span><span class="pln"> lines_found </span><span class="kwd">and</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;bytes_in_file </span><span class="pun">&gt;</span><span class="pln"> total_bytes_scanned</span><span class="pun">):</span><span class="pln"> <br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; byte_block </span><span class="pun">=</span><span class="pln"> min</span><span class="pun">(</span><span class="lit">1024</span><span class="pun">,</span><span class="pln"> bytes_in_file</span><span class="pun">-</span><span class="pln">total_bytes_scanned</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">self</span><span class="pun">.</span><span class="pln">seek</span><span class="pun">(-(</span><span class="pln">byte_block</span><span class="pun">+</span><span class="pln">total_bytes_scanned</span><span class="pun">),</span><span class="pln"> </span><span class="lit">2</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; total_bytes_scanned </span><span class="pun">+=</span><span class="pln"> byte_block<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; lines_found </span><span class="pun">+=</span><span class="pln"> </span><span class="kwd">self</span><span class="pun">.</span><span class="pln">read</span><span class="pun">(</span><span class="lit">1024</span><span class="pun">).</span><span class="pln">count</span><span class="pun">(</span><span class="str">'\n'</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">self</span><span class="pun">.</span><span class="pln">seek</span><span class="pun">(-</span><span class="pln">total_bytes_scanned</span><span class="pun">,</span><span class="pln"> </span><span class="lit">2</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; line_list </span><span class="pun">=</span><span class="pln"> list</span><span class="pun">(</span><span class="kwd">self</span><span class="pun">.</span><span class="pln">readlines</span><span class="pun">())</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">return</span><span class="pln"> line_list</span><span class="pun">[-</span><span class="pln">lines_2find</span><span class="pun">:]</span><span class="pln"><br></span></code></pre>
+
+<p>Usage:</p>
+
+<pre class="default prettyprint"><code><span class="pln">f </span><span class="pun">=</span><span class="pln"> </span><span class="typ">File</span><span class="pun">(</span><span class="str">'path/to/file'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'r'</span><span class="pun">)</span><span class="pln"><br>f</span><span class="pun">.</span><span class="pln">head</span><span class="pun">(</span><span class="lit">3</span><span class="pun">)</span><span class="pln"><br>f</span><span class="pun">.</span><span class="pln">tail</span><span class="pun">(</span><span class="lit">3</span><span class="pun">)</span><span class="pln"><br></span></code></pre>
+</div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+        <div class="post-menu"><a href="http://stackoverflow.com/a/4751601" title="short permalink to this answer" id="link-post-4751601">link</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/4751601/edit">improve this answer</a></div>
+    </td>
+    <td class="post-signature" align="right">
+<div class="user-info"><div class="user-action-time">edited <a href="http://stackoverflow.com/posts/4751601/revisions" title="show all edits to this post"><span title="2011-01-20 19:41:56Z" class="relativetime">Jan 20 '11 at 19:41</span></a></div><div class="user-gravatar32"></div><div class="user-details"><br></div></div>    </td>
+            
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info"><div class="user-action-time">answered <span title="2011-01-20 19:29:37Z" class="relativetime">Jan 20 '11 at 19:29</span></div><div class="user-gravatar32"><a href="http://stackoverflow.com/users/260908/fdb"><div class=""><img src="d87dfb51540d2fb1fff7189531e94e62" alt=""></div></a></div><div class="user-details"><a href="http://stackoverflow.com/users/260908/fdb">fdb</a><br><span class="reputation-score" title="reputation score" dir="ltr">336</span><span title="1 silver badge"><span class="badge2"></span><span class="badgecount">1</span></span><span title="7 bronze badges"><span class="badge3"></span><span class="badgecount">7</span></span></div></div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>        </tr>
+
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-4751601" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+    
+    <div class="was-this-helpful">
+        feedback
+    </div>
+    
+</td>
+</tr>    </tbody></table>
+</div>
+
+  
+    <a name="5638389"></a>
+    <div id="answer-5638389" class="answer">
+        <table>
+        <tbody><tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input value="5638389" type="hidden">
+    <a class="vote-up-off" title="This answer is useful (click again to undo)">up vote</a>
+    <span class="vote-count-post">1</span>
+    <a class="vote-down-off" title="This answer is not useful (click again to undo)">down vote</a>
+
+</div>
+
+        </td>
+
+
+<td class="answercell">
+    <div class="post-text"><p>Several of these solutions have issues if the file doesn't end in \n or in ensuring the complete first line is read.</p>
+
+<pre class="default prettyprint"><code><span class="kwd">def</span><span class="pln"> tail</span><span class="pun">(</span><span class="pln">file</span><span class="pun">,</span><span class="pln"> n</span><span class="pun">=</span><span class="lit">1</span><span class="pun">,</span><span class="pln"> bs</span><span class="pun">=</span><span class="lit">1024</span><span class="pun">):</span><span class="pln"><br>&nbsp; &nbsp; f </span><span class="pun">=</span><span class="pln"> open</span><span class="pun">(</span><span class="pln">file</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; f</span><span class="pun">.</span><span class="pln">seek</span><span class="pun">(-</span><span class="lit">1</span><span class="pun">,</span><span class="lit">2</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; l </span><span class="pun">=</span><span class="pln"> </span><span class="lit">1</span><span class="pun">-</span><span class="pln">f</span><span class="pun">.</span><span class="pln">read</span><span class="pun">(</span><span class="lit">1</span><span class="pun">).</span><span class="pln">count</span><span class="pun">(</span><span class="str">'\n'</span><span class="pun">)</span><span class="pln"> </span><span class="com"># If file doesn't end in \n, count it anyway.</span><span class="pln"><br>&nbsp; &nbsp; B </span><span class="pun">=</span><span class="pln"> f</span><span class="pun">.</span><span class="pln">tell</span><span class="pun">()</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="kwd">while</span><span class="pln"> n </span><span class="pun">&gt;=</span><span class="pln"> l </span><span class="kwd">and</span><span class="pln"> B </span><span class="pun">&gt;</span><span class="pln"> </span><span class="lit">0</span><span class="pun">:</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; block </span><span class="pun">=</span><span class="pln"> min</span><span class="pun">(</span><span class="pln">bs</span><span class="pun">,</span><span class="pln"> B</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; B </span><span class="pun">-=</span><span class="pln"> block<br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; f</span><span class="pun">.</span><span class="pln">seek</span><span class="pun">(</span><span class="pln">B</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; l </span><span class="pun">+=</span><span class="pln"> f</span><span class="pun">.</span><span class="pln">read</span><span class="pun">(</span><span class="pln">block</span><span class="pun">).</span><span class="pln">count</span><span class="pun">(</span><span class="str">'\n'</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; f</span><span class="pun">.</span><span class="pln">seek</span><span class="pun">(</span><span class="pln">B</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; l </span><span class="pun">=</span><span class="pln"> min</span><span class="pun">(</span><span class="pln">l</span><span class="pun">,</span><span class="pln">n</span><span class="pun">)</span><span class="pln"> </span><span class="com"># discard first (incomplete) line if l &gt; n</span><span class="pln"><br>&nbsp; &nbsp; lines </span><span class="pun">=</span><span class="pln"> f</span><span class="pun">.</span><span class="pln">readlines</span><span class="pun">()[-</span><span class="pln">l</span><span class="pun">:]</span><span class="pln"><br>&nbsp; &nbsp; f</span><span class="pun">.</span><span class="pln">close</span><span class="pun">()</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="kwd">return</span><span class="pln"> lines<br></span></code></pre>
+</div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+        <div class="post-menu"><a href="http://stackoverflow.com/a/5638389" title="short permalink to this answer" id="link-post-5638389">link</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/5638389/edit">improve this answer</a></div>
+    </td>
+            
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info"><div class="user-action-time">answered <span title="2011-04-12 16:14:42Z" class="relativetime">Apr 12 '11 at 16:14</span></div><div class="user-gravatar32"><a href="http://stackoverflow.com/users/704467/david-rogers"><div class=""><img src="9b845763e1004891211c95a0e4e5d227" alt=""></div></a></div><div class="user-details"><a href="http://stackoverflow.com/users/704467/david-rogers">David Rogers</a><br><span class="reputation-score" title="reputation score" dir="ltr">11</span><span title="1 bronze badge"><span class="badge3"></span><span class="badgecount">1</span></span></div></div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>        </tr>
+
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-5638389" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+    
+    <div class="was-this-helpful">
+        feedback
+    </div>
+    
+</td>
+</tr>    </tbody></table>
+</div>
+
+  
+    <a name="136475"></a>
+    <div id="answer-136475" class="answer">
+        <table>
+        <tbody><tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input value="136475" type="hidden">
+    <a class="vote-up-off" title="This answer is useful (click again to undo)">up vote</a>
+    <span class="vote-count-post">0</span>
+    <a class="vote-down-off" title="This answer is not useful (click again to undo)">down vote</a>
+
+</div>
+
+        </td>
+
+
+<td class="answercell">
+    <div class="post-text"><p>On second thought, this is probably just as fast as anything here.</p>
+
+<pre class="default prettyprint"><code><span class="kwd">def</span><span class="pln"> tail</span><span class="pun">(</span><span class="pln"> f</span><span class="pun">,</span><span class="pln"> window</span><span class="pun">=</span><span class="lit">20</span><span class="pln"> </span><span class="pun">):</span><span class="pln"><br>&nbsp; &nbsp; lines</span><span class="pun">=</span><span class="pln"> </span><span class="pun">[</span><span class="str">''</span><span class="pun">]*</span><span class="pln">window<br>&nbsp; &nbsp; count</span><span class="pun">=</span><span class="pln"> </span><span class="lit">0</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="kwd">for</span><span class="pln"> l </span><span class="kwd">in</span><span class="pln"> f</span><span class="pun">:</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; lines</span><span class="pun">[</span><span class="pln">count</span><span class="pun">%</span><span class="pln">window</span><span class="pun">]=</span><span class="pln"> l<br>&nbsp; &nbsp; &nbsp; &nbsp; count </span><span class="pun">+=</span><span class="pln"> </span><span class="lit">1</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="kwd">print</span><span class="pln"> lines</span><span class="pun">[</span><span class="pln">count</span><span class="pun">%</span><span class="pln">window</span><span class="pun">:],</span><span class="pln"> lines</span><span class="pun">[:</span><span class="pln">count</span><span class="pun">%</span><span class="pln">window</span><span class="pun">]</span><span class="pln"><br></span></code></pre>
+
+<p>It's a lot simpler.  And it does seem to rip along at a good pace.  </p>
+</div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+        <div class="post-menu"><a href="http://stackoverflow.com/a/136475" title="short permalink to this answer" id="link-post-136475">link</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/136475/edit">improve this answer</a></div>
+    </td>
+            
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info user-hover"><div class="user-action-time">answered <span title="2008-09-25 22:03:09Z" class="relativetime">Sep 25 '08 at 22:03</span></div><div class="user-gravatar32"><a href="http://stackoverflow.com/users/10661/s-lott"><div class=""><img src="c2c732bbf13dc96670b210b3c0c1ead5" alt=""></div></a></div><div class="user-details"><a href="http://stackoverflow.com/users/10661/s-lott">S.Lott</a><br><span class="reputation-score" title="reputation score 138733" dir="ltr">139k</span><span title="14 gold badges"><span class="badge1"></span><span class="badgecount">14</span></span><span title="147 silver badges"><span class="badge2"></span><span class="badgecount">147</span></span><span title="358 bronze badges"><span class="badge3"></span><span class="badgecount">358</span></span></div></div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>        </tr>
+
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-136475" class="comments">
+        <table>
+        <tbody>
+                    
+    <tr id="comment-35202" class="comment">
+        <td></td>
+        <td class="comment-text"><div><span class="comment-copy">Because nearly everything here doesn't work with log files with more than 30 MB or so without loading the same amount of memory into the RAM ;)  Your first version is a lot better, but for the test files here it performs slightly worse than mine and it doesn't work with different newline characters.</span> –&nbsp;<a href="http://stackoverflow.com/users/19990/armin-ronacher" title="7682 reputation" class="comment-user owner">Armin Ronacher</a> <span class="comment-date" dir="ltr"><span title="2008-09-25 22:06:05Z">Sep 25 '08 at 22:06</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-35204" class="comment">
+        <td class="comment-actions"><table><tbody><tr>
+<td class="comment-score">
+<span title="number of 'great comment' votes received" class="cool">2</span>
+</td>
+<td>
+&nbsp;
+</td></tr>
+</tbody></table></td>
+        <td class="comment-text"><div><span class="comment-copy">I was wrong.  Version 1 took 0.00248908996582 for 10 tails through the dictionary.  Version 2 took 1.2963051796 for 10 tails through the dictionary.  
+I'd almost vote myself down.</span> –&nbsp;<a href="http://stackoverflow.com/users/10661/s-lott" title="138733 reputation" class="comment-user">S.Lott</a> <span class="comment-date" dir="ltr"><span title="2008-09-25 22:06:42Z">Sep 25 '08 at 22:06</span></span></div></td>
+    </tr>
+            
+    <tr id="comment-35222" class="comment">
+        <td></td>
+        <td class="comment-text"><div><span class="comment-copy">"doesn't work with different newline characters."  Replace datacount('\n') with len(data.splitlines()) if it matters.</span> –&nbsp;<a href="http://stackoverflow.com/users/10661/s-lott" title="138733 reputation" class="comment-user">S.Lott</a> <span class="comment-date" dir="ltr"><span title="2008-09-25 22:15:46Z">Sep 25 '08 at 22:15</span></span></div></td>
+    </tr>
+
+        </tbody>
+    
+        </table>
+    </div>
+    
+    
+    <div class="was-this-helpful">
+        feedback
+    </div>
+    
+</td>
+</tr>    </tbody></table>
+</div>
+
+  
+    <a name="4131157"></a>
+    <div id="answer-4131157" class="answer">
+        <table>
+        <tbody><tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input value="4131157" type="hidden">
+    <a class="vote-up-off" title="This answer is useful (click again to undo)">up vote</a>
+    <span class="vote-count-post">0</span>
+    <a class="vote-down-off" title="This answer is not useful (click again to undo)">down vote</a>
+
+</div>
+
+        </td>
+
+
+<td class="answercell">
+    <div class="post-text"><p>you can go to the end of your file with f.seek(0, 2) and then read off lines one by one with the following replacement for readline():</p>
+
+<pre class="default prettyprint"><code><span class="kwd">def</span><span class="pln"> readline_backwards</span><span class="pun">(</span><span class="kwd">self</span><span class="pun">,</span><span class="pln"> f</span><span class="pun">):</span><span class="pln"><br>&nbsp; &nbsp; backline </span><span class="pun">=</span><span class="pln"> </span><span class="str">''</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="kwd">last</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="str">''</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="kwd">while</span><span class="pln"> </span><span class="kwd">not</span><span class="pln"> </span><span class="kwd">last</span><span class="pln"> </span><span class="pun">==</span><span class="pln"> </span><span class="str">'\n'</span><span class="pun">:</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; backline </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">last</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> backline<br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">if</span><span class="pln"> f</span><span class="pun">.</span><span class="pln">tell</span><span class="pun">()</span><span class="pln"> </span><span class="pun">&lt;=</span><span class="pln"> </span><span class="lit">0</span><span class="pun">:</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">return</span><span class="pln"> backline<br>&nbsp; &nbsp; &nbsp; &nbsp; f</span><span class="pun">.</span><span class="pln">seek</span><span class="pun">(-</span><span class="lit">1</span><span class="pun">,</span><span class="pln"> </span><span class="lit">1</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">last</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> f</span><span class="pun">.</span><span class="pln">read</span><span class="pun">(</span><span class="lit">1</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; f</span><span class="pun">.</span><span class="pln">seek</span><span class="pun">(-</span><span class="lit">1</span><span class="pun">,</span><span class="pln"> </span><span class="lit">1</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; backline </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">last</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="kwd">last</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="str">''</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="kwd">while</span><span class="pln"> </span><span class="kwd">not</span><span class="pln"> </span><span class="kwd">last</span><span class="pln"> </span><span class="pun">==</span><span class="pln"> </span><span class="str">'\n'</span><span class="pun">:</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; backline </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">last</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> backline<br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">if</span><span class="pln"> f</span><span class="pun">.</span><span class="pln">tell</span><span class="pun">()</span><span class="pln"> </span><span class="pun">&lt;=</span><span class="pln"> </span><span class="lit">0</span><span class="pun">:</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">return</span><span class="pln"> backline<br>&nbsp; &nbsp; &nbsp; &nbsp; f</span><span class="pun">.</span><span class="pln">seek</span><span class="pun">(-</span><span class="lit">1</span><span class="pun">,</span><span class="pln"> </span><span class="lit">1</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">last</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> f</span><span class="pun">.</span><span class="pln">read</span><span class="pun">(</span><span class="lit">1</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; f</span><span class="pun">.</span><span class="pln">seek</span><span class="pun">(-</span><span class="lit">1</span><span class="pun">,</span><span class="pln"> </span><span class="lit">1</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; f</span><span class="pun">.</span><span class="pln">seek</span><span class="pun">(</span><span class="lit">1</span><span class="pun">,</span><span class="pln"> </span><span class="lit">1</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="kwd">return</span><span class="pln"> backline<br></span></code></pre>
+</div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+        <div class="post-menu"><a href="http://stackoverflow.com/a/4131157" title="short permalink to this answer" id="link-post-4131157">link</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/4131157/edit">improve this answer</a></div>
+    </td>
+    <td class="post-signature" align="right">
+<div class="user-info"><div class="user-action-time">edited <a href="http://stackoverflow.com/posts/4131157/revisions" title="show all edits to this post"><span title="2010-11-09 07:01:30Z" class="relativetime">Nov 9 '10 at 7:01</span></a></div><div class="user-gravatar32"></div><div class="user-details"><br></div></div>    </td>
+            
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info"><div class="user-action-time">answered <span title="2010-11-09 06:50:09Z" class="relativetime">Nov 9 '10 at 6:50</span></div><div class="user-gravatar32"><a href="http://stackoverflow.com/users/501548/rabbit"><div class=""><img src="e34722f4067bc7029eb146a5bdb483c8" alt=""></div></a></div><div class="user-details"><a href="http://stackoverflow.com/users/501548/rabbit">rabbit</a><br><span class="reputation-score" title="reputation score" dir="ltr">1</span><span title="1 bronze badge"><span class="badge3"></span><span class="badgecount">1</span></span></div></div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>        </tr>
+
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-4131157" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+    
+    <div class="was-this-helpful">
+        feedback
+    </div>
+    
+</td>
+</tr>    </tbody></table>
+</div>
+
+  
+    <a name="6813975"></a>
+    <div id="answer-6813975" class="answer">
+        <table>
+        <tbody><tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input value="6813975" type="hidden">
+    <a class="vote-up-off" title="This answer is useful (click again to undo)">up vote</a>
+    <span class="vote-count-post">0</span>
+    <a class="vote-down-off" title="This answer is not useful (click again to undo)">down vote</a>
+
+</div>
+
+        </td>
+
+
+<td class="answercell">
+    <div class="post-text"><p>Simple and fast solution with mmap:</p>
+
+<pre class="default prettyprint"><code><span class="kwd">import</span><span class="pln"> mmap<br></span><span class="kwd">import</span><span class="pln"> os<br><br></span><span class="kwd">def</span><span class="pln"> tail</span><span class="pun">(</span><span class="pln">filename</span><span class="pun">,</span><span class="pln"> n</span><span class="pun">):</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"""Returns last n lines from the filename. No exception handling"""</span><span class="pln"><br>&nbsp; &nbsp; size </span><span class="pun">=</span><span class="pln"> os</span><span class="pun">.</span><span class="pln">path</span><span class="pun">.</span><span class="pln">getsize</span><span class="pun">(</span><span class="pln">filename</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="kwd">with</span><span class="pln"> open</span><span class="pun">(</span><span class="pln">filename</span><span class="pun">,</span><span class="pln"> </span><span class="str">"rb"</span><span class="pun">)</span><span class="pln"> </span><span class="kwd">as</span><span class="pln"> f</span><span class="pun">:</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># for Windows the mmap parameters are different</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; fm </span><span class="pun">=</span><span class="pln"> mmap</span><span class="pun">.</span><span class="pln">mmap</span><span class="pun">(</span><span class="pln">f</span><span class="pun">.</span><span class="pln">fileno</span><span class="pun">(),</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span><span class="pln"> mmap</span><span class="pun">.</span><span class="pln">MAP_SHARED</span><span class="pun">,</span><span class="pln"> mmap</span><span class="pun">.</span><span class="pln">PROT_READ</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">try</span><span class="pun">:</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">for</span><span class="pln"> i </span><span class="kwd">in</span><span class="pln"> xrange</span><span class="pun">(</span><span class="pln">size </span><span class="pun">-</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln"> </span><span class="pun">-</span><span class="lit">1</span><span class="pun">,</span><span class="pln"> </span><span class="pun">-</span><span class="lit">1</span><span class="pun">):</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">if</span><span class="pln"> fm</span><span class="pun">[</span><span class="pln">i</span><span class="pun">]</span><span class="pln"> </span><span class="pun">==</span><span class="pln"> </span><span class="str">'\n'</span><span class="pun">:</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; n </span><span class="pun">-=</span><span class="pln"> </span><span class="lit">1</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">if</span><span class="pln"> n </span><span class="pun">==</span><span class="pln"> </span><span class="pun">-</span><span class="lit">1</span><span class="pun">:</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">break</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">return</span><span class="pln"> fm</span><span class="pun">[</span><span class="pln">i </span><span class="pun">+</span><span class="pln"> </span><span class="lit">1</span><span class="pln"> </span><span class="kwd">if</span><span class="pln"> i </span><span class="kwd">else</span><span class="pln"> </span><span class="lit">0</span><span class="pun">:].</span><span class="pln">splitlines</span><span class="pun">()</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">finally</span><span class="pun">:</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fm</span><span class="pun">.</span><span class="pln">close</span><span class="pun">()</span><span class="pln"><br></span></code></pre>
+</div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+        <div class="post-menu"><a href="http://stackoverflow.com/a/6813975" title="short permalink to this answer" id="link-post-6813975">link</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/6813975/edit">improve this answer</a></div>
+    </td>
+    <td class="post-signature" align="right">
+<div class="user-info"><div class="user-action-time">edited <a href="http://stackoverflow.com/posts/6813975/revisions" title="show all edits to this post"><span title="2011-07-25 09:28:22Z" class="relativetime">Jul 25 '11 at 9:28</span></a></div><div class="user-gravatar32"></div><div class="user-details"><br></div></div>    </td>
+            
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info"><div class="user-action-time">answered <span title="2011-07-25 09:18:10Z" class="relativetime">Jul 25 '11 at 9:18</span></div><div class="user-gravatar32"><a href="http://stackoverflow.com/users/861232/dimitri"><div class=""><img src="e4369098cfadc83d03290a26da68d5a5" alt=""></div></a></div><div class="user-details"><a href="http://stackoverflow.com/users/861232/dimitri">dimitri</a><br><span class="reputation-score" title="reputation score" dir="ltr">319</span><span title="3 bronze badges"><span class="badge3"></span><span class="badgecount">3</span></span></div></div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>        </tr>
+
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-6813975" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+    
+    <div class="was-this-helpful">
+        feedback
+    </div>
+    
+</td>
+</tr>    </tbody></table>
+</div>
+
+  
+    <a name="7047765"></a>
+    <div id="answer-7047765" class="answer">
+        <table>
+        <tbody><tr>
+        <td class="votecell">
+            
+<div class="vote">
+    <input value="7047765" type="hidden">
+    <a class="vote-up-off" title="This answer is useful (click again to undo)">up vote</a>
+    <span class="vote-count-post">0</span>
+    <a class="vote-down-off" title="This answer is not useful (click again to undo)">down vote</a>
+
+</div>
+
+        </td>
+
+
+<td class="answercell">
+    <div class="post-text"><p>S.Lott's answer above almost works for me but ends up giving me partial lines. It turns out that it corrupts data on block boundaries because data holds the read blocks in reversed order. When ''.join(data) is called, the blocks are in the wrong order. This fixes that.</p>
+
+<pre class="default prettyprint"><code><span class="kwd">def</span><span class="pln"> tail</span><span class="pun">(</span><span class="pln">f</span><span class="pun">,</span><span class="pln"> window</span><span class="pun">=</span><span class="lit">20</span><span class="pun">):</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="str">"""<br>&nbsp; &nbsp; Returns the last `window` lines of file `f` as a list.<br>&nbsp; &nbsp; """</span><span class="pln"><br>&nbsp; &nbsp; BUFSIZ </span><span class="pun">=</span><span class="pln"> </span><span class="lit">1024</span><span class="pln"><br>&nbsp; &nbsp; f</span><span class="pun">.</span><span class="pln">seek</span><span class="pun">(</span><span class="lit">0</span><span class="pun">,</span><span class="pln"> </span><span class="lit">2</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; bytes </span><span class="pun">=</span><span class="pln"> f</span><span class="pun">.</span><span class="pln">tell</span><span class="pun">()</span><span class="pln"><br>&nbsp; &nbsp; size </span><span class="pun">=</span><span class="pln"> window </span><span class="pun">+</span><span class="pln"> </span><span class="lit">1</span><span class="pln"><br>&nbsp; &nbsp; block </span><span class="pun">=</span><span class="pln"> </span><span class="pun">-</span><span class="lit">1</span><span class="pln"><br>&nbsp; &nbsp; data </span><span class="pun">=</span><span class="pln"> </span><span class="pun">[]</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="kwd">while</span><span class="pln"> size </span><span class="pun">&gt;</span><span class="pln"> </span><span class="lit">0</span><span class="pln"> </span><span class="kwd">and</span><span class="pln"> bytes </span><span class="pun">&gt;</span><span class="pln"> </span><span class="lit">0</span><span class="pun">:</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">if</span><span class="pln"> bytes </span><span class="pun">-</span><span class="pln"> BUFSIZ </span><span class="pun">&gt;</span><span class="pln"> </span><span class="lit">0</span><span class="pun">:</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># Seek back one whole BUFSIZ</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; f</span><span class="pun">.</span><span class="pln">seek</span><span class="pun">(</span><span class="pln">block </span><span class="pun">*</span><span class="pln"> BUFSIZ</span><span class="pun">,</span><span class="pln"> </span><span class="lit">2</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># read BUFFER</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; data</span><span class="pun">.</span><span class="pln">insert</span><span class="pun">(</span><span class="lit">0</span><span class="pun">,</span><span class="pln"> f</span><span class="pun">.</span><span class="pln">read</span><span class="pun">(</span><span class="pln">BUFSIZ</span><span class="pun">))</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; </span><span class="kwd">else</span><span class="pun">:</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># file too small, start from begining</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; f</span><span class="pun">.</span><span class="pln">seek</span><span class="pun">(</span><span class="lit">0</span><span class="pun">,</span><span class="lit">0</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span class="com"># only read what was not read</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; data</span><span class="pun">.</span><span class="pln">insert</span><span class="pun">(</span><span class="lit">0</span><span class="pun">,</span><span class="pln"> f</span><span class="pun">.</span><span class="pln">read</span><span class="pun">(</span><span class="pln">bytes</span><span class="pun">))</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; linesFound </span><span class="pun">=</span><span class="pln"> data</span><span class="pun">[</span><span class="lit">0</span><span class="pun">].</span><span class="pln">count</span><span class="pun">(</span><span class="str">'\n'</span><span class="pun">)</span><span class="pln"><br>&nbsp; &nbsp; &nbsp; &nbsp; size </span><span class="pun">-=</span><span class="pln"> linesFound<br>&nbsp; &nbsp; &nbsp; &nbsp; bytes </span><span class="pun">-=</span><span class="pln"> BUFSIZ<br>&nbsp; &nbsp; &nbsp; &nbsp; block </span><span class="pun">-=</span><span class="pln"> </span><span class="lit">1</span><span class="pln"><br>&nbsp; &nbsp; </span><span class="kwd">return</span><span class="pln"> </span><span class="str">''</span><span class="pun">.</span><span class="pln">join</span><span class="pun">(</span><span class="pln">data</span><span class="pun">).</span><span class="pln">splitlines</span><span class="pun">()[-</span><span class="pln">window</span><span class="pun">:]</span><span class="pln"><br></span></code></pre>
+</div>
+    <table class="fw">
+    <tbody><tr>
+    <td class="vt">
+        <div class="post-menu"><a href="http://stackoverflow.com/a/7047765" title="short permalink to this answer" id="link-post-7047765">link</a><span class="lsep">|</span><a href="http://stackoverflow.com/posts/7047765/edit">improve this answer</a></div>
+    </td>
+            
+
+    <td class="post-signature" align="right">   
+       
+
+    <div class="user-info"><div class="user-action-time">answered <span title="2011-08-13 00:43:38Z" class="relativetime">Aug 13 '11 at 0:43</span></div><div class="user-gravatar32"><a href="http://stackoverflow.com/users/892621/papercrane"><div class=""><img src="222e3eca8b3f2fe3bf2b990fdf20a8e9" alt=""></div></a></div><div class="user-details"><a href="http://stackoverflow.com/users/892621/papercrane">papercrane</a><br><span class="reputation-score" title="reputation score" dir="ltr">1</span><span title="1 bronze badge"><span class="badge3"></span><span class="badgecount">1</span></span></div></div>
+    </td>
+    </tr>
+    </tbody></table>
+</td>        </tr>
+
+
+<tr>
+<td class="votecell"></td>
+<td>
+    <div id="comments-7047765" class="comments dno">
+        <table>
+        <tbody>
+        
+            <tr><td></td><td></td></tr>
+        
+        </tbody>
+    
+        </table>
+    </div>
+    
+    
+    <div class="was-this-helpful">
+        feedback
+    </div>
+    
+</td>
+</tr>    </tbody></table>
+</div>
+    <a name="new-answer"></a>
+    <form id="post-form" action="http://stackoverflow.com/questions/136168/answer/submit" method="post" class="post-form">
+        <h2 class="space">Your Answer</h2>
+       
+
+
+
+
+<div id="post-editor" class="post-editor">  
+
+    
+    <div class="wmd-container">
+        <div id="wmd-button-bar" class="wmd-button-bar"><ul id="wmd-button-row" class="wmd-button-row"><li style="left: 0px;" class="wmd-button" id="wmd-bold-button"><span style="background-position: 0px -20px;"></span></li><li style="left: 25px;" class="wmd-button" id="wmd-italic-button"><span style="background-position: -20px -20px;"></span></li><li style="left: 50px;" class="wmd-spacer" id="wmd-spacer1"><span style="background-position: -40px -20px;"></span></li><li style="left: 75px;" class="wmd-button" id="wmd-link-button"><span style="background-position: -40px -20px;"></span></li><li style="left: 100px;" class="wmd-button" id="wmd-quote-button"><span style="background-position: -60px -20px;"></span></li><li style="left: 125px;" class="wmd-button" id="wmd-code-button"><span style="background-position: -80px -20px;"></span></li><li style="left: 150px;" class="wmd-button" id="wmd-image-button"><span style="background-position: -100px -20px;"></span></li><li style="left: 175px;" class="wmd-spacer" id="wmd-spacer2"><span style="background-position: -120px -20px;"></span></li><li style="left: 200px;" class="wmd-button" id="wmd-olist-button"><span style="background-position: -120px -20px;"></span></li><li style="left: 225px;" class="wmd-button" id="wmd-ulist-button"><span style="background-position: -140px -20px;"></span></li><li style="left: 250px;" class="wmd-button" id="wmd-heading-button"><span style="background-position: -160px -20px;"></span></li><li style="left: 275px;" class="wmd-button" id="wmd-hr-button"><span style="background-position: -180px -20px;"></span></li><li style="left: 300px;" class="wmd-spacer" id="wmd-spacer3"><span style="background-position: -200px -20px;"></span></li><li style="left: 325px;" class="wmd-button" id="wmd-undo-button"><span style="background-position: -200px -20px;"></span></li><li style="left: 350px;" class="wmd-button" id="wmd-redo-button"><span style="background-position: -220px -20px;"></span></li></ul></div>
+        <textarea id="wmd-input" class="wmd-input" name="post-text" cols="92" rows="15" tabindex="101"></textarea><img style="cursor: pointer ! important; display: none ! important; position: absolute ! important; padding: 0pt ! important; margin: 0pt ! important; border: medium none ! important; width: 28px ! important; height: 14px ! important; opacity: 0.0152174 ! important; left: 794px ! important; top: 9100px ! important;" title="It's All Text!" src="chrome://itsalltext/locale/gumdrop.png">
+    </div>
+
+    <div class="fl" style="margin-top: 8px; height: 24px;">&nbsp;</div>
+    <div id="draft-saved" class="draft-saved community-option fl" style="margin-top: 8px; height: 24px; display: none;">draft saved</div>
+
+
+
+    <div id="wmd-preview" class="wmd-preview"></div>
+    <div></div>
+    <div class="edit-block">
+        <input id="fkey" name="fkey" value="08ce3c8f973e2c65fba577e5a914fe73" type="hidden">
+        <input value="" id="author" name="author" type="text">
+    </div>
+</div>   
+    <div class="form-item">
+        <table>
+        <tbody><tr>
+        <td class="vm open-id-login">
+            <a id="login-link" style="font-size: 200%; margin-left: 30px;" href="http://stackoverflow.com/users/login?returnurl=%2fquestions%2f136168%2fget-last-n-lines-of-a-file-with-python-similar-to-tail">log in</a>
+            
+        </td>
+
+    
+        <td class="orcell">
+            <div class="orword">or</div>
+            <div class="orline"></div>
+        </td>
+        <td class="vm">
+            <div>
+                <label for="display-name">Name</label>
+                <input id="display-name" name="display-name" size="30" maxlength="30" value="" tabindex="105" type="text">
+            </div>
+            <div>
+                <label for="m-address">Email</label>
+                <input id="m-address" name="m-address" size="40" maxlength="100" value="" tabindex="106" type="text">
+                <span class="edit-field-overlay">required, but never shown</span>
+            </div>
+            <div>
+                <label for="home-page">Home Page</label>
+                <input id="home-page" name="home-page" size="40" maxlength="200" value="" tabindex="107" type="text">
+            </div>
+        </td>
+    
+        </tr>
+        </tbody></table>
+    </div>
+               
+        <div class="form-submit cbt"><input id="submit-button" value="Post Your Answer" tabindex="110" type="submit"></div>
+    </form>
+
+
+        <h2 class="bottom-notice">
+                Not the answer you're looking for? 
+            Browse other questions tagged <a href="http://stackoverflow.com/questions/tagged/python" class="post-tag" title="show questions tagged 'python'" rel="tag">python</a> <a href="http://stackoverflow.com/questions/tagged/file" class="post-tag" title="show questions tagged 'file'" rel="tag">file</a> <a href="http://stackoverflow.com/questions/tagged/file-io" class="post-tag" title="show questions tagged 'file-io'" rel="tag">file-io</a> <a href="http://stackoverflow.com/questions/tagged/tail" class="post-tag" title="show questions tagged 'tail'" rel="tag">tail</a> <a href="http://stackoverflow.com/questions/tagged/logfiles" class="post-tag" title="show questions tagged 'logfiles'" rel="tag">logfiles</a> 
+                or <a href="http://stackoverflow.com/questions/ask">ask your own question</a>.
+        </h2>
+</div>
+</div>
+<div id="sidebar">
+
+
+
+    <div class="module newuser newuser-greeting" style="">
+        <h4>Hello World!</h4>
+        <div>
+            <p></p><p>This is a collaboratively edited question and answer site for <b>professional and enthusiast programmers</b>. It's 100% free, no registration required.</p><p></p>
+            <p class="ar"><a href="http://stackoverflow.com/about">about »</a>&nbsp;&nbsp;&nbsp;<a href="http://stackoverflow.com/faq">faq »</a>
+            </p>
+        </div>
+    </div>
+    <div class="module">
+        <p class="label-key">tagged</p>
+        <div class="tagged"><a href="http://stackoverflow.com/questions/tagged/python" class="post-tag" title="show questions tagged 'python'" rel="tag">python</a>&nbsp;<span class="item-multiplier">×&nbsp;87638</span><br>
+<a href="http://stackoverflow.com/questions/tagged/file" class="post-tag" title="show questions tagged 'file'" rel="tag">file</a>&nbsp;<span class="item-multiplier">×&nbsp;11140</span><br>
+<a href="http://stackoverflow.com/questions/tagged/file-io" class="post-tag" title="show questions tagged 'file-io'" rel="tag">file-io</a>&nbsp;<span class="item-multiplier">×&nbsp;3991</span><br>
+<a href="http://stackoverflow.com/questions/tagged/tail" class="post-tag" title="show questions tagged 'tail'" rel="tag">tail</a>&nbsp;<span class="item-multiplier">×&nbsp;146</span><br>
+<a href="http://stackoverflow.com/questions/tagged/logfiles" class="post-tag" title="show questions tagged 'logfiles'" rel="tag">logfiles</a>&nbsp;<span class="item-multiplier">×&nbsp;76</span><br>
+</div>
+        <table id="qinfo">
+            <tbody><tr>
+                <td><p class="label-key">asked</p></td>
+                <td style="padding-left: 10px;"><p class="label-key" title="2008-09-25 21:11:11Z"><b>3 years ago</b></p></td>
+            </tr>
+            <tr>
+                <td><p class="label-key">viewed</p></td>
+
+                <td style="padding-left: 10px;"><p class="label-key"><b>13,208 times</b></p></td>
+            </tr>
+            <tr>
+                <td><p class="label-key">active</p></td>
+                <td style="padding-left: 10px;"><p class="label-key"><b><a href="http://stackoverflow.com/questions/136168/get-last-n-lines-of-a-file-with-python-similar-to-tail?lastactivity" class="lastactivity-link" title="2011-08-13 00:43:38Z">4 months ago</a></b></p></td>
+            </tr>
+        </tbody></table>
+    </div>
+    
+        
+    
+    <div class="everyonelovesstackoverflow" id="adzerk2"><a href="http://engine.adzerk.net/redirect/0/7490/7472/8277/807ab24494e94b97a080c7a049638d59/45/1178/11862/634616011810588160?keywords=python%2cfile%2cfile-io%2ctail%2clogfiles" rel="nofollow" target="_top" title=""><img src="2ec4cc4bd99d44cdbd3ea2d118ab9ad0.jpg" title="" alt="" height="250" border="0" width="220"></a></div>
+
+    
+    
+<div class="module" id="chat-feature">
+
+
+
+<h4><a title="12 users active in 5 rooms the last 60 minutes" href="http://chat.stackoverflow.com/" id="h-chat-link">12 People Chatting</a></h4>
+
+
+<div class="related" id="ad502-rooms"><div class="ad502-room"><h3 class="ad502-room-h3"><span class="ad502-room-title" title="Python"><a href="http://chat.stackoverflow.com/rooms/6">Python</a></span></h3><span title="2012-01-08 05:31:02Z" class="ad502-last-message">1 hour ago - <a href="http://chat.stackoverflow.com/users/1002009">enrique2334</a></span><br><div class="ad502-users"><img src="6.jpeg"></div></div></div>
+
+
+
+
+
+</div>  
+
+    <div class="module">
+    <h4 id="h-linked">Linked</h4>
+    <div class="linked">
+    <div class="spacer">
+<a href="http://stackoverflow.com/questions/182197/how-do-i-watch-a-file-for-changes-using-python" class="question-hyperlink">How do I watch a file for changes using Python?</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/260273/most-efficient-way-to-search-the-last-x-lines-of-a-file-in-python" class="question-hyperlink">Most efficient way to search the last x lines of a file in python</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/1703640/how-to-implement-a-pythonic-equivalent-of-tail-f" class="question-hyperlink">How to implement a pythonic equivalent of tail -F?</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/7167008/efficiently-finding-the-last-line-in-a-text-file" class="question-hyperlink">Efficiently finding the last line in a text file</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/3299213/python-how-can-i-open-a-file-and-specify-the-offset-in-bytes" class="question-hyperlink">Python - How can I open a file and specify the offset in bytes?</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/2012118/how-to-write-last-50-lines-from-one-file-to-another-python" class="question-hyperlink">How to write last 50 lines from one file to another Python</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/3568833/how-to-read-lines-from-a-file-in-python-starting-from-the-end" class="question-hyperlink">How to read lines from a file in python starting from the end</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/7680055/python-to-emulate-remote-tail-f" class="question-hyperlink">Python to emulate remote tail -f?</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/6922829/read-file-backwards-last-line-first" class="question-hyperlink">read file backwards (last line first)</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/5896079/python-head-tail-and-backward-read-by-lines-of-a-text-file" class="question-hyperlink">python head, tail and backward read by lines of a text file</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/3396866/how-to-manage-subprocess-in-python-when-the-output-is-huge" class="question-hyperlink">How to manage subprocess in Python when the output is huge?</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/2136800/how-to-read-a-file-backwards" class="question-hyperlink">How to read a file backwards?</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/5976327/how-to-improve-this-tail-like-python-code" class="question-hyperlink">How to improve this tail-like Python code</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/7931338/im-tailing-a-file-in-python-for-any-changes-and-it-is-not-picking-up-a-change-t" class="question-hyperlink">I'm tailing a file in python for any changes and it is not picking up a change to the file</a>
+</div>
+
+    </div>
+    </div>
+    <div class="module">
+    <h4 id="h-related">Related</h4>
+    <div class="related">
+    <div class="spacer">
+<a href="http://stackoverflow.com/questions/557844/java-io-implementation-of-unix-linux-tail-f" class="question-hyperlink">Java IO implementation of unix/linux “tail -f”</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/1062896/oddity-with-php-tail-n-1-returning-multiple-results" class="question-hyperlink">Oddity with PHP tail -n 1 returning multiple results</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/1373660/file-open-is-this-bad-python-style" class="question-hyperlink">File open: Is this bad Python style?</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/1423214/how-to-save-a-configuration-file-python-file-io" class="question-hyperlink">How to save a configuration file / python file IO</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/1703640/how-to-implement-a-pythonic-equivalent-of-tail-f" class="question-hyperlink">How to implement a pythonic equivalent of tail -F?</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/2210975/how-do-you-continuously-read-a-file-in-java" class="question-hyperlink">How do you continuously read a file in Java?</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/3030343/writing-to-a-file-in-python-inserts-null-bytes" class="question-hyperlink">Writing to a file in Python inserts null bytes</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/3456651/python-analyse-2-logfiles" class="question-hyperlink">python analyse 2 logfiles</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/4283623/is-there-any-application-editor-which-tracks-the-changes-happening-in-a-file-and" class="question-hyperlink">Is there any application/editor which tracks the changes happening in a file and displays them?</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/4310659/remove-lines-from-a-text-file-which-do-not-contain-a-certain-string-with-python" class="question-hyperlink">Remove lines from a text file which do not contain a certain string with python</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/4528445/whats-wrong-with-this-python-file-read-test" class="question-hyperlink">What's wrong with this Python file-read test?</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/5326405/understanding-the-tail-f-in-python" class="question-hyperlink">Understanding the “tail -f in python”</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/5568524/how-do-i-tail-a-log-file-without-locking-in-perl" class="question-hyperlink">How do I tail a log file without locking in perl</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/5794945/print-out-the-last-10-lines-of-a-file" class="question-hyperlink">print out the last 10 lines of a file</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/5896079/python-head-tail-and-backward-read-by-lines-of-a-text-file" class="question-hyperlink">python head, tail and backward read by lines of a text file</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/5976327/how-to-improve-this-tail-like-python-code" class="question-hyperlink">How to improve this tail-like Python code</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/6185543/is-tail-2-supported-by-linux" class="question-hyperlink">Is “tail +2” supported by Linux?</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/6415382/python-command-line-file-input-stream" class="question-hyperlink">Python command line 'file input stream'</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/6626629/replace-modify-tail-of-a-gz-file-with-gzip-open" class="question-hyperlink">replace/modify tail of a gz file with gzip.open</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/6814404/java-inputstream-read-methods-returning-ascii-nul-characters-for-file-in-a-nfs" class="question-hyperlink">Java InputStream read methods returning ASCII 'NUL' characters for file in a NFS mount location</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/7055170/how-to-repeatedly-read-a-file-from-the-last-location" class="question-hyperlink">How to repeatedly read a file from the last location</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/7680055/python-to-emulate-remote-tail-f" class="question-hyperlink">Python to emulate remote tail -f?</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/7700225/c-program-to-write-last-few-lines-of-program-seek-error" class="question-hyperlink">C program to write last few lines of program, seek error?</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/7904567/what-does-this-block-of-python-code-do" class="question-hyperlink">What does this block of Python code do?</a>
+</div>
+<div class="spacer">
+<a href="http://stackoverflow.com/questions/7931338/im-tailing-a-file-in-python-for-any-changes-and-it-is-not-picking-up-a-change-t" class="question-hyperlink">I'm tailing a file in python for any changes and it is not picking up a change to the file</a>
+</div>
+
+    </div>
+    </div>
+</div>
+
+<div id="feed-link">
+    <div id="feed-link-text"><a href="http://stackoverflow.com/feeds/question/136168" title="feed of this question and its answers"><span class="feed-icon"></span>question feed</a></div>
+</div>
+
+
+<div style="display: none;" id="prettify-lang">default</div>
+        </div>
+    </div>
+    <div id="footer">
+        <div class="footerwrap">
+            <div id="footer-menu">
+                <a href="http://stackoverflow.com/about">about</a> |
+                <a href="http://stackoverflow.com/faq">faq</a> |
+                <a href="http://blog.stackexchange.com/">blog</a> |
+                    <a href="http://chat.stackoverflow.com/">chat</a> |
+                <a href="http://data.stackexchange.com/">data</a> |
+                <a href="http://blog.stackoverflow.com/category/podcasts/">podcast</a> |
+                <a href="http://shop.stackexchange.com/">shop</a> |
+                <a href="http://stackexchange.com/legal">legal</a> |
+                <a href="http://engine.adzerk.net/redirect/0/2776/2751/0/4de3c60f719c4dfcb1a57531c7050090/0">advertising info</a> |
+
+                <a onclick="StackExchange.switchMobile('on', '/questions/136168/get-last-n-lines-of-a-file-with-python-similar-to-tail')">mobile</a> |
+
+                <b><a href="mailto:team@stackoverflow.com">contact us</a></b>
+                  | <b><a href="http://meta.stackoverflow.com/">feedback</a></b>
+                <div id="footer-sites">
+                    
+                        <span style="color: rgb(254, 122, 21); font-size: 140%;">■</span>&nbsp;<a href="http://stackoverflow.com/">stackoverflow.com</a>&nbsp; 
+                        <span style="color: rgb(254, 122, 21); font-size: 140%;">■</span>&nbsp;<a href="http://stackapps.com/">api/apps</a>&nbsp; 
+                        <span style="color: rgb(254, 122, 21); font-size: 140%;">■</span>&nbsp;<a href="http://careers.stackoverflow.com/">careers</a>&nbsp; 
+                        <span style="color: rgb(232, 39, 44); font-size: 140%;">■</span>&nbsp;<a href="http://serverfault.com/">serverfault.com</a>&nbsp; 
+                        <span style="color: rgb(0, 175, 239); font-size: 140%;">■</span>&nbsp;<a href="http://superuser.com/">superuser.com</a>&nbsp; 
+                        <span style="color: rgb(150, 150, 150); font-size: 140%;">■</span>&nbsp;<a href="http://meta.stackoverflow.com/">meta</a>&nbsp; 
+                        <span style="color: rgb(70, 147, 125); font-size: 140%;">■</span>&nbsp;<a href="http://area51.stackexchange.com/">area&nbsp;51</a>&nbsp; 
+                        <span style="color: rgb(192, 208, 220); font-size: 140%;">■</span>&nbsp;<a href="http://webapps.stackexchange.com/">webapps</a>&nbsp; 
+                        <span style="color: rgb(0, 0, 0); font-size: 140%;">■</span>&nbsp;<a href="http://gaming.stackexchange.com/">gaming</a>&nbsp; 
+                        <span style="color: rgb(221, 72, 20); font-size: 140%;">■</span>&nbsp;<a href="http://askubuntu.com/">ubuntu</a>&nbsp; 
+                        <span style="color: rgb(156, 228, 254); font-size: 140%;">■</span>&nbsp;<a href="http://webmasters.stackexchange.com/">webmasters</a>&nbsp; 
+                        <span style="color: rgb(207, 77, 63); font-size: 140%;">■</span>&nbsp;<a href="http://cooking.stackexchange.com/">cooking</a>&nbsp; 
+                        <span style="color: rgb(244, 242, 141); font-size: 140%;">■</span>&nbsp;<a href="http://gamedev.stackexchange.com/">game development</a>&nbsp; 
+                        <span style="color: rgb(15, 53, 89); font-size: 140%;">■</span>&nbsp;<a href="http://math.stackexchange.com/">math</a>&nbsp; 
+                        <span style="color: rgb(242, 242, 242); font-size: 140%;">■</span>&nbsp;<a href="http://photo.stackexchange.com/">photography</a>&nbsp; 
+                        <span style="color: rgb(3, 113, 135); font-size: 140%;">■</span>&nbsp;<a href="http://stats.stackexchange.com/">stats</a>&nbsp; 
+                        <span style="color: rgb(241, 231, 204); font-size: 140%;">■</span>&nbsp;<a href="http://tex.stackexchange.com/">tex</a>&nbsp; 
+                        <span style="color: rgb(225, 205, 174); font-size: 140%;">■</span>&nbsp;<a href="http://english.stackexchange.com/">english</a>&nbsp; 
+                        <span style="color: rgb(162, 217, 246); font-size: 140%;">■</span>&nbsp;<a href="http://cstheory.stackexchange.com/">theoretical cs</a>&nbsp; 
+                        <span style="color: rgb(27, 62, 108); font-size: 140%;">■</span>&nbsp;<a href="http://programmers.stackexchange.com/">programmers</a>&nbsp; 
+                        <span style="color: rgb(41, 58, 93); font-size: 140%;">■</span>&nbsp;<a href="http://unix.stackexchange.com/">unix</a>&nbsp;
+                        <span style="color: rgb(190, 192, 203); font-size: 140%;">■</span>&nbsp;<a href="http://apple.stackexchange.com/">apple</a>&nbsp;
+                        <span style="color: rgb(147, 145, 133); font-size: 140%;">■</span>&nbsp;<a href="http://wordpress.stackexchange.com/">wordpress</a>&nbsp;
+                        <span style="color: rgb(181, 205, 164); font-size: 140%;">■</span>&nbsp;<a href="http://physics.stackexchange.com/">physics</a>&nbsp;
+                        <span style="color: rgb(65, 118, 171); font-size: 140%;">■</span>&nbsp;<a href="http://diy.stackexchange.com/">home&nbsp;improvement</a>&nbsp;
+                        <span style="color: rgb(209, 216, 215); font-size: 140%;">■</span>&nbsp;<a href="http://gis.stackexchange.com/">gis</a>&nbsp;
+                        <span style="color: rgb(229, 226, 211); font-size: 140%;">■</span>&nbsp;<a href="http://electronics.stackexchange.com/">electronics</a>&nbsp;
+                        <span style="color: rgb(164, 198, 57); font-size: 140%;">■</span>&nbsp;<a href="http://android.stackexchange.com/">android</a>&nbsp;
+                        <span style="color: rgb(46, 78, 96); font-size: 140%;">■</span>&nbsp;<a href="http://security.stackexchange.com/">security</a>&nbsp;
+                        <span style="color: rgb(69, 188, 181); font-size: 140%;">■</span>&nbsp;<a href="http://bicycles.stackexchange.com/">bicycles</a>&nbsp;
+                        <span style="color: rgb(0, 173, 238); font-size: 140%;">■</span>&nbsp;<a href="http://dba.stackexchange.com/">dba</a>&nbsp;
+                        <span style="color: rgb(46, 218, 240); font-size: 140%;">■</span>&nbsp;<a href="http://drupal.stackexchange.com/">drupal</a>&nbsp;
+                        <span style="color: rgb(33, 57, 81); font-size: 140%;">■</span>&nbsp;<a href="http://sharepoint.stackexchange.com/">sharepoint</a>&nbsp;
+                        <span style="color: rgb(115, 171, 179); font-size: 140%;">■</span>&nbsp;<a href="http://scifi.stackexchange.com/">scifi &amp; fantasy</a>&nbsp;
+                        <span style="color: rgb(35, 98, 159); font-size: 140%;">■</span>&nbsp;<a href="http://ux.stackexchange.com/">user experience</a>&nbsp;
+                </div>
+            </div>
+            <div id="footer-flair">
+                <a class="peer1" href="http://www.peer1.com/stackoverflow"></a>  
+	            <a href="http://creativecommons.org/licenses/by-sa/3.0/" class="cc-wiki-link"></a>
+                <div id="svnrev">rev 2012.1.6.300</div>
+            </div>
+            <div id="copyright">
+                site design / logo © 2012 stack exchange inc; 
+                user contributions licensed under <a href="http://creativecommons.org/licenses/by-sa/3.0/" rel="license">cc-wiki</a> with <a href="http://blog.stackoverflow.com/2009/06/attribution-required/" rel="license">attribution required</a>
+            </div>
+            
+
+        </div>
+    <iframe id="global-auth-frame" style="display: none;" src="index_1.html"></iframe></div>
+    
+    
+    
+    
+    
+    
+
+
+</body>
+</html>

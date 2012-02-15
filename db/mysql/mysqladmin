@@ -1,2 +1,0 @@
-mysqladmin -uroot create db_name
-mysqladmin -uroot drop db_name

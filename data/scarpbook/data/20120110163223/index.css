@@ -1,0 +1,188 @@
+/* ::::: http://www.miljan.org/main/wp-content/themes/redoable/style.css ::::: */
+
+html { overflow-y: scroll; height: 100%; margin-bottom: 0.1em; }
+* { margin: 0px; padding: 0px; }
+body { background: none repeat scroll 0% 0% rgb(17, 17, 17); color: rgb(68, 68, 68); font: 62.5% 'Lucida Grande',Verdana,Arial,Sans-Serif; margin: 0px 0px 0px 20px; }
+img { border: 0px none; }
+img {  }
+a img, :link img, :visited img { border: medium none; }
+h2, h3, h4 { font-family: 'Trebuchet MS',Verdana,Sans-Serif; }
+h2 { background: none repeat scroll 0% 0% rgb(41, 41, 41); color: rgb(204, 204, 204); font-size: 2.4em; font-weight: bold; letter-spacing: -1px; padding: 5px 15px; text-align: left; text-transform: lowercase; }
+#primary h3, #primary h4, .single #primary .redo-asides h3, #primaryFirst h3, #primaryFirst h4, .single #primaryFirst .redo-asides h3 { font-size: 2em; font-weight: normal; letter-spacing: -1px; }
+h2, h2 a, h2 a:visited { color: rgb(204, 204, 204); }
+h3, h3 a, h3 a:visited, h4, h4 a, h4 a:visited { color: rgb(136, 136, 136); }
+h2, h2 a, h2 a:hover, h2 a:visited { color: rgb(204, 204, 204); }
+h3, h3 a, h3 a:hover, h3 a:visited, h4, h4 a, h4 a:hover, h4 a:visited { text-decoration: none; }
+h3.entry-title { display: inline; }
+h3.entry-title a { border-bottom: medium none ! important; color: rgb(238, 238, 238) ! important; font-family: Helvetica,Arial,Sans-Serif ! important; font-weight: bold; font-size: 24px; letter-spacing: -1px; text-transform: lowercase; }
+h3.entry-title a:hover { color: rgb(204, 204, 204) ! important; text-decoration: none ! important; }
+#header { background: none repeat scroll 0% 0% rgb(17, 17, 17); height: 180px; width: 750px; }
+#header_content { background: none repeat scroll 0% 0% rgb(153, 0, 0); border-left: 10px solid rgb(102, 0, 0); border-right: 10px solid rgb(102, 0, 0); color: rgb(255, 255, 255); height: 180px; margin: 0px ! important; position: relative; }
+#header_content a { background: none repeat scroll 0% 0% rgb(38, 38, 38); color: rgb(255, 255, 255); text-decoration: none ! important; }
+#header_content a:hover { background: none repeat scroll 0% 0% rgb(51, 51, 51); color: rgb(255, 255, 255); text-decoration: none ! important; }
+#header_content #title a { background: none repeat scroll 0% 0% transparent; }
+#title { float: left; }
+#title a { display: block; line-height: 37px; }
+#title a:hover { background: none repeat scroll 0% 0% transparent; }
+#menu { bottom: 0px; font-size: 1.1em; list-style-image: none; list-style-type: none; position: absolute; right: 0px; text-transform: lowercase; }
+#menu li { width: 250px; }
+#menu a { border-left: 10px solid rgb(102, 0, 0); border-right: 10px solid rgb(25, 25, 25); display: block; font-size: 1em; height: 25px; line-height: 25px; padding: 0px 0px 0px 15px; text-align: left; width: 225px; }
+#menu a:hover { border-left: 10px solid rgb(119, 0, 0); border-right: 10px solid rgb(41, 41, 41); padding: 0px 0px 0px 15px; width: 225px; }
+#rightcolumn { background: none repeat scroll 0% 0% rgb(38, 38, 38); border-right: 10px solid rgb(25, 25, 25); min-height: 100%; position: absolute; right: -250px; top: 0px; width: 240px; }
+#rightcolumnheader { background: none repeat scroll 0% 0% rgb(38, 38, 38); border-right: 10px solid rgb(25, 25, 25); height: 180px; position: absolute; right: -260px; top: 0px; width: 240px; }
+#middlecolumn { background: none repeat scroll 0% 0% rgb(51, 51, 51); border-left: 10px solid rgb(34, 34, 34); border-right: 10px solid rgb(34, 34, 34); margin: 0px; min-height: 100%; }
+#primary { display: inline; margin: 0px 210px 0px 150px; padding: 0px; }
+#page { margin: 0px ! important; padding: 0px ! important; position: relative; text-align: left; width: 750px; }
+.secondary { color: rgb(238, 238, 238); float: left; font-size: 1em; line-height: 1.5em; padding: 10px 15px 15px; width: 210px; }
+.secondary h2, .tertiary h2 { background: none repeat scroll 0% 0% transparent; border-bottom: 1px dotted rgb(204, 204, 204); color: rgb(204, 204, 204); display: block; font-size: 1.5em ! important; font-weight: normal ! important; padding: 0px 0px 3px ! important; margin: 0px; text-align: left; text-transform: lowercase; width: 100%; }
+.secondary div, .tertiary div { margin: 0px; padding: 0px; position: relative; }
+.entry-head { margin-top: 0px; }
+.hentry { margin: 0pt; padding: 15px; position: relative; }
+.entry-content { color: rgb(238, 238, 238); font-size: 1.2em; line-height: 1.8em; margin-left: 45px; text-align: justify; }
+.entry-content p, .entry-content ul, .entry-content ol, .entry-content div, .entry-content blockquote { margin: 10px auto; }
+.entry-category { background: url('folder.png') no-repeat scroll left center transparent; display: inline; margin-right: 1em; padding: 2px 0px 2px 20px; }
+.entry-meta { background: none repeat scroll 0% 0% rgb(68, 68, 68); border: 1px solid rgb(85, 85, 85); color: rgb(204, 204, 204); display: block; font-size: 0.9em; line-height: 1.5em; margin-left: 45px; margin-top: 10px; padding: 0px; }
+.entry-meta .meta-row { margin: 3px 5px 5px; }
+.entry-meta a, .page-meta a, .comment-meta a { color: rgb(238, 238, 238); }
+.authordata { background: url('author.png') no-repeat scroll left center transparent; padding: 2px 0px 2px 20px; }
+.commentslink { background: url('comment.png') no-repeat scroll left center transparent; margin: 0px 5px; padding: 2px 0px 2px 20px; }
+.metalinks { margin-top: 3px; }
+.comments { margin: 0px 15px; padding: 0px; position: relative; text-align: left; }
+.comment-meta { float: none; margin: 0px 15px 0px 0px; }
+#comment-personaldetails { margin-top: 10px; }
+.comments form { clear: both; margin: 0px; padding: 1px 0px 10px; }
+.comments input[type="text"], .comments textarea { background: none repeat scroll 0% 0% rgb(153, 153, 153); border: 1px solid rgb(102, 102, 102); color: rgb(34, 34, 34); font: 1.2em 'Courier New',Courier,Monospace; padding: 3px; }
+input[type="text"]:focus, textarea:focus { background: none repeat scroll 0% 0% rgb(255, 255, 255); border: 1px solid rgb(0, 0, 0); color: rgb(0, 0, 0); }
+.comments form input[type="text"] { margin: 5px 5px 1px 0px; width: 45%; }
+.comments textarea { height: 250px; margin: 10px 0px; width: 550px; }
+.comments form #submit { border: 1px solid rgb(102, 102, 102); float: right; margin: 0px; padding: 3px; }
+.commentsrsslink { background: url('feedicon16px.png') no-repeat scroll left top transparent; height: 16px; margin-right: 10px; padding: 2px 0px 2px 20px; }
+.trackbacklink { background: url('arrow_refresh.png') no-repeat scroll left top transparent; height: 16px; margin-right: 10px; padding: 2px 0px 2px 20px; }
+.technoratireaction { background: url('bookmark16px.png') no-repeat scroll left top transparent; color: rgb(153, 153, 153); height: 16px; padding: 2px 0px 2px 20px; }
+.commentsrsslink a, .trackbacklink a, .technoratireaction a { color: rgb(153, 153, 153); padding: 2px; }
+#commentlist { margin: 0px; padding: 10px 0px 20px; position: relative; }
+#commentlist li { color: rgb(238, 238, 238); list-style: none outside none; margin: 10px 0px 0px; padding: 10px 10px 5px; }
+#commentlist li .comment-content { font-size: 1.2em; line-height: 1.8em; padding: 10px 0px; }
+.comment-content p, .comment-content ul, .comment-content ol, .comment-content div { margin: 10px 0px; }
+#commentlist li .comment-meta { background: url('time.png') no-repeat scroll left center transparent; display: block; margin-left: 37px; padding: 2px 0px 2px 20px; }
+#commentlist li .commentauthor { font-size: 1.5em; font-weight: bold; letter-spacing: -1px; }
+#commentlist li .counter { color: rgb(51, 51, 51); display: block; float: right; font: 3em 'Century Gothic','Lucida Grande',Arial,Helvetica,Sans-Serif; text-align: right; width: 35px; }
+#footer { background: none repeat scroll 0% 0% rgb(51, 51, 51); color: rgb(153, 153, 153); position: relative; text-align: left; width: 750px; }
+#footer small { margin-left: 12px; }
+#footer a { color: rgb(153, 153, 153); font-weight: normal; text-decoration: none; }
+#footer a:hover { border: medium none; color: rgb(233, 233, 233); text-decoration: underline ! important; }
+#copyright p { display: block; line-height: 30px; margin: 0px 0px 5px 10px; padding: 0px; text-align: left; width: 250px; }
+#cclicense a { background: url('cc.png') no-repeat scroll 0pt 50% transparent; padding: 8px 8px 8px 25px; }
+#footer_images { display: inline; float: right; margin: 10px 10px 0px 0px; padding: 0px; position: relative; vertical-align: middle; }
+#footer_images img { margin: 0px 0px 0px 5px; padding: 0px; vertical-align: middle; }
+#footer_content { background: none repeat scroll 0% 0% rgb(34, 34, 34); border-left: 10px solid rgb(22, 22, 22); border-right: 10px solid rgb(22, 22, 22); color: rgb(255, 255, 255); margin: 0px ! important; position: relative; }
+#footer_middle { height: 50px; margin: 0px; padding: 0px 0px 10px; }
+#primary a:hover, #primary a:visited:hover, #primaryFirst a:hover, #primaryFirst a:visited:hover, .secondary a:hover, .secondary a:visited:hover, .tertiary a:hover, .tertiary a:visited:hover { text-decoration: underline; }
+a { color: rgb(204, 204, 204); text-decoration: none; }
+a:hover { color: rgb(221, 0, 0); text-decoration: none; }
+.clear { clear: both; margin: 0px; padding: 0px; }
+#primary .entry-content img, #primaryFirst .entry-content img { background: none repeat scroll 0% 0% rgb(68, 68, 68); border: 1px solid rgb(85, 85, 85); padding: 5px; margin: 0px 5px; }
+img.alignright, img[align="right"] { display: inline; margin: 0px 0px 2px 7px; padding: 4px; }
+small { font-size: 0.9em; line-height: 1.5em; }
+small, strike { color: rgb(119, 119, 119); }
+hr { display: none; }
+a img, :link img, :visited img { border: medium none; }
+.navigation { margin: 10px 10px 0px; padding: 0px 0px 10px; text-align: center; width: 100%; }
+.comments .navigation { margin: 10px 0pt; }
+.navigation .left { float: left; text-align: left; width: 50%; }
+.navigation .right { float: right; text-align: right; width: 50%; }
+.navigation a { color: rgb(238, 238, 238); }
+.secondary ul, .secondary ol, .secondary div div, .tertiary ul, .tertiary ol, .tertiary div div { margin: 0px; padding-left: 0px; }
+.secondary ul li, .secondary ol li, .tertiary ul li, .tertiary ol li { margin: 0px; padding: 1px 0px; }
+.secondary ul li, .tertiary ul li { list-style-image: none; list-style-type: none; }
+ol li { list-style-position: outside; list-style-type: decimal; }
+.sb-links { clear: both; }
+.sb-links div { padding-top: 5px; }
+.sb-links a { color: rgb(238, 238, 238); display: block; float: left; padding-top: 2px; width: 100px; }
+#searchform { display: block; margin-top: 5px; position: relative; }
+#search h2 { display: block; }
+input[type="text"], textarea { color: rgb(68, 68, 68); margin: 0px; padding: 1px; }
+#searchsubmit { padding: 2px ! important; }
+#searchsubmit:hover { background: none repeat scroll 0% 0% rgb(255, 255, 255); border: 1px solid rgb(102, 102, 102); color: rgb(51, 51, 51); }
+#searchform input { background: none repeat scroll 0% 0% rgb(68, 68, 68); border: 1px dotted rgb(51, 51, 51); color: rgb(34, 34, 34); padding: 3px; }
+#searchform input:focus { background: none repeat scroll 0% 0% rgb(255, 255, 255); border: 1px solid rgb(102, 102, 102); color: rgb(51, 51, 51); }
+#searchform input[type="text"] { background-image: url('safari_search.png'); background-position: 3px center; background-repeat: no-repeat; margin-right: 5px; border-radius: 20px 20px 20px 20px; padding-left: 25px; padding-right: 10px; width: 130px; }
+.share-link { margin-right: 5px; }
+.download, .code, .note, .alert, .new, .construction, .information { background-position: 15px 10px; background-repeat: no-repeat; font-size: 1.2em ! important; line-height: 115%; margin: 10px auto; padding: 10px 10px 10px 50px; text-align: left; }
+.code { background-color: rgb(68, 68, 68); background-image: url('application_osx_terminal.png'); border-bottom: 2px solid rgb(170, 170, 170); border-top: 2px solid rgb(170, 170, 170); font-family: 'Courier New',Courier,Fixed; }
+#comment-block h4 { display: block; font-size: 1.5em; padding: 0px; }
+#comment-block a { color: rgb(238, 238, 238); text-decoration: none ! important; }
+#comment-block a:hover { color: rgb(238, 0, 0); text-decoration: none ! important; }
+#comment-block { background: none repeat scroll 0% 0% rgb(41, 41, 41); border-left: 10px solid rgb(25, 25, 25); border-right: 10px solid rgb(25, 25, 25); color: rgb(102, 102, 102) ! important; display: block; font: 1em/1.5em 'Lucida Grande',Verdana,Arial,Sans-Serif; margin: 0px; padding: 10px 0px ! important; text-align: left; }
+.sb-tags { clear: both; }
+.sb-tags div { padding-top: 5px; }
+.sb-spacer { clear: both; display: block; height: 1em; }
+:first-child + html .sb-listen img { padding: 2px; }
+:first-child + html .sb-watch img { padding: 2px; }
+.sb-latest a { color: rgb(238, 238, 238); }
+.sb-latest li { list-style-type: none ! important; margin-left: 0px; padding: 0px 0px 4px; }
+.sb-latest ul { margin-top: 5px; }
+.sb-months li { list-style-type: none ! important; margin-left: 0px; padding: 0px 0px 4px; }
+.sb-months a { color: rgb(238, 238, 238); }
+.sb-months ul { margin-top: 5px; }
+.published_sm { background: none repeat scroll 0% 0% rgb(238, 238, 238); border: 1px solid rgb(153, 153, 153); float: left; margin: 0px 15px 0px 0px; padding: 0.5em; text-align: center; }
+.published_sm .day { font-size: 1.6em; letter-spacing: -1px; margin-bottom: -3px; }
+.published_sm .month { font-size: 1.05em; margin: 0px; }
+.published_sm .year { font-size: 1.4em; margin-top: -2px; }
+#wp-calendar { font-size: 9px; margin-bottom: 0px; text-align: center; vertical-align: middle; width: 110px; }
+#wp-calendar a { border: 0px none; color: rgb(238, 0, 0) ! important; display: block; text-decoration: none; }
+#wp-calendar a:hover { border: 0px none; color: rgb(255, 255, 255) ! important; text-decoration: none ! important; }
+#wp-calendar #next a { color: rgb(238, 0, 0); padding-right: 5px; text-align: right; }
+#wp-calendar #prev a { color: rgb(238, 0, 0); padding-left: 5px; text-align: left; }
+#wp-calendar #next a:hover { border: 0px none; color: rgb(255, 255, 255) ! important; text-decoration: none ! important; }
+#wp-calendar #prev a:hover { border: 0px none; color: rgb(255, 255, 255) ! important; text-decoration: none ! important; }
+#wp-calendar caption { border-bottom: 1px dotted rgb(204, 204, 204); color: rgb(204, 204, 204); font-size: 1.5em ! important; font-weight: normal ! important; letter-spacing: -1px; margin-bottom: 5px; padding: 0px 0px 3px ! important; text-align: left; text-transform: lowercase; }
+#wp-calendar tr { border: 0px none; }
+#wp-calendar td { border: 0px solid rgb(255, 255, 255); color: rgb(238, 238, 238); font: 9px/15px 'Lucida Grande','Lucida Sans Unicode',Verdana,sans-serif; letter-spacing: normal; padding: 0px; text-align: center; }
+#wp-calendar td.pad:hover { color: rgb(238, 238, 238); font-size: 9px; }
+#wp-calendar td:hover { color: rgb(238, 238, 238); }
+#wp-calendar th { font-style: normal; text-transform: capitalize; }
+/* ::::: http://www.miljan.org/main/wp-content/themes/redoable/style-dynamic.css.php?s=white&c=default ::::: */
+
+#searchform input { color: rgb(195, 195, 195); }
+.single #primary .redo-asides .entry-content, .single #primaryFirst .redo-asides .entry-content, input[type="text"]:focus, textarea:focus, #commentlist li .counter, li.bypostauthor blockquote, #searchform input:focus, #akst_social a, #wp-calendar #today, .link-header { color: rgb(204, 204, 204); }
+body, input[type="text"], textarea { color: rgb(33, 33, 33); }
+#comment-block { color: rgb(153, 153, 153) ! important; }
+.comment-login, .comment-welcomeback, .comments input[type="text"], .comments textarea, small, strike, .link-title { color: rgb(135, 135, 135); }
+h3, h3 a, h3 a:visited, h4, h4 a, h4 a:visited { color: rgb(118, 118, 118); }
+#primary .metalink a, #primary .metalink a:visited, #primaryFirst .metalink a, #primaryFirst .metalink a:visited, .secondary .metalink a, .secondary .metalink a:visited, .secondary span a, .secondary span a:visited, .tertiary .metalink a, .secondary .metalink a:visited, .tertiary span a, .tertiary span a:visited, .commentsrsslink a, .trackbacklink a, .page-nav, .page-nav a, .sb-comments-blc ul li span a, .sb-comments ul li small a, .sb-comments-blc li > a[title="Go to the comments of this entry"] { color: rgb(102, 102, 102); }
+h2, #primary .entry-content h2, #primaryFirst .entry-content h2, h2, h2 a, h2 a:visited, h2, h2 a, h2 a:hover, h2 a:visited, .first .entry-meta, .entry-meta, .page-meta, .sidenote h2, a, .secondary h2, .tertiary h2, .first .entry-meta h2, .entry-content a:visited, blockquote, #comment-block h2, #wp-calendar caption, .first .relatedPosts, .first .relatedPosts h2 { color: rgb(51, 51, 51); }
+h3.entry-title a:hover, .sidenote h2 a, .first h3.entry-title a:hover, .published_tiny, .comment-content blockquote { color: rgb(51, 51, 51) ! important; }
+#footer a:hover { color: rgb(21, 21, 21); }
+.secondary, .entry-content, .entry-meta a, .page-meta a, .comment-meta a, .sidenote, .first p, #commentlist li, li.byuser, li.bypostauthor, .navigation a, .sb-links a, #comment-block a, .sb-latest a, .sb-comments a, .sb-months a, #wp-calendar td, #wp-calendar td.pad:hover, #wp-calendar td:hover, .relatedPosts a, .link-title a { color: rgb(16, 16, 16); }
+h3.entry-title a, ul.menu li a:hover, .first h3.entry-title a { color: rgb(16, 16, 16) ! important; }
+#header_content, #header_content a, #header_content a:hover, ul.menu li a, .sb-catblock a { color: rgb(0, 0, 0) ! important; }
+#wp-calendar a:hover, #wp-calendar #next a:hover, #wp-calendar #prev a:hover { color: rgb(0, 0, 0) ! important; }
+body, #header { background-color: rgb(221, 221, 221); }
+#menu a, #rightcolumn, #rightcolumnheader, #rightcolumnfooter { border-right-color: rgb(229, 229, 229); }
+#comment-block, #alt_menu { border-left-color: rgb(229, 229, 229); border-right-color: rgb(229, 229, 229); }
+#middlecolumn { border-left-color: rgb(238, 238, 238); border-right-color: rgb(238, 238, 238); }
+#header_content a, #rightcolumn, #rightcolumnheader, #rightcolumnfooter { background-color: rgb(242, 242, 242); }
+h2, #comment-block { background-color: rgb(245, 245, 245); }
+#menu a:hover { border-right-color: rgb(245, 245, 245); }
+#header_content a:hover, #header_content .current_page_item a, ul.menu li a:hover, #middlecolumn, #footer, .footer_contentm, blockquote { background-color: rgb(255, 255, 255); }
+li.byuser, #searchform input { border-color: rgb(255, 255, 255); }
+.first .entry-meta, .entry-meta, .page-meta, li.bypostauthor, #primary .entry-content img, #primaryFirst .entry-content img, #searchform input, .sb-listen img:hover, .sb-watch img:hover, .sb-badge img:hover, .first .relatedPosts, .first-alt .relatedPosts, .published_tiny { background-color: rgb(247, 247, 247); }
+.first .entry-meta, .entry-meta, .page-meta, li.bypostauthor, #primary .entry-content img, #primaryFirst .entry-content img, .sb-listen img, .sb-listen img:hover, .sb-watch img, .sb-watch img:hover, .sb-badge img, .sb-badge img:hover, .first .relatedPosts, .published_tiny { border-color: rgb(212, 212, 212); }
+.comments input[type="text"], .comments textarea, input[type="text"]:focus, textarea:focus, .comments form #submit, #searchform input:focus { border-color: rgb(204, 204, 204); }
+.comments input[type="text"], .comments textarea { background-color: rgb(226, 226, 226); }
+.sb-flickr div a:hover img, .published, .published_sm, .published_link { border-color: rgb(226, 226, 226); }
+.secondary h2, .tertiary h2, .first .entry-meta h2, .entry-content a, #comment-block h2, #wp-calendar h2, #wp-calendar caption, .first .relatedPosts h2, .first-alt .relatedPosts h2 { border-bottom-color: rgb(51, 51, 51); }
+li.bypostauthor blockquote, .published, .published_sm, .published_link { background-color: rgb(248, 248, 248); }
+ul.menu li.current_page_item a, ul.menu li.current_page_item a:hover, input[type="text"]:focus, textarea:focus, #searchform input:focus { background-color: rgb(255, 255, 255); }
+#wp-calendar td { border-color: rgb(255, 255, 255); }
+#header_content { border-left-color: rgb(102, 0, 0); border-right-color: rgb(102, 0, 0); }
+#menu a { border-left-color: rgb(102, 0, 0); }
+#menu a:hover { border-left-color: rgb(119, 0, 0); }
+#header_content { background-color: rgb(153, 0, 0); }
+a:hover { color: rgb(221, 0, 0); }
+#comment-block a:hover { color: rgb(238, 0, 0); }
+#wp-calendar a { color: rgb(238, 0, 0) ! important; }
+#wp-calendar #next a { color: rgb(238, 0, 0); }
+#wp-calendar #prev a { color: rgb(238, 0, 0); }
+.code { background-color: rgb(238, 238, 238); border-top: 2px solid rgb(204, 204, 204); border-bottom: 2px solid rgb(204, 204, 204); }

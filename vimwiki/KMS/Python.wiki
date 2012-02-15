@@ -1,0 +1,19 @@
+PythonLib
+PythonFunctionPrograming
+[[Python小技巧]]
+[[Python类库]]
+
+* [o] PHP 学习
+    * [X]  PHP 基础
+        * [X]  PHP 语法
+        * [X]  PHP 类型
+        * [X]  PHP 控制语句
+        * [X]  PHP 类，对象，函数，方法
+    * [ ] PHP 面向对象，设计模式
+        * [ ] 基本概念， 封装，多态等
+        * [ ] 经典设计模式
+    * [ ] 接手新项目athuria
+        * [ ] E_FW 框架
+        * [ ] JSON
+        * [ ] Athuria 基本熟悉
+

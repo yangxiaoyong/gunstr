@@ -1,0 +1,1361 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-gb" dir="ltr" xml:lang="en-gb" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	  
+  
+  <meta name="robots" content="index, follow">
+  <meta name="keywords" content="bash, bash scripting, script, scripting, guide, tutorial">
+  
+  <meta name="author" content="if bash">
+  <meta name="description" content="A complete bash scripting tutorial great for learning all major aspects of writing bash scripts. Includes extensive example code.">
+  
+  <title>Bash scripting Tutorial</title>
+  <link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
+  
+  
+  
+  
+  
+  <!-- JoomlaWorks "Disqus Comment System for Joomla!" Plugin (v2.2) starts here -->
+
+		
+		
+		
+		
+<!-- JoomlaWorks "Disqus Comment System for Joomla!" Plugin (v2.2) ends here -->
+
+	
+	
+	
+	
+	
+		<!--[if lte IE 6]>
+		<link href="/templates/beez/css/ieonly.css" rel="stylesheet" type="text/css" />
+	<![endif]-->
+	<!--[if IE 7]>
+		<link href="/templates/beez/css/ie7only.css" rel="stylesheet" type="text/css" />
+	<![endif]-->
+	
+
+
+
+
+
+
+
+
+<meta name="google-site-verification" content="qK_FajPvlfEnqgVJeNFeu-EtmfeOTRAnlstj1x05qOk">
+<meta http-equiv="Content-Language" content="en">
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body style="font-size: 100%;">
+	<div id="all">
+		<div id="header">
+			<h1 id="logo">
+				<a href="http://linuxconfig.org/"><img src="logo.png" alt="Linux Tutorials" border="0"></a>
+				<span class="header1">helping Linux users to harness the power of Linux ...</span>
+			</h1>
+
+			<ul>
+				<li><a href="#content" class="u2">Skip to Content</a></li>
+				<li><a href="#mainmenu" class="u2">Jump to Main Navigation and Login</a></li>
+				<li><a href="#additional" class="u2">Jump to additional Information</a></li>
+			</ul>
+
+			<h2 class="unseen">
+				Search, View and Navigation			</h2>
+
+			<div id="fontsize">
+
+<ins style="display: inline-table; border: medium none; height: 90px; margin: 0pt; padding: 0pt; position: relative; visibility: visible; width: 728px;"><ins id="aswift_0_anchor" style="display: block; border: medium none; height: 90px; margin: 0pt; padding: 0pt; position: relative; visibility: visible; width: 728px;"><iframe src="index_1.html" allowtransparency="true" hspace="0" marginwidth="0" marginheight="0" vspace="0" id="aswift_0" name="aswift_0" style="left: 0pt; position: absolute; top: 0pt;" frameborder="0" height="90" scrolling="no" width="728"></iframe></ins></ins>
+			</div>
+
+			<ul id="mainlevel-nav"><li><a href="http://www.linuxconfig.org/" class="mainlevel-nav">Home</a></li><li><a href="http://linuxconfig.org/donors" class="mainlevel-nav">Donate</a></li><li><a href="http://linuxconfig.org/free-ebook-linux" class="mainlevel-nav">Free eBooks</a></li><li><a href="http://linuxconfig.org/Linux-administration-notes-code-snippets/" class="mainlevel-nav">Linux Notes</a></li><li><a href="http://linuxconfig.org/linux-certification/LPI-101-Linux-certification-1" class="mainlevel-nav">LPI Certification</a></li><li><a href="http://linuxconfig.org/linux-commands" class="mainlevel-nav">Linux Commands</a></li><li><a href="http://linuxconfig.org/Contact-us/Contact-Us" class="mainlevel-nav">Contact</a></li><li><a href="http://linuxconfig.org/about" class="mainlevel-nav">About</a></li><li><a href="http://linuxconfig.org/Linuxconfig.org-Linux-Questions-and-Answers/" class="mainlevel-nav">Q &amp; A</a></li></ul>
+			
+
+			<div id="breadcrumbs"><center>
+<ins style="display: inline-table; border: medium none; height: 15px; margin: 0pt; padding: 0pt; position: relative; visibility: visible; width: 728px;"><ins id="aswift_1_anchor" style="display: block; border: medium none; height: 15px; margin: 0pt; padding: 0pt; position: relative; visibility: visible; width: 728px;"><iframe src="index_3.html" allowtransparency="true" hspace="0" marginwidth="0" marginheight="0" vspace="0" id="aswift_1" name="aswift_1" style="left: 0pt; position: absolute; top: 0pt;" frameborder="0" height="15" scrolling="no" width="728"></iframe></ins></ins></center>
+				<p>
+
+				
+
+					
+
+				</p>
+			</div>
+
+			<div class="wrap">&nbsp;</div>
+		</div><!-- end header -->
+
+		<div id="contentarea2">
+			<a name="mainmenu"></a>
+			<div id="left">
+
+
+<center>
+<a href="http://forum.linuxcareer.com/"><img src="forum-new.jpg" border="0"></a><hr>
+<!-- Place this tag in your head or just before your close body tag -->
+
+
+<!-- Place this tag where you want the +1 button to render -->
+<div style="height: 24px; width: 106px; display: inline-block; text-indent: 0pt; margin: 0pt; padding: 0pt; background: none repeat scroll 0% 0% transparent; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline;" id="___plusone_0"><iframe allowtransparency="true" hspace="0" id="I1_1324007881461" marginheight="0" marginwidth="0" name="I1_1324007881461" src="index_5.html" style="position: static; left: 0pt; top: 0pt; width: 106px; margin: 0px; border-style: none; height: 24px; visibility: visible;" tabindex="-1" vspace="0" title="+1" frameborder="0" scrolling="no" width="100%"></iframe></div><hr></center>
+<form style="border: 1px solid rgb(204, 204, 204); padding: 3px; text-align: center;" action="http://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open('http://feedburner.google.com/fb/a/mailverify?uri=Linuxcareercom-ItCareerResources', 'popupwindow', 'scrollbars=yes,width=550,height=520');return true">
+<b>RSS Subscription</b><br><font color="gray" size="1">Linux Howtos &amp; Tutorials</font><br><p>Enter your email:</p><p><input value="" style="width: 140px;" name="email" type="text"></p>
+<input value="Linuxcareercom-ItCareerResources" name="uri" type="hidden">
+<input name="loc" value="en_US" type="hidden"><input value="Subscribe" type="submit">
+
+<a href="http://feeds.feedburner.com/Linuxcareercom-ItCareerResources"><img src="rss_smaller.jpg" border="0"></a>
+<center>Delivered by<br> <img src="feedburner.gif" border="0"><br><br><font color="gray" size="1">NOTE:New tutorials are from LinuxCareer.com</font></center></form>
+						<div class="moduletable">
+							<h3>Latest Linux Jobs</h3>
+						<!-- slick rss http://joomla.daveslist.co.nz -->
+<div class="slick-rss-container" style="direction: ltr; text-align: left;">
+<div><a href="http://jobs.linuxcareer.com/" target="_top">LinuxCareer.com</a></div><ul class="slick-rss-list" style="margin-left: 0px; padding-left: 0px;">
+
+        <li class="slick-rss-item">
+        <a href="http://jobs.linuxcareer.com/display-job/50006/" class="slickTip" target="_top" rel="nofollow">Linux/Unix Engineer</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://jobs.linuxcareer.com/display-job/50004/" class="slickTip" target="_top" rel="nofollow">Principal Linux Systems Engineer</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://jobs.linuxcareer.com/display-job/50007/" class="slickTip" target="_top" rel="nofollow">SYSTEM ADMIN / SYSTEM DEVELOPER</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://jobs.linuxcareer.com/display-job/50008/" class="slickTip" target="_top" rel="nofollow">Senior Linux Engineer</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://jobs.linuxcareer.com/display-job/50005/" class="slickTip" target="_top" rel="nofollow">Linux Ops Administrator</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://jobs.linuxcareer.com/display-job/50003/" class="slickTip" target="_top" rel="nofollow">Senior (R&amp;D) Linux Systems Engineer</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://jobs.linuxcareer.com/display-job/50002/" class="slickTip" target="_top" rel="nofollow">Sr. Systems Admin Linux/ Cloud</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://jobs.linuxcareer.com/display-job/50001/" class="slickTip" target="_top" rel="nofollow">System Administrator</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://jobs.linuxcareer.com/display-job/50000/" class="slickTip" target="_top" rel="nofollow">Linux Administrator</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://jobs.linuxcareer.com/display-job/49995/" class="slickTip" target="_top" rel="nofollow">Linux System Engineer</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://jobs.linuxcareer.com/display-job/49993/" class="slickTip" target="_top" rel="nofollow">Sr. Linux Administrator</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://jobs.linuxcareer.com/display-job/49991/" class="slickTip" target="_top" rel="nofollow">Principal Linux Engineer</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://jobs.linuxcareer.com/display-job/49997/" class="slickTip" target="_top" rel="nofollow">Linux Embedded Software Engineer</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://jobs.linuxcareer.com/display-job/49994/" class="slickTip" target="_top" rel="nofollow">Senior Linux System Analyst</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://jobs.linuxcareer.com/display-job/49996/" class="slickTip" target="_top" rel="nofollow">Senior Unix/Linux Engineer</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://jobs.linuxcareer.com/display-job/49992/" class="slickTip" target="_top" rel="nofollow">UNIX/Linux Engineer</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://jobs.linuxcareer.com/display-job/49998/" class="slickTip" target="_top" rel="nofollow">Linux Administrator II</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://jobs.linuxcareer.com/display-job/49990/" class="slickTip" target="_top" rel="nofollow">Linux / Sun Systems Administrator</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://jobs.linuxcareer.com/display-job/49989/" class="slickTip" target="_top" rel="nofollow">Sr. Systems Administrator/Linux</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://jobs.linuxcareer.com/display-job/49988/" class="slickTip" target="_top" rel="nofollow">Contract Linux / VMWare Consultant</a><div class="slick-rss-item-desc"></div></li></ul>
+</div>
+<!-- /slick-rss -->		</div>
+			<div class="moduletable">
+							<h3>Poll</h3>
+						
+<form action="http://linuxconfig.org/" method="post" name="form2">
+<table class="apoll" align="center" border="0" cellpadding="1" cellspacing="0" width="95%">
+<thead>
+	<tr>
+		<td style="font-weight: bold;">
+			Do you own or wish to have iPhone?		</td>
+	</tr>
+</thead>
+	<tbody><tr>
+		<td>
+		
+				
+			<table class="apollstableborder" border="0" cellpadding="0" cellspacing="0" width="100%">
+							<tbody><tr>
+					<td class="sectiontableentry2" valign="top">
+						<input style="float: left;" name="voteid" id="voteid73" value="73" alt="73" type="radio">
+						
+						<label for="voteid73">
+							Yes, I own iPhone.						</label>
+					</td>
+				</tr>
+											<tr>
+					<td class="sectiontableentry1" valign="top">
+						<input style="float: left;" name="voteid" id="voteid74" value="74" alt="74" type="radio">
+						
+						<label for="voteid74">
+							No, I do not own iPhone. It's not a Linux.						</label>
+					</td>
+				</tr>
+											<tr>
+					<td class="sectiontableentry2" valign="top">
+						<input style="float: left;" name="voteid" id="voteid75" value="75" alt="75" type="radio">
+						
+						<label for="voteid75">
+							No, I prefer MeeGo device.						</label>
+					</td>
+				</tr>
+											<tr>
+					<td class="sectiontableentry1" valign="top">
+						<input style="float: left;" name="voteid" id="voteid76" value="76" alt="76" type="radio">
+						
+						<label for="voteid76">
+							No, I prefer Android device.						</label>
+					</td>
+				</tr>
+											<tr>
+					<td class="sectiontableentry2" valign="top">
+						<input style="float: left;" name="voteid" id="voteid77" value="77" alt="77" type="radio">
+						
+						<label for="voteid77">
+							No, I hate everything which starts with "i".						</label>
+					</td>
+				</tr>
+											<tr>
+					<td class="sectiontableentry1" valign="top">
+						<input style="float: left;" name="voteid" id="voteid78" value="78" alt="78" type="radio">
+						
+						<label for="voteid78">
+							Yes, I must have all i* devices.						</label>
+					</td>
+				</tr>
+										</tbody></table>
+
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<div align="center">
+							<input name="task_button" class="button" value="Vote" type="submit">
+				
+				&nbsp;
+				<input name="option" class="button" value="Results" onclick="document.location.href='/component/option,com_apoll/id,20/task,view/view,apoll/'" type="button">
+			</div>
+		</td>
+	</tr>
+</tbody></table>
+		
+		
+
+
+	<input name="option" value="com_apoll" type="hidden">
+	<input name="task" value="vote" type="hidden">
+	<input name="id" value="20" type="hidden">
+	<input name="733663bf2be97ba0c4db4b545b6f280e" value="1" type="hidden"></form>		</div>
+			<div class="moduletable">
+							<h3>Recently added ....</h3>
+						
+<ul class="latestnews">
+		<li class="latestnews">
+		<a href="http://linuxconfig.org/this-is-a-last-post-on-linuxconfigorg" class="latestnews">
+			This is a last post on LinuxConfig.org !</a>
+	</li>
+		<li class="latestnews">
+		<a href="http://linuxconfig.org/a-beginners-howto-to-compiling-from-source-on-linux-systems" class="latestnews">
+			A beginners howto to compiling from source on Linux systems</a>
+	</li>
+	</ul>
+		</div>
+			<div class="moduletable">
+						<div class="bannergroup">
+
+<div class="banneritem"><a href="http://twitter.com/linuxconfig" rel="nofollow"><img src="twitter.gif"></a> 
+<hr>
+<ins style="display: inline-table; border: medium none; height: 600px; margin: 0pt; padding: 0pt; position: relative; visibility: visible; width: 160px;"><ins id="aswift_2_anchor" style="display: block; border: medium none; height: 600px; margin: 0pt; padding: 0pt; position: relative; visibility: visible; width: 160px;"><iframe src="index_6.html" allowtransparency="true" hspace="0" marginwidth="0" marginheight="0" vspace="0" id="aswift_2" name="aswift_2" style="left: 0pt; position: absolute; top: 0pt;" frameborder="0" height="600" scrolling="no" width="160"></iframe></ins></ins>
+
+<ins style="display: inline-table; border: medium none; height: 90px; margin: 0pt; padding: 0pt; position: relative; visibility: visible; width: 160px;"><ins id="aswift_3_anchor" style="display: block; border: medium none; height: 90px; margin: 0pt; padding: 0pt; position: relative; visibility: visible; width: 160px;"><iframe src="index_8.html" allowtransparency="true" hspace="0" marginwidth="0" marginheight="0" vspace="0" id="aswift_3" name="aswift_3" style="left: 0pt; position: absolute; top: 0pt;" frameborder="0" height="90" scrolling="no" width="160"></iframe></ins></ins>
+<hr>
+<center>
+<a href="http://www.linuxconfig.org/free-ebook-linux"><font size="3"><b>Linux eBooks FREE Download</b></font></a> 
+ 
+<a href="http://linuxconfig-org.tradepub.com/c/pubRD.mpl?sr=oc&amp;_t=oc:&amp;pc=w_pete01#linux-offers" rel="nofollow"><img src="tradepub-kernel.png"></a><br> 
+<a href="http://linuxconfig-org.tradepub.com/c/pubRD.mpl?sr=oc&amp;_t=oc:&amp;pc=w_pete01#linux-offers" rel="nofollow"><font size="2">A guide to programming Linux kernel modules</font></a> 
+ 
+<a href="http://linuxconfig-org.tradepub.com/free/w_mach01/?p=w_mach01#linux-offers" rel="nofollow"><img src="intro-to-linux.png"></a><br> 
+<a href="http://linuxconfig-org.tradepub.com/free/w_mach01/?p=w_mach01#linux-offers" rel="nofollow"><font size="2">Introduction to Linux - A Hands on Guide</font></a> 
+
+<a href="http://linuxconfig-org.tradepub.com/free/w_make07/?p=w_make07#linux-offers" rel="nofollow"><img src="tradepub-newbie.png">
+
+</a><br> 
+<a href="http://linuxconfig-org.tradepub.com/free/w_make07/?p=w_make07#linux-offers" rel="nofollow"><font size="2">A Newbie's Getting Started Guide to Linux</font></a> 
+<hr> 
+<a href="http://linuxconfig-org.tradepub.com/free/w_linu01/?p=w_linu01#linux-offers" rel="nofollow"><img src="w_linu01c.gif"></a><br> 
+<a href="http://linuxconfig-org.tradepub.com/free/w_linu01/?p=w_linu01#linux-offers" rel="nofollow"><font size="2">Linux from Scratch - Create Your Own Linux System - Free eBook</font></a> 
+<hr> 
+<a href="http://linuxconfig-org.tradepub.com/free/w_opeb01/prgm.cgi#linux-offers" rel="nofollow"><img src="tradepub-hacking.png"></a><br> 
+<a href="http://linuxconfig-org.tradepub.com/free/w_opeb01/prgm.cgi#linux-offers" rel="nofollow"><font size="2">Linux: The Hacking Solution (v.3.0)</font></a> 
+<hr> 
+
+
+<a href="http://linuxconfig-org.tradepub.com/free/w_lynd08/?p=w_lynd08#linux-offers" rel="nofollow"><img src="tradepub-sqlitephp.png"></a><br> 
+<a href="http://linuxconfig-org.tradepub.com/free/w_lynd08/?p=w_lynd08#linux-offers" rel="nofollow"><font size="2">SQLite 3 with PHP Essential Training – Free Video Training Tutorials</font></a> 
+<hr> 
+
+
+
+<a href="http://linuxconfig-org.tradepub.com/free/w_freb01/?p=w_freb01#linux-offers" rel="nofollow"><img src="gnu-linux-basics.png"></a><br> 
+<a href="http://linuxconfig-org.tradepub.com/free/w_freb01/?p=w_freb01#linux-offers" rel="nofollow"><font size="2">This guide will introduce you to the world of GNU/Linux</font></a> 
+<hr>
+
+
+
+
+<a href="http://linuxconfig-org.tradepub.com/free/w_free01/?p=w_free01#linux-offers" rel="nofollow"><img src="advanced-admin.png"></a><br> 
+<a href="http://linuxconfig-org.tradepub.com/free/w_free01/?p=w_free01#linux-offers" rel="nofollow"><font size="2">The GNU/Linux Advanced Administration</font></a> 
+<hr> 
+<a href="http://linuxconfig-org.tradepub.com/free/w_ubun01#linux-offers" rel="nofollow"><img src="ubuntu_man.gif"></a><br> 
+<a href="http://linuxconfig-org.tradepub.com/free/w_ubun01#linux-offers" rel="nofollow"><font size="2">A Complete Beginner's Manual for Ubuntu 10.04 (Lucid Lynx)</font></a> 
+<hr> 
+<a href="http://linuxconfig-org.tradepub.com/free/w_advb01/?p=w_advb01#linux-offers" rel="nofollow"><img src="bash.png"></a><br> 
+<a href="http://linuxconfig-org.tradepub.com/free/w_advb01/?p=w_advb01#linux-offers" rel="nofollow"><font size="2">Advanced Bash-Scripting Guide</font></a> 
+<hr> 
+
+
+<a href="http://linuxconfig-org.tradepub.com/free/w_pack06/#linux-offers" rel="nofollow"><img src="tradepub-linux-email.png"></a><br> 
+<a href="http://linuxconfig-org.tradepub.com/free/w_pack06/#linux-offers" rel="nofollow"><font size="2">Set up, maintain, and secure a small office email server</font></a> 
+<hr> 
+
+
+
+<a href="http://www.linuxconfig.org/donors"><img src="btn_donatecc_lg.gif"></a></center>
+<hr> 
+<b>Partner Linux Sites:</b> 
+				<!--<li id="nPlace your link here!"><a href="mailto:web@REMOVETHISlinuxconfig.org?subject=Linuxconfig.org partner website - Link exchange&body=Hi there, I have a great web site: YOUR URL . Let's exchange links."><font color=red> Place your link here!</font></a></li>--> 
+<br><a href="http://how-to.linuxcareer.com/" target="_top">How-To.LinuxCareer.com</a><br>                                 
+				<a href="http://jobs.linuxcareer.com/" target="_top">Jobs.LinuxCareer.com</a><br>
+                                <a href="http://www.tuxmachines.org/" target="_top"> TuxMachines</a><br> 
+				<!--<a href="http://www.debianadmin.com/" target=_blank> DebianAdmin</a><br>--> 
+				<a href="http://www.monsterb.org/" target="_top"> Monsterb</a><br> 
+				<a href="http://linuxbloggers.org/" target="_top"> LinuxBloggers</a><br> 
+				<a href="http://www.adamsinfo.com/" target="_top"> AdamsInfo</a><br> 
+				<a href="http://www.linuxscrew.com/" target="_top"> LinuxScrew</a><br> 
+				<!--<a href=http://freesoftwarelinux.com/ target=_blank rel="nofollow"> FreeSoftwareLinux</a><br>--> 
+				<!--<a href=http://jamsubuntu.blogspot.com/ target=_blank> Jam's Ubuntu Blog</a><br>//--> 
+				<a href="http://allforlinux.com/" target="_top"> All For Linux </a>
+
+<ins style="display: inline-table; border: medium none; height: 90px; margin: 0pt; padding: 0pt; position: relative; visibility: visible; width: 160px;"><ins id="aswift_4_anchor" style="display: block; border: medium none; height: 90px; margin: 0pt; padding: 0pt; position: relative; visibility: visible; width: 160px;"><iframe src="index_10.html" allowtransparency="true" hspace="0" marginwidth="0" marginheight="0" vspace="0" id="aswift_4" name="aswift_4" style="left: 0pt; position: absolute; top: 0pt;" frameborder="0" height="90" scrolling="no" width="160"></iframe></ins></ins>
+<hr><div class="clr"></div>
+	</div>
+
+</div>		</div>
+			<div class="moduletable">
+						<!-- slick rss http://joomla.daveslist.co.nz -->
+<div class="slick-rss-container" style="direction: ltr; text-align: left;">
+<div><a href="http://jobs.linuxcareer.com/" target="_top">LinuxCareer.com - Linux Howto's &amp; Tutorials</a></div><div class="slick-rss-desc">LinuxCareer.com is a leading specialized online IT recruitment resource for
+employers looking for talented people and people seeking jobs to satisfy their
+expectations and skill level. Since we are a niche recruitment portal, we can
+put Linux and open source specialists in touch with prospective employers
+seeking Linux skills.</div><ul class="slick-rss-list" style="margin-left: 0px; padding-left: 0px;">
+
+        <li class="slick-rss-item">
+        <a href="http://how-to.linuxcareer.com/remote-gui-administration-over-ssh" class="slickTip" target="_top">Remote GUI administration over SSH</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://how-to.linuxcareer.com/c-development-on-linux-functions-v" class="slickTip" target="_top">C development on Linux - Functions - V.</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://how-to.linuxcareer.com/dual-boot-ubuntu-and-windows-7" class="slickTip" target="_top">Dual boot Ubuntu and Windows 7</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://how-to.linuxcareer.com/automating-linux-installations-with-kickstart" class="slickTip" target="_top">Automating Linux installations with Kickstart</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://how-to.linuxcareer.com/guide-to-rsnapshot-and-incremental-backups-on-linux" class="slickTip" target="_top">Guide to rsnapshot and incremental backups on Linux</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://how-to.linuxcareer.com/c-development-on-linux-flow-control-iv" class="slickTip" target="_top">C development on Linux - Flow Control - IV.</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://how-to.linuxcareer.com/password-cracking-with-john-the-ripper-on-linux" class="slickTip" target="_top">Password cracking with John the Ripper on Linux</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://how-to.linuxcareer.com/learning-linux-commands-awk" class="slickTip" target="_top">Learning Linux Commands: awk</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://how-to.linuxcareer.com/ubuntu-linux-desktop-tips" class="slickTip" target="_top">Ubuntu Linux desktop tips</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://how-to.linuxcareer.com/learning-linux-commands-sed" class="slickTip" target="_top">Learning Linux Commands: sed</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://how-to.linuxcareer.com/comparison-of-major-linux-package-management-systems" class="slickTip" target="_top">Comparison of major Linux package management systems</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://how-to.linuxcareer.com/introduction-to-latex-on-linux" class="slickTip" target="_top">Introduction to LaTeX on Linux</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://how-to.linuxcareer.com/learning-linux-commands-dd" class="slickTip" target="_top">Learning Linux commands: dd</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://how-to.linuxcareer.com/unix-and-linux-a-bit-of-history" class="slickTip" target="_top">Unix and Linux: a bit of history</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://how-to.linuxcareer.com/c-development-on-linux-types-variables-operators" class="slickTip" target="_top">C development on Linux - Types, variables, operators - III.</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://how-to.linuxcareer.com/using-adminer-to-manage-your-databases" class="slickTip" target="_top">Using Adminer to Manage your Databases</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://how-to.linuxcareer.com/the-monkey-http-daemon" class="slickTip" target="_top">The Monkey HTTP daemon</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://how-to.linuxcareer.com/comparison-of-audio-codecs-and-conversion-utilities-on-linux" class="slickTip" target="_top">Comparison of Audio Codecs and Conversion Utilities on Linux</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://how-to.linuxcareer.com/the-other-side-of-intrusion-detection-on-linux-snort" class="slickTip" target="_top">The other side of Intrusion detection on Linux: Snort</a><div class="slick-rss-item-desc"></div></li>
+        <li class="slick-rss-item">
+        <a href="http://how-to.linuxcareer.com/steganography-made-easy-in-linux" class="slickTip" target="_top">Steganography Made Easy in Linux</a><div class="slick-rss-item-desc"></div></li></ul>
+</div>
+<!-- /slick-rss -->		</div>
+			<div class="moduletable">
+						
+
+
+
+
+
+
+<div class="search" style="background-color: transparent;">
+<form method="get" action="http://www.google.com.au/custom" target="google_window">
+<input name="q" id="mod" maxlength="20" alt="search" class="inputbox" size="15" value="search..." onblur="if(this.value=='') this.value='search...';" onfocus="if(this.value=='search...') this.value='';" type="text"><input name="sa" value="Search" type="hidden">
+<div><input name="sitesearch" value="" type="radio">Web<br><input name="sitesearch" value="http://www.linuxconfig.org/" checked="checked" type="radio">linuxconfig.org<br></div><input name="channel" value="linux" type="hidden">
+<input name="client" value="pub-4906753266448300" type="hidden">
+<input name="forid" value="1" type="hidden">
+<input name="ie" value="UTF-8" type="hidden">
+<input name="oe" value="UTF-8" type="hidden">
+<input name="safe" value="active" type="hidden">
+<input name="cof" value="GALT:#228aaf;GL:1;DIV:#FFFFFF;VLC:228aaf;AH:center;BGC:FFFFFF;LBGC:FFFFFF;ALC:228aaf;LC:228aaf;T:000000;GFNT:228aaf;GIMP:228aaf;LH:50;LW:286;L:http://;S:http://;LP:1;FORID:1;" type="hidden">
+<input name="hl" value="en" type="hidden">
+</form>
+</div>
+		</div>
+			<div class="moduletable">
+							<h3>Popular Linux Tutorials</h3>
+						<ul class="mostread">
+	<li class="mostread">
+		<a href="http://linuxconfig.org/Bash_scripting_Tutorial" class="mostread">
+			Bash scripting Tutorial</a>
+	</li>
+	<li class="mostread">
+		<a href="http://linuxconfig.org/linux-commands" class="mostread">
+			Linux Commands</a>
+	</li>
+	<li class="mostread">
+		<a href="http://linuxconfig.org/How_to_mount_partition_with_ntfs_file_system_and_read_write_access" class="mostread">
+			How to mount partition with ntfs file system and read write access</a>
+	</li>
+	<li class="mostread">
+		<a href="http://linuxconfig.org/HowTo_configure_NFS" class="mostread">
+			HowTo configure NFS</a>
+	</li>
+	<li class="mostread">
+		<a href="http://linuxconfig.org/Howto_mount_USB_drive_in_Linux" class="mostread">
+			Howto mount USB drive in Linux</a>
+	</li>
+	<li class="mostread">
+		<a href="http://linuxconfig.org/Linux_lvm_-_Logical_Volume_Manager" class="mostread">
+			Linux lvm - Logical Volume Manager</a>
+	</li>
+	<li class="mostread">
+		<a href="http://linuxconfig.org/Vim_Tutorial" class="mostread">
+			Vim Tutorial</a>
+	</li>
+	<li class="mostread">
+		<a href="http://linuxconfig.org/how-to-crack-a-wireless-wep-key-using-air-crack" class="mostread">
+			How to crack a wireless WEP key using AIR Crack</a>
+	</li>
+	<li class="mostread">
+		<a href="http://linuxconfig.org/Linux_Software_Raid_1_Setup" class="mostread">
+			Linux Software Raid 1 Setup</a>
+	</li>
+	<li class="mostread">
+		<a href="http://linuxconfig.org/HowTo_mount_cdrom_in_linux" class="mostread">
+			HowTo mount cdrom in linux</a>
+	</li>
+	<li class="mostread">
+		<a href="http://linuxconfig.org/linux-wd-ears-advanced-format" class="mostread">
+			Linux WD EARS Advanced Hard Drive Format</a>
+	</li>
+	<li class="mostread">
+		<a href="http://linuxconfig.org/perl-programming-tutorial" class="mostread">
+			Perl Programming Tutorial</a>
+	</li>
+	<li class="mostread">
+		<a href="http://linuxconfig.org/c-understanding-pointers" class="mostread">
+			C++ : Understanding pointers</a>
+	</li>
+	<li class="mostread">
+		<a href="http://linuxconfig.org/introduction-to-computer-vision-with-opencv-on-linux" class="mostread">
+			 Introduction to Computer Vision with the OpenCV Library on Linux</a>
+	</li>
+	<li class="mostread">
+		<a href="http://linuxconfig.org/Filesystem_Basics" class="mostread">
+			Filesystem Basics</a>
+	</li>
+	<li class="mostread">
+		<a href="http://linuxconfig.org/linux-dns-server-bind-configuration" class="mostread">
+			Linux DNS server BIND configuration</a>
+	</li>
+	<li class="mostread">
+		<a href="http://linuxconfig.org/get-started-with-android-application-development-using-linux-and-android-sdk" class="mostread">
+			Get Started with Android application development using Linux and Android SDK</a>
+	</li>
+	<li class="mostread">
+		<a href="http://linuxconfig.org/apache-web-server-ssl-authentication" class="mostread">
+			APACHE web server and SSL authentication</a>
+	</li>
+	<li class="mostread">
+		<a href="http://linuxconfig.org/resize-an-image-with-opencv-cvresize-function" class="mostread">
+			Resize an image with OpenCV cvResize function</a>
+	</li>
+	<li class="mostread">
+		<a href="http://linuxconfig.org/linux-add-user-to-group" class="mostread">
+			Linux Add User To Group</a>
+	</li>
+</ul>		</div>
+	
+			</div><!-- left -->
+
+			<a name="content"></a>
+			<div id="wrapper">
+				<p>
+
+					</p><div class="cpcloud">
+<ul class="cpcloud">
+<li><a href="http://linuxconfig.org/index.php?option=com_customproperties&amp;lang=en&amp;tagId=1&amp;task=tag" class="cpcloud5">admin</a></li>
+<li><a href="http://linuxconfig.org/index.php?option=com_customproperties&amp;lang=en&amp;tagId=28&amp;task=tag" class="cpcloud1">android</a></li>
+<li><a href="http://linuxconfig.org/index.php?option=com_customproperties&amp;lang=en&amp;tagId=2&amp;task=tag" class="cpcloud1">apache</a></li>
+<li><a href="http://linuxconfig.org/index.php?option=com_customproperties&amp;lang=en&amp;tagId=3&amp;task=tag" class="cpcloud2">bash</a></li>
+<li><a href="http://linuxconfig.org/index.php?option=com_customproperties&amp;lang=en&amp;tagId=4&amp;task=tag" class="cpcloud1">C++</a></li>
+<li><a href="http://linuxconfig.org/index.php?option=com_customproperties&amp;lang=en&amp;tagId=5&amp;task=tag" class="cpcloud4">commands</a></li>
+<li><a href="http://linuxconfig.org/index.php?option=com_customproperties&amp;lang=en&amp;tagId=22&amp;task=tag" class="cpcloud1">database</a></li>
+<li><a href="http://linuxconfig.org/index.php?option=com_customproperties&amp;lang=en&amp;tagId=12&amp;task=tag" class="cpcloud1">debian</a></li>
+<li><a href="http://linuxconfig.org/index.php?option=com_customproperties&amp;lang=en&amp;tagId=25&amp;task=tag" class="cpcloud1">fedora</a></li>
+<li><a href="http://linuxconfig.org/index.php?option=com_customproperties&amp;lang=en&amp;tagId=17&amp;task=tag" class="cpcloud2">filesystem</a></li>
+<li><a href="http://linuxconfig.org/index.php?option=com_customproperties&amp;lang=en&amp;tagId=24&amp;task=tag" class="cpcloud1">game</a></li>
+<li><a href="http://linuxconfig.org/index.php?option=com_customproperties&amp;lang=en&amp;tagId=21&amp;task=tag" class="cpcloud2">hardware</a></li>
+<li><a href="http://linuxconfig.org/index.php?option=com_customproperties&amp;lang=en&amp;tagId=11&amp;task=tag" class="cpcloud1">KDE</a></li>
+<li><a href="http://linuxconfig.org/index.php?option=com_customproperties&amp;lang=en&amp;tagId=23&amp;task=tag" class="cpcloud1">LPI</a></li>
+<li><a href="http://linuxconfig.org/index.php?option=com_customproperties&amp;lang=en&amp;tagId=19&amp;task=tag" class="cpcloud2">multimedia</a></li>
+<li><a href="http://linuxconfig.org/index.php?option=com_customproperties&amp;lang=en&amp;tagId=16&amp;task=tag" class="cpcloud2">network</a></li>
+<li><a href="http://linuxconfig.org/index.php?option=com_customproperties&amp;lang=en&amp;tagId=6&amp;task=tag" class="cpcloud1">OpenCV</a></li>
+<li><a href="http://linuxconfig.org/index.php?option=com_customproperties&amp;lang=en&amp;tagId=8&amp;task=tag" class="cpcloud1">perl</a></li>
+<li><a href="http://linuxconfig.org/index.php?option=com_customproperties&amp;lang=en&amp;tagId=15&amp;task=tag" class="cpcloud2">program</a></li>
+<li><a href="http://linuxconfig.org/index.php?option=com_customproperties&amp;lang=en&amp;tagId=27&amp;task=tag" class="cpcloud1">regexp</a></li>
+<li><a href="http://linuxconfig.org/index.php?option=com_customproperties&amp;lang=en&amp;tagId=7&amp;task=tag" class="cpcloud1">script</a></li>
+<li><a href="http://linuxconfig.org/index.php?option=com_customproperties&amp;lang=en&amp;tagId=20&amp;task=tag" class="cpcloud1">search</a></li>
+<li><a href="http://linuxconfig.org/index.php?option=com_customproperties&amp;lang=en&amp;tagId=9&amp;task=tag" class="cpcloud2">security</a></li>
+<li><a href="http://linuxconfig.org/index.php?option=com_customproperties&amp;lang=en&amp;tagId=13&amp;task=tag" class="cpcloud1">tutorial</a></li>
+<li><a href="http://linuxconfig.org/index.php?option=com_customproperties&amp;lang=en&amp;tagId=14&amp;task=tag" class="cpcloud1">virtualization</a></li>
+<li><a href="http://linuxconfig.org/index.php?option=com_customproperties&amp;lang=en&amp;tagId=10&amp;task=tag" class="cpcloud1">vmware</a></li>
+<li><a href="http://linuxconfig.org/index.php?option=com_customproperties&amp;lang=en&amp;tagId=18&amp;task=tag" class="cpcloud1">VPN</a></li>
+</ul>
+</div>
+
+
+				<p></p>
+			<div id="main2">
+				
+				
+<div id="page">
+
+
+
+<h2 class="contentheading">
+		<a href="http://linuxconfig.org/Bash_scripting_Tutorial" class="contentpagetitle">
+		Bash scripting Tutorial</a>
+	</h2>
+
+<p class="articleinfo">
+		<span class="modifydate">
+		Last Updated on Wednesday, 02 November 2011 06:35	</span>
+		<span class="creaLUBOSCOMMtedby">
+
+	
+	</span></p>
+
+
+<p class="buttonheading">
+	</p>
+
+
+
+
+
+        <table class="contenttoc" cellpadding="0" cellspacing="0">
+        <tbody><tr>
+<th>Article Index</th>
+        </tr>
+        
+                <tr>
+                    <td>
+                    <a href="#1-hello-world-bash-shell-script" class="toclink">1.&nbsp;Hello World Bash Shell Script</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#2-simple-backup-bash-shell-script" class="toclink">2.&nbsp;Simple Backup bash shell script</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#3-variables" class="toclink">3.&nbsp;Variables</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#3-1-global-vs-local-variables" class="toclink">3.1.&nbsp;Global vs. Local variables</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#4-passing-arguments-to-the-bash-script" class="toclink">4.&nbsp;Passing arguments to the bash script</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#5-executing-shell-commands-with-bash" class="toclink">5.&nbsp;Executing shell commands with bash</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#6-reading-user-input" class="toclink">6.&nbsp;Reading User Input</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#7-bash-trap-command" class="toclink">7.&nbsp;Bash Trap Command</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#8-arrays" class="toclink">8.&nbsp;Arrays</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#8-1-declare-simple-bash-array" class="toclink">8.1.&nbsp;Declare simple bash array</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#8-2-read-file-into-bash-array" class="toclink">8.2.&nbsp;Read file into bash array</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#9-bash-if--else--fi-statements" class="toclink">9.&nbsp;Bash if / else / fi statements</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#9-1-simple-bash-ifelse-statement" class="toclink">9.1.&nbsp;Simple Bash if/else statement</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#9-2-nested-ifelse" class="toclink">9.2.&nbsp;Nested if/else</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#10-bash-comparisons" class="toclink">10.&nbsp;Bash Comparisons</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#10-1-arithmetic-comparisons" class="toclink">10.1.&nbsp;Arithmetic Comparisons</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#10-2-string-comparisons" class="toclink">10.2.&nbsp;String Comparisons</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#11-bash-file-testing" class="toclink">11.&nbsp;Bash File Testing</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#12-loops" class="toclink">12.&nbsp;Loops</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#12-1-bash-for-loop" class="toclink">12.1.&nbsp;Bash for loop</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#12-2-bash-while-loop" class="toclink">12.2.&nbsp;Bash while loop</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#12-3-bash-until-loop" class="toclink">12.3.&nbsp;Bash until loop</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#12-4-control-bash-loop-with" class="toclink">12.4.&nbsp;Control bash loop with</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#13-bash-functions" class="toclink">13.&nbsp;Bash Functions</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#14-bash-select" class="toclink">14.&nbsp;Bash Select</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#15-case-statement-conditional" class="toclink">15.&nbsp;Case statement conditional</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#16-bash-quotes-and-quotations" class="toclink">16.&nbsp;Bash quotes and quotations</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#16-1-escaping-meta-characters" class="toclink">16.1.&nbsp;Escaping Meta characters</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#16-2-single-quotes" class="toclink">16.2.&nbsp;Single quotes</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#16-3-double-quotes" class="toclink">16.3.&nbsp;Double Quotes</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#16-4-bash-quoting-with-ansi-c-style" class="toclink">16.4.&nbsp;Bash quoting with ANSI-C style</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#17-arithmetic-operations" class="toclink">17.&nbsp;Arithmetic Operations</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#17-1-bash-addition-calculator-example" class="toclink">17.1.&nbsp;Bash Addition Calculator Example</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#17-2-bash-arithmetics" class="toclink">17.2.&nbsp;Bash Arithmetics</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#17-3-round-floating-point-number" class="toclink">17.3.&nbsp;Round floating point number</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#17-4-bash-floating-point-calculations" class="toclink">17.4.&nbsp;Bash floating point calculations</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#18-redirections" class="toclink">18.&nbsp;Redirections</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#18-1-stdout-from-bash-script-to-stderr" class="toclink">18.1.&nbsp;STDOUT from bash script to STDERR</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#18-2-stderr-from-bash-script-to-stdout" class="toclink">18.2.&nbsp;STDERR from bash script to STDOUT</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#18-3-stdout-to-screen" class="toclink">18.3.&nbsp;stdout to screen</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#18-4-stdout-to-file" class="toclink">18.4.&nbsp;stdout to file</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#18-5-stderr-to-file" class="toclink">18.5.&nbsp;stderr to file</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#18-6-stdout-to-stderr" class="toclink">18.6.&nbsp;stdout to stderr</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#18-7-stderr-to-stdout" class="toclink">18.7.&nbsp;stderr to stdout</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                    <a href="#18-8-stderr-and-stdout-to-file" class="toclink">18.8.&nbsp;stderr and stdout to file</a>
+                    </td>
+                </tr>
+                <tr><td><hr>
+<ins style="display: inline-table; border: medium none; height: 280px; margin: 0pt; padding: 0pt; position: relative; visibility: visible; width: 336px;"><ins id="aswift_5_anchor" style="display: block; border: medium none; height: 280px; margin: 0pt; padding: 0pt; position: relative; visibility: visible; width: 336px;"><iframe src="index_12.html" allowtransparency="true" hspace="0" marginwidth="0" marginheight="0" vspace="0" id="aswift_5" name="aswift_5" style="left: 0pt; position: absolute; top: 0pt;" frameborder="0" height="280" scrolling="no" width="336"></iframe></ins></ins></td></tr></tbody></table>
+
+
+<!-- JoomlaWorks "Disqus Comment System for Joomla!" Plugin (v2.2) starts here -->
+
+<span id="startOfPage"></span>
+
+
+<table border="0">
+<tbody>
+<tr>
+<td><a href="http://linuxconfig-org.tradepub.com/free/w_mach02#linux-offers" target="_self" title="Bash Beginners Guide PDF Download" rel="nofollow"><img src="bash.png" alt="Free BASH scripting guide DOWNLOAD" border="0"></a><br><a href="http://linuxconfig-org.tradepub.com/free/w_mach02#linux-offers" target="_self" title="Bash Scripting Beginners Guide PDF Download" rel="nofollow">&gt;PDF DOWNLOAD&lt;</a> <br> <a href="http://linuxconfig-org.tradepub.com/free/w_advb01/?p=w_advb01#linux-offers" target="_self" title="Bash Scripting Guide PDF Download" rel="nofollow"><img src="re_tradepub-bash.png" alt="Free BASH scripting guide DOWNLOAD" border="0"></a><br> <a href="http://linuxconfig-org.tradepub.com/free/w_advb01/?p=w_advb01#linux-offers" target="_self" title="Bash Advandced Guide PDF Download" rel="nofollow">&gt;PDF DOWNLOAD&lt;</a></td>
+<td style="text-align: center;">This bash script tutorial assumes no previous knowledge of bash scripting.As you will soon discover in this quick comprehensive bash scripting  guide, learning the bash shell scripting is very easy task. However, if you do not find an answer to your questions by reading this bash&nbsp;tutorial&nbsp;or you need extra help, feel free to ask us on our new <a href="http://forum.linuxcareer.com/" target="_top" title="Linux Forum" rel="nofollow">Linux Forum</a>. We will be more than happy to help you with your bash questions there.<br><br>Lets begin this bash scripting tutorial with a simple "Hello World" script.    Let's start with Learning the bash Shell: Unix Shell Programming<br><br><a href="http://linuxconfig-org.tradepub.com/free/w_mach02#linux-offers" target="_self" title="Bash Scripting Beginners Guide PDF Download" rel="nofollow"> Bash Scripting <strong>Beginners</strong> Guide <br><span style="color: red;">FREE</span> PDF DOWNLOAD </a><br><br><br><a href="http://linuxconfig-org.tradepub.com/free/w_advb01/?p=w_advb01#linux-offers" target="_self" title="Bash Scripting Advanced Guide PDF Download" rel="nofollow"> Bash Scripting <strong>Advanced</strong> Guide <br><span style="color: red;">FREE</span> PDF DOWNLOAD </a></td>
+</tr>
+</tbody>
+</table>
+<h1 id="1-hello-world-bash-shell-script">1.&nbsp;Hello World Bash Shell Script</h1>
+<p>
+<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" height="119" width="307">
+<param name="width" value="307">
+<param name="height" value="119">
+<param name="align" value="left">
+<param name="src" value="/images/flash/bash.swf"> <embed type="application/x-shockwave-flash" src="bash.swf" height="119" align="left" width="307">
+</object>
+</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>First you need to find out where is your bash interpreter located. Enter the following into your command line:</p>
+<p>&nbsp;</p>
+<pre style="width: 400px;">$ which bash
+</pre>
+<p><img src="locate-bash-interpreter.gif" alt="bash interpreter location: /bin/bash" title="Locate a Bash Interpreter" height="43" border="0" width="188"></p>
+<p>Open up you favorite text editor and a create file called hello_world.sh. Insert the following lines to a file:</p>
+<p>NOTE:Every bash shell script in this tutorial starts with <strong>shebang:"#!"</strong> which is not read as a comment. First line is also a place where you put your interpreter which is in this case: /bin/bash.</p>
+<p>Here is our first bash shell script example:</p>
+<pre style="width: 400px;">#!/bin/bash<br># declare STRING variable<br>STRING="Hello World"<br>#print variable on a screen<br>echo $STRING<br>
+</pre>
+<p>Navigate to a directory where your hello_world.sh is located and make the file executable:</p>
+<pre style="width: 400px;">$ chmod +x hello_world.sh </pre>
+<p><img src="make-bash-script-executable.gif" alt="Make bash shell script executable" title="Make bash shell script executable" height="30" border="0" width="263"></p>
+<p>Now you are ready to execute your first bash script:</p>
+<div id="s">
+<pre>./hello_world.sh </pre>
+</div>
+<p><img src="hellobash.gif" alt="Example of simple bash shell script" title="Example of simple bash shell script" height="43" border="0" width="214"></p>
+
+
+
+<p>&nbsp;</p>
+<h1 id="2-simple-backup-bash-shell-script">2.&nbsp;Simple Backup bash shell script</h1>
+<div id="s" style="position: absolute; width: 430px; height: 45px; background-color: white;">
+<pre>#!/bin/bash<br>tar -czf myhome_directory.tar.gz /home/linuxconfig<br></pre>
+</div>
+<p><br><br><br><br><br><img src="bash-simple-backup-script-example.gif" alt="Simple Backup bash script" title="Simple Backup bash script" border="0"></p>
+<h1 id="3-variables">3.&nbsp;Variables</h1>
+<p>In this example we declare simple bash variable and print it on the screen ( stdout ) with echo command.</p>
+<pre>#!/bin/bash<br> STRING="HELLO WORLD!!!"<br> echo $STRING </pre>
+<p><img src="bash-string-variables-bash-script.gif" alt="Bash string Variables in bash script" title="Bash string Variables in bash script" height="43" border="0" width="484"></p>
+<p>Your backup script and variables:</p>
+<pre>#!/bin/bash<br> OF=myhome_directory_$(date +%Y%m%d).tar.gz<br> tar -czf $OF /home/linuxconfig </pre>
+<p><img src="bash-backup-script-bash-variables.gif" alt="Bash backup Script with bash Variables" title="Bash backup Script with bash Variables" height="69" border="0" width="484"></p>
+<h2 id="3-1-global-vs-local-variables">3.1.&nbsp;Global vs. Local variables</h2>
+<pre>#!/bin/bash<br>#Define bash global variable<br>#This variable is global and can be used anywhere in this bash script<br>VAR="global variable"<br>function bash {<br>#Define bash local variable<br>#This variable is local to bash function only<br>local VAR="local variable"<br>echo $VAR<br>}<br>echo $VAR<br>bash<br># Note the bash global variable did not change<br># "local" is bash reserved word<br>echo $VAR<br></pre>
+<p><img src="bash-global-local-bash-variables-bash-script.gif" alt="Global vs. Local Bash variables in bash script" title="Global vs. Local Bash variables in bash script" height="69" border="0" width="190"></p>
+<h1 id="4-passing-arguments-to-the-bash-script">4.&nbsp;Passing arguments to the bash script</h1>
+<pre>#!/bin/bash<br># use predefined variables to access passed arguments<br>#echo arguments to the shell<br>echo $1 $2 $3 ' -&gt; echo $1 $2 $3'<br><br># We can also store arguments from bash command line in special array<br>args=("$@")<br>#echo arguments to the shell<br>echo ${args[0]} ${args[1]} ${args[2]} ' -&gt; args=("$@"); echo ${args[0]} ${args[1]} ${args[2]}'<br><br>#use $@ to print out all arguments at once<br>echo $@ ' -&gt; echo $@'<br><br># use $# variable to print out<br># number of arguments passed to the bash script<br>echo Number of arguments passed: $# ' -&gt; echo Number of arguments passed: $#' </pre>
+<pre>/arguments.sh Bash Scripting Tutorial </pre>
+<p><img src="passing-arguments-bash-script.gif" alt="Passing arguments to the bash script" title="Passing arguments to the bash script" height="82" border="0" width="472"></p>
+<h1 id="5-executing-shell-commands-with-bash">5.&nbsp;Executing shell commands with bash</h1>
+<pre>#!/bin/bash<br># use backticks " ` ` " to execute shell command<br>echo `uname -o`<br># executing bash command without backticks<br>echo uname -o </pre>
+<p><img src="execute-shell-commands-within-bash-script.gif" alt="Executing shell commands with bash" title="Executing shell commands with bash" height="82" border="0" width="220"></p>
+<h1 id="6-reading-user-input">6.&nbsp;Reading User Input</h1>
+<pre>#!/bin/bash<br> <br>echo -e "Hi, please type the word: \c "<br>read  word<br>echo "The word you entered is: $word"<br>echo -e "Can you please enter two words? "<br>read word1 word2<br>echo "Here is your input: \"$word1\" \"$word2\""<br>echo -e "How do you feel about bash scripting? "<br># read command now stores a reply into the default build-in variable $REPLY<br>read<br>echo "You said $REPLY, I'm glad to hear that! "<br>echo -e "What are your favorite colours ? "<br># -a makes read command to read into an array<br>read -a colours<br>echo "My favorite colours are also ${colours[0]}, ${colours[1]} and ${colours[2]}:-)" </pre>
+<p><img src="reading-user-input-bash-script.gif" alt="Reading User Input with bash" title="Reading User Input with bash" height="173" border="0" width="322"></p>
+<h1 id="7-bash-trap-command">7.&nbsp;Bash Trap Command</h1>
+<table border="0">
+<tbody>
+<tr>
+<td>
+<pre>#!/bin/bash<br># bash trap command<br>trap bashtrap INT<br># bash clear screen command<br>clear;<br># bash trap function is executed when CTRL-C is pressed:<br># bash prints message =&gt; Executing bash trap subrutine !<br>bashtrap()<br>{<br>    echo "CTRL+C Detected !...executing bash trap !"<br>}<br># for loop from 1/10 to 10/10<br>for a in `seq 1 10`; do<br>    echo "$a/10 to Exit." <br>    sleep 1;<br>done<br>echo "Exit Bash Trap Example!!!" </pre>
+</td>
+<td width="300">
+<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" height="199" width="249">
+<param name="width" value="249">
+<param name="height" value="199">
+<param name="src" value="/images/flash/bash_trap.swf"><embed type="application/x-shockwave-flash" src="bash_trap.swf" height="199" width="249">
+</object>
+<br></td>
+</tr>
+</tbody>
+</table>
+<h1 id="8-arrays">8.&nbsp;Arrays</h1>
+<h2 id="8-1-declare-simple-bash-array">8.1.&nbsp;Declare simple bash array</h2>
+<pre>#!/bin/bash<br>#Declare array with 4 elements<br>ARRAY=( 'Debian Linux' 'Redhat Linux' Ubuntu Linux )<br># get number of elements in the array<br>ELEMENTS=${#ARRAY[@]}<br><br># echo each element in array <br># for loop<br>for (( i=0;i&lt;$ELEMENTS;i++)); do<br>    echo ${ARRAY[${i}]}<br>done </pre>
+<p><img src="declare-bash-array.gif" alt="Declare simple bash array" title="Declare simple bash array" height="82" border="0" width="154"></p>
+<h2 id="8-2-read-file-into-bash-array">8.2.&nbsp;Read file into bash array</h2>
+<div>
+<pre>#!/bin/bash<br># Declare array<br>declare -a ARRAY<br># Link filedescriptor 10 with stdin<br>exec 10&lt;&amp;0<br># stdin replaced with a file supplied as a first argument<br>exec &lt; $1<br>let count=0<br><br>while read LINE; do<br><br>    ARRAY[$count]=$LINE<br>    ((count++))<br>done<br><br>echo Number of elements: ${#ARRAY[@]}<br># echo array's content<br>echo ${ARRAY[@]}<br># restore stdin from filedescriptor 10<br># and close filedescriptor 10<br>exec 0&lt;&amp;10 10&lt;&amp;-<br><br></pre>
+</div>
+<p><strong>Bash script execution with an output:</strong></p>
+<pre>linuxconfig.org $ cat bash.txt <br>Bash<br>Scripting<br>Tutorial<br>Guide<br>linuxconfig.org $ ./bash-script.sh bash.txt <br>Number of elements: 4<br>Bash Scripting Tutorial Guide<br>linuxconfig.org $ <br></pre>
+<h1 id="9-bash-if--else--fi-statements">9.&nbsp;Bash if / else / fi statements</h1>
+<h2 id="9-1-simple-bash-ifelse-statement">9.1.&nbsp;Simple Bash if/else statement</h2>
+<p>Please note the spacing inside the [ and ] brackets! Without the spaces, it won't work!</p>
+<pre>#!/bin/bash<br>directory="./BashScripting"<br><br># bash check if directory exists<br>if [ -d $directory ]; then<br>	echo "Directory exists"<br>else <br>	echo "Directory does not exists"<br>fi </pre>
+<p><img src="bash-if-else-fi-statement.gif" alt="Bash if else fi statement" title="Bash if else fi statement" height="82" border="0" width="232"></p>
+<h2 id="9-2-nested-ifelse">9.2.&nbsp;Nested if/else</h2>
+<pre>#!/bin/bash<br> <br># Declare variable choice and assign value 4<br>choice=4<br># Print to stdout<br> echo "1. Bash"<br> echo "2. Scripting"<br> echo "3. Tutorial"<br> echo -n "Please choose a word [1,2 or 3]? "<br># Loop while the variable choice is equal 4<br># bash while loop<br>while [ $choice -eq 4 ]; do<br> <br># read user input<br>read choice<br># bash nested if/else<br>if [ $choice -eq 1 ] ; then<br> <br>        echo "You have chosen word: Bash"<br><br>else                   <br><br>        if [ $choice -eq 2 ] ; then<br>                 echo "You have chosen word: Scripting"<br>        else<br>         <br>                if [ $choice -eq 3 ] ; then<br>                        echo "You have chosen word: Tutorial"<br>                else<br>                        echo "Please make a choice between 1-3 !"<br>                        echo "1. Bash"<br>                        echo "2. Scripting"<br>                        echo "3. Tutorial"<br>                        echo -n "Please choose a word [1,2 or 3]? "<br>                        choice=4<br>                fi   <br>        fi<br>fi<br>done </pre>
+<p><img src="bash-if-else-nested-statement.gif" alt="Nested Bash if else statement" title="Nested Bash if else statement" height="160" border="0" width="232"></p>
+<h1 id="10-bash-comparisons">10.&nbsp;Bash Comparisons</h1>
+<h2 id="10-1-arithmetic-comparisons">10.1.&nbsp;Arithmetic Comparisons</h2>
+<table border="1">
+<tbody>
+<tr>
+<td width="50">-lt</td>
+<td width="50">&lt;</td>
+</tr>
+<tr>
+<td width="50">-gt</td>
+<td width="50">&gt;</td>
+</tr>
+<tr>
+<td width="50">-le</td>
+<td width="50">&lt;=</td>
+</tr>
+<tr>
+<td width="50">-ge</td>
+<td width="50">&gt;=</td>
+</tr>
+<tr>
+<td width="50">-eq</td>
+<td width="50">==</td>
+</tr>
+<tr>
+<td width="50">-ne</td>
+<td width="50">!=</td>
+</tr>
+</tbody>
+</table>
+<pre>#!/bin/bash<br># declare integers<br>NUM1=2<br>NUM2=2<br>if [ $NUM1 -eq $NUM2 ]; then<br>	echo "Both Values are equal"<br>else <br>	echo "Values are NOT equal"<br>fi </pre>
+<p><img src="bash_arithmetic-comparisons-equal.gif" alt="Bash Arithmetic Comparisons" title="Bash Arithmetic Comparisons" height="43" border="0" width="484"></p>
+<pre>#!/bin/bash<br># declare integers<br>NUM1=2<br>NUM2=1<br>if [ $NUM1 -eq $NUM2 ]; then<br>	echo "Both Values are equal"<br>else <br>	echo "Values are NOT equal"<br>fi </pre>
+<p><img src="bash_arithmetic-comparisons-not-equal.gif" alt="Bash Arithmetic Comparisons - values are NOT equal" title="Bash Arithmetic Comparisons - values are NOT equal" height="43" border="0" width="484"></p>
+<pre>#!/bin/bash<br># declare integers<br>NUM1=2<br>NUM2=1<br>if   [ $NUM1 -eq $NUM2 ]; then<br>	echo "Both Values are equal"<br>elif [ $NUM1 -gt $NUM2 ]; then<br>	echo "NUM1 is greater then NUM2"<br>else <br>	echo "NUM2 is greater then NUM1"<br>fi </pre>
+<p><img src="bash_arithmetic-comparisons-greater-then.gif" alt="Bash Arithmetic Comparisons - greater then" title="Bash Arithmetic Comparisons - greater then" height="43" border="0" width="370"></p>
+<h2 id="10-2-string-comparisons">10.2.&nbsp;String Comparisons</h2>
+<table border="1">
+<tbody>
+<tr>
+<td width="50">=</td>
+<td width="200">equal</td>
+</tr>
+<tr>
+<td width="50">!=</td>
+<td width="50">not equal</td>
+</tr>
+<tr>
+<td width="50">&lt;</td>
+<td width="50">less then</td>
+</tr>
+<tr>
+<td width="50">&gt;</td>
+<td width="50">greater then</td>
+</tr>
+<tr>
+<td width="50">-n s1</td>
+<td width="50">string s1 is not empty</td>
+</tr>
+<tr>
+<td width="50">-z s1</td>
+<td width="50">string s1 is empty</td>
+</tr>
+</tbody>
+</table>
+<pre>#!/bin/bash<br>#Declare string S1<br>S1="Bash"<br>#Declare string S2<br>S2="Scripting"<br>if [ $S1 = $S2 ]; then<br>	echo "Both Strings are equal"<br>else <br>	echo "Strings are NOT equal"<br>fi </pre>
+<p><img src="bash-string-comparisons-values-not-equal.gif" alt="Bash String Comparisons - values are NOT equal" title="Bash String Comparisons - values are NOT equal" height="43" border="0" width="370"></p>
+<pre>#!/bin/bash<br>#Declare string S1<br>S1="Bash"<br>#Declare string S2<br>S2="Bash"<br>if [ $S1 = $S2 ]; then<br>	echo "Both Strings are equal"<br>else <br>	echo "Strings are NOT equal"<br>fi </pre>
+<p><img src="bash-string-comparisons-values-equal.gif" alt="bash interpreter location: /bin/bash" title="Locate a Bash Interpreter" height="43" border="0" width="370"></p>
+<h1 id="11-bash-file-testing">11.&nbsp;Bash File Testing</h1>
+<table border="0">
+<tbody>
+<tr>
+<td width="140">-b filename</td>
+<td width="500">Block special file</td>
+</tr>
+<tr>
+<td width="100">-c filename</td>
+<td width="300">Special character file</td>
+</tr>
+<tr>
+<td width="100">-d directoryname</td>
+<td width="300">Check for directory existence</td>
+</tr>
+<tr>
+<td width="100">-e filename</td>
+<td width="300">Check for file existence</td>
+</tr>
+<tr>
+<td width="100">-f filename</td>
+<td width="300">Check for regular file existence not a directory</td>
+</tr>
+<tr>
+<td width="100">-G filename</td>
+<td width="300">Check if file exists and is owned by effective group ID.</td>
+</tr>
+<tr>
+<td width="100">-g filename</td>
+<td width="300">true if file exists and is set-group-id.</td>
+</tr>
+<tr>
+<td width="100">-k filename</td>
+<td width="300">Sticky bit</td>
+</tr>
+<tr>
+<td width="100">-L filename</td>
+<td width="300">Symbolic link</td>
+</tr>
+<tr>
+<td width="100">-O filename</td>
+<td width="300">True if file exists and is owned by the effective user id.</td>
+</tr>
+<tr>
+<td width="100">-r filename</td>
+<td width="300">Check if file is a readable</td>
+</tr>
+<tr>
+<td width="100">-S filename</td>
+<td width="300">Check if file is socket</td>
+</tr>
+<tr>
+<td width="100">-s filename</td>
+<td width="300">Check if file is nonzero size</td>
+</tr>
+<tr>
+<td width="100">-u filename</td>
+<td width="300">Check if file set-ser-id bit is set</td>
+</tr>
+<tr>
+<td width="100">-w filename</td>
+<td width="300">Check if file is writable</td>
+</tr>
+<tr>
+<td width="100">-x filename</td>
+<td width="300">Check if file is executable</td>
+</tr>
+</tbody>
+</table>
+<pre>#!/bin/bash<br>file="./file"<br>if [ -e $file ]; then<br>	echo "File exists"<br>else <br>	echo "File does not exists"<br>fi </pre>
+<p><img src="bash-file-testing-file-does-not-exist.gif" alt="Bash File Testing - File does not exist" title="Bash File Testing - File does not exist" height="43" border="0" width="370"> <img src="bash-file-testing-file-exist.gif" alt="Bash File Testing - File exists" title="Bash File Testing - File exists" height="82" border="0" width="370"></p>
+<p>Similarly for example we can use while loop to check if file does not exists. This script will sleep until file does exists. Note bash negator "!" which negates the -e option.</p>
+<pre>#!/bin/bash<br> <br>while [ ! -e myfile ]; do<br># Sleep until file does exists/is created<br>sleep 1<br>done </pre>
+<h1 id="12-loops">12.&nbsp;Loops</h1>
+<h2 id="12-1-bash-for-loop">12.1.&nbsp;Bash for loop</h2>
+<pre>#!/bin/bash<br><br># bash for loop<br>for f in $( ls /var/ ); do<br>	echo $f<br>done </pre>
+<p>Running for loop from bash shell command line:</p>
+<pre>$ for f in $( ls /var/ ); do echo $f; done </pre>
+<p><img src="bash-for-loop.gif" alt="Bash for loop" title="Bash for loop" height="173" border="0" width="484"></p>
+<h2 id="12-2-bash-while-loop">12.2.&nbsp;Bash while loop</h2>
+<pre>#!/bin/bash<br>COUNT=6<br># bash while loop<br>while [ $COUNT -gt 0 ]; do<br>	echo Value of count is: $COUNT<br>	let COUNT=COUNT-1<br>done </pre>
+<p><img src="bash-while-loop.gif" alt="Bash while loop" title="Bash while loop" height="108" border="0" width="484"></p>
+<h2 id="12-3-bash-until-loop">12.3.&nbsp;Bash until loop</h2>
+<pre>#!/bin/bash<br>COUNT=0<br># bash until loop<br>until [ $COUNT -gt 5 ]; do<br>        echo Value of count is: $COUNT<br>        let COUNT=COUNT+1<br>done </pre>
+<p><img src="bash-until-loop.gif" alt="Bash until loop" title="Bash until loop" height="108" border="0" width="484"></p>
+<h2 id="12-4-control-bash-loop-with">12.4.&nbsp;Control bash loop with</h2>
+<p>Here is a example of while loop controlled by standard input. Until the redirection chain from STDOUT to STDIN to the read command exists the while loop continues.</p>
+<pre>#!/bin/bash<br># This bash script will locate and replace spaces<br># in the filenames<br>DIR="."<br># Controlling a loop with bash read command by redirecting STDOUT as<br># a STDIN to while loop<br># find will not truncate filenames containing spaces<br>find $DIR -type f | while read file; do<br># using POSIX class [:space:] to find space in the filename<br>if [[ "$file" = *[[:space:]]* ]]; then<br># substitute space with "_" character and consequently rename the file<br>mv "$file" `echo $file | tr ' ' '_'`<br>fi;<br># end of while loop<br>done </pre>
+<p><img src="rename_files_containing_spaces.gif" alt="Bash script to replace spaces in the filenames with _" title="Bash script to replace spaces in the filenames with _" height="160" border="0" width="442"></p>
+<h1 id="13-bash-functions">13.&nbsp;Bash Functions</h1>
+<pre>!/bin/bash<br># BASH FUNCTIONS CAN BE DECLARED IN ANY ORDER<br>function function_B {<br>        echo Function B.<br>}<br>function function_A {<br>        echo $1<br>}<br>function function_D {<br>        echo Function D.<br>}<br>function function_C {<br>        echo $1<br>}<br># FUNCTION CALLS<br># Pass parameter to function A<br>function_A "Function A."<br>function_B<br># Pass parameter to function C<br>function_C "Function C."<br>function_D </pre>
+<p><img src="bash-functions.gif" alt="Bash Functions" title="Bash Functions" height="82" border="0" width="484"></p>
+<h1 id="14-bash-select">14.&nbsp;Bash Select</h1>
+<pre>#!/bin/bash<br> <br>PS3='Choose one word: ' <br><br># bash select<br>select word in "linux" "bash" "scripting" "tutorial" <br>do<br>  echo "The word you have selected is: $word"<br># Break, otherwise endless loop<br>  break  <br>done<br><br>exit 0 </pre>
+<p><img src="bash_select.gif" alt="Bash Select" title="Bash Select" height="108" border="0" width="214"></p>
+<h1 id="15-case-statement-conditional">15.&nbsp;Case statement conditional</h1>
+<pre>#!/bin/bash<br>echo "What is your preferred programming / scripting language"<br>echo "1) bash"<br>echo "2) perl"<br>echo "3) phyton"<br>echo "4) c++"<br>echo "5) I do not know !"<br>read case;<br>#simple case bash structure<br># note in this case $case is variable and does not have to<br># be named case this is just an example<br>case $case in<br>    1) echo "You selected bash";;<br>    2) echo "You selected perl";;<br>    3) echo "You selected phyton";;<br>    4) echo "You selected c++";;<br>    5) exit<br>esac </pre>
+<p><img src="bash_case_statement.gif" alt="bash case statement conditiona" title="bash case statement conditiona" height="134" border="0" width="340"></p>
+<h1 id="16-bash-quotes-and-quotations">16.&nbsp;Bash quotes and quotations</h1>
+<p>Quotations and quotes are important part of bash and bash scripting. Here are some bash quotes and quotations basics.</p>
+<h2 id="16-1-escaping-meta-characters">16.1.&nbsp;Escaping Meta characters</h2>
+<p>Before we start with quotes and quotations we should know something about escaping meta characters. Escaping will suppress a special meaning of meta characters and therefore meta characters will be read by bash literally. To do this we need to use backslash "\" character. Example:</p>
+<pre>#!/bin/bash<br> <br>#Declare bash string variable<br>BASH_VAR="Bash Script"<br><br># echo variable BASH_VAR<br>echo $BASH_VAR<br><br>#when meta character such us "$" is escaped with "\" it will be read literally<br>echo \$BASH_VAR <br><br># backslash has also special meaning and it can be suppressed with yet another "\"<br>echo "\\" </pre>
+<p><img src="escaping_meta.gif" alt="escaping meta characters in bash" title="escaping meta characters in bash" height="69" border="0" width="202"></p>
+<h2 id="16-2-single-quotes">16.2.&nbsp;Single quotes</h2>
+<p>Single quotes in bash will suppress special meaning of every meta characters. Therefore meta characters will be read literally. It is not possible to use another single quote within two single quotes not even if the single quote is escaped by backslash.</p>
+<pre>#!/bin/bash<br> <br> #Declare bash string variable<br> BASH_VAR="Bash Script"<br> <br> # echo variable BASH_VAR<br> echo $BASH_VAR<br> <br> # meta characters special meaning in bash is suppressed when  using single quotes <br> echo '$BASH_VAR  "$BASH_VAR"' </pre>
+<p><img src="bash_single_quotes.gif" alt="Using single quotes in bash" title="Using single quotes in bash" height="56" border="0" width="214"></p>
+<h2 id="16-3-double-quotes">16.3.&nbsp;Double Quotes</h2>
+<p>Double quotes in bash will suppress special meaning of every meta characters except "$", "\" and "`". Any other meta characters will be read literally. It is also possible to use single quote within double quotes. If we need to use double quotes within double quotes bash can read them literally when escaping them with "\". Example:</p>
+<pre>#!/bin/bash<br> <br>#Declare bash string variable<br>BASH_VAR="Bash Script"<br><br># echo variable BASH_VAR<br>echo $BASH_VAR<br><br># meta characters and its special meaning in bash is <br># suppressed when using double quotes except "$", "\" and "`"<br><br>echo "It's $BASH_VAR  and \"$BASH_VAR\" using backticks: `date`" </pre>
+<p><img src="bash_double_quotes.gif" alt="Using double quotes in bash" title="Using double quotes in bash" height="56" border="0" width="490"></p>
+<h2 id="16-4-bash-quoting-with-ansi-c-style">16.4.&nbsp;Bash quoting with ANSI-C style</h2>
+<p>There is also another type of quoting and that is ANSI-C. In this type of quoting characters escaped with "\" will gain special meaning according to the ANSI-C standard.</p>
+<table border="1">
+<tbody>
+<tr>
+<td width="50">\a</td>
+<td width="250">alert (bell)</td>
+<td width="50">\b</td>
+<td width="250">backspace</td>
+</tr>
+<tr>
+<td width="50">\e</td>
+<td width="250">an escape character</td>
+<td width="50">\f</td>
+<td width="250">form feed</td>
+</tr>
+<tr>
+<td width="50">\n</td>
+<td width="250">newline</td>
+<td width="50">\r</td>
+<td width="250">carriage return</td>
+</tr>
+<tr>
+<td width="50">\t</td>
+<td width="250">horizontal tab</td>
+<td width="50">\v</td>
+<td width="250">vertical tab</td>
+</tr>
+<tr>
+<td width="50">\\</td>
+<td width="250">backslash</td>
+<td width="50">\`</td>
+<td width="250">single quote</td>
+</tr>
+<tr>
+<td width="50">\nnn</td>
+<td width="250">octal value of characters ( see [http://www.asciitable.com/ ASCII table] )</td>
+<td width="50">\xnn</td>
+<td width="250">hexadecimal value of characters ( see [http://www.asciitable.com/ ASCII table] )</td>
+</tr>
+</tbody>
+</table>
+<p>The syntax fo ansi-c bash quoting is: $'' . Here is an example:</p>
+<pre>#!/bin/bash<br> <br># as a example we have used \n as a new line, \x40 is hex value for @<br># and \56 is octal value for .<br>echo $'web: www.linuxconfig.org\nemail: web\x40linuxconfig\56org' </pre>
+<p><img src="ansi-c_bash.gif" alt="quoting in bash with ansi-c stype" title="quoting in bash with ansi-c stype" height="56" border="0" width="202"></p>
+<h1 id="17-arithmetic-operations">17.&nbsp;Arithmetic Operations</h1>
+<h2 id="17-1-bash-addition-calculator-example">17.1.&nbsp;Bash Addition Calculator Example</h2>
+<pre>#!/bin/bash<br> <br>let RESULT1=$1+$2<br>echo $1+$2=$RESULT1 ' -&gt; # let RESULT1=$1+$2'<br>declare -i RESULT2<br>RESULT2=$1+$2<br>echo $1+$2=$RESULT2 ' -&gt; # declare -i RESULT2; RESULT2=$1+$2'<br>echo $1+$2=$(($1 + $2)) ' -&gt; # $(($1 + $2))' </pre>
+<p><img src="bash_addition_calc.gif" alt="Bash Addition Calculator" title="Bash Addition Calculator" height="69" border="0" width="304"></p>
+<h2 id="17-2-bash-arithmetics">17.2.&nbsp;Bash Arithmetics</h2>
+<pre>#!/bin/bash<br> <br>echo '### let ###'<br># bash addition<br>let ADDITION=3+5<br>echo "3 + 5 =" $ADDITION<br><br># bash subtraction<br>let SUBTRACTION=7-8<br>echo "7 - 8 =" $SUBTRACTION <br><br># bash multiplication<br>let MULTIPLICATION=5*8<br>echo "5 * 8 =" $MULTIPLICATION<br><br># bash division<br>let DIVISION=4/2<br>echo "4 / 2 =" $DIVISION<br><br># bash modulus<br>let MODULUS=9%4<br>echo "9 % 4 =" $MODULUS<br><br># bash power of two<br>let POWEROFTWO=2**2<br>echo "2 ^ 2 =" $POWEROFTWO<br><br><br>echo '### Bash Arithmetic Expansion ###'<br># There are two formats for arithmetic expansion: $[ expression ] <br># and $(( expression #)) its your choice which you use<br><br>echo 4 + 5 = $((4 + 5))<br>echo 7 - 7 = $[ 7 - 7 ]<br>echo 4 x 6 = $((3 * 2))<br>echo 6 / 3 = $((6 / 3))<br>echo 8 % 7 = $((8 % 7))<br>echo 2 ^ 8 = $[ 2 ** 8 ]<br><br><br>echo '### Declare ###'<br><br>echo -e "Please enter two numbers \c"<br># read user input<br>read num1 num2<br>declare -i result<br>result=$num1+$num2<br>echo "Result is:$result "<br><br># bash convert binary number 10001<br>result=2#10001<br>echo $result<br><br># bash convert octal number 16<br>result=8#16<br>echo $result<br><br># bash convert hex number 0xE6A<br>result=16#E6A<br>echo $result </pre>
+<p><img src="bash-arithmetic_operations.gif" alt="Bash Arithmetic Operations" title="Bash Arithmetic Operations" height="290" border="0" width="262"></p>
+<h2 id="17-3-round-floating-point-number">17.3.&nbsp;Round floating point number</h2>
+<pre>#!/bin/bash<br># get floating point number<br>floating_point_number=3.3446<br>echo $floating_point_number<br># round floating point number with bash<br>for bash_rounded_number in $(printf %.0f $floating_point_number); do<br>echo "Rounded number with bash:" $bash_rounded_number<br>done </pre>
+<p><img src="bash_round_floating_point_number.gif" alt="Round floating point number with bash" title="Round floating point number with bash" height="56" border="0" width="178"></p>
+<h2 id="17-4-bash-floating-point-calculations">17.4.&nbsp;Bash floating point calculations</h2>
+<pre>#!/bin/bash<br># Simple linux bash calculator <br>echo "Enter input:" <br>read userinput<br>echo "Result with 2 digits after decimal point:"<br>echo "scale=2; ${userinput}" | bc <br>echo "Result with 10 digits after decimal point:"<br>echo "scale=10; ${userinput}" | bc <br>echo "Result as rounded integer:"<br>echo $userinput | bc </pre>
+<p><img src="bash_floating_point.gif" alt="Bash floating point calculations" title="Bash floating point calculations" height="134" border="0" width="256"></p>
+<h1 id="18-redirections">18.&nbsp;Redirections</h1>
+<h2 id="18-1-stdout-from-bash-script-to-stderr">18.1.&nbsp;STDOUT from bash script to STDERR</h2>
+<pre>#!/bin/bash<br> <br> echo "Redirect this STDOUT to STDERR" 1&gt;&amp;2 </pre>
+<p>To prove that STDOUT is redirected to STDERR we can redirect script's output to file:<br> <img src="stdouttostderr.gif" alt="STDOUT from bash script to STDERR" title="STDOUT from bash script to STDERR" height="147" border="0" width="286"></p>
+<h2 id="18-2-stderr-from-bash-script-to-stdout">18.2.&nbsp;STDERR from bash script to STDOUT</h2>
+<pre>#!/bin/bash<br> <br> cat $1 2&gt;&amp;1 </pre>
+<p>To prove that STDERR is redirected to STDOUT we can redirect script's output to file:<br> <img src="stderrtostdout.gif" alt="STDERR from bash script to STDOUT" title="STDERR from bash script to STDOUT" height="147" border="0" width="358"></p>
+<h2 id="18-3-stdout-to-screen">18.3.&nbsp;stdout to screen</h2>
+<p>The simple way to redirect a standard output ( stdout ) is to simply use any command, because by default stdout is automatically redirected to screen. First create a file "file1":</p>
+<pre>$ touch file1
+$ ls file1 
+file1
+</pre>
+<p>As you can see from the example above execution of ls command produces STDOUT which by default is redirected to screen.</p>
+<h2 id="18-4-stdout-to-file">18.4.&nbsp;stdout to file</h2>
+<p>The override the default behavior of STDOUT we can use "&gt;" to redirect this output to file:</p>
+<pre>$ ls file1 &gt; STDOUT
+$ cat STDOUT 
+file1
+</pre>
+<h2 id="18-5-stderr-to-file">18.5.&nbsp;stderr to file</h2>
+<p>By default STDERR is displayed on the screen:</p>
+<pre>$ ls
+file1  STDOUT
+$ ls file2
+ls: cannot access file2: No such file or directory
+</pre>
+<p>In the following example we will redirect the standard error ( stderr ) to a file and stdout to a screen as default. Please note that STDOUT is displayed on the screen, however STDERR is redirected to a file called STDERR:</p>
+<pre>$ ls
+file1  STDOUT
+$ ls file1 file2 2&gt; STDERR
+file1
+$ cat STDERR 
+ls: cannot access file2: No such file or directory
+</pre>
+<h2 id="18-6-stdout-to-stderr">18.6.&nbsp;stdout to stderr</h2>
+<p>It is also possible to redirect STDOUT and STDERR to the same file. In the next example we will redirect STDOUT to the same descriptor as STDERR. Both STDOUT and STDERR will be redirected to file "STDERR_STDOUT".</p>
+<pre>$ ls
+file1  STDERR  STDOUT
+$ ls file1 file2 2&gt; STDERR_STDOUT 1&gt;&amp;2
+$ cat STDERR_STDOUT
+ls: cannot access file2: No such file or directory
+file1
+</pre>
+<p>File STDERR_STDOUT now contains STDOUT and STDERR.</p>
+<h2 id="18-7-stderr-to-stdout">18.7.&nbsp;stderr to stdout</h2>
+<p>The above example can be reversed by redirecting STDERR to the same descriptor as SDTOUT:</p>
+<pre>$ ls
+file1  STDERR  STDOUT
+$ ls file1 file2 &gt; STDERR_STDOUT 2&gt;&amp;1
+$ cat STDERR_STDOUT 
+ls: cannot access file2: No such file or directory
+file1
+</pre>
+<h2 id="18-8-stderr-and-stdout-to-file">18.8.&nbsp;stderr and stdout to file</h2>
+<p>Previous two examples redirected both STDOUT and STDERR to a file. Another way to achieve the same effect is illustrated below:</p>
+<pre>$ ls
+file1  STDERR  STDOUT
+$ ls file1 file2 &amp;&gt; STDERR_STDOUT
+$ cat STDERR_STDOUT 
+ls: cannot access file2: No such file or directory
+file1
+</pre>
+<p>or</p>
+<pre>ls file1 file2 &gt;&amp; STDERR_STDOUT
+$ cat STDERR_STDOUT 
+ls: cannot access file2: No such file or directory
+file1
+</pre><div id="itp-social-buttons-box"><h4>Share this linux post:</h4><a href="http://del.icio.us/post?url=http://linuxconfig.org/Bash_scripting_Tutorial&amp;title=Bash%20scripting%20Tutorial" title="Submit Bash scripting Tutorial in Delicious" target="blank" rel="nofollow">
+		<img src="delicious.png" alt="Submit Bash scripting Tutorial in Delicious">
+		</a><a href="http://digg.com/submit?url=http://linuxconfig.org/Bash_scripting_Tutorial&amp;title=Bash%20scripting%20Tutorial" title="Submit Bash scripting Tutorial in Digg" target="blank" rel="nofollow">
+        <img src="digg.png" alt="Submit Bash scripting Tutorial in Digg">
+        </a><a href="http://www.facebook.com/sharer.php?u=http://linuxconfig.org/Bash_scripting_Tutorial&amp;t=Bash%20scripting%20Tutorial" title="Submit Bash scripting Tutorial in FaceBook" target="blank" rel="nofollow">
+        <img src="facebook.png" alt="Submit Bash scripting Tutorial in FaceBook">
+        </a><a href="http://www.google.com/bookmarks/mark?op=edit&amp;bkmk=http://linuxconfig.org/Bash_scripting_Tutorial" title="Submit Bash scripting Tutorial in Google Bookmarks" target="blank" rel="nofollow">
+        <img src="google.png" alt="Submit Bash scripting Tutorial in Google Bookmarks">
+        </a><a href="http://www.stumbleupon.com/submit?url=http://linuxconfig.org/Bash_scripting_Tutorial&amp;title=Bash%20scripting%20Tutorial" title="Submit Bash scripting Tutorial in Stumbleupon" target="blank" rel="nofollow">
+        <img src="stumbleupon.png" alt="Submit Bash scripting Tutorial in Stumbleupon">
+        </a><a href="http://technorati.com/faves?add=http://linuxconfig.org/Bash_scripting_Tutorial" title="Submit Bash scripting Tutorial in Technorati" target="blank" rel="nofollow">
+        <img src="technorati.png" alt="Submit Bash scripting Tutorial in Technorati">
+        </a><a href="http://twitter.com/?status=Bash%20scripting%20Tutorial%20http%3A%2F%2Flinuxconfig.org%2FBash_scripting_Tutorial" title="Submit Bash scripting Tutorial in Twitter" target="blank" rel="nofollow">
+        <img src="twitter.png" alt="Submit Bash scripting Tutorial in Twitter">
+        </a><div style="clear: both;">&nbsp;</div></div>
+<hr>
+
+<!-- Disqus Comments -->
+<div class="jwDisqusForm">
+	
+			<div id="disqus_thread"><div style="display: none;" id="dsq-content-stub"><img alt="DISQUS" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEcAAAARCAYAAAH4YIFjAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABwdJREFUeNpi/P//PwMhwAIiGBkZGeK6V8JVh9rqdfrc0ixnEDb+wPD2rAAjMSYBBBBRisDWwKxCthIE/q8Q+A8yhCiTAAIIrCi+ZxVMZSAQr19UGs4IMxWd/X8Rw3/GOKDhW43fgzwF1hX7n5EJ2dSp2QFNUKcZwJ31/78CkvPBGkGGMXidSUTWCxBAxAUAEQAcJzCvIXsDBPwsNBU2nbj+AMpdsFA8PAHsLZj3QC5D9hrIAEtN+RMwAzRkxcB0iK3eQ6iQIRAnoMTE//8CyHwmWHQdv/7QAiZ44/ErMP383acsqNB5iMnPlsFdsUZ6IU3CCCCA4AYBw8kBJgj06gGkmHJAFgPyQV4ExeQEoNgHJHUBQMoAWRzoerBeYHgeQOJ/APIvQPkNUP4EuIdADBAGBRMQOABxQcakdSipHZldNGvL2zWHL8kD1d0HieVN33QYqnc/EAfULNwJVw8KTniQwvjAdPz/SEwKmL1KfC5QjwEQr4e5AyVdA3P4ASCe8O3nb1whmtib6r3IXlfpATBEFbpWH9ygJSdmBtXrOHPbyZWPXn1AqOZRwDSBS+YHo82SOQwiZnYMoS+EGC42nGdYzBiAnKpgGAbeA3ECkjwYQNnzH758///6o5cgofVIagy+/vgFF//y/ecHJLn1/18AA+/teZBcPZL4eSTxBJg7AAKIaomRmpkeV2IG5UcDpMSsAM2zF4BiG9DUFaCLQxPwBWCC/QBkg/QqoCVuEN4ASuDIaWc/DIMSItBxH0GCrkaqCVBxWO4BJWBQcK/PmrL+I1S8H0i9h4mjFfX7GTRyIdEuHzIfZtb/Zdw3oGyQnvP/d9pNgRc+MLCwJMxxWk7AI6Ar+YCWVSLLyYkJzIYlZqC6RGBhbg/lFwDlQHoDgfgALLfhjY8/X9XhpWPs/wWM7odyMBwDylU8nOzyILYIH3cZslxBgM0cKHM+MOTAGCZnri7XCdS7ASgGLsc/fPlug9cxlrO/wUvYxYwJwCgLwHAMcrVlqCJ9BVlchJ+7EhRyQPwAyGaAFnhgsOPMzUhQroLVAU76yp/gGp/vtQbTr45pwMWOp1oDQ6QQiGEi6+EJGLmah0YJQ6CVtu3ivecKYHIpE9b8BPqcDSnawHSSu8m3eTvPyAHlzsPkDl25/wXMYAOq+XgtBFwIfn/GwCAOSq8HYCGCsNh8+hvksgYZIJchDkjljAKoHAKVJ6ByBbnmA5XESOL1oFIZSc9/cJkC1IukPuH/z/cw8fswdwyqcgYgwAaVYwYbQEnDSI1LbGABEDcCC1lYS4yhfO42n+fvPm9GKsAZkfJDA7RcwwYmQM1CbpUUADU3AB3AjxJ7wFwAFGsAqp2A0mBDahww8Gv4Mvrf2AKXWyMzgeHbk3wwh5X/DGPkR1OoHlCmn49cGCABkL8SgZn8ANbAQQaV4ZBK6yGwgbDr3G2GNx+/gkqShMTe1V///vsnA/KYjoKECjBwMPQCW0EngOrNQWxbHQWGFA8zBlAj5eztpwwbjl9lyPG1DFOUEAIFDqxJB6ksoC1ZN2NVsDm7zt4GNUhBgdUPrXwckWtQOJB0VQE2XRF8UQt9hodrIGw+FaDcWVjAwAshhsD7kAbPO2Dr78ZEBoZfHxQYHNYbwEogvIGjKSfOiNysBpaEL/acv8MODBhuUX7u00BhVVx6DZWlxHcDAxQEDl95AMZQAGqHLlSSFIanAnZWll0/f/8Bs2OcDB+5GavJVyGZtevsrYdL9p2XQ6rZGcnKI54nZRj2uoMCAVr4K8JkQAKgJsdEYN12AbmYYSGqYGJk/NC8bO91WHKUFRXgwace6ElDIF4PjHWHc3eeMZy98xSU8mB1mwE0FSQCU8ECZiZGVpi+yw9eLIfVlUyMjIf+/f/Pu/bIlTtIdSX5hauo+RagxxMZfr2fwHB3IT/Dy4MMDI/BzTABaP2aAGzmgPpN4gQDB1pmgIA+EAfcfvoGXl/mB1hXFuBxCLDs6oc26kBJZiIoxShLCqs9e/tp+vdfv8ENB08Tdf9FwHKsMtxxTfvK/SGgbHfx3vNyoL2g7DjR30r74vqjV2yA6lXgbnI2WtoH4yhEfGF4sAISSTcm9wOzDcidoE6lPTBLwRuyDMoJ5+DZagnLJIb/f3mh5edGcKoRs+5neHUUUgZxiIrhrK2wFchc7KwMmsByANjiAZUfoGzhCEpJIDlQowOYffqRC2RQS+f1x68HNx6/ygcqY9A7RMZAc5LcTS/zcLLZwcwB1evAzs/8pfsvwDu9yOplgRECzF4M8a7Gryw05NRB+sDtiC/3HjKcKeaDpgAEADVmNIDlsX4DqFPmCOvvMNxdkAAuX95dQFUPKnv06kEBmQgNOLpV5QbQpAsrcz4QUC+AVJsgqxcgoNcBqQy5QIIdONUDALcn6c0dtMJ9AAAAAElFTkSuQmCC" height="17" width="71"><img alt="..." src="data:image/gif;base64,R0lGODlhEAALAPQAAP///z2LqeLt8dvp7u7090GNqz2LqV+fuJ/F1IW2ycrf51aatHWswaXJ14i4ys3h6FmctUCMqniuw+vz9eHs8fb5+meku+Tu8vT4+cfd5bbT3tbm7PH2+AAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCwAAACwAAAAAEAALAAAFLSAgjmRpnqSgCuLKAq5AEIM4zDVw03ve27ifDgfkEYe04kDIDC5zrtYKRa2WQgAh+QQJCwAAACwAAAAAEAALAAAFJGBhGAVgnqhpHIeRvsDawqns0qeN5+y967tYLyicBYE7EYkYAgAh+QQJCwAAACwAAAAAEAALAAAFNiAgjothLOOIJAkiGgxjpGKiKMkbz7SN6zIawJcDwIK9W/HISxGBzdHTuBNOmcJVCyoUlk7CEAAh+QQJCwAAACwAAAAAEAALAAAFNSAgjqQIRRFUAo3jNGIkSdHqPI8Tz3V55zuaDacDyIQ+YrBH+hWPzJFzOQQaeavWi7oqnVIhACH5BAkLAAAALAAAAAAQAAsAAAUyICCOZGme1rJY5kRRk7hI0mJSVUXJtF3iOl7tltsBZsNfUegjAY3I5sgFY55KqdX1GgIAIfkECQsAAAAsAAAAABAACwAABTcgII5kaZ4kcV2EqLJipmnZhWGXaOOitm2aXQ4g7P2Ct2ER4AMul00kj5g0Al8tADY2y6C+4FIIACH5BAkLAAAALAAAAAAQAAsAAAUvICCOZGme5ERRk6iy7qpyHCVStA3gNa/7txxwlwv2isSacYUc+l4tADQGQ1mvpBAAIfkECQsAAAAsAAAAABAACwAABS8gII5kaZ7kRFGTqLLuqnIcJVK0DeA1r/u3HHCXC/aKxJpxhRz6Xi0ANAZDWa+kEAA7AAAAAAAAAAAA" style="margin: 0pt 0pt 3px 5px;" height="11" width="16"></div><div class="clearfix" style="display: block;" id="dsq-content">      <div id="dsq-global-toolbar" class="dsq-clearfix">        <ul class="dsq-global-toolbar-right dsq-clearfix">                            <li class="dsq-community-box">                <a original-title="Expand Community Box" href="http://linuxconfig.org/community.show" class="dsq-toolbar-item dsq-tt"><span class="dsq-toolbar-icon"></span></a>            </li>                            <li class="dsq-global-toolbar-dropdown-container">                    <div id="dsq-toolbar-dropdown">    <a href="#" class="dsq-toolbar-logo dsq-toolbar-item dsq-clearfix"><span class="dsq-toolbar-icon">Disqus</span></a>    <div id="dsq-toolbar-dropdown-wrap" style="display: none;">      <ul class="dsq-clearfix">                    <li class="dsq-login-link"><a href="http://linuxconfig.org/auth.login"><span class="dsq-toolbar-icon"></span><span class="dsq-toolbar-label">Login</span></a></li>                    <li class="dsq-about-link"><a href="http://disqus.com/" target="_top"><span class="dsq-toolbar-icon"></span><span class="dsq-toolbar-label">About Disqus</span></a></li>      </ul>    </div>  </div>            </li>        </ul>                <ul class="dsq-global-toolbar-left dsq-clearfix">            <li class="dsq-like-thread">                <a href="http://linuxconfig.org/thread.vote" id="dsq-like-thread-button" class="dsq-toolbar-item dsq-clearfix  dsq-tt" title="I like this page">                    <span class="dsq-toolbar-icon"></span>                    <span class="dsq-toolbar-label">Like</span>                </a>            </li>            <li class="dsq-dislike-thread">                <a href="http://linuxconfig.org/thread.vote" id="dsq-dislike-thread-button" class="dsq-toolbar-item dsq-clearfix  dsq-tt" title="I don't like this page">                    <span class="dsq-toolbar-icon">Dislike</span>                </a>            </li>            <li class="dsq-like-panel">                <ul class="dsq-like-faces dsq-clearfix">                          <li class="dsq-tt" title="Andy T"><a href="http://disqus.com/drupalvietnam/" onclick="return DISQUS.dtpl.actions.fire('profile.show', null, 'drupalvietnam', false); return false"><img src="avatar32.jpg"></a></li>    <li class="dsq-like-activity">                  and 45 others liked this.          </li>                </ul>            </li>        </ul>            </div>    <div id="dsq-like-tooltip">      <div id="dsq-share-step-1" class="dsq-share-step">        <h3>Glad you liked it. Would you like to share?</h3>        <p class="dsq-tooltip-checkbox"><input id="dsq-share-thread-facebook" value="Facebook" type="checkbox"><label for="dsq-share-thread-facebook"><span class="dsq-facebook">Facebook</span></label></p>        <p class="dsq-tooltip-checkbox"><input id="dsq-share-thread-twitter" value="Twitter" type="checkbox"><label for="dsq-share-thread-twitter"><span class="dsq-twitter">Twitter</span></label></p>        <ul id="dsq-tooltip-actions">                        <li><a href="http://linuxconfig.org/thread.share.send" class="dsq-primary-action">Share</a></li>                    <li><a href="http://linuxconfig.org/thread.share.cancel" class="dsq-secondary-action">No thanks</a></li>        </ul>      </div>      <div id="dsq-share-step-2" class="dsq-share-step" style="display: none ! important;">        <p>Sharing this page …</p>      </div>      <div id="dsq-share-step-3" class="dsq-share-step" style="display: none ! important;">        <p>Thanks! <a href="http://linuxconfig.org/thread.share.cancel" class="dsq-tooltip-decline">Close</a></p>      </div>    </div>                            <div id="dsq-sort-by">    <select id="dsq-sort-select" onchange="DISQUS.dtpl.actions.fire('thread.sort', this.value);">              <option value="hot">          Sort by popular now        </option>              <option value="best">          Sort by best rating        </option>              <option value="newest" selected="selected">          Sort by newest first        </option>              <option value="oldest">          Sort by oldest first        </option>          </select>  </div>      <h3>            Showing <span id="dsq-num-posts">10</span> of <span id="dsq-total-posts">60</span> comments        </h3>        <ul id="dsq-comments">            <li id="dsq-comment-387110572" data-dsq-comment-id="387110572" class="dsq-comment dsq-clearfix                        " style="margin-left: 0px;">    <div class="dsq-avatar dsq-tt" title="Expand Krishna prasad G's profile">      <a href="http://disqus.com/google-2344e9e07b3914b7d47b48355a01eaee/" onclick="DISQUS.dtpl.actions.fire('profile.show', 387110572, null); return false">        <img src="noavatar32.png" class="" alt="">      </a>    </div>    <div id="dsq-comment-body-387110572" class="dsq-comment-body">      <div class="dsq-comment-header">        <span class="dsq-commenter-name">Krishna prasad G</span>                <span class="dsq-collapsed-count">                      1 comment collapsed                  </span>                <a href="http://linuxconfig.org/comments.collapse" class="dsq-collapse-toggle dsq-collapse" title="Collapse thread"><span>Collapse</span></a>        <a href="http://linuxconfig.org/comments.expand" class="dsq-collapse-toggle dsq-expand" title="Expand thread"><span>Expand</span></a>      </div>        <div class="dsq-comment-message" id="dsq-comment-message-387110572">                <div class="dsq-comment-text" id="dsq-comment-text-387110572">        how to know how many command line arguments passing to script ? <br><br>for example in java args.length is used to find length of command line arguments nothing but the number of arguments will it returns like that is there any predifined variable in python to know the number of command line arguments passed      </div>                        </div>            <!-- edit box dynamically inserted here -->      <div id="dsq-append-edit-387110572"></div>        <div class="dsq-comment-footer">    <ul class="dsq-comment-actions">              <li id="dsq-like-387110572">          <span class="dsq-like-thumb dsq-font">A</span>          <a href="http://linuxconfig.org/comments.like">Like</a>        </li>                          <li>          <a href="http://linuxconfig.org/comments.reply" class="dsq-comment-reply">Reply</a>        </li>         </ul>    <ul class="dsq-comment-meta">      <li>  <a href="http://linuxconfig.org/comments.permalink" title="Link to comment by Krishna prasad G">          16 hours ago      </a></li>            <li style="display: none;">          <a href="http://linuxconfig.org/comments.showUserVotes" id="dsq-comment-like-count-387110572" class="dsq-comment-like-count">0          Like      </a>      </li>              <li class="dsq-comment-flag" style="visibility: hidden;">          <a href="http://linuxconfig.org/comments.report" class="dsq-comment-flag dsq-font">F</a>        </li>          </ul>  </div>      <!-- reply box dynamically inserted here -->      <div id="dsq-append-reply-387110572"></div>    </div>  </li>  <!-- new replies dynamically inserted here -->  <li id="dsq-append-post-387110572"></li>            <li id="dsq-comment-383383324" data-dsq-comment-id="383383324" class="dsq-comment dsq-clearfix                        " style="margin-left: 0px;">    <div class="dsq-avatar dsq-tt" title="Expand giorgos13's profile">      <a href="http://disqus.com/guest/5b76002b025998fa310fbbaaa54a29d8/" onclick="DISQUS.dtpl.actions.fire('profile.show', 383383324, null); return false">        <img src="noavatar32.png" class="" alt="">      </a>    </div>    <div id="dsq-comment-body-383383324" class="dsq-comment-body">      <div class="dsq-comment-header">        <span class="dsq-commenter-name">giorgos13</span>                <span class="dsq-collapsed-count">                      1 comment collapsed                  </span>                <a href="http://linuxconfig.org/comments.collapse" class="dsq-collapse-toggle dsq-collapse" title="Collapse thread"><span>Collapse</span></a>        <a href="http://linuxconfig.org/comments.expand" class="dsq-collapse-toggle dsq-expand" title="Expand thread"><span>Expand</span></a>      </div>        <div class="dsq-comment-message" id="dsq-comment-message-383383324">                <div class="dsq-comment-text" id="dsq-comment-text-383383324">        how create a shell script name which can take as argument a file name?      </div>                        </div>            <!-- edit box dynamically inserted here -->      <div id="dsq-append-edit-383383324"></div>        <div class="dsq-comment-footer">    <ul class="dsq-comment-actions">              <li id="dsq-like-383383324">          <span class="dsq-like-thumb dsq-font">A</span>          <a href="http://linuxconfig.org/comments.like">Like</a>        </li>                          <li>          <a href="http://linuxconfig.org/comments.reply" class="dsq-comment-reply">Reply</a>        </li>         </ul>    <ul class="dsq-comment-meta">      <li>  <a href="http://linuxconfig.org/comments.permalink" title="Link to comment by giorgos13">          5 days ago      </a></li>            <li style="display: none;">          <a href="http://linuxconfig.org/comments.showUserVotes" id="dsq-comment-like-count-383383324" class="dsq-comment-like-count">0          Like      </a>      </li>              <li class="dsq-comment-flag" style="visibility: hidden;">          <a href="http://linuxconfig.org/comments.report" class="dsq-comment-flag dsq-font">F</a>        </li>          </ul>  </div>      <!-- reply box dynamically inserted here -->      <div id="dsq-append-reply-383383324"></div>    </div>  </li>  <!-- new replies dynamically inserted here -->  <li id="dsq-append-post-383383324"></li>            <li id="dsq-comment-381520963" data-dsq-comment-id="381520963" class="dsq-comment dsq-clearfix                        " style="margin-left: 0px;">    <div class="dsq-avatar dsq-tt" title="Expand Donthavean's profile">      <a href="http://disqus.com/guest/70fc5d976b0056a01ab857c52779db3d/" onclick="DISQUS.dtpl.actions.fire('profile.show', 381520963, null); return false">        <img src="noavatar32.png" class="" alt="">      </a>    </div>    <div id="dsq-comment-body-381520963" class="dsq-comment-body">      <div class="dsq-comment-header">        <span class="dsq-commenter-name">Donthavean</span>                <span class="dsq-collapsed-count">                      1 comment collapsed                  </span>                <a href="http://linuxconfig.org/comments.collapse" class="dsq-collapse-toggle dsq-collapse" title="Collapse thread"><span>Collapse</span></a>        <a href="http://linuxconfig.org/comments.expand" class="dsq-collapse-toggle dsq-expand" title="Expand thread"><span>Expand</span></a>      </div>        <div class="dsq-comment-message" id="dsq-comment-message-381520963">                <div class="dsq-comment-text" id="dsq-comment-text-381520963">        "&gt;&lt;script&gt;alert(0)&lt;/script&gt;&lt;img onerror="alert(000)" src="1"&gt;      </div>                        </div>            <!-- edit box dynamically inserted here -->      <div id="dsq-append-edit-381520963"></div>        <div class="dsq-comment-footer">    <ul class="dsq-comment-actions">              <li id="dsq-like-381520963">          <span class="dsq-like-thumb dsq-font">A</span>          <a href="http://linuxconfig.org/comments.like">Like</a>        </li>                          <li>          <a href="http://linuxconfig.org/comments.reply" class="dsq-comment-reply">Reply</a>        </li>         </ul>    <ul class="dsq-comment-meta">      <li>  <a href="http://linuxconfig.org/comments.permalink" title="Link to comment by Donthavean">          1 week ago      </a></li>            <li style="display: none;">          <a href="http://linuxconfig.org/comments.showUserVotes" id="dsq-comment-like-count-381520963" class="dsq-comment-like-count">0          Like      </a>      </li>              <li class="dsq-comment-flag" style="visibility: hidden;">          <a href="http://linuxconfig.org/comments.report" class="dsq-comment-flag dsq-font">F</a>        </li>          </ul>  </div>      <!-- reply box dynamically inserted here -->      <div id="dsq-append-reply-381520963"></div>    </div>  </li>  <!-- new replies dynamically inserted here -->  <li id="dsq-append-post-381520963"></li>            <li id="dsq-comment-378907718" data-dsq-comment-id="378907718" class="dsq-comment dsq-clearfix        dsq-comment-is-parent                " style="margin-left: 0px;">    <div class="dsq-avatar dsq-tt" title="Expand Manel Khannoussi's profile">      <a href="http://disqus.com/facebook-1388378921/" onclick="DISQUS.dtpl.actions.fire('profile.show', 378907718, null); return false">        <img src="avatar32_001.jpg" class="" alt="">      </a>    </div>    <div id="dsq-comment-body-378907718" class="dsq-comment-body">      <div class="dsq-comment-header">        <a href="http://www.facebook.com/ma.kh3" target="_top" class="dsq-commenter-name" rel="nofollow">Manel Khannoussi</a>                <span class="dsq-collapsed-count">                      2 comments collapsed                  </span>                <a href="http://linuxconfig.org/comments.collapse" class="dsq-collapse-toggle dsq-collapse" title="Collapse thread"><span>Collapse</span></a>        <a href="http://linuxconfig.org/comments.expand" class="dsq-collapse-toggle dsq-expand" title="Expand thread"><span>Expand</span></a>      </div>        <div class="dsq-comment-message" id="dsq-comment-message-378907718">                <div class="dsq-comment-text" id="dsq-comment-text-378907718">        $ls *ld /etc/* |grep ^d&nbsp;|wc -1 &nbsp;<br>&nbsp;$ ls -l | sort -k 5<br><br><br>I want to&nbsp;know the result&nbsp;of these&nbsp;online&nbsp;because I have&nbsp;not&nbsp;the Linux system&nbsp;on my computer<br>thinks :)))      </div>                        </div>            <!-- edit box dynamically inserted here -->      <div id="dsq-append-edit-378907718"></div>        <div class="dsq-comment-footer">    <ul class="dsq-comment-actions">              <li id="dsq-like-378907718">          <span class="dsq-like-thumb dsq-font">A</span>          <a href="http://linuxconfig.org/comments.like">Like</a>        </li>                          <li>          <a href="http://linuxconfig.org/comments.reply" class="dsq-comment-reply">Reply</a>        </li>         </ul>    <ul class="dsq-comment-meta">      <li>  <a href="http://linuxconfig.org/comments.permalink" title="Link to comment by Manel Khannoussi">          1 week ago      </a></li>            <li style="display: none;">          <a href="http://linuxconfig.org/comments.showUserVotes" id="dsq-comment-like-count-378907718" class="dsq-comment-like-count">0          Like      </a>      </li>              <li class="dsq-comment-flag" style="visibility: hidden;">          <a href="http://linuxconfig.org/comments.report" class="dsq-comment-flag dsq-font">F</a>        </li>          </ul>  </div>      <!-- reply box dynamically inserted here -->      <div id="dsq-append-reply-378907718"></div>    </div>  </li>  <!-- new replies dynamically inserted here -->  <li id="dsq-append-post-378907718"></li>            <li id="dsq-comment-381196397" data-dsq-comment-id="381196397" class="dsq-comment dsq-clearfix                        " style="margin-left: 46px;">    <div class="dsq-avatar dsq-tt" title="Expand Gunnar Vestergaard's profile">      <a href="http://disqus.com/guest/273651d974a8317eccdc4b39885e0465/" onclick="DISQUS.dtpl.actions.fire('profile.show', 381196397, null); return false">        <img src="noavatar32.png" class="dsq-deferred-avatar" data-src="http://mediacdn.disqus.com/1323914667/images/noavatar32.png" alt="">      </a>    </div>    <div id="dsq-comment-body-381196397" class="dsq-comment-body">      <div class="dsq-comment-header">        <span class="dsq-commenter-name">Gunnar Vestergaard</span>                <span class="dsq-collapsed-count">                      1 comment collapsed                  </span>                <a href="http://linuxconfig.org/comments.collapse" class="dsq-collapse-toggle dsq-collapse" title="Collapse thread"><span>Collapse</span></a>        <a href="http://linuxconfig.org/comments.expand" class="dsq-collapse-toggle dsq-expand" title="Expand thread"><span>Expand</span></a>      </div>        <div class="dsq-comment-message" id="dsq-comment-message-381196397">                <div class="dsq-comment-text" id="dsq-comment-text-381196397">        This has been run on Mac OS in a Bash shell:<br>$ ls *ld /etc/* |grep ^d |wc -1<br>wc: illegal option -- 1<br>usage: wc [-clmw] [file ...]<br>ls: *ld: No such file or directory<br><br>$ ls -l | sort -k 5<br>(...)<br>drwxr-xr-x&nbsp;&nbsp; 65 user&nbsp; group &nbsp; 2.2K Dec&nbsp; 2 16:33 Sites<br>-rw-r--r--@&nbsp;&nbsp; 1 user&nbsp; group &nbsp; 2.4K Dec&nbsp; 6 18:45 ey.scpt<br>-rw-r--r--&nbsp;&nbsp;&nbsp; 1 user&nbsp; group &nbsp; 2.6K May 31&nbsp; 2009 new.ti<br>(...)<br><br>Are you on a Windows system? There is a way to install GNU/Linux programs on Windows and run them from a Bash shell:<br><a href="http://www.cygwin.com/" rel="nofollow">http://www.cygwin.com/</a>      </div>                        </div>            <!-- edit box dynamically inserted here -->      <div id="dsq-append-edit-381196397"></div>        <div class="dsq-comment-footer">    <ul class="dsq-comment-actions">              <li id="dsq-like-381196397">          <span class="dsq-like-thumb dsq-font">A</span>          <a href="http://linuxconfig.org/comments.like">Like</a>        </li>                          <li>          <a href="http://linuxconfig.org/comments.reply" class="dsq-comment-reply">Reply</a>        </li>         </ul>    <ul class="dsq-comment-meta">      <li>  <a href="http://linuxconfig.org/comments.permalink" title="Link to comment by Gunnar Vestergaard">          1 week ago      </a></li>              <li>          <a href="http://linuxconfig.org/comments.showParent" title="Jump to comment">            in reply to Manel Khannoussi          </a>        </li>            <li style="display: none;">          <a href="http://linuxconfig.org/comments.showUserVotes" id="dsq-comment-like-count-381196397" class="dsq-comment-like-count">0          Like      </a>      </li>              <li class="dsq-comment-flag" style="visibility: hidden;">          <a href="http://linuxconfig.org/comments.report" class="dsq-comment-flag dsq-font">F</a>        </li>          </ul>  </div>      <!-- reply box dynamically inserted here -->      <div id="dsq-append-reply-381196397"></div>    </div>  </li>  <!-- new replies dynamically inserted here -->  <li id="dsq-append-post-381196397"></li>            <li id="dsq-comment-374153949" data-dsq-comment-id="374153949" class="dsq-comment dsq-clearfix                        " style="margin-left: 0px;">    <div class="dsq-avatar dsq-tt" title="Expand Noexsist's profile">      <a href="http://disqus.com/guest/c4b2a7845c6ac8dd8b629464986b0d96/" onclick="DISQUS.dtpl.actions.fire('profile.show', 374153949, null); return false">        <img src="noavatar32.png" class="dsq-deferred-avatar" data-src="http://mediacdn.disqus.com/1323914667/images/noavatar32.png" alt="">      </a>    </div>    <div id="dsq-comment-body-374153949" class="dsq-comment-body">      <div class="dsq-comment-header">        <span class="dsq-commenter-name">Noexsist</span>                <span class="dsq-collapsed-count">                      1 comment collapsed                  </span>                <a href="http://linuxconfig.org/comments.collapse" class="dsq-collapse-toggle dsq-collapse" title="Collapse thread"><span>Collapse</span></a>        <a href="http://linuxconfig.org/comments.expand" class="dsq-collapse-toggle dsq-expand" title="Expand thread"><span>Expand</span></a>      </div>        <div class="dsq-comment-message" id="dsq-comment-message-374153949">                <div class="dsq-comment-text" id="dsq-comment-text-374153949">        Phyton should be Python just my 2 cents      </div>                        </div>            <!-- edit box dynamically inserted here -->      <div id="dsq-append-edit-374153949"></div>        <div class="dsq-comment-footer">    <ul class="dsq-comment-actions">              <li id="dsq-like-374153949">          <span class="dsq-like-thumb dsq-font">A</span>          <a href="http://linuxconfig.org/comments.like">Like</a>        </li>                          <li>          <a href="http://linuxconfig.org/comments.reply" class="dsq-comment-reply">Reply</a>        </li>         </ul>    <ul class="dsq-comment-meta">      <li>  <a href="http://linuxconfig.org/comments.permalink" title="Link to comment by Noexsist">          2 weeks ago      </a></li>            <li style="display: none;">          <a href="http://linuxconfig.org/comments.showUserVotes" id="dsq-comment-like-count-374153949" class="dsq-comment-like-count">0          Like      </a>      </li>              <li class="dsq-comment-flag" style="visibility: hidden;">          <a href="http://linuxconfig.org/comments.report" class="dsq-comment-flag dsq-font">F</a>        </li>          </ul>  </div>      <!-- reply box dynamically inserted here -->      <div id="dsq-append-reply-374153949"></div>    </div>  </li>  <!-- new replies dynamically inserted here -->  <li id="dsq-append-post-374153949"></li>            <li id="dsq-comment-359932094" data-dsq-comment-id="359932094" class="dsq-comment dsq-clearfix                        " style="margin-left: 0px;">    <div class="dsq-avatar dsq-tt" title="Expand Angel Docampo's profile">      <a href="http://disqus.com/twitter-15340854/" onclick="DISQUS.dtpl.actions.fire('profile.show', 359932094, null); return false">        <img src="noavatar32.png" class="dsq-deferred-avatar" data-src="http://mediacdn.disqus.com/uploads/users/1830/3321/avatar32.jpg?1320920785" alt="">      </a>    </div>    <div id="dsq-comment-body-359932094" class="dsq-comment-body">      <div class="dsq-comment-header">        <a href="http://twitter.com/malevolo" target="_top" class="dsq-commenter-name" rel="nofollow">Angel Docampo</a>                <span class="dsq-collapsed-count">                      1 comment collapsed                  </span>                <a href="http://linuxconfig.org/comments.collapse" class="dsq-collapse-toggle dsq-collapse" title="Collapse thread"><span>Collapse</span></a>        <a href="http://linuxconfig.org/comments.expand" class="dsq-collapse-toggle dsq-expand" title="Expand thread"><span>Expand</span></a>      </div>        <div class="dsq-comment-message" id="dsq-comment-message-359932094">                <div class="dsq-comment-text" id="dsq-comment-text-359932094">        Hi there!<br><br>I'm trying to pass non-possitional arguments to a script... something like: $ ./<a href="http://script.sh/" rel="nofollow">script.sh</a> -n parameterN -p parameterP<br>Any idea? Anyone?<br><br>Thanks!      </div>                        </div>            <!-- edit box dynamically inserted here -->      <div id="dsq-append-edit-359932094"></div>        <div class="dsq-comment-footer">    <ul class="dsq-comment-actions">              <li id="dsq-like-359932094">          <span class="dsq-like-thumb dsq-font">A</span>          <a href="http://linuxconfig.org/comments.like">Like</a>        </li>                          <li>          <a href="http://linuxconfig.org/comments.reply" class="dsq-comment-reply">Reply</a>        </li>         </ul>    <ul class="dsq-comment-meta">      <li>  <a href="http://linuxconfig.org/comments.permalink" title="Link to comment by Angel Docampo">          1 month ago      </a></li>            <li>          <a href="http://linuxconfig.org/comments.showUserVotes" id="dsq-comment-like-count-359932094" class="dsq-comment-like-count">1          Like      </a>      </li>              <li class="dsq-comment-flag" style="visibility: hidden;">          <a href="http://linuxconfig.org/comments.report" class="dsq-comment-flag dsq-font">F</a>        </li>          </ul>  </div>      <!-- reply box dynamically inserted here -->      <div id="dsq-append-reply-359932094"></div>    </div>  </li>  <!-- new replies dynamically inserted here -->  <li id="dsq-append-post-359932094"></li>            <li id="dsq-comment-357548528" data-dsq-comment-id="357548528" class="dsq-comment dsq-clearfix                        " style="margin-left: 0px;">    <div class="dsq-avatar dsq-tt" title="Expand hehe2's profile">      <a href="http://disqus.com/guest/8b567f5f2c735de4125aacaa11913315/" onclick="DISQUS.dtpl.actions.fire('profile.show', 357548528, null); return false">        <img src="noavatar32.png" class="dsq-deferred-avatar" data-src="http://mediacdn.disqus.com/1323914667/images/noavatar32.png" alt="">      </a>    </div>    <div id="dsq-comment-body-357548528" class="dsq-comment-body">      <div class="dsq-comment-header">        <span class="dsq-commenter-name">hehe2</span>                <span class="dsq-collapsed-count">                      1 comment collapsed                  </span>                <a href="http://linuxconfig.org/comments.collapse" class="dsq-collapse-toggle dsq-collapse" title="Collapse thread"><span>Collapse</span></a>        <a href="http://linuxconfig.org/comments.expand" class="dsq-collapse-toggle dsq-expand" title="Expand thread"><span>Expand</span></a>      </div>        <div class="dsq-comment-message" id="dsq-comment-message-357548528">                <div class="dsq-comment-text" id="dsq-comment-text-357548528">        Nice tutorial !<br><br><br>Just a tip : to substitute the 'space chars' with '_' symbol, it would be easier to use the bash substitute feature :<br><br><br><br><br>mv "$file" `echo $file | tr ' ' '_'`; # would become<br><br>mv "$file" "${file// /_}"; # simpler, more efficient<br><br># my 50 cents :°)<br><br><br><br><br>      </div>                        </div>            <!-- edit box dynamically inserted here -->      <div id="dsq-append-edit-357548528"></div>        <div class="dsq-comment-footer">    <ul class="dsq-comment-actions">              <li id="dsq-like-357548528">          <span class="dsq-like-thumb dsq-font">A</span>          <a href="http://linuxconfig.org/comments.like">Like</a>        </li>                          <li>          <a href="http://linuxconfig.org/comments.reply" class="dsq-comment-reply">Reply</a>        </li>         </ul>    <ul class="dsq-comment-meta">      <li>  <a href="http://linuxconfig.org/comments.permalink" title="Link to comment by hehe2">          1 month ago      </a></li>            <li style="display: none;">          <a href="http://linuxconfig.org/comments.showUserVotes" id="dsq-comment-like-count-357548528" class="dsq-comment-like-count">0          Like      </a>      </li>              <li class="dsq-comment-flag" style="visibility: hidden;">          <a href="http://linuxconfig.org/comments.report" class="dsq-comment-flag dsq-font">F</a>        </li>          </ul>  </div>      <!-- reply box dynamically inserted here -->      <div id="dsq-append-reply-357548528"></div>    </div>  </li>  <!-- new replies dynamically inserted here -->  <li id="dsq-append-post-357548528"></li>            <li id="dsq-comment-357546871" data-dsq-comment-id="357546871" class="dsq-comment dsq-clearfix                        " style="margin-left: 0px;">    <div class="dsq-avatar dsq-tt" title="Expand hehe2's profile">      <a href="http://disqus.com/guest/8b567f5f2c735de4125aacaa11913315/" onclick="DISQUS.dtpl.actions.fire('profile.show', 357546871, null); return false">        <img src="noavatar32.png" class="dsq-deferred-avatar" data-src="http://mediacdn.disqus.com/1323914667/images/noavatar32.png" alt="">      </a>    </div>    <div id="dsq-comment-body-357546871" class="dsq-comment-body">      <div class="dsq-comment-header">        <span class="dsq-commenter-name">hehe2</span>                <span class="dsq-collapsed-count">                      1 comment collapsed                  </span>                <a href="http://linuxconfig.org/comments.collapse" class="dsq-collapse-toggle dsq-collapse" title="Collapse thread"><span>Collapse</span></a>        <a href="http://linuxconfig.org/comments.expand" class="dsq-collapse-toggle dsq-expand" title="Expand thread"><span>Expand</span></a>      </div>        <div class="dsq-comment-message" id="dsq-comment-message-357546871">                <div class="dsq-comment-text" id="dsq-comment-text-357546871">        Nice tuturial !<br>Just a tip : to substitute the 'space chars' with '_' symbol, it would be easier to use the bash substitude feature :<br><br>mv "$file" `echo $file | tr ' ' '_'`; # would becomemv "$file" "${file// /_}"; # simpler, more efficient# my 50 cents :°)<br><br>      </div>                        </div>            <!-- edit box dynamically inserted here -->      <div id="dsq-append-edit-357546871"></div>        <div class="dsq-comment-footer">    <ul class="dsq-comment-actions">              <li id="dsq-like-357546871">          <span class="dsq-like-thumb dsq-font">A</span>          <a href="http://linuxconfig.org/comments.like">Like</a>        </li>                          <li>          <a href="http://linuxconfig.org/comments.reply" class="dsq-comment-reply">Reply</a>        </li>         </ul>    <ul class="dsq-comment-meta">      <li>  <a href="http://linuxconfig.org/comments.permalink" title="Link to comment by hehe2">          1 month ago      </a></li>            <li style="display: none;">          <a href="http://linuxconfig.org/comments.showUserVotes" id="dsq-comment-like-count-357546871" class="dsq-comment-like-count">0          Like      </a>      </li>              <li class="dsq-comment-flag" style="visibility: hidden;">          <a href="http://linuxconfig.org/comments.report" class="dsq-comment-flag dsq-font">F</a>        </li>          </ul>  </div>      <!-- reply box dynamically inserted here -->      <div id="dsq-append-reply-357546871"></div>    </div>  </li>  <!-- new replies dynamically inserted here -->  <li id="dsq-append-post-357546871"></li>            <li id="dsq-comment-357366917" data-dsq-comment-id="357366917" class="dsq-comment dsq-clearfix                        " style="margin-left: 0px;">    <div class="dsq-avatar dsq-tt" title="Expand Pvclink's profile">      <a href="http://disqus.com/guest/d1b47cfd3f1356622ceb1341b116dc30/" onclick="DISQUS.dtpl.actions.fire('profile.show', 357366917, null); return false">        <img src="noavatar32.png" class="dsq-deferred-avatar" data-src="http://mediacdn.disqus.com/1323914667/images/noavatar32.png" alt="">      </a>    </div>    <div id="dsq-comment-body-357366917" class="dsq-comment-body">      <div class="dsq-comment-header">        <span class="dsq-commenter-name">Pvclink</span>                <span class="dsq-collapsed-count">                      1 comment collapsed                  </span>                <a href="http://linuxconfig.org/comments.collapse" class="dsq-collapse-toggle dsq-collapse" title="Collapse thread"><span>Collapse</span></a>        <a href="http://linuxconfig.org/comments.expand" class="dsq-collapse-toggle dsq-expand" title="Expand thread"><span>Expand</span></a>      </div>        <div class="dsq-comment-message" id="dsq-comment-message-357366917">                <div class="dsq-comment-text" id="dsq-comment-text-357366917">        Good and easy to understand example      </div>                        </div>            <!-- edit box dynamically inserted here -->      <div id="dsq-append-edit-357366917"></div>        <div class="dsq-comment-footer">    <ul class="dsq-comment-actions">              <li id="dsq-like-357366917">          <span class="dsq-like-thumb dsq-font">A</span>          <a href="http://linuxconfig.org/comments.like">Like</a>        </li>                          <li>          <a href="http://linuxconfig.org/comments.reply" class="dsq-comment-reply">Reply</a>        </li>         </ul>    <ul class="dsq-comment-meta">      <li>  <a href="http://linuxconfig.org/comments.permalink" title="Link to comment by Pvclink">          1 month ago      </a></li>            <li style="display: none;">          <a href="http://linuxconfig.org/comments.showUserVotes" id="dsq-comment-like-count-357366917" class="dsq-comment-like-count">0          Like      </a>      </li>              <li class="dsq-comment-flag" style="visibility: hidden;">          <a href="http://linuxconfig.org/comments.report" class="dsq-comment-flag dsq-font">F</a>        </li>          </ul>  </div>      <!-- reply box dynamically inserted here -->      <div id="dsq-append-reply-357366917"></div>    </div>  </li>  <!-- new replies dynamically inserted here -->  <li id="dsq-append-post-357366917"></li>      </ul>        <div id="dsq-pagination">      <ul id="dsq-footer" class="dsq-clearfix">        <div id="dsq-subscribe">            <li>      <a href="http://linuxconfig.org/thread.subscribe" class="dsq-subscribe-email">        <span class="dsq-font">M</span> <em>Subscribe by email</em>      </a>    </li>    <li>    <a href="http://linuxconfig.disqus.com/bash_scripting_tutorial/latest.rss" class="dsq-subscribe-rss">      <span class="dsq-font">S</span> <em>RSS</em>    </a>  </li>    </div>  </ul>            <a class="dsq-more-button" href="http://linuxconfig.org/thread.paginate">        Load more comments      </a>        </div>                    <div class="dsq-reply " id="dsq-reply">          <div id="dsq-account-dropdown">                  <a href="http://linuxconfig.org/auth.login">Login</a>              </div>      <h3>Add New Comment</h3>        <div class="dsq-avatar">              <img src="noavatar32.png">          </div>    <div class="dsq-textarea dsq-textarea-reply">      <div class="dsq-textarea-background">        <div style="height: auto;" class="dsq-textarea-wrapper">          <!-- filled dynamically -->        <iframe style="height: 58px;" src="index_15.html" id="easyXDM_DISQUS_net_default1871_provider" name="easyXDM_DISQUS_net_default1871_provider" frameborder="0" scrolling="no"></iframe></div>                  <div id="dsq-media-preview" class="dsq-media-preview" style="display: none;">          </div>                <div class="dsq-post-tools">          <ul>            <li class="dsq-post-as">                                <button type="button" class="dsq-button" onclick="DISQUS.dtpl.actions.fire('comments.validate', null, this);">                    Post as …                  </button>                          </li>                          <li class="dsq-attach-media">                <div class="dsq-attach-media-container">                  <span>Image</span>                  <!-- filled dynamically -->                <iframe src="index_16.html" id="easyXDM_DISQUS_net_default1872_provider" name="easyXDM_DISQUS_net_default1872_provider" frameborder="0" scrolling="no"></iframe></div>              </li>                        <li class="dsq-share-on dsq-clearfix">                            </li>          </ul>        </div>      </div>    </div>  </div>              <h3 class="dsq-h3-reactions">Reactions</h3>    <ul id="dsq-reactions" class="dsq-reactions dsq-clearfix">                <li id="dsq-reaction-75792243">    <div class="dsq-reaction-avatar dsq-avatar dsq-tt" data-dsq-content-id="dsq-reaction-tooltip-75792243">                    <a target="_top" href="http://twitter.com/pmbm25/status/141912301203763200">                    <img src="tulips_normal.jpg">                    </a>          </div>    <div id="dsq-reaction-tooltip-75792243" class="dsq-reaction-tooltip" style="display: none;">      <div class="dsq-reaction-tooltip-container">        <div class="dsq-reaction-body">Bash scripting Tutorial http://t.co/aLONGgrL</div>        <div class="dsq-reaction-date">2 weeks ago</div>        <div class="dsq-reaction-user">@pmbm25</div>      </div>    </div>  </li>          </ul>          </div><div>  </div></div>
+			
+			
+			
+<hr>
+<table>
+<tbody><tr>
+
+<td colspan="2"><font color="red" size="4">Linux eBooks <b>FREE</b> Download</font></td>
+
+</tr>
+
+<tr>
+<td>
+<a href="http://linuxconfig-org.tradepub.com/free/w_free01/?p=w_free01" rel="nofollow"><img src="advance_admin_linux.png"></a>
+</td>
+<td>
+<a href="http://linuxconfig-org.tradepub.com/free/w_make07/?p=w_make07" rel="nofollow"><img src="w_make07c.gif"></a>
+</td>
+<td>
+<a href="http://linuxconfig-org.tradepub.com/free/w_linu01/?p=w_linu01" rel="nofollow"><img src="w_linu01c_001.gif">
+</a></td>
+<td>
+<a href="http://linuxconfig-org.tradepub.com/free/w_ubun01" rel="nofollow"><img src="ubuntu_man.gif">
+</a></td>
+<td>
+<a href="http://linuxconfig-org.tradepub.com/free/w_opeb01/prgm.cgi" rel="nofollow"><img src="w_opeb01c.gif">
+</a></td>
+</tr>
+
+
+
+</tbody></table>
+
+			</div>
+
+<div class="jwDisqusBackToTop">
+	<a href="http://linuxconfig.org/Bash_scripting_Tutorial#startOfPage">back to top</a>
+	<div class="clr"></div>
+</div>
+	
+<div class="clr"></div>
+
+<!-- JoomlaWorks "Disqus Comment System for Joomla!" Plugin (v2.2) ends here -->
+
+
+
+</div>
+
+			</div><!-- end main or main2 -->
+
+			
+
+			<div class="wrap"></div>
+			</div><!-- wrapper -->
+		</div><!-- contentarea -->
+
+		<div id="footer">
+			<p class="syndicate">
+				
+			</p>
+
+
+
+			<p>
+				Copyright © 2011  <a href="http://www.linuxconfig.org/"> Linuxconfig.org</a>. All Rights Reserved - VPS
+			</p>
+
+			<div class="wrap"></div>
+		</div><!-- footer -->
+	</div><!-- all -->
+
+	
+
+
+
+
+<div style="position: absolute; top: 0px; left: 0px;" class="tip-wrap"><div class="tip-top"></div><div class="tip"></div><div class="tip-bottom"></div></div><iframe src="index_17.html" style="position: absolute; top: -2000px; left: 0px;" id="easyXDM_DISQUS_net_default1870_provider" name="easyXDM_DISQUS_net_default1870_provider" frameborder="0"></iframe><div style="position: absolute; z-index: 9999; visibility: hidden; top: 18744px; left: 996px; display: block; background-position: 11px bottom; opacity: 0.96;" class="dsq-tooltip-outer dsq-tooltip-small"><div class="dsq-tooltip dsq-cleanslate">  <div class="dsq-tooltip-notch"></div>  <div class="dsq-tooltip-inner">Expand Community Box</div></div></div></body>
+</html>

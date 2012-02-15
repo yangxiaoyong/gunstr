@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>
+Graphing and Monitoring Traffic Control
+</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.79"><link rel="HOME" title="A Practical Guide to Linux Traffic Control" href="http://blog.edseek.com/%7Ejasonb/articles/traffic_shaping/index.html"><link rel="PREVIOUS" title="
+A Traffic Control Journey: Real World Scenarios
+" href="http://blog.edseek.com/%7Ejasonb/articles/traffic_shaping/scenarios.html"><link rel="NEXT" title="
+Suggested Reading for Further Study
+" href="http://blog.edseek.com/%7Ejasonb/articles/traffic_shaping/links.html"></head>
+<body class="sect1" bgcolor="#FFFFFF" link="#0000FF" text="#000000" vlink="#840084" alink="#0000FF"><div class="NAVHEADER"><table summary="Header navigation table" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><th colspan="3" align="center">A Practical Guide to Linux Traffic Control</th></tr><tr><td valign="bottom" width="10%" align="left"><a indepth="true" href="scenarios.html" accesskey="P">Prev</a></td><td valign="bottom" width="80%" align="center"></td><td valign="bottom" width="10%" align="right"><a indepth="true" href="links.html" accesskey="N">Next</a></td></tr></tbody></table><hr width="100%" align="LEFT"></div><div class="sect1"><h1 class="sect1"><a name="monitoring">9. Graphing and Monitoring Traffic Control</a></h1><p>
+Traffic control is a complex beast to fly without proper instrumentation.  Fortunately, there are a number of tools at your disposal to help you formulate and monitor your configurations.  Often taking measurements is as simple as polling the <b class="command">tc</b> binary for statistics and generating graphs.  You can certainly write your own tools, as many have.  I intend to discuss a few tools I use to monitor my own configurations.
+</p><div class="sect2"><h2 class="sect2"><a name="discover">9.1. Discovering Traffic Flows</a></h2><p>
+Before you can create an effective traffic control hierarchy, you may be wondering what kind of traffic exists on your network.  You can use <em>iptraf</em> to explore your network traffic interactively.  You can explore TCP flows using <em>tcptrack</em> and  <em>libpcap</em> expressions.  Both sport <em>ncurses</em> interfaces.  Below is output from <em>iptraf</em>'s <em>Statistical breakdown</em> -&gt; <em>By TCP/UDP port</em> output.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">/ Proto/Port --------- Pkts --- Bytes -- PktsTo - BytesTo  PktsFrom BytesFrom --\
+| TCP/ftp-data           12       640        10       560         2        80   |
+| TCP/ftp                67      5024        44      2972        23      2052   |
+| TCP/ssh               119     16992        63      7832        56      9160   |
+| UDP/domain             42      3859         0         0        42      3859   |
+| TCP/60                  9       508         7       404         2       104   |
+| TCP/gopher              4       240         4       240         0         0   |
+| TCP/www                60      8399        41      6750        19      1649   |
+| TCP/81                  4       240         4       240         0         0   |
+| TCP/85                  4       240         4       240         0         0   |
+| TCP/rtelnet             4       240         4       240         0         0   |
+| TCP/pop3               30      3980        16      1552        14      2428   |
+| TCP/auth               32      2652        20      1488        12      1164   |
+| UDP/113                13       689        13       689         0         0   |
+| TCP/140                12      7728         6      7452         6       276   |
+| TCP/466                 4       240         4       240         0         0   |
+| TCP/505                31      2441        16      1278        15      1163   |
+| TCP/662                29      2026        15       974        14      1052   |
+| TCP/moira_upda          9       540         9       540         0         0   |
+| TCP/778                11       660        11       660         0         0   |
+</pre></font></td></tr></tbody></table>
+<p></p></div><div class="sect2"><h2 class="sect2"><a name="graphing">9.2. Graphing Your Traffic Control Hierarchy</a></h2><p>
+It's exceeding helpful to have a graphical representation of any complex class hierarchy you create.  I suggest Andreas Klauer's <em>tc-graph.pl</em> for the task.  You can obtain a copy from his <em>FairNAT</em> <a href="http://www.metamorpher.de/fairnat/" target="_top">project page</a>.  <em>FairNAT</em> is a <em>Netfilter</em> based Linux firewall with extensive QoS features.
+</p><p>
+<b class="command">tc-graph.pl</b> is easy to use.  It's written in Perl.  Once you've downloaded a copy, ensure it's executable.  You will want to edit the script and verify the correct path for your system's <b class="command">tc</b> is specified.  Also, ensure the interface specified is the one you want to build a class hierarchy graph for.
+</p><p>
+Next, run the script and pipe the output to a file.  The file will contain <em>GraphViz</em> commands.  You can pass the file off to <b class="command">dot</b>, part of the <em>GraphViz</em> suite of tools, to generate an image of your hierarchy.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">jasonb@rebecca:~/src$ perl tc-graph.pl &gt; mygraph.dot
+jasonb@rebecca:~/src$ cat mygraph.dot | dot -Tgif &gt; mygraph.gif
+</pre></font></td></tr></tbody></table>
+<p></p><p>
+After running the above commands, you should have an image containing a graph of your traffic control class hierarchy.  Some example graphs can be found in the section about <a indepth="true" href="classes.html">class hierarchies</a>, discussed earlier.  I modified the copy of the script I used so a smaller font size was used and extra details were removed for simplicity's sake.  Other than that, your images will look the same.
+</p></div><div class="sect2"><h2 class="sect2"><a name="monitor">9.3. Monitoring Leaf qdisc Bandwidth Utilization</a></h2><p>
+When working with configurations, I find it helpful to monitor the bandwidth utilization of each leaf qdisc, to verify the configuration is responding as anticipated.  The simplest way to monitor bandwidth utilization is to parse the output of the <b class="command">tc</b> binary and insert the values into a <em>RRDTool</em> database in the same fashion you would monitor the counters for a switch or router.
+</p><p>
+I wrote a utility in Perl to parse <b class="command">tc</b> output and insert the transferred bytes value for a configuration's leaf qdiscs into a <em>RRDTool</em> database.  The utility, <em>polltc</em>, can be obtained from my <a href="http://edseek.com/software-ive-written/" target="_top">software</a> Web page.
+</p><p>
+<em>polltc</em> can operate in either of two modes.  In diagnostic mode, it will update a <em>RRDTool</em> database directly and generate a graph.  It can also operate as a plugin for <a href="http://www.linpro.no/projects/munin/" target="_top">Munin</a>, for long term trend analysis.
+</p><div class="sect3"><h3 class="sect3"><a name="AEN722">9.3.1. Configuring polltc</a></h3><p>
+Before you can start using <b class="command">polltc_</b>, you need to modify a few values near
+the start of the script.  Specifically, you need to specify a path where you want files to be stored.  I access my graphs via a Web server, so I dump all my files in a directory readable by my Web server.
+</p><p>
+You may not wish for <b class="command">polltc_</b> to create a graph when it runs every ten
+seconds in diagnostic mode.  If such is the case, change <code class="option">$do_graph</code>
+to 0.
+</p><p>
+You must specify the path to your <b class="command">tc</b> binary.  For testing purposes I use my own <b class="command">tc</b> binary in my home directory, so you will need to change this or nothing will work.
+</p></div><div class="sect3"><h3 class="sect3"><a name="AEN732">9.3.2. Running polltc</a></h3><p>
+Once you have changed the necessary options above, you can start using <b class="command">polltc_</b>.  The interface being probed for information is gathered from the name of the file itself.  Create a symlink with the interface name so <b class="command">polltc_</b> knows what interface to probe.  (eth0, ppp1, ect.)
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">$ ln -s polltc_ polltc_eth0
+</pre></font></td></tr></tbody></table>
+<p></p><p>
+Now, you can run <b class="command">polltc_eth0</b> to gather information about your traffic
+control configuration on eth0.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">$ perl polltc_eth0 test &amp;
+</pre></font></td></tr></tbody></table>
+<p></p><p>
+An RRD database will be created and populated with values every 10 seconds.  If you chose to enable graphing, a one hour and a twenty-four hour graph will be created and written to disk in the same location as the RRD database.
+</p><p>
+<span class="inlinemediaobject"><img src="polltc_ex1.png" align="middle"></span>
+</p><p>
+If you wish to use it as a <em>Munin</em> plugin, you will want to symlink into your <tt class="filename">/etc/munin/plugins</tt> directory.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen"># ln -s polltc_ /etc/munin/plugins/polltc_eth0
+</pre></font></td></tr></tbody></table>
+<p></p><p>
+<b class="command">polltc_</b> supports <em>Munin</em> 'autoconfig' and 'config' and when run without any arguments, <b class="command">polltc_</b> will return values for the interface it is being run against as expected by <em>Munin</em>.
+</p></div></div></div><div class="NAVFOOTER"><hr width="100%" align="LEFT"><table summary="Footer navigation table" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td valign="top" width="33%" align="left"><a indepth="true" href="scenarios.html" accesskey="P">Prev</a></td><td valign="top" width="34%" align="center"><a href="http://blog.edseek.com/%7Ejasonb/articles/traffic_shaping/index.html" accesskey="H">Home</a></td><td valign="top" width="33%" align="right"><a indepth="true" href="links.html" accesskey="N">Next</a></td></tr><tr><td valign="top" width="33%" align="left">A Traffic Control Journey: Real World Scenarios</td><td valign="top" width="34%" align="center">&nbsp;</td><td valign="top" width="33%" align="right">Suggested Reading for Further Study</td></tr></tbody></table></div>
+
+</body></html>

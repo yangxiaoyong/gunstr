@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>
+Building a QoS Ready Kernel
+</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.79"><link rel="HOME" title="A Practical Guide to Linux Traffic Control" href="http://blog.edseek.com/%7Ejasonb/articles/traffic_shaping/index.html"><link rel="PREVIOUS" title="
+Classifying Flows
+" href="http://blog.edseek.com/%7Ejasonb/articles/traffic_shaping/classflows.html"><link rel="NEXT" title="
+A Traffic Control Journey: Real World Scenarios
+" href="http://blog.edseek.com/%7Ejasonb/articles/traffic_shaping/scenarios.html"></head>
+<body class="sect1" bgcolor="#FFFFFF" link="#0000FF" text="#000000" vlink="#840084" alink="#0000FF"><div class="NAVHEADER"><table summary="Header navigation table" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><th colspan="3" align="center">A Practical Guide to Linux Traffic Control</th></tr><tr><td valign="bottom" width="10%" align="left"><a indepth="true" href="classflows.html" accesskey="P">Prev</a></td><td valign="bottom" width="80%" align="center"></td><td valign="bottom" width="10%" align="right"><a indepth="true" href="scenarios.html" accesskey="N">Next</a></td></tr></tbody></table><hr width="100%" align="LEFT"></div><div class="sect1"><h1 class="sect1"><a name="buildkernel">7. Building a QoS Ready Kernel</a></h1><p>
+In order to make use of these splendid traffic control features, you need to build your kernel with appropriate support.  If you are interested in <a indepth="true" href="classflows.html#iptl7">L7 Filter</a>, make sure you patch your kernel accordingly.
+</p><div class="sect2"><h2 class="sect2"><a name="tcopts">7.1. Kernel Options for Traffic Control Support</a></h2><p>
+The selections for traffic control for a 2.6 series kernel are listed under <em>Device Drivers -&gt; Networking support -&gt; Networking options -&gt; QoS and/or fair queuing</em>.  At a minimum you will want to enable the options selected below.  Unselected options have been pruned.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">[*] QoS and/or fair queueing
+&lt;M&gt;   HTB packet scheduler
+&lt;M&gt;   The simplest PRIO pseudoscheduler
+&lt;M&gt;   RED queue
+&lt;M&gt;   SFQ queue
+&lt;M&gt;   TBF queue
+&lt;M&gt;   Ingress Qdisc
+[*]   QoS support
+[*]     Rate estimator
+[*]   Packet classifier API
+&lt;M&gt;     Firewall based classifier
+&lt;M&gt;     U32 classifier
+[*]     Traffic policing (needed for in/egress)
+</pre></font></td></tr></tbody></table>
+<p></p><p>
+For 2.6.9 and later kernels, you have the additional option of specifying the scheduler clock source directly during kernel configuration.  The option is available from within the <em>QoS and/or fair queuing</em> configuration section above.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">Packet scheduler clock source (Timer interrupt)  ---&gt;
+ ( ) Timer interrupt
+ ( ) gettimeofday
+ (X) CPU cycle counter
+</pre></font></td></tr></tbody></table>
+<p></p><p>
+For modern x86 machines you can select <em>CPU cycle counter</em> without incident.
+The scheduler clock source selection above replaces the need to hand edit the <tt class="filename">include/net/pkt_sched.h</tt> file as described below.
+</p></div><div class="sect2"><h2 class="sect2"><a name="netopts">7.2. Kernel Options for Netfilter Support</a></h2><p>
+The selections for Netfilter for a 2.6 series kernel are listed under <em>Device Drivers -&gt; Networking support -&gt; Networking options -&gt; Network packet filtering (replaces ipchains) -&gt; IP: Netfilter Configuration</em>.  You will want to enable at least the options selected below to use Netfilter effectively to classify traffic flows.  Include anything else you use for firewalling, too.  Unselected options have been pruned.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">&lt;M&gt; Connection tracking (required for masq/NAT + layer7)
+&lt;M&gt;   FTP protocol support
+&lt;M&gt;   IRC protocol support
+&lt;M&gt; IP tables support (required for filtering/masq/NAT)
+&lt;M&gt;   limit match support
+&lt;M&gt;   IP range match support
+&lt;M&gt;   Layer 7 match support (EXPERIMENTAL)
+[ ]     Layer 7 debugging output(2048)  Buffer size for application layer data
+&lt;M&gt;   Packet type match support
+&lt;M&gt;   netfilter MARK match support
+&lt;M&gt;   Multiple port match support
+&lt;M&gt;   TOS match support
+&lt;M&gt;   LENGTH match support
+&lt;M&gt;   Helper match support
+&lt;M&gt;   Connection state match support
+&lt;M&gt;   Connection tracking match support
+&lt;M&gt;   Packet filtering
+&lt;M&gt;     REJECT target support
+&lt;M&gt;   Full NAT
+&lt;M&gt; MASQUERADE target support
+&lt;M&gt; Packet mangling
+&lt;M&gt;   TOS target support
+&lt;M&gt;   MARK target support
+&lt;M&gt;   CLASSIFY target support
+&lt;M&gt; LOG target support
+&lt;M&gt; ULOG target support
+</pre></font></td></tr></tbody></table>
+<p></p></div><div class="sect2"><h2 class="sect2"><a name="sourceopts">7.3. Kernel Source Changes</a></h2><p>
+To get the most mileage out of your kernel, there are a few options in the kernel source you will want to change.  You can find all these files under your kernel source tree.  Paths are specified from that root.
+</p><div class="sect3"><h3 class="sect3"><a name="pschedcpu">7.3.1. PSCHED_CPU</a></h3><p>
+If you have a Pentium class CPU or better and are using a kernel prior to 2.6.9, in <tt class="filename">include/net/pkt_sched.h</tt>, change PSCHED_CLOCK_SOURCE to PSCHED_CPU and save the file.  If your CPU supports <em>tsc</em> you can use PSCHED_CPU.  You can skip this modification if you are using a kernel newer than 2.6.8.1.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen"># cat /proc/cpuinfo
+...
+flags  : fpu vme de pse <em>tsc</em> msr pae mce cx8 apic sep mtrr pge mca cmov \
+  pat pse36 mmx fxsr sse syscall mmxext 3dnowext 3dnow
+</pre></font></td></tr></tbody></table>
+<p></p><p>
+While in days of old, the <a href="http://www.docum.org/docum.org/faq/cache/40.html" target="_top">default</a> was PSCHED_GETTIMEOFDAY, today PSCHED_JIFFIES is used and it isn't terribly bad.  PSCHED_CPU can't hurt, though.
+</p></div><div class="sect3"><h3 class="sect3"><a name="htbhysteresis">7.3.2. HTB_HYSTERESIS</a></h3><p>
+When working with peak bandwidth rates less than 1Mbps, the HTB_HYSTERESIS option is set to your detriment.  It trades accuracy for faster calculations, but with really slow network links this is not necessary.  Open up <tt class="filename">net/sched/sch_htb.c</tt> and change HTB_HYSTERESIS to 0.  This setting also <a href="http://www.docum.org/docum.org/faq/cache/36.html" target="_top">effects bursts</a>.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">#define HTB_HYSTERESIS 0/* whether to use mode hysteresis for speedup */
+</pre></font></td></tr></tbody></table>
+<p></p></div><div class="sect3"><h3 class="sect3"><a name="sfqdepth">7.3.3. SFQ_DEPTH</a></h3><p>
+When dealing with smaller bandwidth quantities, the default queue length of 128 is too long.  Flows that demand low latency can <a href="http://www.docum.org/docum.org/faq/cache/21.html" target="_top">suffer</a> if <b class="command">sfq</b> begins to fill up its queue.  You can edit SFQ_DEPTH in <tt class="filename">net/sched/sch_sfq.c</tt> and shorten the queue to your liking.  A popular depth is 10.
+</p><p>
+</p><table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">#define SFQ_DEPTH               128
+</pre></font></td></tr></tbody></table>
+<p></p></div></div></div><div class="NAVFOOTER"><hr width="100%" align="LEFT"><table summary="Footer navigation table" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td valign="top" width="33%" align="left"><a indepth="true" href="classflows.html" accesskey="P">Prev</a></td><td valign="top" width="34%" align="center"><a href="http://blog.edseek.com/%7Ejasonb/articles/traffic_shaping/index.html" accesskey="H">Home</a></td><td valign="top" width="33%" align="right"><a indepth="true" href="scenarios.html" accesskey="N">Next</a></td></tr><tr><td valign="top" width="33%" align="left">Classifying Flows</td><td valign="top" width="34%" align="center">&nbsp;</td><td valign="top" width="33%" align="right">A Traffic Control Journey: Real World Scenarios</td></tr></tbody></table></div>
+
+</body></html>

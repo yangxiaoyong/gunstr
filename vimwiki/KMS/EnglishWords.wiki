@@ -1,0 +1,14 @@
+unify: 统一，使成一体
+plethore: 过多，过剩
+trait: 特征
+arbitray: 任意的
+refer: 提到
+segment: 段
+absence: 缺席，缺少
+asterisk: * 星号同配符号
+rudimentary: 基本的，未成型的
+arithmetic: 算术
+tolerance: 误差
+diverse: 不同的
+inheritance: 继承
+visibility: 可视化

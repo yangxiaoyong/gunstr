@@ -1,0 +1,416 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+<meta name="robots" content="index,nofollow">
+
+<title>PostfixVirtualMailBoxClamSmtpHowto - Community Ubuntu Documentation</title>
+
+
+
+
+
+
+
+
+
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="/moin_static192/ubuntunew/css/msie.css">
+<![endif]-->
+
+
+
+
+
+<link rel="Start" href="https://help.ubuntu.com/community/UserDocumentation">
+<link rel="Alternate" title="Wiki Markup" href="https://help.ubuntu.com/community/PostfixVirtualMailBoxClamSmtpHowto?action=raw">
+<link rel="Alternate" media="print" title="Print View" href="https://help.ubuntu.com/community/PostfixVirtualMailBoxClamSmtpHowto?action=print">
+<link rel="Appendix" title="VhostsDomains.png" href="https://help.ubuntu.com/community/PostfixVirtualMailBoxClamSmtpHowto?action=AttachFile&amp;do=view&amp;target=VhostsDomains.png">
+<link rel="Search" href="https://help.ubuntu.com/community/FindPage">
+<link rel="Index" href="https://help.ubuntu.com/community/TitleIndex">
+<link rel="Glossary" href="https://help.ubuntu.com/community/WordIndex">
+<link rel="Help" href="https://help.ubuntu.com/community/HelpOnFormatting">
+
+<link rel="stylesheet" type="text/css" href="index.css" media="all">
+</head>
+<body dir="ltr" lang="en">
+
+<div id="round" class="roundme">
+<img id="topcap" alt="" src="cap-top.png">
+<div id="layout" class="container clear-block">
+<div id="header">
+<div id="logo-floater">
+<h1><a href="http://help.ubuntu.com/" title="Ubuntu Documentation"><img alt="Ubuntu" id="logo" src="logo.png"></a></h1>
+</div>
+
+
+
+<form action="https://help.ubuntu.com/search.html" id="cse-search-box">  <div>    <input name="cof" value="FORID:9" type="hidden">    <input name="cx" value="004599128559784038176:vj_p0xo-nng" type="hidden">    <input name="ie" value="UTF-8" type="hidden">    <input value="" name="q" size="27" type="text">    <input name="sa" value="Search" type="submit">  </div></form>
+
+<div id="sitename"><a href="https://help.ubuntu.com/community"><img src="help-faq.png"><span>Community Documentation</span></a></div>
+</div> <!--header-->
+<ul id="loginbar"><li><a href="https://help.ubuntu.com/community/PostfixVirtualMailBoxClamSmtpHowto?action=login" id="login" rel="nofollow">Login to Edit</a></li></ul>
+
+
+<!--1-->
+<div id="page" dir="ltr" lang="en">
+
+<!--2-->
+
+<div id="breadcrumbs">
+<a href="https://help.ubuntu.com/">Ubuntu Documentation</a> &gt; <a href="https://help.ubuntu.com/community">Community Documentation</a> &gt; <a class="backlink" href="https://help.ubuntu.com/community/PostfixVirtualMailBoxClamSmtpHowto?action=fullsearch&amp;context=180&amp;value=linkto%3A%22PostfixVirtualMailBoxClamSmtpHowto%22" rel="nofollow" title="Click to do a full-text search for this title">PostfixVirtualMailBoxClamSmtpHowto</a>
+</div>
+
+
+<ul id="pagelocation">
+<li><a class="backlink" href="https://help.ubuntu.com/community/PostfixVirtualMailBoxClamSmtpHowto?action=fullsearch&amp;context=180&amp;value=linkto%3A%22PostfixVirtualMailBoxClamSmtpHowto%22" rel="nofollow" title="Click to do a full-text search for this title">PostfixVirtualMailBoxClamSmtpHowto</a></li>
+</ul>
+
+<!--3--><div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><div><table style="float: right; font-size: 0.9em; width: 40%; background: none repeat scroll 0% 0% rgb(241, 241, 237); margin: 0pt 0pt 1em 1em;"><tbody><tr>  <td style="padding: 0.5em;"><p class="line891"></p><div class="table-of-contents"><p class="table-of-contents-heading">Contents</p><ol><li>
+<a href="#Introduction">Introduction</a></li><li>
+<a href="#Example_Setup">Example Setup</a></li><li>
+<a href="#Install_Postfix">Install Postfix</a></li><li>
+<a href="#Set_Postfix_Support_for_Maildir_style_Mailboxes">Set Postfix Support for Maildir style Mailboxes</a></li><li>
+<a href="#Postfix_virtual_Mailboxes_for_separate_domains_and_Non-Linux_accounts">Postfix virtual Mailboxes for separate domains and Non-Linux accounts</a><ol><li>
+<a href="#Create_a_virtual_Mailbox_owner">Create a virtual Mailbox owner</a></li><li>
+<a href="#Set_up_Postfix_to_use_virtual_mailboxes">Set up Postfix to use virtual mailboxes</a></li><li>
+<a href="#Test_virtual_mailbox_setup">Test virtual mailbox setup</a></li></ol></li><li>
+<a href="#Set_up_non-Linux_accounts">Set up non-Linux accounts</a><ol><li>
+<a href="#Install_Dovecot_IMAP.2BAC8-POP3_server">Install Dovecot IMAP/POP3 server</a></li><li>
+<a href="#Configure_Dovecot">Configure Dovecot</a></li><li>
+<a href="#Create_Dovecot_Users">Create Dovecot Users</a><ol><li>
+<a href="#Scripts_to_Add_and_Delete_Users">Scripts to Add and Delete Users</a></li><li>
+<a href="#C.23.2BAC8-Mono_Application_to_Add_Users">C#/Mono Application to Add Users</a></li></ol></li></ol></li><li>
+<a href="#Postfix_SASL">Postfix SASL</a><ol><li>
+<a href="#Make_Dovecot_listen_for_authentication_requests">Make Dovecot listen for authentication requests</a></li><li>
+<a href="#Configure_Postfix_for_SASL">Configure Postfix for SASL</a></li></ol></li><li>
+<a href="#Test_the_Setup">Test the Setup</a><ol><li>
+<a href="#With_mutt">With mutt</a></li><li>
+<a href="#With_telnet">With telnet</a></li></ol></li><li>
+<a href="#ClamSMTP_SMTP_Virus_Filter">ClamSMTP SMTP Virus Filter</a><ol><li>
+<a href="#Installing_ClamAV">Installing ClamAV</a></li><li>
+<a href="#Installing_ClamSMTP">Installing ClamSMTP</a></li><li>
+<a href="#Set_Postfix_to_use_ClamSMTP">Set Postfix to use ClamSMTP</a></li></ol></li><li>
+<a href="#Test_ClamSMTP_for_outgoing_mail">Test ClamSMTP for outgoing mail</a></li><li>
+<a href="#Test_ClamSMTP_for_incoming_Mail_from_the_Internet">Test ClamSMTP for incoming Mail from the Internet</a></li><li>
+<a href="#Final_thoughts">Final thoughts</a></li></ol></div></td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-2"></span><span class="anchor" id="line-3"></span><p class="line867">
+</p><h1 id="Introduction">Introduction</h1>
+<span class="anchor" id="line-4"></span><span class="anchor" id="line-5"></span><p class="line862">In this setup is for a small to medium sized email server with Postfix virtual mailboxes which can be used for multiple domains and non-Linux accounts.  If you are new to Postfix please read <a href="https://help.ubuntu.com/community/PostfixBasicSetupHowto">PostfixBasicSetupHowto</a> to understand the basics before proceeding with this Howto. Also, information is presented about integration with ClamSMTP (an SMTP filter for Postfix) and other mail servers that check for viruses (using the ClamAV anti-virus software).  <span class="anchor" id="line-6"></span><span class="anchor" id="line-7"></span></p><p class="line867">
+</p><h1 id="Example_Setup">Example Setup</h1>
+<span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span><p class="line862">In this example emails are hosted for two separate domains, <strong>domain1.com</strong> and <strong>domain2.com</strong>. (Replace these with your own domain names.) <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span></p><p class="line867">
+</p><h1 id="Install_Postfix">Install Postfix</h1>
+<span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span><p class="line862">Install the <tt>postfix</tt> package. <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span></p><p class="line862">For convenience in testing mail delivery, also install <tt>mailx</tt> package for use as command line <strong>mail</strong> utility program. (mailx is a dummy package for one of three mail programs, the most widely used of which is bsd-mailx.) <span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span></p><p class="line867">
+</p><h1 id="Set_Postfix_Support_for_Maildir_style_Mailboxes">Set Postfix Support for Maildir style Mailboxes</h1>
+<span class="anchor" id="line-18"></span><span class="anchor" id="line-19"></span><p class="line874">Maildir is an e-mail spool format that does not require file-locking to maintain message integrity because the messages are kept in separate files with unique names. A Maildir is a directory (often named Maildir) with three subdirectories named tmp, new, and cur. The subdirectories should all reside on the same filesystem. <span class="anchor" id="line-20"></span><span class="anchor" id="line-21"></span></p><p class="line862">Please find out more about Maildir <a class="http" href="http://en.wikipedia.org/wiki/Maildir">here</a>.  <span class="anchor" id="line-22"></span><span class="anchor" id="line-23"></span></p><p class="line867"><span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span></p><pre><span class="anchor" id="line-1"></span> sudo  vi /etc/postfix/main.cf</pre><span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span><p class="line874">Add the following code segment: <span class="anchor" id="line-28"></span><span class="anchor" id="line-29"></span></p><p class="line867"><span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span></p><pre><span class="anchor" id="line-1-1"></span>home_mailbox = Maildir/</pre><span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><p class="line862">Comment the line <tt>&nbsp;mailbox_command&nbsp;=&nbsp;procmail&nbsp;-a&nbsp;"$EXTENSION"</tt>. It will not be used. <span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span></p><p class="line867"><strong>Restart Postfix</strong> to effect the changes. <span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span></p><p class="line867"><span class="anchor" id="line-38"></span><span class="anchor" id="line-39"></span></p><pre><span class="anchor" id="line-1-2"></span>sudo  /etc/init.d/postfix restart</pre><span class="anchor" id="line-40"></span><span class="anchor" id="line-41"></span><span class="anchor" id="line-42"></span><p class="line867">
+</p><h1 id="Postfix_virtual_Mailboxes_for_separate_domains_and_Non-Linux_accounts">Postfix virtual Mailboxes for separate domains and Non-Linux accounts</h1>
+<span class="anchor" id="line-43"></span><span class="anchor" id="line-44"></span><p class="line874">As a system hosts more and more domains and users, it becomes less desirable to give every user their own Linux system account. <span class="anchor" id="line-45"></span><span class="anchor" id="line-46"></span></p><p class="line874">With the Postfix virtual mailbox delivery agent, every recipient address can have its own virtual mailbox. Unlike virtual alias domains, virtual mailbox domains do not need the translation from each recipient addresses into a different address, and owners of a virtual mailbox address do not need to have a Linux system account. <span class="anchor" id="line-47"></span><span class="anchor" id="line-48"></span></p><p class="line862">The Postfix virtual mailbox delivery agent looks up the user mailbox pathname, uid and gid via separate tables that are searched with the recipient's mail address. <strong>Maildir</strong> style delivery is designated by terminating the mailbox pathname with a "/".  <span class="anchor" id="line-49"></span><span class="anchor" id="line-50"></span></p><p class="line874">The following figure shows a directory structure for mailboxes. <span class="anchor" id="line-51"></span><span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span></p><p class="line867"><img alt="VhostsDomains.png" class="attachment" src="postfixvirtualmailboxclamsmtphowto" title="VhostsDomains.png"> <span class="anchor" id="line-54"></span><span class="anchor" id="line-55"></span></p><p class="line874">It is best to transfer all domains into virtual mailboxes. Even if you have setup  postfix with one domain, make that domain a virtual domain. You aren't required to do this, but doing it this will give you a well organized mail system from the outset. Having Postfix host one real domain and the rest virtual means that you will always need to configure Postfix twice: once for each type of domain.  <span class="anchor" id="line-56"></span><span class="anchor" id="line-57"></span></p><p class="line862">Change the <tt>myhostname</tt> line in main.cf to read: <span class="anchor" id="line-58"></span><span class="anchor" id="line-59"></span></p><p class="line867"><span class="anchor" id="line-60"></span><span class="anchor" id="line-61"></span></p><pre><span class="anchor" id="line-1-3"></span>myhostname = localhost</pre><span class="anchor" id="line-62"></span><span class="anchor" id="line-63"></span><p class="line867"></p><hr><p class="line874"> <span class="anchor" id="line-64"></span><strong>Note:</strong>  <span class="anchor" id="line-65"></span>Using localhost as myhostname can cause problems since this variable is used in the EHLO message the server sends. If you are unable to send messages due to  <span class="anchor" id="line-66"></span><span class="anchor" id="line-67"></span><span class="anchor" id="line-68"></span></p><pre><span class="anchor" id="line-1-4"></span>550 Access denied - Invalid HELO name (See RFC2821 4.1.1.1) (in reply to MAIL FROM command))</pre><span class="anchor" id="line-69"></span><p class="line874">then this is the cause. <span class="anchor" id="line-70"></span></p><hr><p class="line874"> <span class="anchor" id="line-71"></span><span class="anchor" id="line-72"></span></p><p class="line867">
+</p><h2 id="Create_a_virtual_Mailbox_owner">Create a virtual Mailbox owner</h2>
+<span class="anchor" id="line-73"></span><span class="anchor" id="line-74"></span><p class="line874">In our setup all virtual mailboxes are owned by a fixed uid and gid 5000. (If this is not what you want, specify lookup tables that are searched by the recipient's mail address.) <span class="anchor" id="line-75"></span><span class="anchor" id="line-76"></span></p><p class="line867"><strong>To create a virtual mailbox group:</strong> <span class="anchor" id="line-77"></span><span class="anchor" id="line-78"></span></p><p class="line867"><span class="anchor" id="line-79"></span><span class="anchor" id="line-80"></span></p><pre><span class="anchor" id="line-1-5"></span>sudo groupadd -g 5000 vmail</pre><span class="anchor" id="line-81"></span><span class="anchor" id="line-82"></span><p class="line867"><strong>To create a virtual mailbox owner:</strong> <span class="anchor" id="line-83"></span><span class="anchor" id="line-84"></span><span class="anchor" id="line-85"></span></p><pre><span class="anchor" id="line-1-6"></span>sudo useradd -m -u 5000 -g 5000 -s /bin/bash vmail</pre><span class="anchor" id="line-86"></span><span class="anchor" id="line-87"></span><p class="line862">Edit <tt>main.cf</tt> <span class="anchor" id="line-88"></span><span class="anchor" id="line-89"></span></p><p class="line867"><span class="anchor" id="line-90"></span><span class="anchor" id="line-91"></span></p><pre><span class="anchor" id="line-1-7"></span>sudo vi /etc/postfix/main.cf</pre><span class="anchor" id="line-92"></span><span class="anchor" id="line-93"></span><p class="line867">
+</p><h2 id="Set_up_Postfix_to_use_virtual_mailboxes">Set up Postfix to use virtual mailboxes</h2>
+<span class="anchor" id="line-94"></span><span class="anchor" id="line-95"></span><p class="line862">Add the following code segment to <tt>main.cf</tt> <span class="anchor" id="line-96"></span><span class="anchor" id="line-97"></span><span class="anchor" id="line-98"></span><span class="anchor" id="line-99"></span><span class="anchor" id="line-100"></span><span class="anchor" id="line-101"></span><span class="anchor" id="line-102"></span><span class="anchor" id="line-103"></span></p><pre><span class="anchor" id="line-1-8"></span>virtual_mailbox_domains = /etc/postfix/vhosts
+<span class="anchor" id="line-2"></span>virtual_mailbox_base = /home/vmail
+<span class="anchor" id="line-3"></span>virtual_mailbox_maps = hash:/etc/postfix/vmaps
+<span class="anchor" id="line-4"></span>virtual_minimum_uid = 1000
+<span class="anchor" id="line-5"></span>virtual_uid_maps = static:5000
+<span class="anchor" id="line-6"></span>virtual_gid_maps = static:5000</pre><span class="anchor" id="line-104"></span><span class="anchor" id="line-105"></span><p class="line874">In the first line is used a text file called vhosts. (You can name this anything you want.) Inside this text file will be a simple one-column list of all the domains you are hosting. Add your domains there. <span class="anchor" id="line-106"></span><span class="anchor" id="line-107"></span></p><p class="line867"><span class="anchor" id="line-108"></span><span class="anchor" id="line-109"></span></p><pre><span class="anchor" id="line-1-9"></span>sudo vi /etc/postfix/vhosts</pre><span class="anchor" id="line-110"></span><span class="anchor" id="line-111"></span><p class="line874">Obviously, use your own domain names instead of the domain examples: <span class="anchor" id="line-112"></span><span class="anchor" id="line-113"></span></p><p class="line867"><span class="anchor" id="line-114"></span><span class="anchor" id="line-115"></span><span class="anchor" id="line-116"></span></p><pre><span class="anchor" id="line-1-10"></span>domain1.com
+<span class="anchor" id="line-2-1"></span>domain2.com</pre><span class="anchor" id="line-117"></span><span class="anchor" id="line-118"></span><p class="line862">The next line <tt>virtual_mailbox_base</tt> specifies the base directory where the mail will be stored. (Again, you can choose anything you want.) In our case it will be the <tt>'''vmail'''</tt> subdirectory of the owner's home directory <tt>/home/vmail</tt> <span class="anchor" id="line-119"></span><span class="anchor" id="line-120"></span><span class="anchor" id="line-121"></span></p><p class="line862">The third line points to a text file named <tt>'''vmaps'''</tt>. This is a two column text file. The first column specifies a virtual email address. The second column specifies the person's mailbox location. Just like with real domain hosting, if you specify a <strong>/</strong> at the end of the location, it designates a Maildir format. (If not, it is mbox.) In this Howto we are using the <strong>Maildir</strong> format. <span class="anchor" id="line-122"></span><span class="anchor" id="line-123"></span></p><p class="line874">Setup this file: <span class="anchor" id="line-124"></span><span class="anchor" id="line-125"></span></p><p class="line867"><span class="anchor" id="line-126"></span><span class="anchor" id="line-127"></span></p><pre><span class="anchor" id="line-1-11"></span>sudo vi /etc/postfix/vmaps</pre><span class="anchor" id="line-128"></span><span class="anchor" id="line-129"></span><p class="line874">The format should look like: <span class="anchor" id="line-130"></span><span class="anchor" id="line-131"></span></p><p class="line867"><span class="anchor" id="line-132"></span><span class="anchor" id="line-133"></span><span class="anchor" id="line-134"></span><span class="anchor" id="line-135"></span><span class="anchor" id="line-136"></span><span class="anchor" id="line-137"></span></p><pre><span class="anchor" id="line-1-12"></span>info@domain1.com  domain1.com/info/
+<span class="anchor" id="line-2-2"></span>alias@domain1.com  domain1.com/info/
+<span class="anchor" id="line-3-1"></span>sales@domain1.com  domain1.com/sales/
+<span class="anchor" id="line-4-1"></span>info@domain2.com  domain2.com/info/
+<span class="anchor" id="line-5-1"></span>sales@domain2.com  domain2.com/sales/</pre><span class="anchor" id="line-138"></span><p class="line867"><strong>Note:</strong> To make an alias, map to same folder as another user. <span class="anchor" id="line-139"></span><span class="anchor" id="line-140"></span></p><p class="line874">Convert vmaps into a hash file by running: <span class="anchor" id="line-141"></span><span class="anchor" id="line-142"></span><span class="anchor" id="line-143"></span></p><pre><span class="anchor" id="line-1-13"></span>sudo postmap /etc/postfix/vmaps</pre><span class="anchor" id="line-144"></span><span class="anchor" id="line-145"></span><p class="line874">Remember to execute the above command every time when you add a new map. <span class="anchor" id="line-146"></span><span class="anchor" id="line-147"></span></p><p class="line874">Restart Postfix to make the changes take effect. <span class="anchor" id="line-148"></span><span class="anchor" id="line-149"></span></p><p class="line867"><span class="anchor" id="line-150"></span><span class="anchor" id="line-151"></span></p><pre><span class="anchor" id="line-1-14"></span>sudo  /etc/init.d/postfix restart</pre><span class="anchor" id="line-152"></span><span class="anchor" id="line-153"></span><p class="line874">My example config now looks like: <span class="anchor" id="line-154"></span><span class="anchor" id="line-155"></span></p><p class="line867"><span class="anchor" id="line-156"></span><span class="anchor" id="line-157"></span><span class="anchor" id="line-158"></span><span class="anchor" id="line-159"></span><span class="anchor" id="line-160"></span><span class="anchor" id="line-161"></span><span class="anchor" id="line-162"></span><span class="anchor" id="line-163"></span><span class="anchor" id="line-164"></span><span class="anchor" id="line-165"></span><span class="anchor" id="line-166"></span><span class="anchor" id="line-167"></span><span class="anchor" id="line-168"></span><span class="anchor" id="line-169"></span><span class="anchor" id="line-170"></span><span class="anchor" id="line-171"></span><span class="anchor" id="line-172"></span><span class="anchor" id="line-173"></span><span class="anchor" id="line-174"></span><span class="anchor" id="line-175"></span><span class="anchor" id="line-176"></span><span class="anchor" id="line-177"></span><span class="anchor" id="line-178"></span><span class="anchor" id="line-179"></span><span class="anchor" id="line-180"></span></p><pre><span class="anchor" id="line-1-15"></span>smtpd_banner = $myhostname ESMTP $mail_name (Ubuntu/GNU)
+<span class="anchor" id="line-2-3"></span>biff = no
+<span class="anchor" id="line-3-2"></span>
+<span class="anchor" id="line-4-2"></span># appending .domain is the MUA's job.
+<span class="anchor" id="line-5-2"></span>append_dot_mydomain = no
+<span class="anchor" id="line-6-1"></span>
+<span class="anchor" id="line-7"></span># Uncomment the next line to generate "delayed mail" warnings
+<span class="anchor" id="line-8"></span>#delay_warning_time = 4h
+<span class="anchor" id="line-9"></span>
+<span class="anchor" id="line-10"></span>myhostname = localhost
+<span class="anchor" id="line-11"></span>alias_maps = hash:/etc/aliases
+<span class="anchor" id="line-12"></span>alias_database = hash:/etc/aliases
+<span class="anchor" id="line-13"></span>myorigin = $myhostname
+<span class="anchor" id="line-14"></span>mynetworks = 127.0.0.0/8, 10.0.0.0/24
+<span class="anchor" id="line-15"></span>mailbox_size_limit = 0
+<span class="anchor" id="line-16"></span>home_mailbox = Maildir/
+<span class="anchor" id="line-17"></span>virtual_mailbox_domains = /etc/postfix/vhosts
+<span class="anchor" id="line-18"></span>virtual_mailbox_base = /home/vmail
+<span class="anchor" id="line-19"></span>virtual_mailbox_maps = hash:/etc/postfix/vmaps
+<span class="anchor" id="line-20"></span>virtual_minimum_uid = 1000
+<span class="anchor" id="line-21"></span>virtual_uid_maps = static:5000
+<span class="anchor" id="line-22"></span>virtual_gid_maps = static:5000
+<span class="anchor" id="line-23"></span>recipient_delimiter = +
+<span class="anchor" id="line-24"></span>inet_interfaces = all</pre><span class="anchor" id="line-181"></span><span class="anchor" id="line-182"></span><p class="line867">
+</p><h2 id="Test_virtual_mailbox_setup">Test virtual mailbox setup</h2>
+<span class="anchor" id="line-183"></span><span class="anchor" id="line-184"></span><p class="line874">The directory structure for a particular user is created when he gets his first mail. <span class="anchor" id="line-185"></span><span class="anchor" id="line-186"></span></p><p class="line862">Send a mail to <a class="mailto" href="mailto:info@domain1.com">info@domain1.com</a> <span class="anchor" id="line-187"></span><span class="anchor" id="line-188"></span></p><p class="line874">In a terminal you can type: <span class="anchor" id="line-189"></span><span class="anchor" id="line-190"></span></p><p class="line867"><span class="anchor" id="line-191"></span><span class="anchor" id="line-192"></span></p><pre><span class="anchor" id="line-1-16"></span>mail info@domain1.com</pre><span class="anchor" id="line-193"></span><span class="anchor" id="line-194"></span><p class="line874">Check the mailbox <span class="anchor" id="line-195"></span><span class="anchor" id="line-196"></span></p><p class="line867"><span class="anchor" id="line-197"></span><span class="anchor" id="line-198"></span><span class="anchor" id="line-199"></span></p><pre><span class="anchor" id="line-1-17"></span>cd /home/vmail/domain1/info/new
+<span class="anchor" id="line-2-4"></span>ls</pre><span class="anchor" id="line-200"></span><span class="anchor" id="line-201"></span><p class="line874">You should see a mail file there. If so, you've done it!  <span class="anchor" id="line-202"></span><span class="anchor" id="line-203"></span></p><p class="line867">
+</p><h1 id="Set_up_non-Linux_accounts">Set up non-Linux accounts</h1>
+<span class="anchor" id="line-204"></span><span class="anchor" id="line-205"></span><p class="line874">There are several popular techniques to do this using services such as OpenLDAP or MySQL and mixing them with Courier IMAP. We won't be using those. Instead, we're going to use something simpler: plain text files. <span class="anchor" id="line-206"></span><span class="anchor" id="line-207"></span></p><p class="line862">We'll accomplish this with Dovecot. <strong>Dovecot</strong> is lightweight, flexible, and secure.  <span class="anchor" id="line-208"></span><span class="anchor" id="line-209"></span></p><p class="line862">The following command installs <strong>Dovecot</strong> but removes <strong>Courier IMAP/POP3</strong> (if you have already have them installed). <span class="anchor" id="line-210"></span><span class="anchor" id="line-211"></span></p><p class="line867">
+</p><h2 id="Install_Dovecot_IMAP.2BAC8-POP3_server">Install Dovecot IMAP/POP3 server</h2>
+<span class="anchor" id="line-212"></span><span class="anchor" id="line-213"></span><p class="line862">Install the packages: <tt>dovecot-common&nbsp;dovecot-imapd&nbsp;dovecot-pop3d</tt> <span class="anchor" id="line-214"></span><span class="anchor" id="line-215"></span></p><p class="line867">
+</p><h2 id="Configure_Dovecot">Configure Dovecot</h2>
+<span class="anchor" id="line-216"></span><span class="anchor" id="line-217"></span><p class="line862">You need to set up <strong>Dovecot</strong> to work with our setup. It is best to backup your original dovecot config file and create a new one (based on a copy of the file here). <span class="anchor" id="line-218"></span><span class="anchor" id="line-219"></span></p><p class="line874">Backup the original config file: <span class="anchor" id="line-220"></span><span class="anchor" id="line-221"></span></p><p class="line867"><span class="anchor" id="line-222"></span><span class="anchor" id="line-223"></span></p><pre><span class="anchor" id="line-1-18"></span>sudo mv /etc/dovecot/dovecot.conf /etc/dovecot/dovecot.conf.orig</pre><span class="anchor" id="line-224"></span><span class="anchor" id="line-225"></span><p class="line874">Create a new config file and copy the new config file into it: <span class="anchor" id="line-226"></span><span class="anchor" id="line-227"></span></p><p class="line867"><span class="anchor" id="line-228"></span><span class="anchor" id="line-229"></span></p><pre><span class="anchor" id="line-1-19"></span>sudo vi /etc/dovecot/dovecot.conf</pre><span class="anchor" id="line-230"></span><span class="anchor" id="line-231"></span><p class="line874">Copy into the file: <span class="anchor" id="line-232"></span><span class="anchor" id="line-233"></span></p><p class="line867"><span class="anchor" id="line-234"></span><span class="anchor" id="line-235"></span><span class="anchor" id="line-236"></span><span class="anchor" id="line-237"></span><span class="anchor" id="line-238"></span><span class="anchor" id="line-239"></span><span class="anchor" id="line-240"></span><span class="anchor" id="line-241"></span><span class="anchor" id="line-242"></span><span class="anchor" id="line-243"></span><span class="anchor" id="line-244"></span><span class="anchor" id="line-245"></span><span class="anchor" id="line-246"></span><span class="anchor" id="line-247"></span><span class="anchor" id="line-248"></span><span class="anchor" id="line-249"></span><span class="anchor" id="line-250"></span><span class="anchor" id="line-251"></span><span class="anchor" id="line-252"></span><span class="anchor" id="line-253"></span><span class="anchor" id="line-254"></span><span class="anchor" id="line-255"></span><span class="anchor" id="line-256"></span><span class="anchor" id="line-257"></span><span class="anchor" id="line-258"></span><span class="anchor" id="line-259"></span><span class="anchor" id="line-260"></span><span class="anchor" id="line-261"></span><span class="anchor" id="line-262"></span><span class="anchor" id="line-263"></span><span class="anchor" id="line-264"></span><span class="anchor" id="line-265"></span><span class="anchor" id="line-266"></span><span class="anchor" id="line-267"></span><span class="anchor" id="line-268"></span><span class="anchor" id="line-269"></span><span class="anchor" id="line-270"></span><span class="anchor" id="line-271"></span></p><pre><span class="anchor" id="line-1-20"></span>base_dir = /var/run/dovecot/
+<span class="anchor" id="line-2-5"></span>protocols = imap pop3
+<span class="anchor" id="line-3-3"></span>disable_plaintext_auth = yes
+<span class="anchor" id="line-4-3"></span>shutdown_clients = yes
+<span class="anchor" id="line-5-3"></span>log_path = /var/log/dovecot
+<span class="anchor" id="line-6-2"></span>info_log_path = /var/log/dovecot.info
+<span class="anchor" id="line-7-1"></span>log_timestamp = "%Y-%m-%d %H:%M:%S "
+<span class="anchor" id="line-8-1"></span>ssl = no
+<span class="anchor" id="line-9-1"></span>#In Ubuntu 10.04 Lucid Lynx: ssl = no
+<span class="anchor" id="line-10-1"></span>login_dir = /var/run/dovecot/login
+<span class="anchor" id="line-11-1"></span>login_chroot = yes
+<span class="anchor" id="line-12-1"></span>login_user = dovecot
+<span class="anchor" id="line-13-1"></span>login_greeting = Dovecot ready.
+<span class="anchor" id="line-14-1"></span>mail_location = maildir:/home/vmail/%d/%n
+<span class="anchor" id="line-15-1"></span>mmap_disable = no
+<span class="anchor" id="line-16-1"></span>valid_chroot_dirs = /var/spool/vmail
+<span class="anchor" id="line-17-1"></span>protocol imap {
+<span class="anchor" id="line-18-1"></span>  login_executable = /usr/lib/dovecot/imap-login
+<span class="anchor" id="line-19-1"></span>  mail_executable = /usr/lib/dovecot/imap
+<span class="anchor" id="line-20-1"></span>}
+<span class="anchor" id="line-21-1"></span>protocol pop3 {
+<span class="anchor" id="line-22-1"></span>  login_executable = /usr/lib/dovecot/pop3-login
+<span class="anchor" id="line-23-1"></span>  mail_executable = /usr/lib/dovecot/pop3
+<span class="anchor" id="line-24-1"></span>  pop3_uidl_format = %08Xu%08Xv
+<span class="anchor" id="line-25"></span>}
+<span class="anchor" id="line-26"></span>auth_executable = /usr/lib/dovecot/dovecot-auth
+<span class="anchor" id="line-27"></span>auth_verbose = yes
+<span class="anchor" id="line-28"></span>auth default {
+<span class="anchor" id="line-29"></span>  mechanisms = plain cram-md5
+<span class="anchor" id="line-30"></span>  passdb passwd-file {
+<span class="anchor" id="line-31"></span>    args = /etc/dovecot/passwd
+<span class="anchor" id="line-32"></span>  }
+<span class="anchor" id="line-33"></span>  userdb passwd-file {
+<span class="anchor" id="line-34"></span>    args = /etc/dovecot/users
+<span class="anchor" id="line-35"></span>  }
+<span class="anchor" id="line-36"></span>  user = root
+<span class="anchor" id="line-37"></span>}</pre><span class="anchor" id="line-272"></span><span class="anchor" id="line-273"></span><p class="line867"></p><hr><p class="line874"> <span class="anchor" id="line-274"></span><strong>Note:</strong>  <span class="anchor" id="line-275"></span>If you are using/testing with Dapper Drake (Ubuntu 6.06), please use the <a class="https" href="https://wiki.ubuntu.com/DovecotDapperConf">Dovecot config file for Dapper</a> instead. <span class="anchor" id="line-276"></span></p><hr><p class="line874"> <span class="anchor" id="line-277"></span><span class="anchor" id="line-278"></span></p><p class="line874">Several of the config lines require explanation. <span class="anchor" id="line-279"></span><span class="anchor" id="line-280"></span></p><ul><li><p class="line862">The line <strong>"mail_location = maildir:/home/vmail/%d/%n"</strong> is particularly important. In our virtual hosting set up, the way we distinguish one user from another is to have them log in with their full email address. For example, when the email account is <strong>"<a class="mailto" href="mailto:info@domain1.com">info@domain1.com</a>"</strong>,  Dovecot does some guessing on its end about your user name. If it just sees something like <strong>"info"</strong>, it sets a variable called <strong>"%n"</strong>to <strong>"info"</strong>. If it sees <strong>"<a class="mailto" href="mailto:info@domain1.com">info@domain1.com</a>"</strong>, it will split it up and set <strong>"%d"</strong> to <strong>domain1.com</strong> and <strong>"%n"</strong> to <strong>"info"</strong>. Using that paradigm, if we replace the variables in this line , we get something like: <strong>maildir:/home/vmail/domain1.com/info</strong> <span class="anchor" id="line-281"></span><span class="anchor" id="line-282"></span></p></li><li class="gap"><p class="line862">The lines <strong>"args = /etc/dovecot/passwd"</strong> and  <strong>"args = /etc/dovecot/users"</strong> are similar to the /etc/passwd and /etc/shadow system files.  <span class="anchor" id="line-283"></span><span class="anchor" id="line-284"></span></p></li></ul><p class="line867"><strong>The format of these files is similar to this:</strong> <span class="anchor" id="line-285"></span><span class="anchor" id="line-286"></span></p><p class="line874">:: <span class="anchor" id="line-287"></span><span class="anchor" id="line-288"></span></p><p class="line867"><span class="anchor" id="line-289"></span><span class="anchor" id="line-290"></span><span class="anchor" id="line-291"></span></p><pre><span class="anchor" id="line-1-21"></span>/etc/dovecot/users:
+<span class="anchor" id="line-2-6"></span>info@domain1.com::5000:5000::/home/vmail/domain1.com/:/bin/false::</pre><span class="anchor" id="line-292"></span><span class="anchor" id="line-293"></span><p class="line867"><span class="anchor" id="line-294"></span><span class="anchor" id="line-295"></span><span class="anchor" id="line-296"></span></p><pre><span class="anchor" id="line-1-22"></span>/etc/dovecot/passwd:
+<span class="anchor" id="line-2-7"></span>info@domain1.com:$1$G/FqlOG5$Vj0xmc9fKY.UVr8OWr/7C1</pre><p class="line874"> <span class="anchor" id="line-297"></span><span class="anchor" id="line-298"></span></p><p class="line862">The 5000:5000 corresponds to the <strong>uid</strong> and <strong>gid</strong> of the "virtual" called <strong>vmail</strong> (which owns all the mailboxes in the system). The home directory includes everything but the word before the @ in the email address.  <span class="anchor" id="line-299"></span><span class="anchor" id="line-300"></span></p><p class="line867"></p><hr><p class="line874"> <span class="anchor" id="line-301"></span><strong>Note:</strong>  <span class="anchor" id="line-302"></span>It is possible to use a single file for the user/passwd with the following format: <span class="anchor" id="line-303"></span><span class="anchor" id="line-304"></span></p><p class="line867"><span class="anchor" id="line-305"></span><span class="anchor" id="line-306"></span><span class="anchor" id="line-307"></span></p><pre><span class="anchor" id="line-1-23"></span>/etc/dovecot/passwd:
+<span class="anchor" id="line-2-8"></span>info@domain1.com:$1$G/FqlOG5$Vj0xmc9fKY.UVr8OWr/7C1:5000:5000::/home/vmail/domain1.com/:/bin/false::</pre><p class="line874"> <span class="anchor" id="line-308"></span></p><hr><p class="line874"> <span class="anchor" id="line-309"></span><span class="anchor" id="line-310"></span></p><p class="line867">
+</p><h2 id="Create_Dovecot_Users">Create Dovecot Users</h2>
+<span class="anchor" id="line-311"></span><span class="anchor" id="line-312"></span><p class="line862">There are no commands like <strong>useradd</strong> and <strong>passwd</strong> to add users and passwords for our mail system. A bash script provides a small and quick solution. <br>
+ <span class="anchor" id="line-313"></span><strong>Files:</strong> <br>
+ <span class="anchor" id="line-314"></span>/etc/dovecot/users - Similar to /etc/passwd<br>
+ <span class="anchor" id="line-315"></span>/etc/dovecot/passwd - Similar to /etc/shadow<br>
+ <span class="anchor" id="line-316"></span>/etc/postfix/vmaps - Map virtual users to mail directory (for postfix). If changes are made, use <em>postmap /etc/postfix/vmaps &amp;&amp; service postfix reload</em>. <span class="anchor" id="line-317"></span><span class="anchor" id="line-318"></span></p><p class="line867">
+</p><h3 id="Scripts_to_Add_and_Delete_Users">Scripts to Add and Delete Users</h3>
+<span class="anchor" id="line-319"></span><span class="anchor" id="line-320"></span><p class="line874">Create file: <span class="anchor" id="line-321"></span><span class="anchor" id="line-322"></span></p><p class="line867"><span class="anchor" id="line-323"></span><span class="anchor" id="line-324"></span></p><pre><span class="anchor" id="line-1-24"></span>sudo vi /usr/local/sbin/adddovecotuser </pre><span class="anchor" id="line-325"></span><span class="anchor" id="line-326"></span><p class="line874">Add the following code segment and save the file: <span class="anchor" id="line-327"></span><span class="anchor" id="line-328"></span></p><p class="line867"><span class="anchor" id="line-329"></span><span class="anchor" id="line-330"></span><span class="anchor" id="line-331"></span><span class="anchor" id="line-332"></span><span class="anchor" id="line-333"></span><span class="anchor" id="line-334"></span><span class="anchor" id="line-335"></span><span class="anchor" id="line-336"></span><span class="anchor" id="line-337"></span><span class="anchor" id="line-338"></span><span class="anchor" id="line-339"></span><span class="anchor" id="line-340"></span><span class="anchor" id="line-341"></span><span class="anchor" id="line-342"></span><span class="anchor" id="line-343"></span><span class="anchor" id="line-344"></span><span class="anchor" id="line-345"></span><span class="anchor" id="line-346"></span><span class="anchor" id="line-347"></span><span class="anchor" id="line-348"></span><span class="anchor" id="line-349"></span><span class="anchor" id="line-350"></span><span class="anchor" id="line-351"></span><span class="anchor" id="line-352"></span><span class="anchor" id="line-353"></span><span class="anchor" id="line-354"></span><span class="anchor" id="line-355"></span><span class="anchor" id="line-356"></span><span class="anchor" id="line-357"></span><span class="anchor" id="line-358"></span><span class="anchor" id="line-359"></span><span class="anchor" id="line-360"></span><span class="anchor" id="line-361"></span><span class="anchor" id="line-362"></span><span class="anchor" id="line-363"></span><span class="anchor" id="line-364"></span><span class="anchor" id="line-365"></span><span class="anchor" id="line-366"></span><span class="anchor" id="line-367"></span><span class="anchor" id="line-368"></span><span class="anchor" id="line-369"></span><span class="anchor" id="line-370"></span><span class="anchor" id="line-371"></span><span class="anchor" id="line-372"></span><span class="anchor" id="line-373"></span><span class="anchor" id="line-374"></span><span class="anchor" id="line-375"></span><span class="anchor" id="line-376"></span><span class="anchor" id="line-377"></span><span class="anchor" id="line-378"></span><span class="anchor" id="line-379"></span></p><pre><span class="anchor" id="line-1-25"></span> #!/bin/sh
+<span class="anchor" id="line-2-9"></span>if [ ! $# = 1 ]
+<span class="anchor" id="line-3-4"></span> then
+<span class="anchor" id="line-4-4"></span>  echo "Usage: $0 username@domain"
+<span class="anchor" id="line-5-4"></span>  exit 1
+<span class="anchor" id="line-6-3"></span> else
+<span class="anchor" id="line-7-2"></span>  user=`echo "$1" | cut -f1 -d "@"`
+<span class="anchor" id="line-8-2"></span>  domain=`echo "$1" | cut -s -f2 -d "@"`
+<span class="anchor" id="line-9-2"></span>  if [ -x $domain ]
+<span class="anchor" id="line-10-2"></span>   then
+<span class="anchor" id="line-11-2"></span>    echo "No domain given\nUsage: $0 username@domain"
+<span class="anchor" id="line-12-2"></span>    exit 2
+<span class="anchor" id="line-13-2"></span>  fi
+<span class="anchor" id="line-14-2"></span>  echo "Adding user $user@$domain to /etc/dovecot/users"
+<span class="anchor" id="line-15-2"></span>  echo "$user@$domain::5000:5000::/home/vmail/$domain/$user/:/bin/false::" &gt;&gt; /etc/dovecot/users
+<span class="anchor" id="line-16-2"></span>
+<span class="anchor" id="line-17-2"></span>  # Create the needed Maildir directories
+<span class="anchor" id="line-18-2"></span>  echo "Creating user directory /home/vmail/$domain/$user"
+<span class="anchor" id="line-19-2"></span>  # maildirmake.dovecot does only chown on user directory, we'll create domain directory instead
+<span class="anchor" id="line-20-2"></span>  if [ ! -x /home/vmail/$domain ]
+<span class="anchor" id="line-21-2"></span>   then
+<span class="anchor" id="line-22-2"></span>    mkdir /home/vmail/$domain
+<span class="anchor" id="line-23-2"></span>    chown 5000:5000 /home/vmail/$domain
+<span class="anchor" id="line-24-2"></span>    chmod 700 /home/vmail/$domain
+<span class="anchor" id="line-25-1"></span>  fi
+<span class="anchor" id="line-26-1"></span>  /usr/bin/maildirmake.dovecot /home/vmail/$domain/$user 5000:5000
+<span class="anchor" id="line-27-1"></span>  # Also make folders for Drafts, Sent, Junk and Trash
+<span class="anchor" id="line-28-1"></span>  /usr/bin/maildirmake.dovecot /home/vmail/$domain/$user/.Drafts 5000:5000
+<span class="anchor" id="line-29-1"></span>  /usr/bin/maildirmake.dovecot /home/vmail/$domain/$user/.Sent 5000:5000
+<span class="anchor" id="line-30-1"></span>  /usr/bin/maildirmake.dovecot /home/vmail/$domain/$user/.Junk 5000:5000
+<span class="anchor" id="line-31-1"></span>  /usr/bin/maildirmake.dovecot /home/vmail/$domain/$user/.Trash 5000:5000
+<span class="anchor" id="line-32-1"></span>
+<span class="anchor" id="line-33-1"></span>  # To add user to Postfix virtual map file and relode Postfix
+<span class="anchor" id="line-34-1"></span>  echo "Adding user to /etc/postfix/vmaps"
+<span class="anchor" id="line-35-1"></span>  echo $1  $domain/$user/ &gt;&gt; /etc/postfix/vmaps
+<span class="anchor" id="line-36-1"></span>  postmap /etc/postfix/vmaps
+<span class="anchor" id="line-37-1"></span>  postfix reload
+<span class="anchor" id="line-38"></span>fi
+<span class="anchor" id="line-39"></span>echo "\nCreate a password for the new email user"
+<span class="anchor" id="line-40"></span>passwd=`dovecotpw`
+<span class="anchor" id="line-41"></span>echo "Adding password for $user@$domain to /etc/dovecot/passwd"
+<span class="anchor" id="line-42"></span>if [ ! -x /etc/dovecot/passwd ]
+<span class="anchor" id="line-43"></span> then
+<span class="anchor" id="line-44"></span>  touch /etc/dovecot/passwd
+<span class="anchor" id="line-45"></span>  chmod 640 /etc/dovecot/passwd
+<span class="anchor" id="line-46"></span>fi
+<span class="anchor" id="line-47"></span>echo  "$user@$domain:$passwd" &gt;&gt; /etc/dovecot/passwd
+<span class="anchor" id="line-48"></span>
+<span class="anchor" id="line-49"></span>exit 0</pre><span class="anchor" id="line-380"></span><span class="anchor" id="line-381"></span><p class="line874">Make the file executable: <span class="anchor" id="line-382"></span><span class="anchor" id="line-383"></span></p><p class="line867"><span class="anchor" id="line-384"></span><span class="anchor" id="line-385"></span></p><pre><span class="anchor" id="line-1-26"></span>sudo chmod +x /usr/local/sbin/adddovecotuser </pre><span class="anchor" id="line-386"></span><span class="anchor" id="line-387"></span><p class="line874">Add a user like this: <span class="anchor" id="line-388"></span><span class="anchor" id="line-389"></span></p><p class="line867"><span class="anchor" id="line-390"></span><span class="anchor" id="line-391"></span></p><pre><span class="anchor" id="line-1-27"></span>sudo adddovecotuser info@domain1.com</pre><span class="anchor" id="line-392"></span><span class="anchor" id="line-393"></span><p class="line874">We'll create one for deleting users too: <span class="anchor" id="line-394"></span><span class="anchor" id="line-395"></span></p><p class="line867"><span class="anchor" id="line-396"></span><span class="anchor" id="line-397"></span></p><pre><span class="anchor" id="line-1-28"></span>sudo vi /usr/local/sbin/deldovecotuser</pre><span class="anchor" id="line-398"></span><span class="anchor" id="line-399"></span><p class="line874">Add the following code segment and save the file: <span class="anchor" id="line-400"></span><span class="anchor" id="line-401"></span></p><p class="line867"><span class="anchor" id="line-402"></span><span class="anchor" id="line-403"></span><span class="anchor" id="line-404"></span><span class="anchor" id="line-405"></span><span class="anchor" id="line-406"></span><span class="anchor" id="line-407"></span><span class="anchor" id="line-408"></span><span class="anchor" id="line-409"></span><span class="anchor" id="line-410"></span><span class="anchor" id="line-411"></span><span class="anchor" id="line-412"></span><span class="anchor" id="line-413"></span><span class="anchor" id="line-414"></span><span class="anchor" id="line-415"></span><span class="anchor" id="line-416"></span><span class="anchor" id="line-417"></span><span class="anchor" id="line-418"></span><span class="anchor" id="line-419"></span><span class="anchor" id="line-420"></span><span class="anchor" id="line-421"></span><span class="anchor" id="line-422"></span><span class="anchor" id="line-423"></span><span class="anchor" id="line-424"></span><span class="anchor" id="line-425"></span><span class="anchor" id="line-426"></span><span class="anchor" id="line-427"></span><span class="anchor" id="line-428"></span><span class="anchor" id="line-429"></span><span class="anchor" id="line-430"></span><span class="anchor" id="line-431"></span><span class="anchor" id="line-432"></span><span class="anchor" id="line-433"></span><span class="anchor" id="line-434"></span><span class="anchor" id="line-435"></span><span class="anchor" id="line-436"></span><span class="anchor" id="line-437"></span><span class="anchor" id="line-438"></span><span class="anchor" id="line-439"></span><span class="anchor" id="line-440"></span><span class="anchor" id="line-441"></span><span class="anchor" id="line-442"></span><span class="anchor" id="line-443"></span><span class="anchor" id="line-444"></span><span class="anchor" id="line-445"></span><span class="anchor" id="line-446"></span><span class="anchor" id="line-447"></span><span class="anchor" id="line-448"></span><span class="anchor" id="line-449"></span><span class="anchor" id="line-450"></span></p><pre><span class="anchor" id="line-1-29"></span> #!/bin/bash
+<span class="anchor" id="line-2-10"></span>#
+<span class="anchor" id="line-3-5"></span># deldovecotuser - for deleting virtual dovecot users
+<span class="anchor" id="line-4-5"></span>#
+<span class="anchor" id="line-5-5"></span>if [ ! $# = 1 ]
+<span class="anchor" id="line-6-4"></span> then
+<span class="anchor" id="line-7-3"></span>  echo -e "Usage: $0 username@domain"
+<span class="anchor" id="line-8-3"></span>  exit 1
+<span class="anchor" id="line-9-3"></span> else
+<span class="anchor" id="line-10-3"></span>  user=`echo "$1" | cut -f1 -d "@"`
+<span class="anchor" id="line-11-3"></span>  domain=`echo "$1" | cut -s -f2 -d "@"`
+<span class="anchor" id="line-12-3"></span>  if [ -x $domain ]
+<span class="anchor" id="line-13-3"></span>   then
+<span class="anchor" id="line-14-3"></span>    echo -e "No domain given\nUsage: $0 username@domain: "
+<span class="anchor" id="line-15-3"></span>    exit 2
+<span class="anchor" id="line-16-3"></span>  fi
+<span class="anchor" id="line-17-3"></span>fi
+<span class="anchor" id="line-18-3"></span>read -n 1 -p "Delete user $user@$domain from dovecot? [Y/N]? "
+<span class="anchor" id="line-19-3"></span>echo
+<span class="anchor" id="line-20-3"></span>case $REPLY in
+<span class="anchor" id="line-21-3"></span> y | Y)
+<span class="anchor" id="line-22-3"></span>  new_users=`grep -v $user@$domain /etc/dovecot/users`
+<span class="anchor" id="line-23-3"></span>  new_passwd=`grep -v $user@$domain /etc/dovecot/passwd`
+<span class="anchor" id="line-24-3"></span>  new_vmaps=`grep -v $user@$domain /etc/postfix/vmaps`
+<span class="anchor" id="line-25-2"></span>  echo "Deleting $user@$domain from /etc/dovecot/users"
+<span class="anchor" id="line-26-2"></span>  echo "$new_users" &gt; /etc/dovecot/users
+<span class="anchor" id="line-27-2"></span>  echo "Deleting $user@$domain from /etc/dovecot/passwd"
+<span class="anchor" id="line-28-2"></span>  echo "$new_passwd" &gt; /etc/dovecot/passwd
+<span class="anchor" id="line-29-2"></span>  echo "Deleting $user@$domain from /etc/postfix/vmaps"
+<span class="anchor" id="line-30-2"></span>  echo "$new_vmaps" &gt; /etc/postfix/vmaps
+<span class="anchor" id="line-31-2"></span>  postmap /etc/postfix/vmaps
+<span class="anchor" id="line-32-2"></span>  postfix reload
+<span class="anchor" id="line-33-2"></span>  read -n1 -p "Delete all files in /home/vmail/$domain/$user? [Y/N]? " DELETE
+<span class="anchor" id="line-34-2"></span>  echo
+<span class="anchor" id="line-35-2"></span>  case $DELETE in
+<span class="anchor" id="line-36-2"></span>   y | Y)
+<span class="anchor" id="line-37-2"></span>    echo "Deleting files in /home/vmail/$domain/$user"
+<span class="anchor" id="line-38-1"></span>    rm -fr /home/vmail/$domain/$user
+<span class="anchor" id="line-39-1"></span>   ;;
+<span class="anchor" id="line-40-1"></span>   * )
+<span class="anchor" id="line-41-1"></span>    echo "Not deleting files in /home/vmail/$domain/$user"
+<span class="anchor" id="line-42-1"></span>   ;;
+<span class="anchor" id="line-43-1"></span>  esac
+<span class="anchor" id="line-44-1"></span> ;;
+<span class="anchor" id="line-45-1"></span> * )
+<span class="anchor" id="line-46-1"></span>  echo "Aborting..."
+<span class="anchor" id="line-47-1"></span> ;;
+<span class="anchor" id="line-48-1"></span>esac</pre><span class="anchor" id="line-451"></span><span class="anchor" id="line-452"></span><p class="line874">Make the file executable: <span class="anchor" id="line-453"></span><span class="anchor" id="line-454"></span></p><p class="line867"><span class="anchor" id="line-455"></span><span class="anchor" id="line-456"></span></p><pre><span class="anchor" id="line-1-30"></span>sudo chmod +x /usr/local/sbin/deldovecotuser </pre><span class="anchor" id="line-457"></span><span class="anchor" id="line-458"></span><p class="line874">Delete a user like this: <span class="anchor" id="line-459"></span><span class="anchor" id="line-460"></span></p><p class="line867"><span class="anchor" id="line-461"></span><span class="anchor" id="line-462"></span></p><pre><span class="anchor" id="line-1-31"></span>sudo deldovecotuser info@domain1.com</pre><span class="anchor" id="line-463"></span><span class="anchor" id="line-464"></span><p class="line874">To start Devecot for the first time <span class="anchor" id="line-465"></span><span class="anchor" id="line-466"></span></p><p class="line867"><span class="anchor" id="line-467"></span><span class="anchor" id="line-468"></span></p><pre><span class="anchor" id="line-1-32"></span>sudo /etc/init.d/dovecot start</pre><span class="anchor" id="line-469"></span><span class="anchor" id="line-470"></span><p class="line867">
+</p><h3 id="C.23.2BAC8-Mono_Application_to_Add_Users">C#/Mono Application to Add Users</h3>
+<span class="anchor" id="line-471"></span><span class="anchor" id="line-472"></span><p class="line862">An alternative to the scripts below for adding users and creating passwords, there is an Open Source tool written in C# and compiles in Mono to do this same task. It offers a few more error checks and prompts. It incorporates the scripts into one tool for Postfix and Dovecot. <a class="http" href="http://code.google.com/p/addmail/">You can find it here</a> <span class="anchor" id="line-473"></span><span class="anchor" id="line-474"></span></p><p class="line867">
+</p><h1 id="Postfix_SASL">Postfix SASL</h1>
+<span class="anchor" id="line-475"></span><span class="anchor" id="line-476"></span><p class="line874">If you would like your mail users to authenticate to Postfix too, we need to configure Postfix for SASL. In that way, the mail server can relay email from users not in local network. <span class="anchor" id="line-477"></span><span class="anchor" id="line-478"></span></p><p class="line867">
+</p><h2 id="Make_Dovecot_listen_for_authentication_requests">Make Dovecot listen for authentication requests</h2>
+<span class="anchor" id="line-479"></span><span class="anchor" id="line-480"></span><p class="line862">In /etc/dovecot/dovecot.conf edit the <strong>auth section</strong> to: <span class="anchor" id="line-481"></span><span class="anchor" id="line-482"></span><span class="anchor" id="line-483"></span><span class="anchor" id="line-484"></span><span class="anchor" id="line-485"></span><span class="anchor" id="line-486"></span><span class="anchor" id="line-487"></span><span class="anchor" id="line-488"></span><span class="anchor" id="line-489"></span><span class="anchor" id="line-490"></span><span class="anchor" id="line-491"></span><span class="anchor" id="line-492"></span><span class="anchor" id="line-493"></span><span class="anchor" id="line-494"></span><span class="anchor" id="line-495"></span><span class="anchor" id="line-496"></span><span class="anchor" id="line-497"></span><span class="anchor" id="line-498"></span><span class="anchor" id="line-499"></span><span class="anchor" id="line-500"></span><span class="anchor" id="line-501"></span><span class="anchor" id="line-502"></span><span class="anchor" id="line-503"></span></p><pre><span class="anchor" id="line-1-33"></span>auth default {
+<span class="anchor" id="line-2-11"></span>  mechanisms = plain cram-md5
+<span class="anchor" id="line-3-6"></span>  passdb passwd-file {
+<span class="anchor" id="line-4-6"></span>    args = /etc/dovecot/passwd
+<span class="anchor" id="line-5-6"></span>  }
+<span class="anchor" id="line-6-5"></span>  userdb passwd-file {
+<span class="anchor" id="line-7-4"></span>    args = /etc/dovecot/users
+<span class="anchor" id="line-8-4"></span>  }
+<span class="anchor" id="line-9-4"></span>  user = root
+<span class="anchor" id="line-10-4"></span>  socket listen {
+<span class="anchor" id="line-11-4"></span>    client {
+<span class="anchor" id="line-12-4"></span>      # The client socket is generally safe to export to everyone. Typical use
+<span class="anchor" id="line-13-4"></span>      # is to export it to your SMTP server so it can do SMTP AUTH lookups
+<span class="anchor" id="line-14-4"></span>      # using it.
+<span class="anchor" id="line-15-4"></span>      path = /var/spool/postfix/private/auth-client
+<span class="anchor" id="line-16-4"></span>      mode = 0660
+<span class="anchor" id="line-17-4"></span>      user = postfix
+<span class="anchor" id="line-18-4"></span>      group = postfix
+<span class="anchor" id="line-19-4"></span>    }
+<span class="anchor" id="line-20-4"></span>  }
+<span class="anchor" id="line-21-4"></span>}</pre><span class="anchor" id="line-504"></span><span class="anchor" id="line-505"></span><p class="line874">Restart dovecot. <span class="anchor" id="line-506"></span><span class="anchor" id="line-507"></span><span class="anchor" id="line-508"></span></p><pre><span class="anchor" id="line-1-34"></span>sudo service dovecot restart</pre><span class="anchor" id="line-509"></span><span class="anchor" id="line-510"></span><p class="line867">
+</p><h2 id="Configure_Postfix_for_SASL">Configure Postfix for SASL</h2>
+<span class="anchor" id="line-511"></span><span class="anchor" id="line-512"></span><p class="line874">Configure Postfix SASL. <span class="anchor" id="line-513"></span><span class="anchor" id="line-514"></span><span class="anchor" id="line-515"></span><span class="anchor" id="line-516"></span><span class="anchor" id="line-517"></span><span class="anchor" id="line-518"></span><span class="anchor" id="line-519"></span><span class="anchor" id="line-520"></span></p><pre><span class="anchor" id="line-1-35"></span>sudo postconf -e 'smtpd_sasl_auth_enable = yes'
+<span class="anchor" id="line-2-12"></span>sudo postconf -e 'smtpd_sasl_security_options = noplaintext,noanonymous'
+<span class="anchor" id="line-3-7"></span>sudo postconf -e 'smtpd_recipient_restrictions = permit_sasl_authenticated,permit_mynetworks,reject_unauth_destination'
+<span class="anchor" id="line-4-7"></span>sudo postconf -e 'smtpd_sasl_type = dovecot'
+<span class="anchor" id="line-5-7"></span>sudo postconf -e 'smtpd_sasl_path = private/auth-client'
+<span class="anchor" id="line-6-6"></span>sudo echo "mech_list: cram-md5" &gt; /etc/postfix/sasl/smtpd.conf</pre><span class="anchor" id="line-521"></span><span class="anchor" id="line-522"></span><p class="line874">Restart Postfix. <span class="anchor" id="line-523"></span><span class="anchor" id="line-524"></span><span class="anchor" id="line-525"></span></p><pre><span class="anchor" id="line-1-36"></span>sudo service postfix restart</pre><span class="anchor" id="line-526"></span><span class="anchor" id="line-527"></span><p class="line867">
+</p><h1 id="Test_the_Setup">Test the Setup</h1>
+<span class="anchor" id="line-528"></span><span class="anchor" id="line-529"></span><p class="line867">
+</p><h2 id="With_mutt">With mutt</h2>
+<span class="anchor" id="line-530"></span><p class="line874">Type in a terminal: <span class="anchor" id="line-531"></span><span class="anchor" id="line-532"></span></p><p class="line867"><span class="anchor" id="line-533"></span><span class="anchor" id="line-534"></span></p><pre><span class="anchor" id="line-1-37"></span>mutt -f  pop://mail.domain1.com</pre><span class="anchor" id="line-535"></span><span class="anchor" id="line-536"></span><p class="line874">or: <span class="anchor" id="line-537"></span><span class="anchor" id="line-538"></span></p><p class="line867"><span class="anchor" id="line-539"></span><span class="anchor" id="line-540"></span></p><pre><span class="anchor" id="line-1-38"></span>mutt -f  imap://mail.domain1.com</pre><span class="anchor" id="line-541"></span><span class="anchor" id="line-542"></span><p class="line862">Input your user name and password as requested. When logged in, shortcuts are displayed in top of window. Press q to quit.<br>
+ <span class="anchor" id="line-543"></span><strong>Tip1:</strong> If your DNS lookup doesn't work yet, you can use <em>mutt -f pop://localhost</em> when on server.<br>
+ <span class="anchor" id="line-544"></span><strong>Tip2:</strong> You can use <em>auth_default_realm = domain1.com</em> in <em>dovecot.conf</em> and omit @domain1.com in your user name when logging in. <span class="anchor" id="line-545"></span><span class="anchor" id="line-546"></span></p><p class="line867">
+</p><h2 id="With_telnet">With telnet</h2>
+<span class="anchor" id="line-547"></span><span class="anchor" id="line-548"></span><p class="line874">Telnet is more verbose. Type in a terminal: <span class="anchor" id="line-549"></span><span class="anchor" id="line-550"></span><span class="anchor" id="line-551"></span></p><pre><span class="anchor" id="line-1-39"></span>telnet localhost 110</pre><span class="anchor" id="line-552"></span><p class="line867"><strong>Note:</strong> This only works when traffic is local, since we have set <em>disable_plaintext_auth = yes</em>.<br>
+<br>
+ <span class="anchor" id="line-553"></span>Type the following code segment in the prompt provided by the Dovecot POP3 server <span class="anchor" id="line-554"></span><span class="anchor" id="line-555"></span></p><p class="line867"><span class="anchor" id="line-556"></span><span class="anchor" id="line-557"></span><span class="anchor" id="line-558"></span><span class="anchor" id="line-559"></span></p><pre><span class="anchor" id="line-1-40"></span>user info@domain1.com
+<span class="anchor" id="line-2-13"></span>pass password
+<span class="anchor" id="line-3-8"></span>quit</pre><span class="anchor" id="line-560"></span><span class="anchor" id="line-561"></span><p class="line874">Final output should be something like this <span class="anchor" id="line-562"></span><span class="anchor" id="line-563"></span></p><p class="line867"><span class="anchor" id="line-564"></span><span class="anchor" id="line-565"></span><span class="anchor" id="line-566"></span><span class="anchor" id="line-567"></span><span class="anchor" id="line-568"></span><span class="anchor" id="line-569"></span><span class="anchor" id="line-570"></span><span class="anchor" id="line-571"></span><span class="anchor" id="line-572"></span><span class="anchor" id="line-573"></span><span class="anchor" id="line-574"></span></p><pre><span class="anchor" id="line-1-41"></span>Trying 127.0.0.1...
+<span class="anchor" id="line-2-14"></span>Connected to mail.domain1.com.
+<span class="anchor" id="line-3-9"></span>Escape character is '^]'.
+<span class="anchor" id="line-4-8"></span>+OK dovecot ready.
+<span class="anchor" id="line-5-8"></span>user info@domain1.com
+<span class="anchor" id="line-6-7"></span>+OK
+<span class="anchor" id="line-7-5"></span>pass password
+<span class="anchor" id="line-8-5"></span>+OK Logged in.
+<span class="anchor" id="line-9-5"></span>quit
+<span class="anchor" id="line-10-5"></span>+OK Logging out.</pre><span class="anchor" id="line-575"></span><span class="anchor" id="line-576"></span><span class="anchor" id="line-577"></span><p class="line867">
+</p><h1 id="ClamSMTP_SMTP_Virus_Filter">ClamSMTP SMTP Virus Filter</h1>
+<span class="anchor" id="line-578"></span><span class="anchor" id="line-579"></span><p class="line874">ClamSMTP is an SMTP filter that allows you to check for viruses using the ClamAV anti-virus software. It accepts SMTP connections and forwards the SMTP commands and responses to another SMTP server. The 'DATA' email body is intercepted and scanned before forwarding. <span class="anchor" id="line-580"></span><span class="anchor" id="line-581"></span></p><p class="line874">ClamSMTP aims to be lightweight, reliable, and simple rather than have a myriad of options. It's written in C without major dependencies. <span class="anchor" id="line-582"></span><span class="anchor" id="line-583"></span></p><p class="line874">ClamSMTP can also be used as a transparent proxy to filter an entire network's SMTP traffic at the router. <span class="anchor" id="line-584"></span><span class="anchor" id="line-585"></span></p><p class="line867">
+</p><h2 id="Installing_ClamAV">Installing ClamAV</h2>
+<span class="anchor" id="line-586"></span><span class="anchor" id="line-587"></span><p class="line862">We need ClamAV daemon to work with ClamSMTP. Let's install ClamAV first, with the following packages: <tt>clamav-daemon&nbsp;clamav</tt> <span class="anchor" id="line-588"></span><span class="anchor" id="line-589"></span></p><p class="line867">
+</p><h2 id="Installing_ClamSMTP">Installing ClamSMTP</h2>
+<span class="anchor" id="line-590"></span><span class="anchor" id="line-591"></span><p class="line862">You need to install the <tt>clamsmtp</tt> package. <span class="anchor" id="line-592"></span><span class="anchor" id="line-593"></span></p><p class="line867">
+</p><h2 id="Set_Postfix_to_use_ClamSMTP">Set Postfix to use ClamSMTP</h2>
+<span class="anchor" id="line-594"></span><span class="anchor" id="line-595"></span><p class="line874">Postfix supports filtering mail through a filter that acts like an SMTP server. <span class="anchor" id="line-596"></span>Put the following lines in your Postfix main.cf file:  <span class="anchor" id="line-597"></span><span class="anchor" id="line-598"></span></p><p class="line874">Open the file: <span class="anchor" id="line-599"></span><span class="anchor" id="line-600"></span></p><p class="line867"><span class="anchor" id="line-601"></span><span class="anchor" id="line-602"></span></p><pre><span class="anchor" id="line-1-42"></span>sudo vi /etc/postfix/main.cf </pre><span class="anchor" id="line-603"></span><span class="anchor" id="line-604"></span><p class="line862">If you have doubt where to add the codes look at my example <a class="https" href="https://wiki.ubuntu.com/PostfixClamSmtpMainCf">main.cf</a> file <span class="anchor" id="line-605"></span><span class="anchor" id="line-606"></span></p><p class="line874">Add the codes: <span class="anchor" id="line-607"></span><span class="anchor" id="line-608"></span></p><p class="line867"><span class="anchor" id="line-609"></span><span class="anchor" id="line-610"></span><span class="anchor" id="line-611"></span></p><pre><span class="anchor" id="line-1-43"></span>content_filter = scan:127.0.0.1:10026
+<span class="anchor" id="line-2-15"></span>receive_override_options = no_address_mappings</pre><span class="anchor" id="line-612"></span><span class="anchor" id="line-613"></span><p class="line862">The <strong>content_filter</strong> tells Postfix to send all mail through the service called 'scan' on <strong>port 10026</strong>. We'll set up clamsmtpd to listen on this port later. <span class="anchor" id="line-614"></span><span class="anchor" id="line-615"></span></p><p class="line874">Next we add the following to the Postfix master.cf file: <span class="anchor" id="line-616"></span><span class="anchor" id="line-617"></span></p><p class="line874">Open the file: <span class="anchor" id="line-618"></span><span class="anchor" id="line-619"></span></p><p class="line867"><span class="anchor" id="line-620"></span><span class="anchor" id="line-621"></span></p><pre><span class="anchor" id="line-1-44"></span>sudo vi /etc/postfix/master.cf</pre><span class="anchor" id="line-622"></span><span class="anchor" id="line-623"></span><p class="line862">If you have doubt where to add the codes look at my example <a class="https" href="https://wiki.ubuntu.com/PostfixClamSmtpMasterCf">master.cf</a> file <span class="anchor" id="line-624"></span><span class="anchor" id="line-625"></span></p><p class="line874">Add the codes: <span class="anchor" id="line-626"></span><span class="anchor" id="line-627"></span></p><p class="line867"><span class="anchor" id="line-628"></span><span class="anchor" id="line-629"></span><span class="anchor" id="line-630"></span><span class="anchor" id="line-631"></span><span class="anchor" id="line-632"></span><span class="anchor" id="line-633"></span><span class="anchor" id="line-634"></span><span class="anchor" id="line-635"></span><span class="anchor" id="line-636"></span><span class="anchor" id="line-637"></span><span class="anchor" id="line-638"></span><span class="anchor" id="line-639"></span><span class="anchor" id="line-640"></span><span class="anchor" id="line-641"></span></p><pre><span class="anchor" id="line-1-45"></span># AV scan filter (used by content_filter)
+<span class="anchor" id="line-2-16"></span>scan      unix  -       -       n       -       16      smtp
+<span class="anchor" id="line-3-10"></span>        -o smtp_send_xforward_command=yes
+<span class="anchor" id="line-4-9"></span># For injecting mail back into postfix from the filter
+<span class="anchor" id="line-5-9"></span>127.0.0.1:10025 inet  n -       n       -       16      smtpd
+<span class="anchor" id="line-6-8"></span>        -o content_filter=
+<span class="anchor" id="line-7-6"></span>        -o receive_override_options=no_unknown_recipient_checks,no_header_body_checks
+<span class="anchor" id="line-8-6"></span>        -o smtpd_helo_restrictions=
+<span class="anchor" id="line-9-6"></span>        -o smtpd_client_restrictions=
+<span class="anchor" id="line-10-6"></span>        -o smtpd_sender_restrictions=
+<span class="anchor" id="line-11-5"></span>        -o smtpd_recipient_restrictions=permit_mynetworks,reject
+<span class="anchor" id="line-12-5"></span>        -o mynetworks_style=host
+<span class="anchor" id="line-13-5"></span>        -o smtpd_authorized_xforward_hosts=127.0.0.0/8</pre><span class="anchor" id="line-642"></span><span class="anchor" id="line-643"></span><span class="anchor" id="line-644"></span><span class="anchor" id="line-645"></span><p class="line874">Make sure there's no spaces around the equal signs or commas in the text you added. Best way is to copy and my codes here. <span class="anchor" id="line-646"></span><span class="anchor" id="line-647"></span></p><p class="line862">The first 2 lines create the <strong>scan</strong> service. The rest set up a service for accepting mail back into postfix. All the options prevent a mail loop as well as relax address checking and the like, since that's already been done. <span class="anchor" id="line-648"></span><span class="anchor" id="line-649"></span></p><p class="line874">Make sure to run it as the same user as you run clamd or they'll have problems accessing each other's temporary files. You can use the the following accomplish  <span class="anchor" id="line-650"></span>that. <span class="anchor" id="line-651"></span><span class="anchor" id="line-652"></span></p><p class="line867"><span class="anchor" id="line-653"></span><span class="anchor" id="line-654"></span></p><pre><span class="anchor" id="line-1-46"></span>sudo adduser clamsmtp clamav</pre><span class="anchor" id="line-655"></span><span class="anchor" id="line-656"></span><p class="line874">Restart Postfix, ClamSMTP, and ClamAV Daemon to make your changes effect: <span class="anchor" id="line-657"></span><span class="anchor" id="line-658"></span></p><p class="line867"><span class="anchor" id="line-659"></span><span class="anchor" id="line-660"></span><span class="anchor" id="line-661"></span><span class="anchor" id="line-662"></span></p><pre><span class="anchor" id="line-1-47"></span>sudo /etc/init.d/postfix restart
+<span class="anchor" id="line-2-17"></span>sudo /etc/init.d/clamsmtp restart
+<span class="anchor" id="line-3-11"></span>sudo /etc/init.d/clamav-daemon restart</pre><span class="anchor" id="line-663"></span><span class="anchor" id="line-664"></span><p class="line867">
+</p><h1 id="Test_ClamSMTP_for_outgoing_mail">Test ClamSMTP for outgoing mail</h1>
+<span class="anchor" id="line-665"></span><span class="anchor" id="line-666"></span><p class="line862">We need to test the our outgoing mail for viruses. Best way is to download <strong>eicar</strong> test virus and attach to a mail and send. Let's do it. <span class="anchor" id="line-667"></span><span class="anchor" id="line-668"></span></p><p class="line874">Download eicar to you home directory: <span class="anchor" id="line-669"></span><span class="anchor" id="line-670"></span></p><p class="line867"><span class="anchor" id="line-671"></span><span class="anchor" id="line-672"></span></p><pre><span class="anchor" id="line-1-48"></span>wget http://eicar.org/download/eicar_com.zip</pre><span class="anchor" id="line-673"></span><span class="anchor" id="line-674"></span><p class="line862">Send this file as an attachment to <strong><a class="mailto" href="mailto:info@domain1.com">info@domain1.com</a></strong> <span class="anchor" id="line-675"></span><span class="anchor" id="line-676"></span></p><p class="line862">Then check your <strong>mail.log</strong> file: <span class="anchor" id="line-677"></span><span class="anchor" id="line-678"></span></p><p class="line867"><span class="anchor" id="line-679"></span><span class="anchor" id="line-680"></span></p><pre><span class="anchor" id="line-1-49"></span>tail /var/log/mail.log</pre><span class="anchor" id="line-681"></span><span class="anchor" id="line-682"></span><p class="line874">You should see something like in your log file. <span class="anchor" id="line-683"></span><span class="anchor" id="line-684"></span></p><p class="line867"><span class="anchor" id="line-685"></span><span class="anchor" id="line-686"></span><span class="anchor" id="line-687"></span></p><pre><span class="anchor" id="line-1-50"></span>Mar  8 17:12:02 localhost clamsmtpd: 100004: from=info@domain1.com, to=info@domain1.com, status=VIRUS:Eicar-Test-Signature
+<span class="anchor" id="line-2-18"></span>Mar  8 17:12:02 localhost postfix/smtp[15634]: 4A6C852110: to=&lt;info@domain1.com&gt;, relay=127.0.0.1[127.0.0.1], delay=0, status=sent (250 Virus Detected; Discarded Email)</pre><span class="anchor" id="line-688"></span><span class="anchor" id="line-689"></span><p class="line867">
+</p><h1 id="Test_ClamSMTP_for_incoming_Mail_from_the_Internet">Test ClamSMTP for incoming Mail from the Internet</h1>
+<span class="anchor" id="line-690"></span><span class="anchor" id="line-691"></span><p class="line862">If you have a production mail server you can check your mail server for viruses provided by <a class="http" href="http://www.webmail.us/testvirus">webmail.us</a>. They are sending you harmless test mails with the EICAR virus test signature. Also you can use <a class="http" href="http://www.gfi.com/emailsecuritytest/">GFI Security Labs</a> for further testing. <span class="anchor" id="line-692"></span><span class="anchor" id="line-693"></span></p><p class="line867">
+</p><h1 id="Final_thoughts">Final thoughts</h1>
+<span class="anchor" id="line-694"></span><span class="anchor" id="line-695"></span><p class="line874">This setup can handle thousands of account without performance issue. It is an extensible, scalable, and robust alternative to a MySQL/PostgreSQL database backend for users, using web-based virtual domain management and password modifications by users. <span class="anchor" id="line-696"></span><span class="anchor" id="line-697"></span></p><p class="line862">Yet another long-winded poorly written howto by: <a class="nonexistent" href="https://help.ubuntu.com/community/ChinthakaDeshapriya">ChinthakaDeshapriya</a>. <span class="anchor" id="line-698"></span><span class="anchor" id="line-699"></span></p><p class="line862">(Small addition for <a class="http" href="http://code.google.com/p/addmail/">C# tool</a>) <span class="anchor" id="line-700"></span><span class="anchor" id="line-701"></span></p><p class="line867"></p><hr><p class="line874"> <span class="anchor" id="line-702"></span><span class="anchor" id="bottom"></span></p></div><p id="pageinfo" class="info" dir="ltr" lang="en">PostfixVirtualMailBoxClamSmtpHowto  (last edited 2011-09-22 02:21:24 by <span title="ritprez @ 50-14-28-196.nyc.clearwire-wmx.net[50.14.28.196]"><a class="interwiki" href="https://launchpad.net/%7Eritprez" title="ritprez @ 50-14-28-196.nyc.clearwire-wmx.net[50.14.28.196]">ritprez</a></span>)</p>
+
+<ul class="pagelinks">
+<li><a class="nbinfo" href="https://help.ubuntu.com/community/PostfixVirtualMailBoxClamSmtpHowto?action=info" rel="nofollow">Page History</a></li>
+</ul>
+
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<hr width="550px">
+
+  <div id="ubuntulinks">
+	<p>
+	      The material on this wiki is available under a free license, see <a href="https://help.ubuntu.com/community/License">Copyright / License</a> for details<br><b>You</b> can contribute to this wiki, see <a href="https://help.ubuntu.com/community/WikiGuide">Wiki Guide</a> for details
+	</p><br>
+  </div>
+
+
+
+
+
+</div> <!-- footer -->
+</div> <!-- layout -->
+<img id="bottomcap" alt="" src="cap-bottom.png">
+</div> <!-- round -->
+
+
+
+</body>
+</html>

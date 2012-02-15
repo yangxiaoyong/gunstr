@@ -1,0 +1,11 @@
+* { margin: 0pt; padding: 0pt; }
+html, code { font: 15px/22px arial,sans-serif; }
+html { background: none repeat scroll 0% 0% rgb(255, 255, 255); color: rgb(34, 34, 34); padding: 15px; }
+body { margin: 7% auto 0pt; max-width: 390px; min-height: 180px; padding: 30px 0pt 15px; }
+* > body { background: url('robot.png') no-repeat scroll 100% 5px transparent; padding-right: 205px; }
+p { margin: 11px 0pt 22px; overflow: hidden; }
+ins { color: rgb(119, 119, 119); text-decoration: none; }
+a img { border: 0pt none; }
+@media screen and (max-width: 772px) {
+	body { background: none repeat scroll 0% 0% transparent; margin-top: 0pt; max-width: none; padding-right: 0pt; }
+}

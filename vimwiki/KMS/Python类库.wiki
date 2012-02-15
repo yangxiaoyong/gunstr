@@ -1,0 +1,8 @@
+`@classmethod`装饰器
+{{{
+class C:
+    @classmethod
+    def f(cls, arg1, arg2 ...): ...
+}}}
+
+接受类为第一个参数，跟`staticmethod`是不同的

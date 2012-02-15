@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Anatomy of LVM</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.7"><link rel="HOME" title="LVM HOWTO" href="http://www.tldp.org/HOWTO/LVM-HOWTO/index.html"><link rel="PREVIOUS" title="Benefits of Logical Volume Management on a Large System" href="http://www.tldp.org/HOWTO/LVM-HOWTO/benefitsoflvmlarge.html"><link rel="NEXT" title="volume group (VG)" href="http://www.tldp.org/HOWTO/LVM-HOWTO/vg.html"></head>
+<body class="chapter" alink="#0000FF" bgcolor="#FFFFFF" link="#0000FF" text="#000000" vlink="#840084"><div class="NAVHEADER"><table summary="Header navigation table" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><th colspan="3" align="center">LVM HOWTO</th></tr><tr><td align="left" valign="bottom" width="10%"><a indepth="true" href="benefitsoflvmlarge.html" accesskey="P">Prev</a></td><td align="center" valign="bottom" width="80%"></td><td align="right" valign="bottom" width="10%"><a indepth="true" href="vg.html" accesskey="N">Next</a></td></tr></tbody></table><hr align="LEFT" width="100%"></div><div class="chapter"><h1><a name="anatomy"></a>Chapter 3. Anatomy of LVM</h1><div class="TOC"><dl><dt><b>Table of Contents</b></dt><dt>3.1. <a indepth="true" href="vg.html">volume group (VG)</a></dt><dt>3.2. <a indepth="true" href="pv.html">physical volume (PV)</a></dt><dt>3.3. <a indepth="true" href="lv.html">logical volume (LV)</a></dt><dt>3.4. <a indepth="true" href="pe.html">physical extent (PE)</a></dt><dt>3.5. <a indepth="true" href="le.html">logical extent (LE)</a></dt><dt>3.6. <a indepth="true" href="tyingittogether.html">Tying it all together</a></dt><dt>3.7. <a indepth="true" href="mapmode.html">mapping modes (linear/striped)</a></dt><dt>3.8. <a indepth="true" href="snapshotintro.html">Snapshots</a></dt></dl></div><p>
+      This diagram gives a overview of the main elements in an LVM system:
+      <table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">+-- Volume Group --------------------------------+
+|                                                |
+|    +----------------------------------------+	 |
+| PV | PE |  PE | PE | PE | PE | PE | PE | PE |	 |
+|    +----------------------------------------+	 |
+|      .       	  .    	     . 	      .	       	 |
+|      .          .    	     .        .	         |
+|    +----------------------------------------+	 |
+| LV | LE |  LE | LE | LE | LE | LE | LE | LE |	 |
+|    +----------------------------------------+	 |
+|            .          .        .     	   .     |
+|            . 	        .        .     	   .     |
+|    +----------------------------------------+	 |
+| PV | PE |  PE | PE | PE | PE | PE | PE | PE |	 |
+|    +----------------------------------------+	 |
+|                                                |
++------------------------------------------------+
+
+         </pre></font></td></tr></tbody></table>
+    </p><p>
+      Another way to look at is this (courtesy of 
+      <a href="mailto:erik@bagfors.nu_NOSPAM" target="_top">Erik Bågfors</a>
+      on the linux-lvm mailing list):
+      <table bgcolor="#E0E0E0" border="0" width="100%"><tbody><tr><td><font color="#000000"><pre class="screen">    hda1   hdc1      (PV:s on partitions or whole disks)                        
+       \   /                                                                    
+        \ /                                                                     
+       diskvg        (VG)                                                       
+       /  |  \                                                                  
+      /   |   \                                                                 
+  usrlv rootlv varlv (LV:s)
+    |      |     |                                                              
+ ext2  reiserfs  xfs (filesystems)                                        
+
+         </pre></font></td></tr></tbody></table>
+    </p></div><div class="NAVFOOTER"><hr align="LEFT" width="100%"><table summary="Footer navigation table" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td align="left" valign="top" width="33%"><a indepth="true" href="benefitsoflvmlarge.html" accesskey="P">Prev</a></td><td align="center" valign="top" width="34%"><a indepth="true" href="index.html" accesskey="H">Home</a></td><td align="right" valign="top" width="33%"><a indepth="true" href="vg.html" accesskey="N">Next</a></td></tr><tr><td align="left" valign="top" width="33%">Benefits of Logical Volume Management on a Large System</td><td align="center" valign="top" width="34%">&nbsp;</td><td align="right" valign="top" width="33%">volume group (VG)</td></tr></tbody></table></div>
+
+</body></html>

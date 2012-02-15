@@ -1,0 +1,53 @@
+创建匿名用户
+{{{
+SET PASSWORD FOR ''@'localhost' = PASSWORD('newpwd');
+}}}
+
+更新用户秘密
+{{{
+UPDATE mysql.user SET Password = PASSWORD('newpwd')
+    WHERE User = '';
+FLUSH PRIVILEGES;
+}}}
+
+删除一个用户
+{{{
+DELETE FROM mysql.user WHERE User = 'user';
+FLUSH PRIVILEGES;
+}}}
+
+字符串比较时通常对大小写不敏感
+
+DISTINCT 检索每个唯一的记录
+ORDER BY 默认是升序排序，最小的在第一位，要降序的话，使用DESC
+
+{{{
+SELECT name, species, birth FROM pet ORDER BY species, birth DESC;
+}}}
+
+布尔运算的默认真值是1
+
+"_" 匹配任何单个字符
+"%" 匹配任意树木字符（包括零字符）
+使用SQL模式时，不能使用=或!=；而应使用LIKE或NOT LIKE比较操作符
+
+
+优化
+====
+影响所有语句的一个因素： 你的许可设置得越复杂，所需要的开销越多
+
+explain 语法(获取SELECT相关信息)
++++++++++++++++++++++++++++++++++
+
+Mysql安全删除数据的做法
+
+关于delete,做任何delete操作之前先执行如下备份语句
+{{{
+CREATE backup.tablename AS SELECT * FROM dbname.tablename WHERE id = 9000;
+DELETE FROM dbname.tablename WHERE id = 9000;
+}}}
+恢复语句
+{{{
+INSERT INTO dbname.tablename SELECT * from backup.tablename;
+}}}
+

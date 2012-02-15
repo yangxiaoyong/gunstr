@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>PythonFunctionPrograming</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+
+<h2 id="toc_0.1">笛而卡积的计算</h2>
+
+<pre>
+class="brush: python"
+
+def sequence(n):
+    base = ['A', 'T', 'C', 'G']
+    print reduce(lambda x, y: [(a+b) for a in x for b in y],
+                 map(lambda x: [x]*n, [base]),
+                 [0])
+</pre>
+
+<h2 id="toc_0.2">Flattern a list</h2>
+<p>
+Goal: turn <code>[[1, 2, 3], [4, 5], [6, 7, 8]] into [1, 2, 3, 4, 5, 6, 7, 8]</code>.
+</p>
+
+<pre>
+reduce(list.__add__, [[1, 2, 3], [4, 5], [6, 7, 8], []])
+</pre>
+
+<h2 id="toc_0.3">List of digits to a number</h2>
+<p>
+Goal: turn <code>[1, 2, 3, 4, 5, 6, 7, 8] into 12345678</code>
+</p>
+
+<p>
+Ugly, slow way:
+</p>
+
+<pre>
+int("".join(map(str, [1, 2, 3, 4, 6, 7, 8])))
+</pre>
+
+<p>
+pretty reduce way:
+</p>
+
+<pre>
+reduce(lambda a, d: 10*a + d, [1, 2, 3, 4, 5, 6, 7, 8], 0)
+</pre>
+
+</body>
+</html>

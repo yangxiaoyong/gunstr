@@ -1,0 +1,3 @@
+* pyramid 学习
+* python 算法书
+* pro python system administrator 的监控节点软件开发

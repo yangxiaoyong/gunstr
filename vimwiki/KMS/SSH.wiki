@@ -1,0 +1,24 @@
+取代rsh, rlogin, rcp
+现有版本： SSH1, SSH2
+
+Secure Shell 使用下列加密算法
+
+| Cipher      | SSH1 | SSH2 |
+|-------------+------+------|
+| DES         | yes  | no   |
+| 3DES        | yes  | yes  |
+| IDEA        | yes  | no   |
+| Blowfish    | yes  | yes  |
+| Twofish     | no   | yes  |
+| Arcfour     | no   | yes  |
+| Cast128-cbc | no   | yes  |
+
+Secure Shell 使用下面的加密算法来认证
+
+| Cipher | SSH1 | SSH2 |
+|--------+------+------|
+| RSA    | yes  | no   |
+| DSA    | no   | yes  |
+
+
+SSH2 是SSH1的重写，提高了安全性，性能和更好的可移植性

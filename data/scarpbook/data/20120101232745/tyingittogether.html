@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Tying it all together</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.7"><link rel="HOME" title="LVM HOWTO" href="http://www.tldp.org/HOWTO/LVM-HOWTO/index.html"><link rel="UP" title="Anatomy of LVM" href="http://www.tldp.org/HOWTO/LVM-HOWTO/anatomy.html"><link rel="PREVIOUS" title="logical extent (LE)" href="http://www.tldp.org/HOWTO/LVM-HOWTO/le.html"><link rel="NEXT" title="mapping modes (linear/striped)" href="http://www.tldp.org/HOWTO/LVM-HOWTO/mapmode.html"></head>
+<body class="sect1" alink="#0000FF" bgcolor="#FFFFFF" link="#0000FF" text="#000000" vlink="#840084"><div class="NAVHEADER"><table summary="Header navigation table" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><th colspan="3" align="center">LVM HOWTO</th></tr><tr><td align="left" valign="bottom" width="10%"><a indepth="true" href="le.html" accesskey="P">Prev</a></td><td align="center" valign="bottom" width="80%">Chapter 3. Anatomy of LVM</td><td align="right" valign="bottom" width="10%"><a indepth="true" href="mapmode.html" accesskey="N">Next</a></td></tr></tbody></table><hr align="LEFT" width="100%"></div><div class="sect1"><h1 class="sect1"><a name="tyingittogether"></a>3.6. Tying it all together</h1><p>
+        A concrete example will help:
+      </p><p>
+        Lets suppose we have a volume group called VG1, this volume group
+        has a physical extent size of 4MB.  Into this volume group we
+        introduce 2 hard disk partitions, /dev/hda1 and /dev/hdb1.  These
+        partitions will become physical volumes PV1 and PV2 (more
+        meaningful names can be given at the administrators discretion).
+        The PV's are divided up into 4MB chunks, since this is the extent
+        size for the volume group.  The disks are different sizes and we
+        get 99 extents in PV1 and 248 extents in PV2.  We now can create
+        ourselves a logical volume, this can be any size between 1 and 347
+        (248 + 99) extents.  When the logical volume is created a mapping
+        is defined between logical extents and physical extents, eg.
+        logical extent 1 could map onto physical extent 51 of PV1, data
+        written to the first 4 MB of the logical volume in fact be written
+        to the 51st extent of PV1.
+      </p></div><div class="NAVFOOTER"><hr align="LEFT" width="100%"><table summary="Footer navigation table" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td align="left" valign="top" width="33%"><a indepth="true" href="le.html" accesskey="P">Prev</a></td><td align="center" valign="top" width="34%"><a indepth="true" href="index.html" accesskey="H">Home</a></td><td align="right" valign="top" width="33%"><a indepth="true" href="mapmode.html" accesskey="N">Next</a></td></tr><tr><td align="left" valign="top" width="33%">logical extent (LE)</td><td align="center" valign="top" width="34%"><a indepth="true" href="anatomy.html" accesskey="U">Up</a></td><td align="right" valign="top" width="33%">mapping modes (linear/striped)</td></tr></tbody></table></div>
+
+</body></html>

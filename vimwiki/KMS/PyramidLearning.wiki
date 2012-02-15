@@ -1,0 +1,21 @@
+WebBlog
+SimpleToDo
+- route_add
+- route_url
+- HTTPFound
+=== URL dispatch ===
+- 匹配不了时，最后pyramid会选用traversal来定位资源 （我到现在还不是很搞得明白zope的漫游技术）
+- matchdict对象：key为string，value全为unicode对象。如果没有url匹配到，那么matchdict
+  就是一个None
+- URL dispatch也只是pyramid的一个资源定位的子系统
+
+=== VIEWS ===
+- 可调用的视图包含：函数，类，或实现了__call__方法的实例
+- 必须最少接受一个request的参数,这个request参数是pyramid Request对象
+- 一个request对象是上游WSGI服务器提供给Pyramid的WSGI环境
+- HTTP 异常
+  * pyramid.httpexceptions
+
+=== RENDERERS ===
+
+
